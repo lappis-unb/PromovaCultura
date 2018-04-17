@@ -5,5 +5,5 @@ laboratório LAPPIS e o Ministério da Cultura
 
 ## Design Sprints
 
-* [[Visualização de projetos|https://github.com/lappis-unb/PromovaCultura/wiki/Design-Sprints-Visualizacao]]
-* [[Panorama da Rouanet|https://github.com/lappis-unb/PromovaCultura/wiki/Design-Sprints-Panorama]]
+* [Visualização de projetos](https://github.com/lappis-unb/PromovaCultura/wiki/Design-Sprints-Visualizacao)
+* [Panorama da Rouanet](https://github.com/lappis-unb/PromovaCultura/wiki/Design-Sprints-Panorama)
