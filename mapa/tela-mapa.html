@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Protótipos - Mapa</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,800|Poppins:300,400,500,600,700" rel="stylesheet">
+    <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon">
+    <link rel="icon" href="images/logo.ico" type="image/x-icon">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <!-- End Jquery -->
+  
+    <!-- Map scripts - add the below to your page -->
+    <!-- jsmaps-panzoom.js is optional if you are using enablePanZoom -->
+    <link href="jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
+    <script src="jsmaps/jsmaps-libs.js" type="text/javascript"></script>
+    <script src="jsmaps/jsmaps-panzoom.js"></script>
+    <script src="jsmaps/jsmaps.min.js" type="text/javascript"></script>
+    <script src="maps/brazil.js" type="text/javascript"></script>
+
+    <script src="js/lodash.js"></script>
+
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="container">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">PromovaCultura</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                    <li><a href="#">Projetos</a></li>
+                    <li><a href="#">Panorama</a></li>
+                  </ul>
+                  <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Pesquisar">
+                  </form>
+            </div>
+          </div>
+        </nav>
+    </header>
+
+
+
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col-md-8">
+
+
+                    <div class="box-mapa">
+                      <h3>Clique em um estado</h3>
+                      <div class="jsmaps-wrapper" id="brazil-map"></div>
+                    </div>
+
+                    <div class="combo-estados">
+                        <h3>Selecione um estado</h3>
+
+                        <select name="estados-brasil" class="form-control" onchange="selectCombo(this.value)">
+                            <option value="AC">--</option>
+                            <option value="Acre">Acre</option>
+                            <option value="Alagoas">Alagoas</option>
+                            <option value="Amapá">Amapá</option>
+                            <option value="Amazonas">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="content">
+
+                    <p>Suspendisse cursus purus cursus dolor sollicir sollicitudin gravidat solus purus cursus dolor sollicir sollicitudin gravidat.</p>
+
+                    <p>Suspendisse cursus purus cursus dolor sollicir sollicitudin gravidat solus purus cursus dolor sollicir.</p>
+
+                    <p>Suspendisse cursus purus cursus dolor sollicir sollicitudin gravidat solus purus cursus dolor sollicir sollicitudin gravidat.</p>
+
+                    <p>Suspendisse cursus purus cursus dolor sollicir sollicitudin gravidat solus purus cursus dolor sollicir.</p>
+
+                </div>
+
+
+            </div>
+
+        </div> <!-- /row -->
+    </div> <!-- /container-->
+
+
+
+
+    <script type="text/javascript">
+        var listOfUfs;
+        $.get('https://salic.dev.lappis.rocks/v1/projetos/?limit=100', function(data) {
+            var ufs = [];
+            var projetos = data._embedded.projetos
+            for(i=0; i<projetos.length; i++){
+                ufs.push(projetos[i].UF)
+            }
+
+            listOfUfs = _.countBy(ufs)
+            // console.log(projetos)
+            // for(projeto in projetos){
+            //     console.log(projeto.projetos)
+            // }
+        })
+        
+        $(function() {
+            
+            $('#brazil-map').JSMaps({
+                map: 'brazil',
+                stateClickAction: 'none',
+                onStateClick: function(data){
+                    console.log(data.abbreviation)
+                    console.log("Quantidade de projetos de " + data.name + ": " + listOfUfs[data.abbreviation])
+                    $('.content')[0].textContent = "Quantidade de projetos de " + data.name + ": " + listOfUfs[data.abbreviation]
+                },
+                
+            });
+            
+        });
+        
+
+        function selectCombo(e){
+            console.log(e)
+            $('#brazil-map').trigger('stateClick', e)
+            $('.content')[0].textContent = window.JSMaps.maps.brazil["paths"][0].text
+        }
+        function Counter(array) {
+            var count = [];
+            array.forEach(val => count[val] = (count[val] || 0) + 1);
+            return count;
+        }
+
+    </script>
+
+</body>
+
+</html>
