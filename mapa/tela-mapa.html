@@ -22,7 +22,7 @@
     <![endif]-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
     <!-- End Jquery -->
-  
+
     <!-- Map scripts - add the below to your page -->
     <!-- jsmaps-panzoom.js is optional if you are using enablePanZoom -->
     <link href="jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
@@ -153,9 +153,9 @@
             //     console.log(projeto.projetos)
             // }
         })
-        
+
         $(function() {
-            
+
             $('#brazil-map').JSMaps({
                 map: 'brazil',
                 stateClickAction: 'none',
@@ -163,12 +163,53 @@
                     console.log(data.abbreviation)
                     console.log("Quantidade de projetos de " + data.name + ": " + listOfUfs[data.abbreviation])
                     $('.content')[0].textContent = "Quantidade de projetos de " + data.name + ": " + listOfUfs[data.abbreviation]
-                },
-                
+                },/*
+                groups: [
+                    {
+                        enable: true,
+                        name: "Centro-Oeste",
+                        members: ["Goiás", "Distrito Federal", "Mato Grosso", "Mato Grosso do Sul"],
+                        color: "#def08c",
+                        hoverColor: "#E32F02",
+                        text: "Beireleibe"
+                    },
+                    {
+                        enable: true,
+                        name: "Norte",
+                        members: ["Acre", "Amazonas", "Roraima", "Rondônia", "Amapá", "Pará", "Tocantins"],
+                        color: "#86bab1",
+                        hoverColor: "#E32F02",
+                        text: "Beireleibe"
+                    },
+                    {
+                        enable: true,
+                        name: "Sudeste",
+                        members: ["São Paulo", "Rio de Janeiro", "Espírito Santo", "Minas Gerais"],
+                        color: "#c5e498",
+                        hoverColor: "#E32F02",
+                        text: "Beireleibe"
+                    },
+                    {
+                        enable: true,
+                        name: "Sul",
+                        members: ["Rio Grande do Sul", "Santa Catarina", "Paraná" ],
+                        color: "#f1f799",
+                        hoverColor: "#E32F02",
+                        text: "Beireleibe"
+                    },
+                    {
+                        enable: true,
+                        name: "Nordeste",
+                        members: ["Maranhão", "Piauí", "Pernambuco", "Ceará", "Rio Grande do Norte", "Paraíba", "Alagoas", "Sergipe", "Bahia" ],
+                        color: "#81c5a1",
+                        hoverColor: "#E32F02",
+                        text: "Beireleibe"
+                    }
+                ]*/
             });
-            
+
         });
-        
+
 
         function selectCombo(e){
             console.log(e)
