@@ -91,7 +91,7 @@
     var settings = $.extend({
       'responsive': true,
       'offColor': '#ccc',
-      'strokeColor': '#24221f',
+      'strokeColor': "#FFF",
       'offStrokeColor': '#444',
       'strokeWidth': 1,
       'abbreviationColor': '#f2f2f2',
@@ -171,9 +171,6 @@
     var config = $.extend(settings, mapData.config);
     var paths = mapData.paths;
     var pins = mapData.pins;
-
-    console.log("sdsds")
-
 
     /////////////////////////////
     //Helpers
@@ -499,7 +496,7 @@
           var pinattrs = {
             'cursor': 'pointer',
             'fill': pins[i].color,
-            'stroke': config.strokeColor,
+            'stroke': "#FFF",
             'id': i
           };
 
