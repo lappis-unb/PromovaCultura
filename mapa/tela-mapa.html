@@ -9,6 +9,7 @@
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/filter.css" rel="stylesheet">    
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,800|Poppins:300,400,500,600,700" rel="stylesheet">
     <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon">
@@ -17,8 +18,8 @@
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
     <!-- End Jquery -->
@@ -102,13 +103,57 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
+
                 <div class="content">
-                    <p>Suspendisse cursus purus cursus dolor sollicir sollicitudin gravidat solus purus cursus dolor sollicir sollicitudin gravidat.</p>
-                    <p>Suspendisse cursus purus cursus dolor sollicir sollicitudin gravidat solus purus cursus dolor sollicir.</p>
-                    <p>Suspendisse cursus purus cursus dolor sollicir sollicitudin gravidat solus purus cursus dolor sollicir sollicitudin gravidat.</p>
-                    <p>Suspendisse cursus purus cursus dolor sollicir sollicitudin gravidat solus purus cursus dolor sollicir.</p>
+    
+                        <form id="nl-form" class="nl-form">
+                                Eu quero ver
+                                <select>
+                                    <option value="1" selected>de onde vieram</option>
+                                    <option value="2">onde aconteceram</option>
+                                    <option value="3">onde estão os proponentes com </option>
+                                    <option value="4">de onde veio o incentivo para </option>
+                                    <option value="2">onde estão os fornecedores envolvidos com</option>
+                                </select>
+                                <select>
+                                    <option value="1" selected>projetos aceitos</option>
+                                    <option value="2">propostas de projeto</option>
+                                </select>
+                                de
+                                <select>
+                                    <option value="1" selected>todos os tipos</option>
+                                     <option value="2">jogos</option>
+                                     <option value="3">livros</option>
+                                     <option value="4">música</option>
+                                     <option value="5">teatro</option>
+                                </select>
+                                que
+                                <select>
+                                    <option value="1" selected>foram cadastrados(as)</option>
+                                     <option value="2">estão em análise de admissão</option>
+                                     <option value="3">foram aceitas</option>
+                                     <option value="4">foram rejeitadas</option>
+                                     <option value="5">serão executados</option>
+                                     <option value="6">concluíram a execução</option>
+                                     <option value="7">estão em análise de resultado</option>
+                                     <option value="8">tiveram resultados totalmente aprovados</option>
+                                     <option value="9">tiveram resultados totalmente reprovados</option>
+                                     <option value="10">tiveram resultados aprovados com ressalvas</option>
+                                     <option value="11">estão em tomada de contas</option>
+                                </select>
+                                em
+                                <input type="text" value="" placeholder="qualquer momento" data-subline="Insira um ano"/>
+                                <div class="nl-submit-wrap">
+                                    <button class="nl-submit" type="submit" onclick="filter(this.value)">Mostre</button>
+                                </div>
+                                <div class="nl-overlay"></div>
+                            </form>
+    
+                    
                 </div>
+    
+    
             </div>
         </div> <!-- /row -->
     </div> <!-- /container-->
