@@ -171,6 +171,7 @@
 }
 
 /* custom placeholder color */
+/* 
 input::-webkit-input-placeholder {
 	color: rgba(255,255,255,0.8);
 }
@@ -182,6 +183,10 @@ input:focus::-webkit-input-placeholder {
 
 input::-moz-placeholder {
 	color: rgba(255,255,255,0.8);
+} */
+
+input::placeholder {
+	color: #777;
 }
 
 input:active::-moz-placeholder,
