@@ -17,6 +17,11 @@
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   <!-- Funil -->
   <script src="https://d3js.org/d3.v5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
@@ -123,24 +128,33 @@
 
     <div class="col-md-4 slider-goes-here">
 
-        <div class="range-slider">
-          <input id="slider" type="range" min="50" max="100" step="1"  value="50" orient="vertical">
-        </div>
+        <div id="slider-range" style="height:250px;"></div>
 
       <output id="output"></output>
       <script>
-          document.getElementById("slider").oninput = function() {
-              myFunction()
-          };
+        // https://jqueryui.com/slider/
+        $(function() {
+          $("#slider-range").slider({
+            orientation: "vertical",
+            range: "min",
+            min: 0,
+            max: 100,
+            value: 60,
+            slide: function( event, ui ) {
+              myFunction(parseInt(ui.value));
+            }
+          });
+        });
+
 
           function addData(chart, data) {
               chart.data.datasets[0].data = data;
               chart.update();
           }
 
-          function myFunction() {
-              var val = document.getElementById("slider").value //gets the oninput value
-              window.weight = parseInt(val);
+          function myFunction(min, max) {
+              var val = min //gets the oninput value
+              window.weight = parseInt(min);
               document.getElementById('output').innerHTML = val //displays this value to the html page
               // console.log(val)
 
