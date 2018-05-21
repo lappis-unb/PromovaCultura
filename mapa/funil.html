@@ -96,10 +96,10 @@
                   ],
               }],
               labels: [
-                  "Red",
-                  "Blue",
-                  "Yellow",
-                  "Green"
+                  "Quantidade de projetos",
+                  "Quantidade de propostas",
+                  "Quantidade de captados",
+                  "Quantidade de executados"
               ]
           };
           window.chart_data = data;
@@ -108,6 +108,10 @@
               type: 'funnel',
               data: data,
               options: {
+                responsive: true,
+                legend: {
+                  position: 'right',
+                },
                   topWidth: 0,
                   // bottomWidth: 0,
                   sort: "desc",
@@ -117,23 +121,14 @@
 
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 slider-goes-here">
 
+        <div class="range-slider">
+          <input id="slider" type="range" min="50" max="100" step="1"  value="50" orient="vertical">
+        </div>
 
-      <input id="slider" type="range" min="50" max="100" step="1"  value="50">
-      <input
-              id="rangeSlider"
-              type="range"
-              min="10"
-              max="1000"
-              step="10"
-              value="300"
-              data-orientation="vertical"
-      />
       <output id="output"></output>
       <script>
-          $('#rangeSlider').rangeslider();
-
           document.getElementById("slider").oninput = function() {
               myFunction()
           };
@@ -150,7 +145,7 @@
               // console.log(val)
 
 
-              document.getElementById('output').innerHTML = "Tinha que mudar" //displays this value to the html page
+              document.getElementById('output').innerHTML = val; //displays this value to the html page
               projetos = 60 * window.getWeight();
               propostas = 40 * window.getWeight();
               captados = 30 * window.getWeight();
