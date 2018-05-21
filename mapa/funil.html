@@ -18,9 +18,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="/resources/demos/style.css">
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
   <!-- Funil -->
   <script src="https://d3js.org/d3.v5.js"></script>
@@ -41,146 +41,146 @@
 </head>
 
 <body>
-<header>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+  <header>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">PromovaCultura</a>
+            <a class="navbar-brand" href="#">PromovaCultura</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="tela-mapa.html">Mapa</a></li>
+              <li><a href="funil.html">Funil</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+              <input type="text" class="form-control" placeholder="Pesquisar">
+            </form>
+          </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#">Projetos</a></li>
-            <li><a href="#">Panorama</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Pesquisar">
-          </form>
-        </div>
+    </nav>
+  </header>
+
+
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-4 slider-goes-here">
+
+        <div id="slider-range" style="height:250px;"></div>
+
+        <output id="output"></output>
+        <script>
+          // https://jqueryui.com/slider/
+          $(function() {
+            $("#slider-range").slider({
+              orientation: "vertical",
+              range: "min",
+              min: 1,
+              max: 10,
+              value: 1,
+              slide: function(event, ui) {
+                myFunction(parseInt(ui.value));
+              }
+            });
+          });
+
+
+          function addData(chart, data) {
+            chart.data.datasets[0].data = data;
+            chart.update();
+          }
+
+          function myFunction(min, max) {
+            var val = min //gets the oninput value
+            window.weight = parseInt(min);
+            document.getElementById('output').innerHTML = val //displays this value to the html page
+            // console.log(val)
+
+
+            document.getElementById('output').innerHTML = val; //displays this value to the html page
+            projetos = 60 * window.getWeight();
+            propostas = 40 * window.getWeight();
+            captados = 30 * window.getWeight();
+            executados = 20 * window.getWeight();
+
+            data = [projetos, propostas, captados, executados];
+
+            addData(myChart, data)
+
+          }
+        </script>
       </div>
-  </nav>
-</header>
 
+      <div class="col-md-8">
 
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-8">
-
-      <canvas id="myChart" width="400" height="400"></canvas>
-      <script>
+        <canvas id="myChart" width="400" height="400"></canvas>
+        <script>
           window.weight = 50;
-          window.getWeight = () => (window.weight + Math.floor(Math.random() * 15));
+          window.getWeight = () => (window.weight + Math.floor(Math.random() * 2));
 
           var ctx = document.getElementById("myChart").getContext('2d');
           let projetos = 90 * window.getWeight();
-          let propostas = 50 * window.getWeight();
-          let captados = 70 * window.getWeight();
+          let propostas = 70 * window.getWeight();
+          let captados = 50 * window.getWeight();
           let executados = 30 * window.getWeight();
 
           let data = {
-              datasets: [{
-                  data: [propostas, projetos, captados, executados],
-                  backgroundColor: [
-                      "#FF6384",
-                      "#36A2EB",
-                      "#FFCE56",
-                      "#34CE56"
-                  ],
-                  hoverBackgroundColor: [
-                      "#FF6384",
-                      "#36A2EB",
-                      "#FFCE56",
-                      "#34CE56"
-                  ],
-              }],
-              labels: [
-                  "Quantidade de projetos",
-                  "Quantidade de propostas",
-                  "Quantidade de captados",
-                  "Quantidade de executados"
-              ]
+            datasets: [{
+              data: [propostas, projetos, captados, executados],
+              backgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56",
+                "#34CE56"
+              ],
+              hoverBackgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56",
+                "#34CE56"
+              ],
+            }],
+            labels: [
+              "Quantidade de projetos",
+              "Quantidade de propostas",
+              "Quantidade de captados",
+              "Quantidade de executados"
+            ]
           };
           window.chart_data = data;
           console.log(window.chart_data.datasets[0].data)
           var myChart = new Chart(ctx, {
-              type: 'funnel',
-              data: data,
-              options: {
-                responsive: true,
-                legend: {
-                  position: 'right',
-                },
-                  topWidth: 0,
-                  // bottomWidth: 0,
-                  sort: "desc",
-              }
-          });
-      </script>
-
-    </div>
-
-    <div class="col-md-4 slider-goes-here">
-
-        <div id="slider-range" style="height:250px;"></div>
-
-      <output id="output"></output>
-      <script>
-        // https://jqueryui.com/slider/
-        $(function() {
-          $("#slider-range").slider({
-            orientation: "vertical",
-            range: "min",
-            min: 0,
-            max: 100,
-            value: 60,
-            slide: function( event, ui ) {
-              myFunction(parseInt(ui.value));
+            type: 'funnel',
+            data: data,
+            options: {
+              responsive: true,
+              legend: {
+                position: 'right',
+              },
+              topWidth: 0,
+              // bottomWidth: 0,
+              sort: "desc",
             }
           });
-        });
+        </script>
 
-
-          function addData(chart, data) {
-              chart.data.datasets[0].data = data;
-              chart.update();
-          }
-
-          function myFunction(min, max) {
-              var val = min //gets the oninput value
-              window.weight = parseInt(min);
-              document.getElementById('output').innerHTML = val //displays this value to the html page
-              // console.log(val)
-
-
-              document.getElementById('output').innerHTML = val; //displays this value to the html page
-              projetos = 60 * window.getWeight();
-              propostas = 40 * window.getWeight();
-              captados = 30 * window.getWeight();
-              executados = 20 * window.getWeight();
-
-              data =  [projetos, propostas, captados, executados];
-
-              addData(myChart, data)
-
-          }
-      </script>
+      </div>
     </div>
-
   </div>
-</div>
 
 
 
-<script src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
-<script src="js/pgwslideshow.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/scripts.js"></script>
+  <script src="js/pgwslideshow.min.js"></script>
 
 </body>
 
