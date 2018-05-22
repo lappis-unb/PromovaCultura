@@ -10,13 +10,14 @@
       <div class="col-sm-4">
         <div class="select-states">
           <h3>Selecione um estado</h3>
-          <select name="brazil-states" class="form-control" v-model="selected" @change="selectDropdown">
+          <select name="brazil-states" class="form-control" v-model="selected" @change="selectDropdown(selected)">
               <option v-for="option in options" :value="option.value" :key="option.value">
                 {{ option.text }}
               </option>
           </select>
         </div>
         <brazil-card style="margin-top: 10%" :titleCard="titleCard" :contentCard="content"/>
+        <brazil-modal-card :titleCard="titleCard" :contentCard="content"/>
       </div>
     </div>
   </div>
@@ -30,8 +31,7 @@ import "../../static/jsmaps/jsmaps-libs.js";
 import "../../static/jsmaps/brazil.js";
 import "../../static/jsmaps/lodash.js";
 import BrazilCard from '@/components/BrazilCard'
-
-var listOfUfs;
+import BrazilModalCard from '@/components/BrazilModalCard'
 
 export default {
   name: "BrazilMap",
@@ -74,38 +74,43 @@ export default {
     };
   },
   components: {
-    'brazil-card': BrazilCard
+    'brazil-card': BrazilCard,
+    'brazil-modal-card': BrazilModalCard
   },
   methods: {
-    selectDropdown(uf=this.selected, title=this.selected) {
+    selectDropdown(uf=this.selected, title=this.selected, isMapInteraction) {
        //$('#brazil-map').trigger('stateClick', uf)
+      if(!isMapInteraction){
+        $('#exampleModal').modal('show')
+      }
+      
       var result = listOfUfs[uf] == undefined ? 0 : listOfUfs[uf];
+      console.log(uf)
       this.content = "Quantidade de projetos de " + result;
       this.titleCard = title
     }
-  }
-  ,
+  },
   mounted: function () {
     var self = this;
     $("#brazil-map").JSMaps({
       map: "brazil",
       stateClickAction: "none",
       onStateClick: function(data) {
-        self.selectDropdown(data.abbreviation, data.name);
+        self.selectDropdown(data.abbreviation, data.name, true);
       }
     })
-
-    $.get("http://api.salic.cultura.gov.br/v1/projetos/?limit=100", function(data) {
-      var ufs = [];
-      var projetos = data._embedded.projetos;
-      for (var i = 0; i < projetos.length; i++) {
-        ufs.push(projetos[i].UF);
-      }
-      listOfUfs = _.countBy(ufs);
-      console.log(listOfUfs)
-    });
   }
 };
+var listOfUfs = [];
+$.get("http://api.salic.cultura.gov.br/v1/projetos/?limit=100", function(data) {
+  var ufs = [];
+  var projetos = data._embedded.projetos;
+  for (var i = 0; i < projetos.length; i++) {
+    ufs.push(projetos[i].UF);
+  }
+  listOfUfs = _.countBy(ufs);
+  console.log(listOfUfs)
+});
 </script>
 
 <style scoped>
@@ -144,39 +149,6 @@ export default {
       .select-states {
           display: none;
       }
-    }
-
-    /*==========  Non-Mobile First Method  ==========*/
-
-    /* Large Devices, Wide Screens */
-    @media only screen and (max-width : 1200px) {
-      .select-states {
-          display: none;
-      }
-    }
-
-    /* Medium Devices, Desktops */
-    @media only screen and (max-width : 992px) {
-      .select-states {
-          display: none;
-      }
-    }
-
-    /* Small Devices, Tablets */
-    @media only screen and (max-width : 768px) {
-      .select-states {
-          display: none;
-      }
-    }
-
-    /* Extra Small Devices, Phones */ 
-    @media only screen and (max-width : 480px) {
-
-    }
-
-    /* Custom, iPhone Retina */ 
-    @media only screen and (max-width : 320px) {
-
     }
 
 </style>
