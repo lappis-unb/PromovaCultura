@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'CardBrazil',
+  name: 'BrazilCard',
   props: {
     titleCard: String,
     contentCard: String,
