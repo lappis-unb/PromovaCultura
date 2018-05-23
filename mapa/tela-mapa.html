@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Protótipos - Mapa</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/filter.css" rel="stylesheet">    
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,800|Poppins:300,400,500,600,700" rel="stylesheet">
+    <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon">
+    <link rel="icon" href="images/logo.ico" type="image/x-icon">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <!-- End Jquery -->
+
+    <!-- Map scripts - add the below to your page -->
+    <!-- jsmaps-panzoom.js is optional if you are using enablePanZoom -->
+    <link href="jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
+    <script src="jsmaps/jsmaps-libs.js" type="text/javascript"></script>
+    <script src="jsmaps/jsmaps-panzoom.js"></script>
+    <script src="jsmaps/jsmaps.js" type="text/javascript"></script>
+    <script src="maps/brazil.js" type="text/javascript"></script>
+
+    <script src="js/lodash.js"></script>
+</head>
+
+<body>
+    <header>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">PromovaCultura</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                <li><a href="#">Projetos</a></li>
+                <li><a href="#">Panorama</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Pesquisar">
+                </form>
+        </div>
+        </div>
+    </nav>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box-mapa">
+                    <h3>Clique em um estado</h3>
+                    <div class="jsmaps-wrapper" id="brazil-map"></div>
+                </div>
+                <div class="combo-estados">
+                    <h3>Selecione um estado</h3>
+                    <select name="estados-brasil" class="form-control" onchange="selectCombo(this.value)">
+                        <option value="AC">--</option>
+                        <option value="Acre">Acre</option>
+                        <option value="Alagoas">Alagoas</option>
+                        <option value="Amapá">Amapá</option>
+                        <option value="Amazonas">Amazonas</option>
+                        <option value="Bahia">Bahia</option>
+                        <option value="Ceará">Ceará</option>
+                        <option value="Distrito Federal">Distrito Federal</option>
+                        <option value="Espírito Santo">Espírito Santo</option>
+                        <option value="Goiás">Goiás</option>
+                        <option value="Maranhão">Maranhão</option>
+                        <option value="Mato Grosso">Mato Grosso</option>
+                        <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                        <option value="Minas Gerais">Minas Gerais</option>
+                        <option value="Pará">Pará</option>
+                        <option value="Paraíba">Paraíba</option>
+                        <option value="Paraná">Paraná</option>
+                        <option value="Pernambuco">Pernambuco</option>
+                        <option value="Piauí">Piauí</option>
+                        <option value="Rio de Janeiro">Rio de Janeiro</option>
+                        <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                        <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                        <option value="Rondônia">Rondônia</option>
+                        <option value="Roraima">Roraima</option>
+                        <option value="Santa Catarina">Santa Catarina</option>
+                        <option value="São Paulo">São Paulo</option>
+                        <option value="Sergipe">Sergipe</option>
+                        <option value="Tocantins">Tocantins</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="content">
+    
+                        <form id="nl-form" class="nl-form">
+                                Eu quero ver
+                                <select>
+                                    <option value="1" selected>de onde vieram</option>
+                                    <option value="2">onde aconteceram</option>
+                                    <option value="3">onde estão os proponentes com </option>
+                                    <option value="4">de onde veio o incentivo para </option>
+                                    <option value="2">onde estão os fornecedores envolvidos com</option>
+                                </select>
+                                <select>
+                                    <option value="1" selected>projetos aceitos</option>
+                                    <option value="2">propostas de projeto</option>
+                                </select>
+                                de
+                                <select>
+                                    <option value="1" selected>todos os tipos</option>
+                                     <option value="2">jogos</option>
+                                     <option value="3">livros</option>
+                                     <option value="4">música</option>
+                                     <option value="5">teatro</option>
+                                </select>
+                                que
+                                <select>
+                                    <option value="1" selected>foram cadastrados(as)</option>
+                                     <option value="2">estão em análise de admissão</option>
+                                     <option value="3">foram aceitas</option>
+                                     <option value="4">foram rejeitadas</option>
+                                     <option value="5">serão executados</option>
+                                     <option value="6">concluíram a execução</option>
+                                     <option value="7">estão em análise de resultado</option>
+                                     <option value="8">tiveram resultados totalmente aprovados</option>
+                                     <option value="9">tiveram resultados totalmente reprovados</option>
+                                     <option value="10">tiveram resultados aprovados com ressalvas</option>
+                                     <option value="11">estão em tomada de contas</option>
+                                </select>
+                                em
+                                <input type="text" value="" placeholder="qualquer momento" data-subline="Insira um ano"/>
+                                <div class="nl-submit-wrap">
+                                    <button class="nl-submit" type="submit" onclick="filter(this.value)">Mostre</button>
+                                </div>
+                                <div class="nl-overlay"></div>
+                            </form>
+    
+                    
+                </div>
+    
+    
+            </div>
+        </div> <!-- /row -->
+    </div> <!-- /container-->
+
+    <script type="text/javascript">
+        var listOfUfs;
+        $.get('http://api.salic.cultura.gov.br/v1/projetos/?limit=100', function(data) {
+            var ufs = [];
+            var projetos = data._embedded.projetos
+            for(i=0; i<projetos.length; i++){
+                ufs.push(projetos[i].UF)
+            }
+
+            listOfUfs = _.countBy(ufs)
+            console.log(listOfUfs)
+        })
+
+        $(function() {
+            $('#brazil-map').JSMaps({
+                map: 'brazil',
+                stateClickAction: 'none',
+                onStateClick: function(data){
+                    console.log(data.abbreviation)
+                    result = listOfUfs[data.abbreviation] == undefined ? 0 : listOfUfs[data.abbreviation]
+                    $('.content')[0].textContent = "Quantidade de projetos de " + data.name + ": " + result
+                    console.log("Quantidade de projetos de " + data.name + ": " + listOfUfs[data.abbreviation])
+                },
+                /*
+                groups: [
+                    {
+                        enable: true,
+                        name: "Centro-Oeste",
+                        members: ["Goiás", "Distrito Federal", "Mato Grosso", "Mato Grosso do Sul"],
+                        color: "#f6d74a",
+                        hoverColor: "#f6d74a",
+                        text: "Beireleibe"
+                    },
+                    {
+                        enable: true,
+                        name: "Norte",
+                        members: ["Acre", "Amazonas", "Roraima", "Rondônia", "Amapá", "Pará", "Tocantins"],
+                        color: "#c4de4e",
+                        hoverColor: "#c4de4e",
+                        text: "Beireleibe"
+                    },
+                    {
+                        enable: true,
+                        name: "Sudeste",
+                        members: ["São Paulo", "Rio de Janeiro", "Espírito Santo", "Minas Gerais"],
+                        color: "#8bdc64",
+                        hoverColor: "#8bdc64",
+                        text: "Beireleibe"
+                    },
+                    {
+                        enable: true,
+                        name: "Sul",
+                        members: ["Rio Grande do Sul", "Santa Catarina", "Paraná" ],
+                        color: "#80d492",
+                        hoverColor: "#80d492",
+                        text: "Beireleibe"
+                    },
+                    {
+                        enable: true,
+                        name: "Nordeste",
+                        members: ["Maranhão", "Piauí", "Pernambuco", "Ceará", "Rio Grande do Norte", "Paraíba", "Alagoas", "Sergipe", "Bahia" ],
+                        color: "#e3ec54",
+                        hoverColor: "#e3ec54",
+                        text: "Beireleibe"
+                    }
+                ]*/
+            });
+        });
+
+        function selectCombo(e){
+            $('#brazil-map').trigger('stateClick', e)
+            result = listOfUfs[e] == undefined ? 0 : listOfUfs[e]
+            $('.content')[0].textContent = "Quantidade de projetos de " + e + ": " + result
+        }
+
+        function Counter(array) {
+            var count = [];
+            array.forEach(val => count[val] = (count[val] || 0) + 1);
+            return count;
+        }
+    </script>
+</body>
+</html>
