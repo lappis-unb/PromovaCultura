@@ -17,14 +17,14 @@
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https:/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-i
 
 
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 
   <!-- Funil -->
   <script src="https://d3js.org/d3.v5.js"></script>
@@ -36,6 +36,84 @@ i
   <!-- Slider -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.js"></script>
+    
+  <style>
+    #output{visibility: hidden;}
+
+      #slider-range{
+          margin: 48px 24px 0;
+      }
+      
+      #slider-range.vertical{
+          margin: 0;
+      }
+      
+      .ui-slider-handle-label {
+          position: relative;
+          padding: 8px 16px;
+          top: -48px;
+          left: -12px;
+          background: coral;
+          border-radius: .4em;
+      }
+      .ui-slider-handle-label:after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border: 8px solid transparent;
+          border-top-color: coral;
+          border-bottom: 0;
+          margin-left: -8px;
+          margin-bottom: -8px;
+      }
+      
+      .vertical .ui-slider-handle-label {
+          padding: 8px 12px;
+          top: 0;
+          left: -48px;
+      }
+      
+      .vertical #ui-slider-handle-label-1:after {
+          content: '';
+          position: absolute;
+          right: 0;
+          left: 0;
+          top: 50%;
+          width: 0;
+          height: 0;
+          border: none;
+          border: 8px solid transparent;
+          border-left-color: coral;
+          border-right: 0;
+          margin: auto;
+          margin-top: -8px;
+          margin-right: -8px;
+      }
+      
+      
+      .vertical #ui-slider-handle-label-2{
+          left: 32px;
+      }
+      
+      .vertical #ui-slider-handle-label-2:after{
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          width: 0;
+          height: 0;
+          border: none;
+          border: 8px solid transparent;
+          border-right-color: coral;
+          border-left: 0;
+          margin-top: -8px;
+          margin-left: -8px;
+      }
+      
+    </style>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -106,7 +184,23 @@ i
         values: [1, 10],
         slide: function(event, ui) {
           myFunction(parseInt(ui.values[0]), parseInt(ui.values[1]));
-          $(this).find('.ui-slider-handle').text(ui.values[0]); //TODO fix number duplicating
+            
+            var handle1 = $(this).children('.ui-slider-handle').first();
+            
+            if(handle1.children().length <= 0){
+                handle1.append("<span class='ui-slider-handle-label' id='ui-slider-handle-label-1'>" + ui.values[0] + "</span>");
+            }else{
+                $("#ui-slider-handle-label-1").text(ui.values[0]);
+            }
+
+            var handle2 = $(this).children('.ui-slider-handle').last();
+                        
+            if(handle2.children().length <= 0){
+                handle2.append("<span class='ui-slider-handle-label' id='ui-slider-handle-label-2'>" + ui.values[1] + "</span>");
+            }else{
+                $("#ui-slider-handle-label-2").text(ui.values[1]);
+            }
+
         }
       });
     });
@@ -171,9 +265,9 @@ i
       options: {
         responsive: true,
         legend: {
-					display: false,
+            display: false,
         },
-				tooltips:{
+          tooltips:{
 					enabled: false,
 				},
         topWidth: fontSize,
@@ -181,11 +275,11 @@ i
         sort: "desc",
 				plugins: {
 					datalabels:{
-            anchor: 'top',
-						align: 'top',
+                        anchor: 'center',
+						align: 'center',
 						color:'#FFFFFF',
 						font: {
-							size: 50,
+							size: 50
 						}
 					}
 				}
