@@ -34,7 +34,7 @@ import BrazilCard from '@/components/BrazilCard'
 import BrazilModalCard from '@/components/BrazilModalCard'
 
 export default {
-  name: "BrazilMap",
+  name: "BrazilMapRegion",
   data() {
     return {
       content: "Selecione um estado no mapa para saber a quantidade de projetos no mesmo.",
@@ -98,6 +98,48 @@ export default {
       onStateClick: function(data) {
         self.selectDropdown(data.abbreviation, data.name, true);
       },
+      groups: [
+          {
+              enable: true,
+              name: "Centro-Oeste",
+              members: ["Goiás", "Distrito Federal", "Mato Grosso", "Mato Grosso do Sul"],
+              color: "#f6d74a",
+              hoverColor: "#74771A",
+              text: "Beireleibe"
+          },
+          {
+              enable: true,
+              name: "Norte",
+              members: ["Acre", "Amazonas", "Roraima", "Rondônia", "Amapá", "Pará", "Tocantins"],
+              color: "#c4de4e",
+              hoverColor: "#74771A",
+              text: "Beireleibe"
+          },
+          {
+              enable: true,
+              name: "Sudeste",
+              members: ["São Paulo", "Rio de Janeiro", "Espírito Santo", "Minas Gerais"],
+              color: "#8bdc64",
+              hoverColor: "#74771A",
+              text: "Beireleibe"
+          },
+          {
+              enable: true,
+              name: "Sul",
+              members: ["Rio Grande do Sul", "Santa Catarina", "Paraná" ],
+              color: "#80d492",
+              hoverColor: "#74771A",
+              text: "Beireleibe"
+          },
+          {
+              enable: true,
+              name: "Nordeste",
+              members: ["Maranhão", "Piauí", "Pernambuco", "Ceará", "Rio Grande do Norte", "Paraíba", "Alagoas", "Sergipe", "Bahia" ],
+              color: "#e3ec54",
+              hoverColor: "#74771A",
+              text: "Beireleibe"
+          }
+      ]
     })
   }
 };

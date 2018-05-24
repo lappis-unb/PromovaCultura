@@ -179,7 +179,7 @@ import "./raphael.js"
     /////////////////////////////
     //Helpers
     /////////////////////////////
-    function animatePaths(paths, ids, color) {
+    function animatePaths(paths, ids, color='#74771A') {
       $.each(ids, function(index, id) {
         paths[id].animate({
           fill: color
@@ -266,8 +266,7 @@ import "./raphael.js"
               'left': 'auto',
               'right': '10px'
             });
-          }
-          
+          }     
         }
       }
 
