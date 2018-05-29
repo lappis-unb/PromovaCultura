@@ -4,6 +4,8 @@ import BrazilMap from '@/pages/BrazilMap'
 import BrazilMapRegion from '@/pages/BrazilMapRegion'
 import Funil from '@/pages/Funil'
 import Home from '@/pages/Home'
+import NaturalLanguageFilterPage from '@/pages/NaturalLanguageFilterPage'
+import ControlsBrazilMapPage from '@/pages/ControlsBrazilMapPage'
 
 Vue.use(Router)
 
@@ -28,6 +30,16 @@ export default new Router({
       path: '/funil',
       name: 'Funil',
       component: Funil
+    },
+    {
+      path: '/nl',
+      name: 'NaturalLanguageFilterPage',
+      component: NaturalLanguageFilterPage
+    },
+    {
+      path: '/controls',
+      name: 'ControlsBrazilMapPage',
+      component: ControlsBrazilMapPage
     }
   ]
 })
