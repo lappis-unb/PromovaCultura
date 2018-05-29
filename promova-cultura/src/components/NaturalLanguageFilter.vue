@@ -72,6 +72,7 @@ export default {
         }
     },
     mounted: function () {
+		/*
         const submitButton = document.querySelector("#fetch-button");
         
         const locationSelect = document.querySelector("#location");
@@ -87,7 +88,7 @@ export default {
         submitButton.addEventListener('click', () => {
             alert('Eu quero ver ' + location + ' '+  projectOrPreproject + 'de ' + area + 'que ' + status + 'em ')
         });
-    
+		*/
     }
 }
 /*

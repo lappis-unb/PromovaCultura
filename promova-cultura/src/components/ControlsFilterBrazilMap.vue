@@ -1,12 +1,22 @@
 <template>
     <section>
-        <button id='filter-proponentes' v-on:click='changeValueProponente()'>
-            {{proponenteTextButton}}
-        </button>
-        <button id='filter-incentivadores'  v-on:click='changeValueIncentivadores()'>
-            {{incentivadoresTextButton}}
-        </button>
-        <button v-for="segmento in segmentos" v-bind:key="segmento"  v-on:click='multipleButtons(v)'>{{segmento}}</button>
+        <ul class="list-of-controls">
+            <li class="item-list-control">
+                <button type="button" class="btn btn-info btn-group-lg" id='filter-proponentes' v-on:click='changeValueProponente()'>
+                    {{proponenteTextButton}}
+                </button>
+            </li>
+            <li class="item-list-control">
+                <button type="button" class="btn btn-warning btn-group-lg" id='filter-incentivadores'  v-on:click='changeValueIncentivadores()'>
+                    {{incentivadoresTextButton}}
+                </button>
+            </li>
+            <li class="item-list-control">
+                <button type="button" class="btn btn-success btn-group-lg list-buttons" v-for="segmento in segmentos" v-bind:key="segmento" v-on:click='multipleButtons(v)'>
+                    {{segmento}}
+                </button>
+            </li>
+        </ul>
     </section>
 </template>
 
@@ -58,5 +68,16 @@ export default {
 </script>
 
 <style>
-
+ul {
+    display: inline;
+}
+li {
+    list-style: none;
+}
+.item-list-control {
+    margin: 30px;
+}
+.list-buttons {
+    margin: 5px;
+}
 </style>

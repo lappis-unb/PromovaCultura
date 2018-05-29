@@ -3,21 +3,19 @@
     <link href="../../static/jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
     <div class="row">
       <div class="col-sm-6">
-        <div class="box-mapa">
-          <div class="jsmaps-wrapper" id="brazil-map"/>
-        </div>
+        <brazil-map-component/>
+      </div>
+      <div class="select-states">
+        <h3>Selecione um estado</h3>
+        <select name="brazil-states" class="form-control" v-model="selected" @change="selectDropdown(selected)">
+            <option v-for="option in options" :value="option.value" :key="option.value">
+              {{ option.text }}
+            </option>
+        </select>
+        <brazil-modal-card :titleCard="titleCard" :contentCard="content"/>
       </div>
       <div class="col-sm-4">
-        <div class="select-states">
-          <h3>Selecione um estado</h3>
-          <select name="brazil-states" class="form-control" v-model="selected" @change="selectDropdown(selected)">
-              <option v-for="option in options" :value="option.value" :key="option.value">
-                {{ option.text }}
-              </option>
-          </select>
-        </div>
         <brazil-card style="margin-top: 10%" :titleCard="titleCard" :contentCard="content"/>
-        <brazil-modal-card :titleCard="titleCard" :contentCard="content"/>
       </div>
     </div>
   </div>
@@ -25,13 +23,9 @@
 
 <script>
 import $ from "jquery";
-import "../../static/jsmaps/jsmaps.js";
-import "../../static/jsmaps/jsmaps-panzoom.js";
-import "../../static/jsmaps/jsmaps-libs.js";
-import "../../static/jsmaps/brazil.js";
-import "../../static/jsmaps/lodash.js";
 import BrazilCard from '@/components/BrazilCard'
 import BrazilModalCard from '@/components/BrazilModalCard'
+import BrazilMapComponent from '@/components/BrazilMapComponent'
 
 export default {
   name: "BrazilMap",
@@ -75,19 +69,18 @@ export default {
   },
   components: {
     'brazil-card': BrazilCard,
-    'brazil-modal-card': BrazilModalCard
+    'brazil-modal-card': BrazilModalCard,
+    'brazil-map-component': BrazilMapComponent
   },
   methods: {
     selectDropdown(uf=this.selected, title=this.selected, isMapInteraction) {
-      //$('#brazil-map').trigger('stateClick', uf)
       if(!isMapInteraction){
-        $('#exampleModal').modal('show')
+        $('#informationModal').modal('show')
       }
-      
-      var result = listOfUfs[uf] == undefined ? 0 : listOfUfs[uf];
       console.log(uf)
-      this.content = "Quantidade de projetos de " + result;
+      var result = listOfUfs[uf] == undefined ? 0 : listOfUfs[uf];
       this.titleCard = title
+      this.content = "Quantidade de projetos de " + result;
     }
   },
   mounted: function () {
@@ -101,6 +94,7 @@ export default {
     })
   }
 };
+
 var listOfUfs = [];
 $.get("http://api.salic.cultura.gov.br/v1/projetos/?limit=100", function(data) {
   var ufs = [];
@@ -114,41 +108,34 @@ $.get("http://api.salic.cultura.gov.br/v1/projetos/?limit=100", function(data) {
 </script>
 
 <style scoped>
-    /* Custom, iPhone Retina */ 
-    @media only screen and (min-width : 320px) {
-        .box-mapa {
-            display: none;
-        }
+  /* Custom, iPhone Retina */ 
+  @media only screen and (min-width : 320px) {
+
+  }
+
+  /* Extra Small Devices, Phones */ 
+  @media only screen and (min-width : 480px) {
+
+  }
+
+  /* Small Devices, Tablets */
+  @media only screen and (min-width : 768px) {
+    .select-states {
+      display: none;
     }
+  }
 
-    /* Extra Small Devices, Phones */ 
-    @media only screen and (min-width : 480px) {
-
+  /* Medium Devices, Desktops */
+  @media only screen and (min-width : 992px) {
+    .select-states {
+        display: none;
     }
+  }
 
-
-    /* Small Devices, Tablets */
-    @media only screen and (min-width : 768px) {
-        .box-mapa {
-            display: block;
-        }
-        .select-states {
-          display: none;
-        }
+  /* Large Devices, Wide Screens */
+  @media only screen and (min-width : 1200px) {
+    .select-states {
+        display: none;
     }
-
-    /* Medium Devices, Desktops */
-    @media only screen and (min-width : 992px) {
-      .select-states {
-          display: none;
-      }
-    }
-
-    /* Large Devices, Wide Screens */
-    @media only screen and (min-width : 1200px) {
-      .select-states {
-          display: none;
-      }
-    }
-
+  }
 </style>

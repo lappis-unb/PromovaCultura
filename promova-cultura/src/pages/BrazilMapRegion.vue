@@ -3,9 +3,7 @@
     <link href="../../static/jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
     <div class="row">
       <div class="col-sm-6">
-        <div class="box-mapa">
-          <div class="jsmaps-wrapper" id="brazil-map"/>
-        </div>
+        <brazil-map/>
       </div>
       <div class="col-sm-4">
         <div class="select-states">
@@ -25,13 +23,9 @@
 
 <script>
 import $ from "jquery";
-import "../../static/jsmaps/jsmaps.js";
-import "../../static/jsmaps/jsmaps-panzoom.js";
-import "../../static/jsmaps/jsmaps-libs.js";
-import "../../static/jsmaps/brazil.js";
-import "../../static/jsmaps/lodash.js";
 import BrazilCard from '@/components/BrazilCard'
 import BrazilModalCard from '@/components/BrazilModalCard'
+import BrazilMapComponent from '@/components/BrazilMapComponent'
 
 export default {
   name: "BrazilMapRegion",
@@ -75,7 +69,8 @@ export default {
   },
   components: {
     'brazil-card': BrazilCard,
-    'brazil-modal-card': BrazilModalCard
+    'brazil-modal-card': BrazilModalCard,
+    'brazil-map': BrazilMapComponent
   },
   methods: {
     selectDropdown(uf=this.selected, title=this.selected, isMapInteraction) {
@@ -144,15 +139,7 @@ export default {
   }
 };
 var listOfUfs = [];
-$.get("http://api.salic.cultura.gov.br/v1/projetos/?limit=100", function(data) {
-  var ufs = [];
-  var projetos = data._embedded.projetos;
-  for (var i = 0; i < projetos.length; i++) {
-    ufs.push(projetos[i].UF);
-  }
-  listOfUfs = _.countBy(ufs);
-  console.log(listOfUfs)
-});
+
 </script>
 
 <style scoped>
