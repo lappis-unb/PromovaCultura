@@ -35,17 +35,23 @@ export default {
     },
     methods: {
         changeValueProponente: function () { 
-            if (this.proponenteTextButton === 'Omitir proponentes')
+            var elementProp = document.querySelector("#filter-proponentes")
+            if (this.proponenteTextButton === 'Omitir proponentes'){
                 this.proponenteTextButton = 'Mostrar proponentes'
-            else {
+                elementProp.classList.add('btn-info')
+            } else {
                 this.proponenteTextButton = 'Omitir proponentes'
+                elementProp.classList.remove('btn-info')
             }
         },
-        changeValueIncentivadores: function () { 
-            if (this.incentivadoresTextButton === 'Omitir proponentes')
-                this.incentivadoresTextButton = 'Mostrar proponentes'
-            else {
-                this.incentivadoresTextButton = 'Omitir proponentes'
+        changeValueIncentivadores: function () {
+            var elementInc = document.querySelector("#filter-incentivadores") 
+            if (this.incentivadoresTextButton === 'Omitir incentivadores'){
+                this.incentivadoresTextButton = 'Mostrar incentivadores'
+                elementInc.classList.add('btn-warning')
+            } else {
+                this.incentivadoresTextButton = 'Omitir incentivadores'
+                elementInc.classList.remove('btn-warning')
             }
         },
         multipleButtons: function (v) {
