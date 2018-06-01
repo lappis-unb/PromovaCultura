@@ -211,8 +211,20 @@
             setAPIDataToMap(listOfUfs);
         });
 
+        function darkenAllMap() {
+            const maps = window.JSMaps.maps;
+
+            for (let state of maps.brazil.paths) {
+                state.color = "rgb(0, 0, 0)";
+            }
+
+            $('#brazil-map').trigger('reDraw', maps);
+        }
+
+
         function setAPIDataToMap(listOfUfs) {
             displayBrazilMap(listOfUfs);
+            darkenAllMap();
             makeHeatMap(listOfUfs);
         }
 
