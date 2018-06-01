@@ -1,5 +1,6 @@
 (function ($) {
-  "use strict";
+  // @ts-check
+  "use strict"; // make JS do not accept variables without var, let or const
 
   const colors = {
     "Centro-Oeste": {
@@ -28,6 +29,13 @@
       totalOfProjects: 0,
     },
   };
+
+
+  // Initialize all functions and in its proper execution order
+  (function initialize() {
+    displayBrazilMap({}, colors);
+    fetchApiData();
+  })();
 
 
   function displayBrazilMap(listOfUfs, colors) {
@@ -86,47 +94,38 @@
     });
 
     $("#estados-brasil").on("change", (e) => {
-      selectCombo(e.target.value);
+      const UF = e.target.value;
+      const result = listOfUfs[UF] == undefined ? 0 : listOfUfs[uf];
+
+      $('#brazil-map').trigger('stateClick', UF);
+      $('.content')[0].textContent = "Quantidade de projetos de " + UF + ": " + result;
+
+      console.log(UF, listOfUfs);
     });
   }
 
-  function selectCombo(uf) {
-    let result = listOfUfs[uf] == undefined ? 0 : listOfUfs[uf];
+  function fetchApiData() {
+    console.log("Calling API");
+    console.time("API data fetched in");
 
-    $('#brazil-map').trigger('stateClick', uf);
-    $('.content')[0].textContent = "Quantidade de projetos de " + uf + ": " + result;
+    $.get('http://api.salic.cultura.gov.br/v1/projetos/?limit=100').then(data => {
+      console.timeEnd("API data fetched in");
 
-    console.log(uf, listOfUfs);
+      const projetos = data._embedded.projetos;
+
+      const listOfUfs = projetos.reduce((accumulator, project) => {
+        if (accumulator[project.UF] === undefined) {
+          accumulator[project.UF] = 1;
+        } else {
+          accumulator[project.UF] += 1;
+        }
+
+        return accumulator;
+      }, {});
+
+      setAPIDataToMap(listOfUfs);
+    });
   }
-
-  displayBrazilMap({}, colors);
-
-  $.get('http://api.salic.cultura.gov.br/v1/projetos/?limit=100').then(data => {
-    const projetos = data._embedded.projetos;
-
-    const listOfUfs = projetos.reduce((accumulator, project) => {
-      if (accumulator[project.UF] === undefined) {
-        accumulator[project.UF] = 1;
-      } else {
-        accumulator[project.UF] += 1;
-      }
-
-      return accumulator;
-    }, {});
-
-    setAPIDataToMap(listOfUfs);
-  });
-
-  function darkenAllMap() {
-    const maps = window.JSMaps.maps;
-
-    for (let state of maps.brazil.paths) {
-      state.color = "rgb(0, 180, 0)";
-    }
-
-    $('#brazil-map').trigger('reDraw', maps);
-  }
-
 
   function setAPIDataToMap(listOfUfs) {
     let newColors = makeHeatMap(listOfUfs);
@@ -148,24 +147,31 @@
   function makeHeatMap(listOfUfs) {
     const newColors = { ...colors };
     const maps = window.JSMaps.maps;
+    const regionKeys = Object.keys(newColors);
 
-    const regionList = Object.keys(newColors);
-
-
-    regionList.forEach(regionKey => {
+    // Set the totalOfProjects for each region
+    regionKeys.forEach(regionKey => {
       let region = newColors[regionKey];
 
       for (let state of maps.brazil.paths) {
-        if (region.members.includes(state.name) && listOfUfs[state.abbreviation] !== undefined) {
+        // If the API does not have the state go for the next one
+        if (listOfUfs[state.abbreviation] === undefined) {
+          continue;
+        }
+
+        // If state it is a member of the current region
+        // update the totalOfProjects of that region
+        if (region.members.includes(state.name)) {
           region.totalOfProjects += listOfUfs[state.abbreviation];
         }
       }
     });
 
     // Get the maximum number of projects from the uf list
-    const maxNumberOfProjects = getMaxNumberOfProjects(newColors, regionList);
+    const maxNumberOfProjects = getMaxNumberOfProjects(newColors, regionKeys);
 
-    regionList.forEach(regionKey => {
+    // Updates the value of each region based on the totalOfProjects / maxNumberOfProjects
+    regionKeys.forEach(regionKey => {
       const region = newColors[regionKey];
 
       let redShade = 180 * (region.totalOfProjects / maxNumberOfProjects);
