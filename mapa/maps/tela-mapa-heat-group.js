@@ -132,26 +132,15 @@
     displayBrazilMap(listOfUfs, newColors);
   }
 
-  function getMaxNumberOfProjects(colors, regionList) {
-    const maxNumberOfProjects = regionList.reduce((currentMax, region) => {
-      if (colors[region].totalOfProjects > currentMax) {
-        return colors[region].totalOfProjects;
-      } else {
-        return currentMax;
-      }
-    }, 0);
-
-    return maxNumberOfProjects;
-  }
-
   function makeHeatMap(listOfUfs) {
     const newColors = { ...colors };
     const maps = window.JSMaps.maps;
     const regionKeys = Object.keys(newColors);
+    let maxTotalOfProjects = 0;
 
     // Set the totalOfProjects for each region
     regionKeys.forEach(regionKey => {
-      let region = newColors[regionKey];
+      const region = newColors[regionKey];
 
       for (let state of maps.brazil.paths) {
         // If the API does not have the state go for the next one
@@ -163,18 +152,20 @@
         // update the totalOfProjects of that region
         if (region.members.includes(state.name)) {
           region.totalOfProjects += listOfUfs[state.abbreviation];
+
+          // Update maxTotalOfProjects if current region has more projects
+          if (region.totalOfProjects > maxTotalOfProjects) {
+            maxTotalOfProjects = region.totalOfProjects;
+          }
         }
       }
     });
 
-    // Get the maximum number of projects from the uf list
-    const maxNumberOfProjects = getMaxNumberOfProjects(newColors, regionKeys);
-
-    // Updates the value of each region based on the totalOfProjects / maxNumberOfProjects
+    // Updates the value of each region based on the totalOfProjects / maxTotalOfProjects
     regionKeys.forEach(regionKey => {
       const region = newColors[regionKey];
 
-      let redShade = 180 * (region.totalOfProjects / maxNumberOfProjects);
+      let redShade = 180 * (region.totalOfProjects / maxTotalOfProjects);
       redShade = 180 - redShade;
 
       if (redShade < 30) {
