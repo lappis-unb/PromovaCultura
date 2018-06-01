@@ -48,7 +48,7 @@
     const maps = window.JSMaps.maps;
 
     for (let state of maps.brazil.paths) {
-      state.color = "rgb(0, 0, 0)";
+      state.color = "rgb(0, 180, 0)";
     }
 
     $('#brazil-map').trigger('reDraw', maps);
@@ -74,8 +74,14 @@
 
       for (let state of maps.brazil.paths) {
         if (state.abbreviation === uf) {
-          let redShade = 255 * (numberOfProjects / maxNumberOfProjects);
-          state.color = `rgb(30, ${redShade}, 30)`;
+          let redShade = 180 * (numberOfProjects / maxNumberOfProjects);
+          redShade = 180 - redShade;
+
+          if (redShade < 30) {
+            redShade = 30;
+          }
+
+          state.color = `rgb(0, ${redShade}, 0)`;
           break;
         }
       }
