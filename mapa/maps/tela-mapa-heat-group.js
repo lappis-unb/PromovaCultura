@@ -4,29 +4,34 @@
 
   const colors = {
     "Centro-Oeste": {
-      color: "rgb(0, 180, 0)",
+      color: "#efe8c6",
       members: ["Goiás", "Distrito Federal", "Mato Grosso", "Mato Grosso do Sul"],
       totalOfProjects: 0,
-    },
-    "Norte": {
-      color: "rgb(0, 180, 0)",
-      members: ["Acre", "Amazonas", "Roraima", "Rondônia", "Amapá", "Pará", "Tocantins"],
-      totalOfProjects: 0,
+      hoverColor: "#efe8c6",
     },
     "Sudeste": {
-      color: "rgb(0, 180, 0)",
+      color: "#efe8c6",
       members: ["São Paulo", "Rio de Janeiro", "Espírito Santo", "Minas Gerais"],
       totalOfProjects: 0,
+      hoverColor: "#efe8c6",
+    },
+    "Norte": {
+      color: "#efe8c6",
+      members: ["Amapá", "Acre", "Amazonas", "Rondônia", "Pará", "Tocantins"],
+      totalOfProjects: 0,
+      hoverColor: "#efe8c6",
     },
     "Sul": {
-      color: "rgb(0, 180, 0)",
+      color: "#efe8c6",
       members: ["Rio Grande do Sul", "Santa Catarina", "Paraná"],
       totalOfProjects: 0,
+      hoverColor: "#efe8c6",
     },
     "Nordeste": {
-      color: "rgb(0, 180, 0)",
+      color: "#efe8c6",
       members: ["Maranhão", "Piauí", "Pernambuco", "Ceará", "Rio Grande do Norte", "Paraíba", "Alagoas", "Sergipe", "Bahia"],
       totalOfProjects: 0,
+      hoverColor: "#efe8c6",
     },
   };
 
@@ -44,34 +49,33 @@
     $('#brazil-map').JSMaps({
       map: 'brazil',
       stateClickAction: 'none',
-      onStateClick: (data) => {
-        let result = listOfUfs[data.abbreviation] == undefined ? 0 : listOfUfs[data.abbreviation];
-        $('.content')[0].textContent = "Quantidade de projetos de " + data.name + ": " + result
-        console.log("Quantidade de projetos de " + data.name + ": " + listOfUfs[data.abbreviation])
-      },
       groups: [
         {
           enable: true,
           name: "Centro-Oeste",
           members: colors['Centro-Oeste'].members,
           color: colors['Centro-Oeste'].color,
-          hoverColor: "rgb(0, 100, 0)",
+          hoverColor: colors['Centro-Oeste'].hoverColor,
+          selectedColor: colors['Centro-Oeste'].hoverColor,
           text: "Beireleibe"
         },
         {
           enable: true,
           name: "Norte",
-          members: colors['Norte'].members,
-          color: colors['Norte'].colors,
-          hoverColor: "rgb(0, 100, 0)",
+          members: ['Tocantins', 'Amapá', 'Roraima', 'Amazonas', 'Pará', 'Acre', 'Rondônia'],
+          color: colors['Norte'].color,
+          hoverColor: colors['Norte'].hoverColor,
+          selectedColor: colors['Norte'].hoverColor,
           text: "Beireleibe"
+
         },
         {
           enable: true,
           name: "Sudeste",
           members: colors['Sudeste'].members,
           color: colors['Sudeste'].color,
-          hoverColor: "rgb(0, 100, 0)",
+          hoverColor: colors['Sudeste'].hoverColor,
+          selectedColor: colors['Sudeste'].hoverColor,
           text: "Beireleibe"
         },
         {
@@ -79,7 +83,8 @@
           name: "Sul",
           members: colors['Sul'].members,
           color: colors['Sul'].color,
-          hoverColor: "rgb(0, 100, 0)",
+          hoverColor: colors['Sul'].hoverColor,
+          selectedColor: colors['Sul'].hoverColor,
           text: "Beireleibe"
         },
         {
@@ -87,20 +92,11 @@
           name: "Nordeste",
           members: colors['Nordeste'].members,
           color: colors['Nordeste'].color,
-          hoverColor: "rgb(0, 100, 0)",
+          hoverColor: colors['Nordeste'].hoverColor,
+          selectedColor: colors['Nordeste'].hoverColor,
           text: "Beireleibe"
         }
       ]
-    });
-
-    $("#estados-brasil").on("change", (e) => {
-      const UF = e.target.value;
-      const result = listOfUfs[UF] == undefined ? 0 : listOfUfs[uf];
-
-      $('#brazil-map').trigger('stateClick', UF);
-      $('.content')[0].textContent = "Quantidade de projetos de " + UF + ": " + result;
-
-      console.log(UF, listOfUfs);
     });
   }
 
@@ -164,19 +160,24 @@
     // Updates the value of each region based on the totalOfProjects / maxTotalOfProjects
     regionKeys.forEach(regionKey => {
       const region = newColors[regionKey];
+      let percentil = (region.totalOfProjects / maxTotalOfProjects) * 100;
+      let region_color;
 
-      let redShade = 180 * (region.totalOfProjects / maxTotalOfProjects);
-      redShade = 180 - redShade;
-
-      if (redShade < 30) {
-        redShade = 30;
+      if (percentil <= 20) {
+        region_color = "#efe8c6"
+      } else if (percentil > 20 && percentil <= 40) {
+        region_color = "#daf39d"
+      } else if (percentil > 40 && percentil <= 60) {
+        region_color = "#acd941"
+      } else if (percentil > 60 && percentil <= 80) {
+        region_color = "#73971d"
+      } else if (percentil > 80 && percentil <= 100) {
+        region_color = "#4d6513"
       }
 
-      region.color = `rgb(0, ${redShade}, 0)`;
+      region.color = region_color;
+      region.hoverColor = region_color;
     });
-
-
-    console.log(newColors);
 
     return newColors;
   }

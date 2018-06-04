@@ -36,18 +36,18 @@
   <!-- Slider -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.js"></script>
-    
+
   <style>
     #output{visibility: hidden;}
 
       #slider-range{
           margin: 48px 24px 0;
       }
-      
+
       #slider-range.vertical{
           margin: 0;
       }
-      
+
       .ui-slider-handle-label {
           position: relative;
           padding: 8px 16px;
@@ -69,13 +69,13 @@
           margin-left: -8px;
           margin-bottom: -8px;
       }
-      
+
       .vertical .ui-slider-handle-label {
           padding: 8px 12px;
           top: 0;
           left: -48px;
       }
-      
+
       .vertical #ui-slider-handle-label-1:after {
           content: '';
           position: absolute;
@@ -92,12 +92,12 @@
           margin-top: -8px;
           margin-right: -8px;
       }
-      
-      
+
+
       .vertical #ui-slider-handle-label-2{
           left: 32px;
       }
-      
+
       .vertical #ui-slider-handle-label-2:after{
           content: '';
           position: absolute;
@@ -112,7 +112,7 @@
           margin-top: -8px;
           margin-left: -8px;
       }
-      
+
     </style>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -138,10 +138,12 @@
             <a class="navbar-brand" href="#">PromovaCultura</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="tela-mapa.html">Mapa</a></li>
-              <li><a href="funil.html">Funil</a></li>
-            </ul>
+              <ul class="nav navbar-nav">
+                  <li><a href="tela-mapa.html">Mapa</a></li>
+                  <li><a href="funil.html">Funil</a></li>
+                  <li><a href="tela-mapa-heat-uf.html">Mapa de Calor (UF)</a></li>
+                  <li><a href="tela-mapa-heat-group.html">Mapa de Calor (Região)</a></li>
+              </ul>
             <form class="navbar-form navbar-right">
               <input type="text" class="form-control" placeholder="Pesquisar">
             </form>
@@ -184,9 +186,9 @@
         values: [1, 10],
         slide: function(event, ui) {
           myFunction(parseInt(ui.values[0]), parseInt(ui.values[1]));
-            
+
             var handle1 = $(this).children('.ui-slider-handle').first();
-            
+
             if(handle1.children().length <= 0){
                 handle1.append("<span class='ui-slider-handle-label' id='ui-slider-handle-label-1'>" + ui.values[0] + "</span>");
             }else{
@@ -194,7 +196,7 @@
             }
 
             var handle2 = $(this).children('.ui-slider-handle').last();
-                        
+
             if(handle2.children().length <= 0){
                 handle2.append("<span class='ui-slider-handle-label' id='ui-slider-handle-label-2'>" + ui.values[1] + "</span>");
             }else{
