@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <link rel="stylesheet" type="text/css" href="../static/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <navbar-menu/>
     <div class="container">
       <router-view/>
@@ -16,6 +17,7 @@ import "../static/jsmaps/jsmaps-panzoom.js"
 import "../static/jsmaps/jsmaps-libs.js"
 import "../static/jsmaps/brazil.js"
 import "../static/jsmaps/lodash.js"
+
 
 export default {
     name: 'App',

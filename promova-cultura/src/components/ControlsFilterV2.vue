@@ -15,7 +15,7 @@
             <li class="item-list-control">
                 <label for="select-state">Segmentos:</label>
                 
-                <select id="select-state" class="demo-default">
+                <select id="select-state" multiple class="demo-default">
                     <option v-for="segmento in segmentos" :value="segmento" v-bind:key="segmento">
                         {{segmento}}
                     </option>

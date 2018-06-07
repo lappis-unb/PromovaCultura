@@ -30,7 +30,7 @@ window.weight = 50;
 window.getWeight = () => (window.weight + Math.floor(Math.random() * 2));
 
 var myCanvas = $("#myChart");
-var ctx = myCanvas[0].getContext("2d");
+//var ctx = myCanvas[0].getContext("2d");
 
 var projetos = 90 * window.getWeight();
 var propostas = 70 * window.getWeight();
@@ -61,20 +61,20 @@ var data = {
 };
 
 window.chart_data = data;
-console.log(window.chart_data.datasets[0].data)
-var myChart = new Chart(ctx, {
-    type: 'funnel',
-    data: data,
-    options: {
-    responsive: true,
-    legend: {
-        position: 'right',
-    },
-    topWidth: 0,
-    // bottomWidth: 0,
-    sort: "desc",
-    }
-});
+//console.log(window.chart_data.datasets[0].data)
+// var myChart = new Chart(ctx, {
+//     type: 'funnel',
+//     data: data,
+//     options: {
+//     responsive: true,
+//     legend: {
+//         position: 'right',
+//     },
+//     topWidth: 0,
+//     // bottomWidth: 0,
+//     sort: "desc",
+//     }
+// });
 $(function() {
     $("#slider-range").slider({
         orientation: "vertical",
