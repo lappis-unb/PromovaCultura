@@ -13,6 +13,7 @@
 import $ from "jquery";
 import BrazilMap from '@/components/BrazilMapComponent'
 import ControlsFilterBrazilMap from '@/components/ControlsFilterBrazilMap'
+//import ControlsFilterBrazilMap from '@/components/ControlsFilterV2'
 
 export default {
     name: "ControlFilterBrazilMap",

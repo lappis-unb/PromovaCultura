@@ -8,13 +8,15 @@
                 </button>
             </li>
             <li class="item-list-control">
-                <button type="button" class="btn btn-warning btn-group-lg" id='filter-incentivadores' v-on:click='changeValueIncentivadores()'>
+                <button type="button" class="btn btn-warning btn-group-lg" id='filter-incentivadores'  v-on:click='changeValueIncentivadores()'>
                     {{incentivadoresTextButton}}
                 </button>
             </li>
             <li class="item-list-control">
-                <select v-model="selected" v-on:input="makeAction()">
-                    <option v-for="segmento in segmentos" :value="segmento" v-bind:key="segmento" v-on:change='makeAction()'>
+                <label for="select-state">Segmentos:</label>
+                
+                <select id="select-state" class="demo-default">
+                    <option v-for="segmento in segmentos" :value="segmento" v-bind:key="segmento">
                         {{segmento}}
                     </option>
                 </select>
@@ -24,7 +26,6 @@
 </template>
 
 <script>
-//<select id="select-state" multiple  class="demo-default">
 import $ from "jquery"
 import "selectize"
 
@@ -34,7 +35,6 @@ export default {
         return {
             proponenteTextButton: 'Mostrando proponentes',
             incentivadoresTextButton: 'Mostrando incentivadores',
-            selected: 'Todos os segmentos',
             segmentos: [
                 "Todos os segmentos",
                 "Teatro",
@@ -210,11 +210,6 @@ export default {
             v: false,
         }
     },
-    watch: {
-        months: function (newVal) {
-            this.makeAction(newVal);
-        }
-    },
     methods: {
         changeValueProponente: function () { 
             var elementProp = document.querySelector("#filter-proponentes")
@@ -236,27 +231,25 @@ export default {
                 elementInc.classList.remove('btn-warning')
             }
         },
-        makeAction: function (seg) {
-            console.log('Oi!')
-            console.log(this.selected)
-        }
-    },
-    mounted: function() {
-        $('#select-state').selectize({
-            plugins: ['remove_button','drag_drop'],
-            persist: false,
-            create: true,
-            render: {
-                item: function(data, escape) {
-                    return '<div>' + escape(data.text) + '</div>';
-                }
-            },
-            onDelete: function(values) {
-                return 0;
-            }
-        });
     }
 }
+
+$(function() {
+    $('#select-state').selectize({
+        plugins: ['remove_button','drag_drop'],
+        persist: false,
+        create: true,
+        render: {
+            item: function(data, escape) {
+                return '<div>' + escape(data.text) + '</div>';
+            }
+        },
+        onDelete: function(values) {
+            return 0;
+        }
+    });
+    
+});
 
 </script>
 
