@@ -103,7 +103,6 @@ export default {
     return {
     proponenteTextButton: "+ proponentes",
     incentivadoresTextButton: "+ incentivadores",
-    selected: "Teatro",
     dataValue: {},
     selected: 'Todos os segmentos',
     v: false,
@@ -367,9 +366,14 @@ export default {
         makeAction: function () {
             console.log("Este é o segmento")
             console.log(this.selected)
+            var segmento = this.selected
+            if(segmento != "Todos os segmentos")
+                segmento ='(segmento:"'+segmento+'")';
+            else
+                segmento ="";
             var self = this
             //console.log(this.selected)
-            fetch('http://192.168.10.202:5000/graphql?query={projetos_por_uf(segmento:"'+this.selected+'"){local,quantidade}}')
+            fetch('http://192.168.10.202:5000/graphql?query={projetos_por_uf'+segmento+'{local,quantidade}}')
             .then((res) => { return res.json() })
             .then((data) => {
                 var listOfUfs = {}
