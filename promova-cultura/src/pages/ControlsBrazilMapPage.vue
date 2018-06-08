@@ -14,7 +14,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     <label>Segmento cultural</label>
-                    <select v-model="selected" @change="makeAction()" class="custom-select">
+                    <select v-model="selected" @change="loadSegment()" class="custom-select">
                         <option v-for="segmento in segmentos" :value="segmento" v-bind:key="segmento">
                             {{segmento}}
                         </option>
@@ -53,7 +53,7 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <label>Segmento cultural</label>
-                                    <select v-model="selected" @change="makeAction()" class="custom-select">
+                                    <select v-model="selected" @change="loadSegment()" class="custom-select">
                                         <option v-for="segmento in segmentos" :value="segmento" v-bind:key="segmento">
                                             {{segmento}}
                                         </option>
@@ -286,26 +286,6 @@ export default {
     };
   },
   mounted: function() {
-    // var self = this;
-    // $("#brazil-map").JSMaps({
-    //     map: "brazil",
-    //     stateClickAction: "none",
-    //     onStateClick: function(data) {
-    //     },
-    // })
-    $('#select-state').selectize({
-        plugins: ['remove_button','drag_drop'],
-        persist: false,
-        create: true,
-        render: {
-            item: function(data, escape) {
-                return '<div>' + escape(data.text) + '</div>';
-            }
-        },
-        onDelete: function(values) {
-            return 0;
-        }
-    });
     var self = this
     //console.log(this.selected)
     fetch('http://192.168.10.202:5000/graphql?query={projetos_por_uf{local,quantidade}}')
@@ -320,52 +300,52 @@ export default {
     })     
   },
   watch: {
-    months: function () {
-        this.makeAction();
+    segment: function () {
+        this.loadSegment();
     }
 },
   methods: {
            changeValueProponente: function () { 
-            console.log("Clicou aqui no proponente")
+            //console.log("Clicou aqui no proponente")
             if(this.proponentesIsActivated){
                 fetch('http://192.168.10.202:5000/graphql?query={proponentes_por_uf{local,quantidade}}')
                 .then((res) => { return res.json() })
                 .then((data) => {
                     this.listOfProponentes = data.data.proponentes_por_uf
-                    console.log(this.listOfProponentes)
+                    //console.log(this.listOfProponentes)
                 })
-                console.log("Ativou Proponente")
+                //console.log("Ativou Proponente")
                 this.proponentesIsActivated = false
             }
             else {
                 this.listOfProponentes = []
-                console.log(this.listOfProponentes)
+                //console.log(this.listOfProponentes)
                 this.proponentesIsActivated = true
-                console.log("Desativou Proponente")
+                //console.log("Desativou Proponente")
             }
         },
         changeValueIncentivadores: function () {
-            console.log("Clicou aqui no incentivadores")
+            //console.log("Clicou aqui no incentivadores")
             if(this.incentivadoresIsActivated){
                 fetch('http://api.salic.cultura.gov.br/v1/projetos/?limit=10')
                 .then((res) => { return res.json() })
                 .then((data) => { 
                     this.listOfIncentivadores = data
-                    console.log(this.listOfIncentivadores)
+                    //console.log(this.listOfIncentivadores)
                 })
                 this.incentivadoresIsActivated = false
-                console.log("Ativou Incentivadores")
+                //console.log("Ativou Incentivadores")
             }
             else {
                 this.listOfIncentivadores = []
-                console.log(this.listOfIncentivadores)
+                //console.log(this.listOfIncentivadores)
                 this.incentivadoresIsActivated = true
-                console.log("Desativou Incentivadores")
+                //console.log("Desativou Incentivadores")
             }
         },
-        makeAction: function () {
-            console.log("Este é o segmento")
-            console.log(this.selected)
+        loadSegment: function () {
+            //console.log("Este é o segmento")
+            //console.log(this.selected)
             var segmento = this.selected
             if(segmento != "Todos os segmentos")
                 segmento ='(segmento:"'+segmento+'")';
