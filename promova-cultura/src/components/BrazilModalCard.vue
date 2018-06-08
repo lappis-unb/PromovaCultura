@@ -24,7 +24,6 @@ export default {
     contentCard: String,
   }
 }
-
 </script>
 
 <style scoped>

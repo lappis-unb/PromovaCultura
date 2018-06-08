@@ -58,14 +58,14 @@ export default {
         changeValueProponente: function () { 
             console.log("Clicou aqui no proponente")
             if(this.proponentesIsActivated){
-                fetch('http://api.salic.cultura.gov.br/v1/projetos/?limit=10')
+                fetch('http://192.168.10.202:5000/graphql?query={proponentes_por_uf{local,quantidade}}')
                 .then((res) => { return res.json() })
-                .then((data) => { 
-                    this.listOfProponentes = data
+                .then((data) => {
+                    this.listOfProponentes = data.data.proponentes_por_uf
                     console.log(this.listOfProponentes)
                 })
-                this.proponentesIsActivated = false
                 console.log("Ativou Proponente")
+                this.proponentesIsActivated = false
             }
             else {
                 this.listOfProponentes = []
@@ -93,7 +93,7 @@ export default {
                 console.log("Desativou Incentivadores")
             }
         },
-        makeAction: function (seg) {
+        makeAction: function (seg) {     
             console.log(seg)
             console.log(this.selected)
         }
@@ -134,8 +134,6 @@ li {
 .list-buttons {
     margin: 5px;
 }
-
-
 
 /* The switch - the box around the slider */
 .switch {
@@ -213,6 +211,7 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
 #desktop-filters{
     display: none;
 }

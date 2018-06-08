@@ -3,7 +3,7 @@
     <link href="../../static/jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
     <div class="row">
       <div class="col-sm-6">
-        <brazil-map-component/>
+        <!-- <brazil-map-component/> -->
       </div>
       <div class="select-states">
         <h3>Selecione um estado</h3>
@@ -84,27 +84,27 @@ export default {
     }
   },
   mounted: function () {
-    var self = this;
-    $("#brazil-map").JSMaps({
-      map: "brazil",
-      stateClickAction: "none",
-      onStateClick: function(data) {
-        self.selectDropdown(data.abbreviation, data.name, true);
-      },
-    })
+    // var self = this;
+    // $("#brazil-map").JSMaps({
+    //   map: "brazil",
+    //   stateClickAction: "none",
+    //   onStateClick: function(data) {
+    //     self.selectDropdown(data.abbreviation, data.name, true);
+    //   },
+    // })
   }
 };
 
 var listOfUfs = [];
-$.get("http://api.salic.cultura.gov.br/v1/projetos/?limit=100", function(data) {
-  var ufs = [];
-  var projetos = data._embedded.projetos;
-  for (var i = 0; i < projetos.length; i++) {
-    ufs.push(projetos[i].UF);
-  }
-  listOfUfs = _.countBy(ufs);
-  console.log(listOfUfs)
-});
+// $.get("http://api.salic.cultura.gov.br/v1/projetos/?limit=100", function(data) {
+//   var ufs = [];
+//   var projetos = data._embedded.projetos;
+//   for (var i = 0; i < projetos.length; i++) {
+//     ufs.push(projetos[i].UF);
+//   }
+//   listOfUfs = _.countBy(ufs);
+//   console.log(listOfUfs)
+// });
 </script>
 
 <style scoped>
