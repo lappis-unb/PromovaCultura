@@ -24,7 +24,13 @@ export default {
 
   data() {
     return {
-      maps: {}
+      maps: {},
+      basePinData: {
+        srcWidth: 74,
+        srcHeight: 81,
+        pinWidth: 40,
+        pinHeight: 30
+      }
     };
   },
 
@@ -35,6 +41,10 @@ export default {
 
     maxNumberOfProponentes() {
       return this.countByUf(this.proponentes);
+    },
+
+    maxNumberOfIncentivadores() {
+      return this.countByUf(this.incentivadores);
     }
   },
 
@@ -52,6 +62,7 @@ export default {
     this.makeHeatMap();
 
     this.setProponentesPins();
+    this.setIncentivadoresPins();
   },
 
   methods: {
@@ -112,19 +123,17 @@ export default {
       return stateColor;
     },
 
-    getProponentesPinByPercentil(percentil) {
-      let pinSvg = "proponente_LVL_1"; // <= 20%
+    getPinByPercentil(percentil) {
+      let pinSvg = "LVL_1"; // <= 20%
 
       if (percentil > 20 && percentil <= 40) {
-        pinSvg = "proponente_LVL_2";
+        pinSvg = "LVL_2";
       } else if (percentil > 40 && percentil <= 60) {
-        pinSvg = "proponente_LVL_3";
+        pinSvg = "LVL_3";
       } else if (percentil > 60 && percentil <= 80) {
-        pinSvg = "proponente_LVL_4";
+        pinSvg = "LVL_4";
       } else if (percentil > 80) {
-        console.log(`ELSE: ${percentil}`);
-        // > 80%
-        pinSvg = "proponente_LVL_5";
+        pinSvg = "LVL_5";
       }
 
       return pinSvg;
@@ -161,25 +170,23 @@ export default {
     setProponentesPins() {
       const ufList = Object.keys(this.proponentes);
 
+      if (!this.maps.pins) {
+        this.maps.pins = [];
+      }
+
+      const incentivadoresPins = this.maps.pins.filter(pin => pin.type !== "proponente");
+
       if (ufList.length === 0) {
         console.log("proponentes is empty, no need to display it's pins");
 
         // Clean pins on display
-        this.maps.pins = [];
+        this.maps.pins = incentivadoresPins;
         $("#brazil-map").trigger("reDraw", this.maps);
         return;
       }
 
       const pins = [];
-
-      const basePinData = {
-        srcWidth: 74,
-        srcHeight: 81,
-        pinWidth: 40,
-        pinHeight: 30
-      };
-
-      this.maps.pins = [];
+      this.maps.pins = incentivadoresPins;
 
       ufList.forEach(uf => {
         let numberOfProponentes = this.proponentes[uf];
@@ -188,14 +195,64 @@ export default {
           if (state.abbreviation === uf) {
             let percentil =
               numberOfProponentes / this.maxNumberOfProponentes * 100;
-            let pinSvg = this.getProponentesPinByPercentil(percentil);
+            let pinSvg = this.getPinByPercentil(percentil);
 
             const pin = {
-              ...basePinData,
-              xPos: state.textX,
+              ...this.basePinData,
+              xPos: state.textX - 10,
               yPos: state.textY,
               name: `${uf}: ${numberOfProponentes}`,
-              src: `../static/svg-icons/${pinSvg}.svg`,
+              src: `../static/svg-icons/proponente_${pinSvg}.svg`,
+              type: 'proponente',
+            };
+
+            this.maps.pins.push(pin);
+
+            break; // The is no need to continue if the UF was found
+          }
+        }
+      });
+
+      $("#brazil-map").trigger("reDraw", this.maps);
+    },
+
+    setIncentivadoresPins() {
+      const ufList = Object.keys(this.incentivadores);
+
+      if (!this.maps.pins) {
+        this.maps.pins = [];
+      }
+
+      const proponentsPins = this.maps.pins.filter(pin => pin.type !== "investidor");
+
+      if (ufList.length === 0) {
+        console.log("incentivadores is empty, no need to display it's pins");
+
+        // Clean pins on display
+        this.maps.pins = proponentsPins;
+        $("#brazil-map").trigger("reDraw", this.maps);
+        return;
+      }
+
+      const pins = [];
+      this.maps.pins = proponentsPins;
+
+      ufList.forEach(uf => {
+        let numberOfIncentivadores = this.incentivadores[uf];
+
+        for (let state of this.maps.brazil.paths) {
+          if (state.abbreviation === uf) {
+            let percentil =
+              numberOfIncentivadores / this.maxNumberOfIncentivadores * 100;
+            let pinSvg = this.getPinByPercentil(percentil);
+
+            const pin = {
+              ...this.basePinData,
+              xPos: state.textX + 10,
+              yPos: state.textY,
+              name: `${uf}: ${numberOfIncentivadores}`,
+              src: `../static/svg-icons/Investidores_${pinSvg}.svg`,
+              type: 'investidor',
             };
 
             this.maps.pins.push(pin);

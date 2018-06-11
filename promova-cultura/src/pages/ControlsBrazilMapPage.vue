@@ -157,7 +157,7 @@ export default {
       let segmentQuery = "";
 
       if (projectSegment !== "" && typeof projectSegment === "string") {
-        segmentQuery = `(segmento_projeto: "${projectSegment}")`;
+        segmentQuery = `(segmento: "${projectSegment}")`;
       }
 
       const query = `
