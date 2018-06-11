@@ -19,7 +19,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                     <label>Segmento cultural</label>
-                    <select v-model="selected" @change="loadSegment()" class="custom-select">
+                    <select v-model="selected" @change="fetchProjects()" class="custom-select">
                         <option v-for="segmento in segmentos" :value="segmento" v-bind:key="segmento">
                             {{segmento}}
                         </option>
@@ -58,12 +58,11 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <label>Segmento cultural</label>
-                                    <select v-model="selected" @change="loadSegment()" class="custom-select">
+                                    <select v-model="selected" @change="fetchProjects()" class="custom-select">
                                         <option v-for="segmento in segmentos" :value="segmento" v-bind:key="segmento">
                                             {{segmento}}
                                         </option>
                                     </select>
-                                    {{selected}}
                                 </li>
                                 <li class="list-group-item">
                                     <span>Proponentes</span>
@@ -130,7 +129,7 @@ export default {
   },
 
   watch: {
-    segment() {
+    segment() { // TODO: fetch proponentes and incentivadores when segment changes
       this.fetchProjects();
     },
 
@@ -172,7 +171,7 @@ export default {
       const form = new FormData();
       form.append("query", query);
 
-      const promise = fetch(`http://localhost:5000/graphql`, {
+      const promise = fetch(`http://192.168.10.202:5000/graphql`, {
         method: "POST",
         body: form
       });
