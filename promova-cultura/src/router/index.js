@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import BrazilMap from '@/pages/BrazilMap'
-import BrazilMapRegion from '@/pages/BrazilMapRegion'
-import Funil from '@/pages/Funil'
-import Home from '@/pages/Home'
+import BrazilMapPage from '@/pages/BrazilMapPage'
+import BrazilMapRegionPage from '@/pages/BrazilMapRegionPage'
+import FunilPage from '@/pages/FunilPage'
+import HomePage from '@/pages/HomePage'
 import NaturalLanguageFilterPage from '@/pages/NaturalLanguageFilterPage'
-import ControlsBrazilMapPage from '@/pages/ControlsBrazilMapPage'
+import MapPage from '@/pages/MapPage'
+import MapPageByTotal from '@/components/mapPrototype/MapPageByTotal'
 
 Vue.use(Router)
 
@@ -13,23 +14,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'HomePage',
+      component: HomePage
     },
     {
       path: '/map_state',
-      name: 'BrazilMap',
-      component: BrazilMap
+      name: 'BrazilMapPage',
+      component: BrazilMapPage
     },
     {
       path: '/map_region',
-      name: 'BrazilMapRegion',
-      component: BrazilMapRegion
+      name: 'BrazilMapRegionPage',
+      component: BrazilMapRegionPage
     },
     {
       path: '/funil',
-      name: 'Funil',
-      component: Funil
+      name: 'FunilPage',
+      component: FunilPage
     },
     {
       path: '/nl',
@@ -38,8 +39,13 @@ export default new Router({
     },
     {
       path: '/controls',
-      name: 'ControlsBrazilMapPage',
-      component: ControlsBrazilMapPage
+      name: 'MapPage',
+      component: MapPage
+    },
+    {
+      path: '/controls-by-total',
+      name: 'MapPageByTotal',
+      component: MapPageByTotal
     }
   ]
 })

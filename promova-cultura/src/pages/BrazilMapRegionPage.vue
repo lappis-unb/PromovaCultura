@@ -23,9 +23,9 @@
 
 <script>
 import $ from "jquery";
-import BrazilCard from '@/components/BrazilCard'
-import BrazilModalCard from '@/components/BrazilModalCard'
-import BrazilMapComponent from '@/components/BrazilMapComponent'
+import BrazilCard from '@/components/ActionMap/BrazilCard'
+import BrazilModalCard from '@/components/ActionMap/BrazilModalCard'
+import BrazilMapComponent from '@/components/ActionMap/BrazilMapComponent'
 
 export default {
   name: "BrazilMapRegion",

@@ -94,7 +94,7 @@ function addData(chart, data) {
 function myFunction(min, max) {
     var val = [min, max] //gets the oninput value
     window.weight = (val.reduce((acc, curr) => acc + curr, 0))/(val.length);
-    console.log(window.weight)
+    //console.log(window.weight)
     document.getElementById('output').innerHTML = val //displays this value to the html page
     document.getElementById('output').innerHTML = val; //displays this value to the html page
     projetos = 60 * window.getWeight();

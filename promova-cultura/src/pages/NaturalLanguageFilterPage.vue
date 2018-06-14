@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import NaturalLanguageFilter from '@/components/NaturalLanguageFilter'
-import BrazilMap from '@/components/BrazilMapComponent'
+import NaturalLanguageFilter from '@/components/NaturalLanguageFilter/NaturalLanguageFilter'
+import BrazilMap from '@/components/ActionMap/BrazilMapComponent'
 import $ from "jquery";
 
 export default {
@@ -22,12 +22,12 @@ export default {
     },
     mounted: function () {
         var self = this;
-        $("#brazil-map").JSMaps({
-            map: "brazil",
-            stateClickAction: "none",
-            onStateClick: function(data) {
-            },
-        })
+        // $("#brazil-map").JSMaps({
+        //     map: "brazil",
+        //     stateClickAction: "none",
+        //     onStateClick: function(data) {
+        //     },
+        // })
     }
 }
 
