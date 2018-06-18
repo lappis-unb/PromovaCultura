@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Natural Language Form</title>
+	<meta name="description" content="Natural Language Form with custom text input and drop-down lists" />
+	<meta name="keywords" content="Natural Language UI, sentence form, text input, contenteditable, html5, css3, jquery" />
+	<meta name="author" content="Codrops" />
+	<link rel="shortcut icon" href="../favicon.ico">
+	<link rel="stylesheet" type="text/css" href="css/default.css" />
+	<link rel="stylesheet" type="text/css" href="css/component.css" />
+	<script src="js/modernizr.custom.js"></script>
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	 crossorigin="anonymous"></script>
+</head>
+
+<body class="nl-blurred">
+	<div class="container demo-1">
+		<!-- Top Navigation -->
+		<div class="codrops-top clearfix">
+			<!--<a class="codrops-icon codrops-icon-prev" href="http://tympanus.net/Development/MorphingDevices/"><span>Previous Demo</span></a>-->
+			<span class="right">
+				<a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=15139">
+					<span>Back to the Codrops Article</span>
+				</a>
+			</span>
+		</div>
+		<header>
+			<h1>Exemplo de formulário com linguagem natural</h1>
+		</header>
+		<div class="main clearfix">
+			<form id="nl-form" class="nl-form">
+				Eu quero ver
+				<select id="location">
+					<option value="UF" selected>de onde vieram</option>
+					<option value="UF">onde aconteceram</option>
+					<option value="UF">onde estão os proponentes com </option>
+					<option value="UF">de onde veio o incentivo para </option>
+					<option value="UF">onde estão os fornecedores envolvidos com</option>
+				</select>
+
+				<select id="project-or-preproject">
+					<option value="projetos" selected>projetos aceitos</option>
+					<option value="propostas">propostas de projeto</option>
+				</select>
+				de
+				<select id="area">
+					<option value="" selected>todos os tipos</option>
+					<option value="Música">Música</option>
+					<option value="Artes Integradas">Artes Integradas</option>
+					<option value="Artes Cênicas">Artes Cênicas</option>
+					<option value="Audiovisual">Audiovisual</option>
+				</select>
+				que
+				<select id="status">
+					<option value="cadastrado" selected>foram cadastrados(as)</option>
+					<option value="análise de admissão">estão em análise de admissão</option>
+					<option value="aceit">foram aceitas</option>
+					<option value="rejeitad">rejeitadas</option>
+					<option value="executados">serão executados</option>
+					<option value="conclui">concluíram a execução</option>
+					<option value="aprovado">tiveram resultados totalmente aprovados</option>
+					<option value="reprovado">tiveram resultados totalmente reprovados</option>
+				</select>
+				em
+				<input type="text" value="" placeholder="qualquer momento" data-subline="Insira um ano" />
+				<div class="nl-submit-wrap">
+					<button id="fetch-button" class="nl-submit" type="button">Mostre</button>
+				</div>
+				<div class="nl-overlay"></div>
+			</form>
+		</div>
+
+		<div id="resposta">
+
+		</div>
+
+		<template id="resposta-template">
+			<strong>Nome:</strong>{{nome}}
+			<br />
+			<strong>UF:</strong> {{uf}}
+			<br />
+			<strong>Area: {{area}}</strong>
+			<br />
+			<strong>Situacao: {{situacao}}</strong>
+			<br />
+			<strong>Data de Inicio: {{data_inicio}}</strong>
+			<br />
+			<strong>Data de Termino: {{data_termino}}</strong>
+			<br />
+			<hr />
+		</template>
+	</div>
+	<!-- /container -->
+	<script src="js/nlform.js"></script>
+	<script>
+		var nlform = new NLForm(document.getElementById('nl-form'));
+
+		(function () {
+			const locationSelect = document.querySelector("#location");
+			const projectOrPreprojectSelect = document.querySelector("#project-or-preproject");
+			const areaSelect = document.querySelector("#area");
+			const statusSelect = document.querySelector("#status");
+			const fetchButton = document.querySelector("#fetch-button");
+
+			fetchButton.addEventListener("click", () => {
+				let location = locationSelect.value;
+				let projectOrPreproject = projectOrPreprojectSelect.value;
+				let area = areaSelect.value;
+				let status = statusSelect.value;
+
+				let query = `
+				query {
+					${projectOrPreproject}(area: "${area}", situacao:"${status}") {
+						UF
+						nome
+						area
+						situacao
+						data_inicio
+						data_termino
+					}
+				}
+				`;
+
+				let queryMock = `
+				query {
+					projetos(area: "arte") {
+						UF
+						nome
+						area
+						situacao
+						data_inicio
+						data_termino
+					}
+				}
+				`;
+
+
+				$.post("http://127.0.0.1:5000/graphql", {
+					query: query
+				}).then(response => {
+					let template = document.querySelector("#resposta-template").innerHTML;
+					let resposta = document.querySelector("#resposta");
+
+					let data = undefined;
+					if (projectOrPreproject === "projetos") {
+						data = response.data.projetos;
+					} else {
+						data = response.data.propostas;
+					}
+
+
+					data.forEach(item => {
+						let dataTemplate = template.replace("{{nome}}", item.nome);
+						dataTemplate = dataTemplate.replace("{{uf}}", item.UF);
+						dataTemplate = dataTemplate.replace("{{area}}", item.area);
+						dataTemplate = dataTemplate.replace("{{situacao}}", item.situacao);
+						dataTemplate = dataTemplate.replace("{{data_inicio}}", item.data_inicio);
+						dataTemplate = dataTemplate.replace("{{data_termino}}", item.data_termino);
+
+						resposta.innerHTML += dataTemplate;
+					});
+
+					let totalUfs = data.reduce((acc, curr) => {
+						if (acc[curr.UF] === undefined) {
+							acc[curr.UF] = 1;
+						} else {
+							acc[curr.UF] += 1;
+						}
+
+						return acc;
+					}, {});
+
+					console.log(totalUfs);
+
+					/*ar ufs = [];
+					var projetos = data._embedded.projetos
+					for (i = 0; i < projetos.length; i++) {
+						ufs.push(projetos[i].UF)
+					}
+
+					listOfUfs = _.countBy(ufs)
+					console.log(listOfUfs)*/
+
+				});
+			});
+		})();
+	</script>
+</body>
+
+</html>
