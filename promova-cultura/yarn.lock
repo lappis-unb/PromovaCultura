@@ -1061,6 +1061,10 @@ cache-base@^1.0.1:
     union-value "^1.0.0"
     unset-value "^1.0.0"
 
+cache-fetch@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/cache-fetch/-/cache-fetch-1.1.0.tgz#4779ede79ce763d583c7c77464a55b5c442db53c"
+
 camel-case@3.0.x:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/camel-case/-/camel-case-3.0.0.tgz#ca3c3688a4e9cf3a4cda777dc4dcbc713249cf73"
