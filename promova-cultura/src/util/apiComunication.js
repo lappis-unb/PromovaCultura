@@ -1,3 +1,6 @@
+import cacheFetch from 'cache-fetch';
+
+
 function fetchData(type = "", projectSegment = "") {
     let segmentQuery = "";
 
@@ -14,13 +17,9 @@ function fetchData(type = "", projectSegment = "") {
         }
     `;
 
-    const form = new FormData();
-    form.append("query", query);
+    const queryAsUrl = encodeURI(query);
 
-    const promise = fetch(`http://192.168.10.202:5000/graphql`, {
-        method: "POST",
-        body: form
-    });
+    const promise = cacheFetch(`http://192.168.1.221:5000/graphql?query=${queryAsUrl}`);
 
     return promise;
 }
@@ -29,7 +28,7 @@ function getDataFromKey(key) {
     return promise =>
         promise.then(res => res.json()).then(json => {
             const listOfUfs = {};
-            
+
             console.log(json)
             for (let region of json.data[key]) {
                 listOfUfs[region.local] = region.quantidade;
