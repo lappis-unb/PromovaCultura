@@ -1,6 +1,16 @@
 <template>
 <div>
     <ul class="list-group list-group-flush">
+        <li class="list-group-item input-position">
+            <label for="uf">
+                <input type="radio" id="uf" value="UF" v-on:click="changeLevel('uf')" v-model="picked">
+                UF
+            </label>
+            <label for="region">
+                <input type="radio" id="region" value="Regiao" v-on:click="changeLevel('regiao')" v-model="picked">
+                Região
+            </label>
+        </li>
         <li class="list-group-item">
             <label>Segmento cultural</label>
             <select v-model="selected" @change="updateSegment()" class="custom-select">
@@ -8,13 +18,6 @@
                     {{segmento}}
                 </option>
             </select>
-        </li>
-        <li class="list-group-item">
-            <span>Região</span>
-            <label class="switch">
-                <input type="checkbox" v-on:click="changeLevel()" class="default">
-                <span class="slider round"></span>
-            </label>
         </li>
         <li class="list-group-item">
             <span>Proponentes</span>
@@ -46,6 +49,7 @@
                 incentivadoresIsActivated: false,
                 level: "UF",
                 isLevelRegion: false,
+                picked: "UF",
             }
         },
         methods: {
@@ -55,21 +59,19 @@
             changeValueProponente: function(){
                 this.proponentesIsActivated = !this.proponentesIsActivated;
                 this.$emit('showProponentes', this.proponentesIsActivated)
-
             },
             changeValueIncentivadores: function(){
                 this.incentivadoresIsActivated = !this.incentivadoresIsActivated;
                 this.$emit('showIncentivadores', this.incentivadoresIsActivated)
             },
-            changeLevel: function(){
-                if(!this.isLevelRegion){
-                    this.level = "Região";
-                    this.isLevelRegion = true;                
-                }else{
+            changeLevel: function(typeMap){
+                if(typeMap==="uf"){
                     this.level = "UF";
                     this.isLevelRegion = false;                                    
+                }else{
+                    this.level = "Região";
+                    this.isLevelRegion = true;                
                 }
-
                 this.$emit('changeLevel', this.level);
             }
         }
@@ -129,7 +131,6 @@
         transform: translateX(26px);
     }
 
-
     /* Rounded sliders */
     .slider.round {
         border-radius: 34px;
@@ -138,5 +139,8 @@
     .slider.round:before {
         border-radius: 50%;
     }
-    
+
+    .input-position label:first-child {
+        margin-right: 10px;
+    }
 </style>
