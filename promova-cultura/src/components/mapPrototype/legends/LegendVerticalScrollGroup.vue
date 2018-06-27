@@ -26,7 +26,7 @@ export default {
     /* Small Devices, Tablets */
     @media only screen and (min-width: 768px) {
         .legend-group-scroll {
-            height: 250px;
+            height: 230px;
         }
     }
 </style>

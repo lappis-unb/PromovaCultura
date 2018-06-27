@@ -1,5 +1,5 @@
 <template>
-  <tabs-layout 
+  <test-layout 
     :data="data"
     :legends="legends"
     :maxValues="maxValues"
@@ -8,6 +8,11 @@
     @showProponentes="showProponentes"
     @showIncentivadores="showIncentivadores"
     @changeLevel="changeLevel"
+
+    :legendMobile="'card-vertical'"
+    :legendDesktop="'card-vertical-scroll'"
+    :filterMobile="'modal'"
+    :filterDesktop="'card'"
  />
 </template>
 
