@@ -37,3 +37,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .card-header{
+        font-size: 18px;
+    }
+</style>

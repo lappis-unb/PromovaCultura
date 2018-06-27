@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-lg-7">
             <div class="modal-button-group">
                 <button type="button" id="modal-button-filter" class="btn btn-sm btn-default" data-toggle="modal" data-target="#modal-filter"
                   v-if="filterMobile=='modal' || filterDesktop=='modal'">
@@ -14,8 +14,8 @@
             </div>
             <brazil-map :projects="data.projects" :proponentes="data.proponentes" :incentivadores="data.incentivadores" :legends="legends" :maxValues="maxValues" :level="level" />
         </div>
-        <div class="col-md-4 offset-md-1">
-            <div class="d-none d-md-block"> <!-- Shows in desktop Hides in mobile platform -->
+        <div class="col-lg-4 offset-lg-1">
+            <div class="d-none d-lg-block"> <!-- Shows in desktop Hides in mobile platform -->
               <card-filters 
                 @updatedSegment="updateSegment"
                 @showProponentes="showProponentes"
@@ -39,7 +39,7 @@
                 :legends="legends"
                 v-if="legendDesktop=='tab'"/>
             </div>
-            <div class="d-md-none"> <!-- Shows in mobile Hides in desktop platform -->
+            <div class="d-lg-none"> <!-- Shows in mobile Hides in desktop platform -->
               <card-filters 
                 @updatedSegment="updateSegment"
                 @showProponentes="showProponentes"
@@ -68,9 +68,16 @@
         <legend-modal :legends="legends"/>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-lg-12">
+          <div class="d-none d-lg-block"> <!-- Shows in desktop Hides in mobile platform -->
             <legend-horizontal :legends="legends"
-            v-if="legendMobile=='tab' || legendDesktop=='horizontal'"/>
+            v-if="legendDesktop=='horizontal'"/>
+          </div>
+          <div class="d-lg-none"> <!-- Shows in mobile Hides in desktop platform -->
+            <legend-horizontal :legends="legends"
+            v-if="legendMobile=='horizontal'"/>
+          </div>
+          
         </div>
     </div>
 </div>
@@ -172,15 +179,15 @@ export default {
 }
 /* Small Devices, Tablets */
 @media only screen and (min-width: 768px) {
-  #modal-button-filter {
+}
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 992px) { 
+#modal-button-filter {
     display: none;
   }
   #modal-button-legend {
     display: none;
   }
-}
-/* Medium Devices, Desktops */
-@media only screen and (min-width: 992px) { 
 }
 /* Large Devices, Wide Screens */
 @media only screen and (min-width: 1200px) {

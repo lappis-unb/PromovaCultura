@@ -1,5 +1,5 @@
 <template>
-  <test-layout 
+  <layout-d2-m1
     :data="data"
     :legends="legends"
     :maxValues="maxValues"
@@ -10,22 +10,50 @@
     @changeLevel="changeLevel"
 
     :legendMobile="'card-vertical'"
-    :legendDesktop="'card-vertical-scroll'"
     :filterMobile="'modal'"
+    :legendDesktop="'tab'"
     :filterDesktop="'card'"
  />
 </template>
 
 <script>
+/*
+    //Desktop filtro aberto e legenda em abas
+    //Mobile filtro modal e legenda abaixo do mapa na vertical
+    :legendMobile="'card-vertical'"
+    :filterMobile="'modal'"
+    :legendDesktop="'tab'"
+    :filterDesktop="'card'"
+
+    //Desktop filtro aberto e legenda com scroll vertical
+    //Mobile filtro modal e legenda modal com scroll vertical
+    :legendMobile="'modal'"
+    :filterMobile="'modal'"
+    :legendDesktop="'card-vertical-scroll'"
+    :filterDesktop="'card'"
+
+    //Desktop filtro fechado e legenda vertical
+    //Mobile filtro modal e legenda vertical
+    :legendMobile="'card-vertical'"
+    :filterMobile="'modal'"
+    :legendDesktop="'card-vertical'"
+    :filterDesktop="'collapsed'"
+
+    //Desktop filtro aberto e legenda horizontal
+    //Mobile filtro modal e legenda modal com scroll vertical
+    :legendMobile="'modal'"
+    :filterMobile="'modal'"
+    :legendDesktop="'horizontal'"
+    :filterDesktop="'card'"
+*/
+
 import fetchResource from "@/util/apiComunication.js";
-import testLayout from "@/components/mapPrototype/layouts/testLayout"
-import tabsLayout from "@/components/mapPrototype/layouts/tabsLayout"
+import Mapd2m1 from "@/components/mapPrototype/layouts/map-d2-m1"
 
 export default {
   name: "ControlFilterBrazilMap",
   components: {
-    "test-layout": testLayout,
-    "tabs-layout": tabsLayout,
+    "layout-d2-m1": Mapd2m1,
   },
   data() {
     return {
