@@ -31,17 +31,16 @@ export default {
 </script>
 
 <style scoped>
+
     .card-body {
         overflow: scroll;
         overflow-x: hidden; 
         /* min-height: 500px; */
-        height: 400px;
     }
     .card-header {
         font-size: 16px;
         font-weight: bold;
         text-transform: uppercase;
-        
     }
 
     .card-content h3 {
@@ -56,4 +55,10 @@ export default {
         margin-bottom: 30px;        
     }
 
+    /* Small Devices, Tablets */
+    @media only screen and (min-width: 768px) {
+        .card-body {
+            height: 250px;
+        }
+    }
 </style>
