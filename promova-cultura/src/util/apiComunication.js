@@ -29,7 +29,6 @@ function getDataFromKey(key) {
         promise.then(res => res.json()).then(json => {
             const listOfUfs = {};
 
-            console.log(json)
             for (let region of json.data[key]) {
                 listOfUfs[region.local] = region.quantidade;
             }

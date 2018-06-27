@@ -87,7 +87,7 @@ export default {
 
     makeHeatMap() {
       const localsList = Object.keys(this.projects);
-      
+
       if (localsList.length === 0) {
         console.log("Projects is empty, nothing to heat");
         return;
