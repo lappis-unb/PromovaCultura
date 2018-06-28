@@ -19,7 +19,7 @@ export default {
 <style scoped>
     .legend-group-scroll {
         overflow: scroll;
-        overflow-x: hidden; 
+        overflow-x: hidden;
         /* min-height: 500px; */
     }
 
@@ -28,5 +28,11 @@ export default {
         .legend-group-scroll {
             height: 230px;
         }
+    }
+    /* Really small screen */
+    @media only screen and (min-width: 220px) {
+        .legend-group-scroll{
+            height: 76vh;
+        }  
     }
 </style>

@@ -28,3 +28,8 @@ export default {
     },
 };
 </script>
+<style scoped>
+.modal-content {
+    height: 95vh;
+}
+</style>
