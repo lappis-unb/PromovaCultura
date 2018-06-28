@@ -1,7 +1,7 @@
 <template>
-    <div class="list-group">
-        <link rel="stylesheet" type="text/css" href="../../static/slick/slick.css">
-        <link rel="stylesheet" type="text/css" href="../../static/slick/slick-theme.css">
+<div class="list-group">
+  <!-- <link rel="stylesheet" type="text/css" href="../../static/slick/slick.css">
+  <link rel="stylesheet" type="text/css" href="../../static/slick/slick-theme.css"> -->
 
         <div class="list-group-item">Lista de protótipos desenvolvidos:</div>
         <router-link class="list-group-item" to="/map_state">Mapa do Brasil com informações básicas por estado</router-link>
@@ -93,8 +93,7 @@ export default {
       slidesToShow: 5,
       autoplay: true,
       autoplaySpeed: 2000,
-      responsive: [
-        {
+      responsive: [{
           breakpoint: 768,
           settings: {
             arrows: false,
