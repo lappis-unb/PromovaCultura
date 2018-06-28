@@ -48,22 +48,24 @@
       <div class="container-fluid">
         <div class="container">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-            <a class="navbar-brand" href="#">PromovaCultura</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+              aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="./index.html">PromovaCultura</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="tela-mapa.html">Mapa</a></li>
-              <li><a href="funil.html">Funil</a></li>
+              <li>
+                <a href="tela-mapa.html">Mapa</a>
+              </li>
+              <li>
+                <a href="funil.html">Funil</a>
+              </li>
             </ul>
-            <form class="navbar-form navbar-right">
-              <input type="text" class="form-control" placeholder="Pesquisar">
-            </form>
           </div>
         </div>
     </nav>
@@ -81,14 +83,14 @@
         <output id="output"></output>
         <script>
           // https://jqueryui.com/slider/
-          $(function() {
+          $(function () {
             $("#slider-range").slider({
               orientation: "vertical",
               range: true,
               min: 1,
               max: 10,
               values: [2, 4],
-              slide: function(event, ui) {
+              slide: function (event, ui) {
                 myFunction(parseInt(ui.values[0]), parseInt(ui.values[1]));
               }
             });
@@ -102,7 +104,7 @@
 
           function myFunction(min, max) {
             var val = [min, max] //gets the oninput value
-            window.weight = (val.reduce((acc, curr) => acc + curr, 0))/(val.length);
+            window.weight = (val.reduce((acc, curr) => acc + curr, 0)) / (val.length);
             console.log(window.weight)
             document.getElementById('output').innerHTML = val //displays this value to the html page
             // console.log(val)
