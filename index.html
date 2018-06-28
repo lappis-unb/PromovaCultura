@@ -1,140 +1,175 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
 
 <head>
+
+    <!-- Meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Promova Cultura</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="promova-cultura/static/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="mapa/css/style.css" rel="stylesheet">
-    
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,800|Poppins:300,400,500,600,700" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/PromovaCultura/css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="./promova-cultura/static/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="./promova-cultura/static/slick/slick-theme.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
-    <style type="text/css">
-        .slick-prev:before,
-        .slick-next:before {
-            color: black;
-        }
-    </style>
+    <title>Biblioteca de protótipos</title>
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand" href="./index.html">Promova Cultura</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <div class="row">
-            <section class="center slider">
-                <div class="card">
-                    <a href="http://localhost:8080/#/controls">
-                        <img class="card-img-top" src="http://placehold.it/350x300?text=8" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+    <div class="prototype-library">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="mt-4 text-center">
+                        <h2 class="mb-0">Biblioteca de protótipos</h2>
+                        <p class="lead mb-0">Funcionalidades aplicadas em diferentes diagramações</p>
+                        <hr class="hr-home mt-4 mb-5">
+                    </div>
+                </div>
+
+                <!-- Card prototype -->
+                <div class="col-lg-4 col-md-6 sb-preview text-center">
+                    <div class="card">
+                        <div class="card-image">
+                            <a href="#">
+                                <img class="card-img-top" src="/PromovaCultura/images/thumbnail.png" alt="">
+                                <div class="button-view">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div class="card">
-                    <a href="./promova-cultura/vuejs.html">
-                    <img class="card-img-top" src="http://placehold.it/350x300?text=8" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                    </a>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/350x300?text=8" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/350x300?text=8" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/350x300?text=8" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/350x300?text=8" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/350x300?text=8" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="http://placehold.it/350x300?text=8" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </section>
-        </div><!-- /row -->
-    </div><!-- /container-->
 
-    <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-    <script src="./promova-cultura/static/slick/slick.js" type="text/javascript" charset="utf-8"></script>
+                        <div class="card-body">
+                            <h4 class="card-title">Mapa por Estado</h4>
+                            <p class="card-text">Breve descrição sobre o protótipo.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="./vuejs.html#/map_state" class="btn btn-secondary">Demonstração <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End card prototype -->
 
-    <script type="text/javascript">
-        $(document).on('ready', function () {
-            $('.center').slick({
-                centerMode: true,
-                centerPadding: '60px',
-                slidesToShow: 3,
-                autoplay: true,
-                autoplaySpeed: 2000,
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            arrows: false,
-                            centerMode: true,
-                            centerPadding: '40px',
-                            slidesToShow: 3
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                            arrows: false,
-                            centerMode: true,
-                            centerPadding: '40px',
-                            slidesToShow: 1
-                        }
-                    }
-                ]})
-            });
-    </script>
+                <!-- Card prototype -->
+                <div class="col-lg-4 col-md-6 sb-preview text-center">
+                    <div class="card">
+                        <div class="card-image">
+                            <a href="#">
+                                <img class="card-img-top" src="/PromovaCultura/images/thumbnail.png" alt="">
+                                <div class="button-view">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Mapa por Região</h4>
+                            <p class="card-text">Breve descrição sobre o protótipo.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="./vuejs.html#/map_region" class="btn btn-secondary">Demonstração <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End card prototype -->
+
+                <!-- Card prototype -->
+                <div class="col-lg-4 col-md-6 sb-preview text-center">
+                    <div class="card">
+                        <div class="card-image">
+                            <a href="#">
+                                <img class="card-img-top" src="/PromovaCultura/images/thumbnail.png" alt="">
+                                <div class="button-view">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Funil</h4>
+                            <p class="card-text">Breve descrição sobre o protótipo.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="./vuejs.html#/funil" class="btn btn-secondary">Demonstração <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End card prototype -->
+
+                <!-- Card prototype -->
+                <div class="col-lg-4 col-md-6 sb-preview text-center">
+                    <div class="card">
+                        <div class="card-image">
+                            <a href="#">
+                                <img class="card-img-top" src="/PromovaCultura/images/thumbnail.png" alt="">
+                                <div class="button-view">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Filtro de linguagem natural</h4>
+                            <p class="card-text">Breve descrição sobre o protótipo.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="./vuejs.html#/nl" class="btn btn-secondary">Demonstração <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End card prototype -->
+
+                <!-- Card prototype -->
+                <div class="col-lg-4 col-md-6 sb-preview text-center">
+                    <div class="card">
+                        <div class="card-image">
+                            <a href="#">
+                                <img class="card-img-top" src="/PromovaCultura/images/thumbnail.png" alt="">
+                                <div class="button-view">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Controle dos Filtros 1</h4>
+                            <p class="card-text">Breve descrição sobre o protótipo.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="./vuejs.html#/controls" class="btn btn-secondary">Demonstração <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End card prototype -->
+
+                <!-- Card prototype -->
+                <div class="col-lg-4 col-md-6 sb-preview text-center">
+                    <div class="card">
+                        <div class="card-image">
+                            <a href="#">
+                                <img class="card-img-top" src="/PromovaCultura/images/thumbnail.png" alt="">
+                                <div class="button-view">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title">Controle dos Filtros 2</h4>
+                            <p class="card-text">Breve descrição sobre o protótipo.Breve descrição sobre o protótipo.</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="" class="btn btn-secondary">Demonstração <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- End card prototype -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>
