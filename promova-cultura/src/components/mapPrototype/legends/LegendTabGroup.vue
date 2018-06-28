@@ -31,16 +31,17 @@ export default {
 };
 </script>
 
-<style>
-
+<style scoped>
+.legend-tabs .nav-link {
+    padding: 8px;
+}
 .legend-tabs {
    border-bottom: 0;
    padding-top:5px;
 }
 
 .legend-tabs li {
-    text-transform: uppercase;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .legend-tabs li a {

@@ -120,9 +120,7 @@
     }
 
     input.default:checked + .slider {
-        background-color: #6eff26;
-        -webkit-box-shadow: 1px 1px 5px 1px #6eff26;
-        box-shadow: 1px 1px 5px 1px #6eff26;
+        background-color: #333;
     }
 
     input:checked + .slider:before {

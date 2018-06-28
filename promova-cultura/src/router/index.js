@@ -5,8 +5,10 @@ import BrazilMapRegionPage from '@/pages/BrazilMapRegionPage'
 import FunilPage from '@/pages/FunilPage'
 import HomePage from '@/pages/HomePage'
 import NaturalLanguageFilterPage from '@/pages/NaturalLanguageFilterPage'
-import MapPage from '@/pages/MapPage'
-import MapPageByTotal from '@/components/mapPrototype/MapPageByTotal'
+import MapPage1 from '@/components/mapPrototype/layouts/1'
+import MapPage2 from '@/components/mapPrototype/layouts/2'
+import MapPage3 from '@/components/mapPrototype/layouts/3'
+import MapPage4 from '@/components/mapPrototype/layouts/4'
 
 Vue.use(Router)
 
@@ -38,14 +40,24 @@ export default new Router({
       component: NaturalLanguageFilterPage
     },
     {
-      path: '/controls',
-      name: 'MapPage',
-      component: MapPage
+      path: '/map-prototype-1',
+      name: 'MapPage1',
+      component: MapPage1
     },
     {
-      path: '/controls-by-total',
-      name: 'MapPageByTotal',
-      component: MapPageByTotal
-    }
+      path: '/map-prototype-2',
+      name: 'MapPage2',
+      component: MapPage2
+    },
+    {
+      path: '/map-prototype-3',
+      name: 'MapPage3',
+      component: MapPage3
+    },
+    {
+      path: '/map-prototype-4',
+      name: 'MapPage4',
+      component: MapPage4
+    },
   ]
 })
