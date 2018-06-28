@@ -9,44 +9,14 @@
     @showIncentivadores="showIncentivadores"
     @changeLevel="changeLevel"
 
-    :legendMobile="'card-vertical'"
-    :filterMobile="'modal'"
-    :legendDesktop="'tab'"
-    :filterDesktop="'card'"
+    :legendMobile="legendMobile"
+    :filterMobile="filterMobile"
+    :legendDesktop="legendDesktop"
+    :filterDesktop="filterDesktop"
  />
 </template>
 
 <script>
-/*
-    //Desktop filtro aberto e legenda em abas
-    //Mobile filtro modal e legenda abaixo do mapa na vertical
-    :legendMobile="'card-vertical'"
-    :filterMobile="'modal'"
-    :legendDesktop="'tab'"
-    :filterDesktop="'card'"
-
-    //Desktop filtro aberto e legenda com scroll vertical
-    //Mobile filtro modal e legenda modal com scroll vertical
-    :legendMobile="'modal'"
-    :filterMobile="'modal'"
-    :legendDesktop="'card-vertical-scroll'"
-    :filterDesktop="'card'"
-
-    //Desktop filtro fechado e legenda vertical
-    //Mobile filtro modal e legenda vertical
-    :legendMobile="'card-vertical'"
-    :filterMobile="'modal'"
-    :legendDesktop="'card-vertical'"
-    :filterDesktop="'collapsed'"
-
-    //Desktop filtro aberto e legenda horizontal
-    //Mobile filtro modal e legenda modal com scroll vertical
-    :legendMobile="'modal'"
-    :filterMobile="'modal'"
-    :legendDesktop="'horizontal'"
-    :filterDesktop="'card'"
-*/
-
 import fetchResource from "@/util/apiComunication.js";
 import Mapd2m1 from "@/components/mapPrototype/layouts/map-d2-m1"
 
@@ -54,6 +24,13 @@ export default {
   name: "ControlFilterBrazilMap",
   components: {
     "layout-d2-m1": Mapd2m1,
+  },
+  props: {
+    legendMobile: String,
+    filterMobile: String,
+    legendDesktop: String,
+    filterDesktop: String,
+    useMaxWithRanking: Boolean,
   },
   data() {
     return {
@@ -140,18 +117,25 @@ export default {
         fetchResource("incentivadores_por_regiao", this.tmp, this.selected);
       }
     },
-    getMaxByUF(data, type) {
+    getMaxByUF(data, type) { 
       const ufList = Object.keys(data);
-
-      const max = ufList.reduce((currentMax, uf) => {
-        if (data[uf] > currentMax) {
-          return data[uf];
-        } else {
-          return currentMax;
-        }
-      }, 0);
-
-      return max;
+      if(this.useMaxWithRanking){
+        const max = ufList.reduce((currentMax, uf) => {
+          if (data[uf] > currentMax) {
+            return data[uf];
+          } else {
+            return currentMax;
+          }
+        }, 0);
+        return max;
+      } else{
+        let max = 0;
+        Object.keys(data).forEach(uf => {
+          max += data[uf];
+        });
+        return max;
+      }
+      
     },
     generateLegends(){
       let imagesListP = [
@@ -168,16 +152,13 @@ export default {
         '@/../static/svg-icons/Investidores_LVL_4.svg',
         '@/../static/svg-icons/Investidores_LVL_5.svg'
       ]
-      this.legends.proponentes = this.getMapLegend(this.maxValues.proponentes, [0,10,20,40,80,100], imagesListP, true);
-      this.legends.incentivadores = this.getMapLegend(this.maxValues.incentivadores, [0,10,20,40,80,100], imagesListI, true);
+      this.legends.proponentes = this.getMapLegend(this.maxValues.proponentes, [0,5,10,20,35,100], imagesListP, true);
+      this.legends.incentivadores = this.getMapLegend(this.maxValues.incentivadores, [0,5,10,20,35,100], imagesListI, true);
       this.legends.heatMap = this.getMapLegend(this.maxValues.projects);
-
     },
     getMapLegend(maxValue, percentList=[], colorList=[], isImage=false){
         let legends = []
-        //let percents = percentList.length == 0 ? [0,0,7,25,60,100] : percentList;
-        let percents = percentList.length == 0 ? [0,0,3,7,25,60,80,100] : percentList;
-        //let colors = colorList.length == 0 ? ["#efe8c6","#daf39d","#b8e844", "#8db824", "#66861a"] : colorList;
+        let percents = percentList.length == 0 ? [0,0,1,5,10,20,35,100] : percentList;
         let colors = colorList.length == 0 ? ["#efe8c6","#daf39d","#b8e844", "#8db824", "#66861a", "#4d6513", "#2c380e"] : colorList;
 
         for(let i = 0; i < percents.length-1; i++){
