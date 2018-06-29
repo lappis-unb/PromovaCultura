@@ -10,6 +10,7 @@
 <script>
 import $ from "jquery";
 import "@/../static/jsmaps/brazil_region.js";
+import mapActions from '@/util/map-actions';
 
 // Keep a clean copy o JSMaps.maps. Please never overwrite it
 
@@ -41,20 +42,40 @@ export default {
     // console.log("regiao")
     this.maps = { ...window.JSMaps.maps };
 
-    this.displayBrazilMap();
-    this.darkenAllMap();
+    mapActions.displayBrazilMap("brazil_region");
+    // this.displayBrazilMap();
+    mapActions.darkenAllMap(this.maps.brazil_region);
+    // this.darkenAllMap();
   },
 
   beforeUpdate() {
-    this.darkenAllMap();
-    this.makeHeatMap();
+    mapActions.darkenAllMap(this.maps.brazil_region);
+    // this.darkenAllMap();
+    mapActions.makeHeatMap(this.maps, this.maps.brazil_region, this.projects, this.legends);
 
-    this.setProponentesPins();
-    this.setIncentivadoresPins();
+    // this.makeHeatMap();
+
+    mapActions.setProponentesPins(
+      this.maps,
+      this.maps.brazil_region,
+      this.legends,
+      this.basePinData,
+      this.proponentes
+    );
+
+    mapActions.setIncentivadoresPins(
+      this.incentivadores,
+      this.maps,
+      this.maps.brazil_region,
+      this.legends,
+      this.basePinData,
+    );
+    // this.setProponentesPins();
+    // this.setIncentivadoresPins();
   },
 
   methods: {
-
+    /*
     displayBrazilMap() {
       $("#brazil-map").JSMaps({
         map: "brazil_region",
@@ -64,7 +85,9 @@ export default {
         }
       });
     },
+    */
 
+    /*
     darkenAllMap() {
       for (let path of this.maps.brazil_region.paths) {
         path.color = "#efe8c6";
@@ -74,6 +97,7 @@ export default {
 
       $("#brazil-map").trigger("reDraw", this.maps);
     },
+    */
 
     getColorBylegend(qtd, maplegend) {
       var colorSub;
@@ -85,32 +109,33 @@ export default {
       return colorSub;
     },
 
-    makeHeatMap() {
-      const localsList = Object.keys(this.projects);
+    // makeHeatMap() {
+    //   const localsList = Object.keys(this.projects);
 
-      if (localsList.length === 0) {
-        console.log("Projects is empty, nothing to heat");
-        return;
-      }
+    //   if (localsList.length === 0) {
+    //     console.log("Projects is empty, nothing to heat");
+    //     return;
+    //   }
 
-      localsList.forEach(local => {
-        let numberOfProjects = this.projects[local];
+    //   localsList.forEach(local => {
+    //     let numberOfProjects = this.projects[local];
 
-        for (let path of this.maps.brazil_region.paths) {
-          if (path.abbreviation === local) {
-            let stateColor = this.getColorBylegend(numberOfProjects, this.legends.heatMap);
+    //     for (let path of this.maps.brazil_region.paths) {
+    //       if (path.abbreviation === local) {
+    //         let stateColor = this.getColorBylegend(numberOfProjects, this.legends.heatMap);
 
-            path.color = stateColor;
-            path.hoverColor = stateColor;
-            path.selectedColor = stateColor;
+    //         path.color = stateColor;
+    //         path.hoverColor = stateColor;
+    //         path.selectedColor = stateColor;
 
-            break;
-          }
-        }
-      });
-      $("#brazil-map").trigger("reDraw", this.maps);
-    },
+    //         break;
+    //       }
+    //     }
+    //   });
+    //   $("#brazil-map").trigger("reDraw", this.maps);
+    // },
 
+    /*
     setProponentesPins() {
       const localsList = Object.keys(this.proponentes);
 
@@ -145,41 +170,42 @@ export default {
 
       $("#brazil-map").trigger("reDraw", this.maps);
     },
+    */
 
-    setIncentivadoresPins() {
-      const localsList = Object.keys(this.incentivadores);
+    // setIncentivadoresPins() {
+    //   const localsList = Object.keys(this.incentivadores);
 
-      if (!this.maps.pins) {
-        this.maps.pins = [];
-      }
+    //   if (!this.maps.pins) {
+    //     this.maps.pins = [];
+    //   }
 
-      this.maps.pins = this.maps.pins.filter(pin => pin.type !== "investidor");
+    //   this.maps.pins = this.maps.pins.filter(pin => pin.type !== "investidor");
 
-      if (localsList.length === 0) { // incentivadores is empty, no need to display it's pins
-        $("#brazil-map").trigger("reDraw", this.maps);
-        return;
-      }
+    //   if (localsList.length === 0) { // incentivadores is empty, no need to display it's pins
+    //     $("#brazil-map").trigger("reDraw", this.maps);
+    //     return;
+    //   }
 
-      localsList.forEach(local => {
-        for (let path of this.maps.brazil_region.paths) {
-          if (path.abbreviation === local) {
-            const pin = {
-              ...this.basePinData,
-              xPos: path.textX + 10,
-              yPos: path.textY,
-              name: `${local}: ${this.incentivadores[local]}`,
-              src: this.getColorBylegend(this.incentivadores[local], this.legends.incentivadores),
-              type: 'investidor',
-            };
+    //   localsList.forEach(local => {
+    //     for (let path of this.maps.brazil_region.paths) {
+    //       if (path.abbreviation === local) {
+    //         const pin = {
+    //           ...this.basePinData,
+    //           xPos: path.textX + 10,
+    //           yPos: path.textY,
+    //           name: `${local}: ${this.incentivadores[local]}`,
+    //           src: this.getColorBylegend(this.incentivadores[local], this.legends.incentivadores),
+    //           type: 'investidor',
+    //         };
 
-            this.maps.pins.push(pin);
-            break; // The is no need to continue if the UF was found
-          }
-        }
-      });
+    //         this.maps.pins.push(pin);
+    //         break; // The is no need to continue if the UF was found
+    //       }
+    //     }
+    //   });
 
-      $("#brazil-map").trigger("reDraw", this.maps);
-    }
+    //   $("#brazil-map").trigger("reDraw", this.maps);
+    // }
   }
 };
 </script>
