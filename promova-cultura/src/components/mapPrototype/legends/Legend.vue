@@ -1,15 +1,15 @@
 <template>
 <div>
-    <ul class="legend-list" v-if="dataLegend.length && dataLegend[0].image">
-        <li v-for="data in dataLegend" :key="data.color">
-            <img class="legend-color" :src="data.color"/>
+    <ul class="legend-list" v-if="dataLegend.length!=0">
+        <li v-for="data in dataLegend" :key="data.color" v-if="data.max != 0">
+            <img class="legend-color" :src="data.color" v-if="dataLegend[0].image"/>
+            <div class="legend-color" :style="'background:'+ data.color" v-else></div>
             <span>{{data.min}} até {{data.max}}</span>
         </li>
     </ul>
     <ul class="legend-list" v-else>
-        <li v-for="data in dataLegend" :key="data.color">
-            <div class="legend-color" :style="'background:'+ data.color"></div>
-            <span>{{data.min}} até {{data.max}}</span>
+        <li>
+            <span>Não há informações</span>
         </li>
     </ul>
 </div>
