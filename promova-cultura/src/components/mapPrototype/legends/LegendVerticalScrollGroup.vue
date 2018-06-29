@@ -1,6 +1,6 @@
 <template>
     <div class="legend-group-scroll">
-        <legend-vertical-group :legends="legends"/>
+        <legend-vertical-group :legends="legends" :filtersActivate="filtersActivate"/>
     </div>
 </template>
 
@@ -9,6 +9,7 @@ import LegendVerticalGroup from "@/components/mapPrototype/legends/LegendVertica
 export default {
     props: {
         legends: Object,
+        filtersActivate: Object,
     },
     components: {
         "legend-vertical-group": LegendVerticalGroup, 

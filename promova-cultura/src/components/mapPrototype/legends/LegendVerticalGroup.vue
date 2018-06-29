@@ -4,11 +4,11 @@
             <h3>Projetos</h3>
             <base-legend :dataLegend="legends.heatMap" />
         </div>
-        <div class="legend-item">
+        <div class="legend-item" v-if="filtersActivate.proponentes">
             <h3>Proponentes</h3>
             <base-legend :dataLegend="legends.proponentes" />
         </div>
-        <div class="legend-item">
+        <div class="legend-item" v-if="filtersActivate.incentivadores">
             <h3>Incentivadores</h3>
             <base-legend :dataLegend="legends.incentivadores" />
         </div>
@@ -20,6 +20,7 @@ import Legend from "@/components/mapPrototype/legends/Legend";
 export default {
     props: {
         legends: Object,
+        filtersActivate: Object,
     },
     components: {
         "base-legend": Legend, 
