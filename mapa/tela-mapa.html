@@ -37,31 +37,40 @@
 
 <body>
     <header>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">PromovaCultura</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="tela-mapa.html">Mapa</a></li>
-                    <li><a href="funil.html">Funil</a></li>
-                    <li><a href="tela-mapa-heat-uf.html">Mapa de Calor (UF)</a></li>
-                    <li><a href="tela-mapa-heat-group.html">Mapa de Calor (Região)</a></li>
-                </ul>
-                <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Pesquisar">
-                </form>
-        </div>
-        </div>
-    </nav>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                            aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">PromovaCultura</a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="tela-mapa.html">Mapa</a>
+                            </li>
+                            <li>
+                                <a href="funil.html">Funil</a>
+                            </li>
+                            <li>
+                                <a href="tela-mapa-heat-uf.html">Mapa de Calor (UF)</a>
+                            </li>
+                            <li>
+                                <a href="tela-mapa-heat-group.html">Mapa de Calor (Região)</a>
+                            </li>
+                        </ul>
+                        <form class="navbar-form navbar-right">
+                            <input type="text" class="form-control" placeholder="Pesquisar">
+                        </form>
+                    </div>
+                </div>
+        </nav>
     </header>
 
     <div class="container">
@@ -109,63 +118,65 @@
 
                 <div class="content">
 
-                        <form id="nl-form" class="nl-form">
-                                Eu quero ver
-                                <select>
-                                    <option value="1" selected>de onde vieram</option>
-                                    <option value="2">onde aconteceram</option>
-                                    <option value="3">onde estão os proponentes com </option>
-                                    <option value="4">de onde veio o incentivo para </option>
-                                    <option value="2">onde estão os fornecedores envolvidos com</option>
-                                </select>
-                                <select>
-                                    <option value="1" selected>projetos aceitos</option>
-                                    <option value="2">propostas de projeto</option>
-                                </select>
-                                de
-                                <select>
-                                    <option value="1" selected>todos os tipos</option>
-                                     <option value="2">jogos</option>
-                                     <option value="3">livros</option>
-                                     <option value="4">música</option>
-                                     <option value="5">teatro</option>
-                                </select>
-                                que
-                                <select>
-                                    <option value="1" selected>foram cadastrados(as)</option>
-                                     <option value="2">estão em análise de admissão</option>
-                                     <option value="3">foram aceitas</option>
-                                     <option value="4">foram rejeitadas</option>
-                                     <option value="5">serão executados</option>
-                                     <option value="6">concluíram a execução</option>
-                                     <option value="7">estão em análise de resultado</option>
-                                     <option value="8">tiveram resultados totalmente aprovados</option>
-                                     <option value="9">tiveram resultados totalmente reprovados</option>
-                                     <option value="10">tiveram resultados aprovados com ressalvas</option>
-                                     <option value="11">estão em tomada de contas</option>
-                                </select>
-                                em
-                                <input type="text" value="" placeholder="qualquer momento" data-subline="Insira um ano"/>
-                                <div class="nl-submit-wrap">
-                                    <button class="nl-submit" type="submit" onclick="filter(this.value)">Mostre</button>
-                                </div>
-                                <div class="nl-overlay"></div>
-                            </form>
+                    <form id="nl-form" class="nl-form">
+                        Eu quero ver
+                        <select>
+                            <option value="1" selected>de onde vieram</option>
+                            <option value="2">onde aconteceram</option>
+                            <option value="3">onde estão os proponentes com </option>
+                            <option value="4">de onde veio o incentivo para </option>
+                            <option value="2">onde estão os fornecedores envolvidos com</option>
+                        </select>
+                        <select>
+                            <option value="1" selected>projetos aceitos</option>
+                            <option value="2">propostas de projeto</option>
+                        </select>
+                        de
+                        <select>
+                            <option value="1" selected>todos os tipos</option>
+                            <option value="2">jogos</option>
+                            <option value="3">livros</option>
+                            <option value="4">música</option>
+                            <option value="5">teatro</option>
+                        </select>
+                        que
+                        <select>
+                            <option value="1" selected>foram cadastrados(as)</option>
+                            <option value="2">estão em análise de admissão</option>
+                            <option value="3">foram aceitas</option>
+                            <option value="4">foram rejeitadas</option>
+                            <option value="5">serão executados</option>
+                            <option value="6">concluíram a execução</option>
+                            <option value="7">estão em análise de resultado</option>
+                            <option value="8">tiveram resultados totalmente aprovados</option>
+                            <option value="9">tiveram resultados totalmente reprovados</option>
+                            <option value="10">tiveram resultados aprovados com ressalvas</option>
+                            <option value="11">estão em tomada de contas</option>
+                        </select>
+                        em
+                        <input type="text" value="" placeholder="qualquer momento" data-subline="Insira um ano" />
+                        <div class="nl-submit-wrap">
+                            <button class="nl-submit" type="submit" onclick="filter(this.value)">Mostre</button>
+                        </div>
+                        <div class="nl-overlay"></div>
+                    </form>
 
 
                 </div>
 
 
             </div>
-        </div> <!-- /row -->
-    </div> <!-- /container-->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container-->
 
     <script type="text/javascript">
         var listOfUfs;
-        $.get('http://api.salic.cultura.gov.br/v1/projetos/?limit=100', function(data) {
+        $.get('http://api.salic.cultura.gov.br/v1/projetos/?limit=100', function (data) {
             var ufs = [];
             var projetos = data._embedded.projetos
-            for(i=0; i<projetos.length; i++){
+            for (i = 0; i < projetos.length; i++) {
                 ufs.push(projetos[i].UF)
             }
 
@@ -173,11 +184,11 @@
             console.log(listOfUfs)
         })
 
-        $(function() {
+        $(function () {
             $('#brazil-map').JSMaps({
                 map: 'brazil',
                 stateClickAction: 'none',
-                onStateClick: function(data){
+                onStateClick: function (data) {
                     console.log(data.abbreviation)
                     result = listOfUfs[data.abbreviation] == undefined ? 0 : listOfUfs[data.abbreviation]
                     $('.content')[0].textContent = "Quantidade de projetos de " + data.name + ": " + result
@@ -212,7 +223,7 @@
                     {
                         enable: true,
                         name: "Sul",
-                        members: ["Rio Grande do Sul", "Santa Catarina", "Paraná" ],
+                        members: ["Rio Grande do Sul", "Santa Catarina", "Paraná"],
                         color: "#80d492",
                         hoverColor: "#80d492",
                         text: "Beireleibe"
@@ -220,7 +231,7 @@
                     {
                         enable: true,
                         name: "Nordeste",
-                        members: ["Maranhão", "Piauí", "Pernambuco", "Ceará", "Rio Grande do Norte", "Paraíba", "Alagoas", "Sergipe", "Bahia" ],
+                        members: ["Maranhão", "Piauí", "Pernambuco", "Ceará", "Rio Grande do Norte", "Paraíba", "Alagoas", "Sergipe", "Bahia"],
                         color: "#e3ec54",
                         hoverColor: "#e3ec54",
                         text: "Beireleibe"
@@ -229,7 +240,7 @@
             });
         });
 
-        function selectCombo(e){
+        function selectCombo(e) {
             $('#brazil-map').trigger('stateClick', e)
             result = listOfUfs[e] == undefined ? 0 : listOfUfs[e]
             $('.content')[0].textContent = "Quantidade de projetos de " + e + ": " + result
@@ -242,4 +253,5 @@
         }
     </script>
 </body>
+
 </html>

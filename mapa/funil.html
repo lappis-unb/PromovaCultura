@@ -8,6 +8,7 @@
   <title>Protótipos - Mapa</title>
 
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap2.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,800|Poppins:300,400,500,600,700" rel="stylesheet">
@@ -31,89 +32,91 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
   <script src="js/d3-funnel.js"></script>
   <script src="js/chart.funnel.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
   <!-- Slider -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.js"></script>
 
   <style>
-    #output{visibility: hidden;}
+    #output {
+      visibility: hidden;
+    }
 
-      #slider-range{
-          margin: 48px 24px 0;
-      }
+    #slider-range {
+      margin: 48px 24px 0;
+    }
 
-      #slider-range.vertical{
-          margin: 0;
-      }
+    #slider-range.vertical {
+      margin: 0;
+    }
 
-      .ui-slider-handle-label {
-          position: relative;
-          padding: 8px 16px;
-          top: -48px;
-          left: -12px;
-          background: coral;
-          border-radius: .4em;
-      }
-      .ui-slider-handle-label:after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          width: 0;
-          height: 0;
-          border: 8px solid transparent;
-          border-top-color: coral;
-          border-bottom: 0;
-          margin-left: -8px;
-          margin-bottom: -8px;
-      }
+    .ui-slider-handle-label {
+      position: relative;
+      padding: 8px 16px;
+      top: -48px;
+      left: -12px;
+      background: coral;
+      border-radius: .4em;
+    }
 
-      .vertical .ui-slider-handle-label {
-          padding: 8px 12px;
-          top: 0;
-          left: -48px;
-      }
+    .ui-slider-handle-label:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border: 8px solid transparent;
+      border-top-color: coral;
+      border-bottom: 0;
+      margin-left: -8px;
+      margin-bottom: -8px;
+    }
 
-      .vertical #ui-slider-handle-label-1:after {
-          content: '';
-          position: absolute;
-          right: 0;
-          left: 0;
-          top: 50%;
-          width: 0;
-          height: 0;
-          border: none;
-          border: 8px solid transparent;
-          border-left-color: coral;
-          border-right: 0;
-          margin: auto;
-          margin-top: -8px;
-          margin-right: -8px;
-      }
+    .vertical .ui-slider-handle-label {
+      padding: 8px 12px;
+      top: 0;
+      left: -48px;
+    }
+
+    .vertical #ui-slider-handle-label-1:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 0;
+      border: none;
+      border: 8px solid transparent;
+      border-left-color: coral;
+      border-right: 0;
+      margin: auto;
+      margin-top: -8px;
+      margin-right: -8px;
+    }
 
 
-      .vertical #ui-slider-handle-label-2{
-          left: 32px;
-      }
+    .vertical #ui-slider-handle-label-2 {
+      left: 32px;
+    }
 
-      .vertical #ui-slider-handle-label-2:after{
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 50%;
-          width: 0;
-          height: 0;
-          border: none;
-          border: 8px solid transparent;
-          border-right-color: coral;
-          border-left: 0;
-          margin-top: -8px;
-          margin-left: -8px;
-      }
-
-    </style>
+    .vertical #ui-slider-handle-label-2:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 0;
+      border: none;
+      border: 8px solid transparent;
+      border-right-color: coral;
+      border-left: 0;
+      margin-top: -8px;
+      margin-left: -8px;
+    }
+  </style>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -125,30 +128,14 @@
 
 <body>
   <header>
-    <nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-            <a class="navbar-brand" href="#">PromovaCultura</a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                  <li><a href="tela-mapa.html">Mapa</a></li>
-                  <li><a href="funil.html">Funil</a></li>
-                  <li><a href="tela-mapa-heat-uf.html">Mapa de Calor (UF)</a></li>
-                  <li><a href="tela-mapa-heat-group.html">Mapa de Calor (Região)</a></li>
-              </ul>
-            <form class="navbar-form navbar-right">
-              <input type="text" class="form-control" placeholder="Pesquisar">
-            </form>
-          </div>
-        </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div style="margin-left:10%">
+        <a href="https://lappis-unb.github.io/PromovaCultura/">Promova Cultura</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
     </nav>
   </header>
 
@@ -169,9 +156,9 @@
   <script src="js/pgwslideshow.min.js"></script>
   <script>
     // https://jqueryui.com/slider/
-    $(function() {
+    $(function () {
       width = $(window).width();
-      if(width > 768){
+      if (width > 768) {
         $("#slider-range").addClass("vertical");
       }
 
@@ -179,29 +166,29 @@
         orientation: "vertical",
       })
       $("#slider-range").slider({
-       // orientation: "vertical",
+        // orientation: "vertical",
         range: true,
         min: 1,
         max: 10,
         values: [1, 10],
-        slide: function(event, ui) {
+        slide: function (event, ui) {
           myFunction(parseInt(ui.values[0]), parseInt(ui.values[1]));
 
-            var handle1 = $(this).children('.ui-slider-handle').first();
+          var handle1 = $(this).children('.ui-slider-handle').first();
 
-            if(handle1.children().length <= 0){
-                handle1.append("<span class='ui-slider-handle-label' id='ui-slider-handle-label-1'>" + ui.values[0] + "</span>");
-            }else{
-                $("#ui-slider-handle-label-1").text(ui.values[0]);
-            }
+          if (handle1.children().length <= 0) {
+            handle1.append("<span class='ui-slider-handle-label' id='ui-slider-handle-label-1'>" + ui.values[0] + "</span>");
+          } else {
+            $("#ui-slider-handle-label-1").text(ui.values[0]);
+          }
 
-            var handle2 = $(this).children('.ui-slider-handle').last();
+          var handle2 = $(this).children('.ui-slider-handle').last();
 
-            if(handle2.children().length <= 0){
-                handle2.append("<span class='ui-slider-handle-label' id='ui-slider-handle-label-2'>" + ui.values[1] + "</span>");
-            }else{
-                $("#ui-slider-handle-label-2").text(ui.values[1]);
-            }
+          if (handle2.children().length <= 0) {
+            handle2.append("<span class='ui-slider-handle-label' id='ui-slider-handle-label-2'>" + ui.values[1] + "</span>");
+          } else {
+            $("#ui-slider-handle-label-2").text(ui.values[1]);
+          }
 
         }
       });
@@ -214,7 +201,7 @@
 
     function myFunction(min, max) {
       var val = [min, max] //gets the oninput value
-      window.weight = (val.reduce((acc, curr) => acc + curr, 0))/(val.length);
+      window.weight = (val.reduce((acc, curr) => acc + curr, 0)) / (val.length);
       console.log(window.weight)
       document.getElementById('output').innerHTML = val //displays this value to the html page
       // console.log(val)
@@ -259,7 +246,7 @@
     };
     window.chart_data = data;
     console.log(window.chart_data.datasets[0].data)
-		fontSize = (executados/projetos) * canvas.width;
+    fontSize = (executados / projetos) * canvas.width;
 
     var myChart = new Chart(ctx, {
       type: 'funnel',
@@ -267,24 +254,24 @@
       options: {
         responsive: true,
         legend: {
-            display: false,
+          display: false,
         },
-          tooltips:{
-					enabled: false,
-				},
+        tooltips: {
+          enabled: false,
+        },
         topWidth: fontSize,
         //bottomWidth: 1000,
         sort: "desc",
-				plugins: {
-					datalabels:{
-                        anchor: 'center',
-						align: 'center',
-						color:'#FFFFFF',
-						font: {
-							size: 50
-						}
-					}
-				}
+        plugins: {
+          datalabels: {
+            anchor: 'center',
+            align: 'center',
+            color: '#FFFFFF',
+            font: {
+              size: 50
+            }
+          }
+        }
       }
     });
   </script>
