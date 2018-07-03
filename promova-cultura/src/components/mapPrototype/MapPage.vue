@@ -13,6 +13,7 @@
     :filterMobile="filterMobile"
     :legendDesktop="legendDesktop"
     :filterDesktop="filterDesktop"
+    :filtersActivate="filtersActivate"
  />
 </template>
 
@@ -38,6 +39,10 @@ export default {
         projects: {},
         proponentes: {},
         incentivadores: {},
+      },
+      filtersActivate: {
+        proponentes: false,
+        incentivadores: false
       },
       maxValues: {
         projects: 0,
@@ -92,6 +97,7 @@ export default {
       fetchResource("incentivadores_por_uf", this.tmp, this.selected);
     },
     showProponentes(show){
+      this.filtersActivate.proponentes = show;
       if (show) {
         this.data.proponentes=this.tmp.proponentes;
       } else {
@@ -99,6 +105,7 @@ export default {
       }
     },
     showIncentivadores(show){
+      this.filtersActivate.incentivadores = show;
       if (show) {
         this.data.incentivadores=this.tmp.incentivadores;
       } else {

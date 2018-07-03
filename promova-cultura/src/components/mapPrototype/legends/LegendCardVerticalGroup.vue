@@ -2,7 +2,7 @@
     <div class="card">
         <legend class="card-header">Legendas</legend>
         <div class="card-body">
-            <legend-vertical-group :legends="legends"/>
+            <legend-vertical-group :legends="legends" :filtersActivate="filtersActivate"/>
         </div>
     </div>
 </template>
@@ -12,6 +12,7 @@ import LegendVerticalGroup from "@/components/mapPrototype/legends/LegendVertica
 export default {
     props: {
         legends: Object,
+        filtersActivate: Object,
     },
     components: {
         "legend-vertical-group": LegendVerticalGroup,

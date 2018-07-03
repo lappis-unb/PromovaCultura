@@ -7,19 +7,19 @@
                     <div class="col-md-4">
                         <div class="card-content">
                             <h3>Projetos</h3>    
-                            <base-legend :dataLegend="legends.heatMap" />
+                            <base-legend :dataLegend="legends.heatMap" :typeOfData="'projetos'" />
                         </div>
                     </div>    
-                    <div class="col-md-4">
+                    <div class="col-md-4" v-if="filtersActivate.proponentes">
                         <div class="card-content">
                             <h3>Proponentes</h3>    
-                            <base-legend :dataLegend="legends.proponentes" />
+                            <base-legend :dataLegend="legends.proponentes" :typeOfData="'proponentes'" />
                         </div>
                     </div> 
-                    <div class="col-md-4">
+                    <div class="col-md-4" v-if="filtersActivate.incentivadores">
                         <div class="card-content">
                             <h3>Incentivadores</h3>    
-                            <base-legend :dataLegend="legends.incentivadores" />
+                            <base-legend :dataLegend="legends.incentivadores" :typeOfData="'incentivadores'" />
                         </div>
                     </div>
                 </div>
@@ -34,6 +34,7 @@ import Legend from "@/components/mapPrototype/legends/Legend";
 export default {
     props: {
         legends: Object,
+        filtersActivate: Object
     },
     components: {
         "base-legend": Legend, 

@@ -31,13 +31,16 @@
               
               <legend-card-vertical-scroll-group
                 :legends="legends" 
-                v-if="legendDesktop=='card-vertical-scroll'"/>
+                v-if="legendDesktop=='card-vertical-scroll'"
+                :filtersActivate="filtersActivate"/>
               <legend-card-vertical-group
                 :legends="legends"
-                v-if="legendDesktop=='card-vertical'"/>
+                v-if="legendDesktop=='card-vertical'"
+                :filtersActivate="filtersActivate"/>
               <legend-tab 
                 :legends="legends"
-                v-if="legendDesktop=='tab'"/>
+                v-if="legendDesktop=='tab'"
+                :filtersActivate="filtersActivate"/>
             </div>
             <div class="d-lg-none"> <!-- Shows in mobile Hides in desktop platform -->
               <card-filters 
@@ -55,26 +58,29 @@
               
               <legend-card-vertical-scroll-group
                 :legends="legends" 
-                v-if="legendMobile=='card-vertical-scroll'"/>
+                v-if="legendMobile=='card-vertical-scroll'"
+                :filtersActivate="filtersActivate"/>
               <legend-card-vertical-group
                 :legends="legends"
-                v-if="legendMobile=='card-vertical'"/>
+                v-if="legendMobile=='card-vertical'"
+                :filtersActivate="filtersActivate"/>
               <legend-tab 
                 :legends="legends"
+                :filtersActivate="filtersActivate"
                 v-if="legendMobile=='tab'"/>
             </div>
         </div>
         <modal-filters @updatedSegment="updateSegment" @showProponentes="showProponentes" @showIncentivadores="showIncentivadores" @changeLevel="changeLevel" />
-        <legend-modal :legends="legends"/>
+        <legend-modal :legends="legends" :filtersActivate="filtersActivate"/>
     </div>
     <div class="row">
         <div class="col-lg-12">
           <div class="d-none d-lg-block"> <!-- Shows in desktop Hides in mobile platform -->
-            <legend-horizontal :legends="legends"
+            <legend-horizontal :legends="legends" :filtersActivate="filtersActivate"
             v-if="legendDesktop=='horizontal'"/>
           </div>
           <div class="d-lg-none"> <!-- Shows in mobile Hides in desktop platform -->
-            <legend-horizontal :legends="legends"
+            <legend-horizontal :legends="legends" :filtersActivate="filtersActivate"
             v-if="legendMobile=='horizontal'"/>
           </div>
           
@@ -105,6 +111,7 @@ export default {
       legendMobile: String,
       filterDesktop: String,
       filterMobile: String,
+      filtersActivate: Object
   },
   components: {
     "brazil-map": BrazilMap,

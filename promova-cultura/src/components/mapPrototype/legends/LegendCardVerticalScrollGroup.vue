@@ -2,7 +2,7 @@
     <div class="card">
         <legend class="card-header">Legendas</legend>
         <div class="card-body">
-            <legend-vertical-scroll-group :legends="legends"/>
+            <legend-vertical-scroll-group :legends="legends" :filtersActivate="filtersActivate"/>
         </div>
     </div>
 </template>
@@ -12,6 +12,7 @@ import LegendVerticalScrollGroup from "@/components/mapPrototype/legends/LegendV
 export default {
     props: {
         legends: Object,
+        filtersActivate: Object,
     },
     components: {
         "legend-vertical-scroll-group": LegendVerticalScrollGroup, 

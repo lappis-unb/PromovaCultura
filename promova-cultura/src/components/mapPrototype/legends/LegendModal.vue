@@ -10,7 +10,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <legend-vertical-scroll-group :legends="legends" />
+                    <legend-vertical-scroll-group :legends="legends" :filtersActivate="filtersActivate"/>
                 </div>
             </div>
         </div>
@@ -22,6 +22,7 @@ import LegendVerticalScrollGroup from "@/components/mapPrototype/legends/LegendV
 export default {
     props: {
         legends: {},
+        filtersActivate: Object,
     },
     components: {
         "legend-vertical-scroll-group": LegendVerticalScrollGroup,
