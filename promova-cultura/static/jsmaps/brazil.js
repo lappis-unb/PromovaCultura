@@ -1,4 +1,5 @@
 window.JSMaps.maps.brazil = {
+	"name":"brazil",
 	"config": {
 		"mapWidth": 612.5,
 		"mapHeight": 639.03,

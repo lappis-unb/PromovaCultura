@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import BrazilMap from "@/components/mapPrototype/Map";
+import BrazilMap from "@/components/mapPrototype/MapSwitch";
 import CardFilters from "@/components/mapPrototype/filters/CardFilters"
 import ModalFilters from "@/components/mapPrototype/filters/ModalFilters"
 import CollapsedFilters from "@/components/mapPrototype/filters/CollapsedFilter"

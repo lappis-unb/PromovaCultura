@@ -10,8 +10,6 @@ function displayBrazilMap(mapType) {
       console.log(data);
     }
   });
-
-  console.log("Map printed");
 }
 
 function darkenAllMap(brazilMap) {
@@ -21,20 +19,23 @@ function darkenAllMap(brazilMap) {
     state.selectedColor = "#efe8c6";
   }
 
-  $("#brazil-map").trigger("reDraw", this.maps);
+  $("#brazil-map").trigger("reDraw", brazilMap);
 }
 
 function getColorBylegend(qtd, maplegend) {
-  var colorSub;
-  maplegend.forEach((sub) => {
-    if(sub.min < qtd && qtd < sub.max+10){
-      colorSub = sub.color;
+  let colorSub;
+
+  for (let i = 0; maplegend.length; ++i) {
+    if(maplegend[i].min < qtd && qtd < maplegend[i].max+10){
+      colorSub = maplegend[i].color;
+      break;
     }
-  })
+  }
+
   return colorSub;
 }
 
-function makeHeatMap(maps, brazilMap, projects, legends) {
+function makeHeatMap(brazilMap, projects, legends) {
     const localList = Object.keys(projects);
 
     if (localList.length === 0) {
@@ -56,7 +57,7 @@ function makeHeatMap(maps, brazilMap, projects, legends) {
         }
       }
     });
-    $("#brazil-map").trigger("reDraw", maps);
+    $("#brazil-map").trigger("reDraw", brazilMap);
 }
 
 function setProponentesPins(maps, brazilMap, legends, basePinData, proponentes) {
@@ -67,9 +68,6 @@ function setProponentesPins(maps, brazilMap, legends, basePinData, proponentes) 
   }
 
   maps.pins = maps.pins.filter(pin => pin.type !== "proponente");
-
-  console.log("LOCAL LIST");
-  console.log(localList);
 
   if (localList.length === 0) { //proponentes is empty, no need to display it's pins
     $("#brazil-map").trigger("reDraw", maps);
