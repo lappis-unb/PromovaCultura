@@ -92,9 +92,17 @@ export default {
       this.fetchAllResources();
     },
     fetchAllResources(){
-      fetchResource("projetos_por_uf", this.tmp, this.selected);
-      fetchResource("proponentes_por_uf", this.tmp, this.selected);
-      fetchResource("incentivadores_por_uf", this.tmp, this.selected);
+      console.log(`Fetching API.\nLEVEL: ${this.level}\nSEGMENT: ${this.selected}`);
+
+      if (this.level === "UF") {
+        fetchResource("projetos_por_uf", this.tmp, this.selected);
+        fetchResource("proponentes_por_uf", this.tmp, this.selected);
+        fetchResource("incentivadores_por_uf", this.tmp, this.selected);
+      } else {
+        fetchResource("projetos_por_regiao", this.tmp, this.selected);
+        fetchResource("proponentes_por_regiao", this.tmp, this.selected);
+        fetchResource("incentivadores_por_regiao", this.tmp, this.selected);
+      }
     },
     showProponentes(show){
       this.filtersActivate.proponentes = show;
@@ -113,19 +121,12 @@ export default {
       }
     },
     changeLevel(level){
-      this.level = level
-      if(level == "UF"){
-        fetchResource("projetos_por_uf", this.tmp, this.selected);
-        fetchResource("proponentes_por_uf", this.tmp, this.selected);
-        fetchResource("incentivadores_por_uf", this.tmp, this.selected);
-      }else{
-        fetchResource("projetos_por_regiao", this.tmp, this.selected);
-        fetchResource("proponentes_por_regiao", this.tmp, this.selected);
-        fetchResource("incentivadores_por_regiao", this.tmp, this.selected);
-      }
+      this.level = level;
+      this.fetchAllResources();
     },
-    getMaxByUF(data, type) { 
+    getMaxByUF(data, type) {
       const ufList = Object.keys(data);
+
       if(this.useMaxWithRanking){
         const max = ufList.reduce((currentMax, uf) => {
           if (data[uf] > currentMax) {
@@ -135,14 +136,15 @@ export default {
           }
         }, 0);
         return max;
-      } else{
+
+      } else {
         let max = 0;
         Object.keys(data).forEach(uf => {
           max += data[uf];
         });
+
         return max;
       }
-      
     },
     generateLegends(){
       let imagesListP = [
