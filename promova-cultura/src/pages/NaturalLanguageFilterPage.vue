@@ -1,10 +1,14 @@
 <template>
-    <div class="row">
-        <div class="col-sm-6">
-            <brazil-map />
-        </div>
-        <div class="col-md-4">
-            <natural-filter-language/>
+    <div class="container">
+        <link href="../../static/jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="brazil-map">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <natural-filter-language/>
+            </div>
         </div>
     </div>
 </template>
@@ -22,12 +26,12 @@ export default {
     },
     mounted: function () {
         var self = this;
-        // $("#brazil-map").JSMaps({
-        //     map: "brazil",
-        //     stateClickAction: "none",
-        //     onStateClick: function(data) {
-        //     },
-        // })
+        $("#brazil-map").JSMaps({
+            map: "brazil",
+            stateClickAction: "none",
+            onStateClick: function(data) {
+            },
+        })
     }
 }
 

@@ -3,7 +3,8 @@
     <link href="../../static/jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
     <div class="row">
       <div class="col-sm-6">
-        <!-- <brazil-map/> -->
+        <div id="brazil-map">
+        </div>
       </div>
       <div class="col-sm-4">
         <div class="select-states">
@@ -78,7 +79,7 @@ export default {
       if(!isMapInteraction){
         $('#exampleModal').modal('show')
       }
-      
+
       var result = listOfUfs[uf] == undefined ? 0 : listOfUfs[uf];
       console.log(uf)
       this.content = "Quantidade de projetos de " + result;
@@ -86,56 +87,56 @@ export default {
     }
   },
   mounted: function () {
-    // var self = this;
-    // $("#brazil-map").JSMaps({
-    //   map: "brazil",
-    //   stateClickAction: "none",
-    //   onStateClick: function(data) {
-    //     self.selectDropdown(data.abbreviation, data.name, true);
-    //   },
-    //   groups: [
-    //       {
-    //           enable: true,
-    //           name: "Centro-Oeste",
-    //           members: ["Goiás", "Distrito Federal", "Mato Grosso", "Mato Grosso do Sul"],
-    //           color: "#f6d74a",
-    //           hoverColor: "#74771A",
-    //           text: "Beireleibe"
-    //       },
-    //       {
-    //           enable: true,
-    //           name: "Norte",
-    //           members: ["Acre", "Amazonas", "Roraima", "Rondônia", "Amapá", "Pará", "Tocantins"],
-    //           color: "#c4de4e",
-    //           hoverColor: "#74771A",
-    //           text: "Beireleibe"
-    //       },
-    //       {
-    //           enable: true,
-    //           name: "Sudeste",
-    //           members: ["São Paulo", "Rio de Janeiro", "Espírito Santo", "Minas Gerais"],
-    //           color: "#8bdc64",
-    //           hoverColor: "#74771A",
-    //           text: "Beireleibe"
-    //       },
-    //       {
-    //           enable: true,
-    //           name: "Sul",
-    //           members: ["Rio Grande do Sul", "Santa Catarina", "Paraná" ],
-    //           color: "#80d492",
-    //           hoverColor: "#74771A",
-    //           text: "Beireleibe"
-    //       },
-    //       {
-    //           enable: true,
-    //           name: "Nordeste",
-    //           members: ["Maranhão", "Piauí", "Pernambuco", "Ceará", "Rio Grande do Norte", "Paraíba", "Alagoas", "Sergipe", "Bahia" ],
-    //           color: "#e3ec54",
-    //           hoverColor: "#74771A",
-    //           text: "Beireleibe"
-    //       }
-    //   ]
-    // })
+    var self = this;
+    $("#brazil-map").JSMaps({
+      map: "brazil",
+      stateClickAction: "none",
+      onStateClick: function(data) {
+        self.selectDropdown(data.abbreviation, data.name, true);
+      },
+      groups: [
+          {
+              enable: true,
+              name: "Centro-Oeste",
+              members: ["Goiás", "Distrito Federal", "Mato Grosso", "Mato Grosso do Sul"],
+              color: "#f6d74a",
+              hoverColor: "#74771A",
+              text: "Beireleibe"
+          },
+          {
+              enable: true,
+              name: "Norte",
+              members: ["Acre", "Amazonas", "Roraima", "Rondônia", "Amapá", "Pará", "Tocantins"],
+              color: "#c4de4e",
+              hoverColor: "#74771A",
+              text: "Beireleibe"
+          },
+          {
+              enable: true,
+              name: "Sudeste",
+              members: ["São Paulo", "Rio de Janeiro", "Espírito Santo", "Minas Gerais"],
+              color: "#8bdc64",
+              hoverColor: "#74771A",
+              text: "Beireleibe"
+          },
+          {
+              enable: true,
+              name: "Sul",
+              members: ["Rio Grande do Sul", "Santa Catarina", "Paraná" ],
+              color: "#80d492",
+              hoverColor: "#74771A",
+              text: "Beireleibe"
+          },
+          {
+              enable: true,
+              name: "Nordeste",
+              members: ["Maranhão", "Piauí", "Pernambuco", "Ceará", "Rio Grande do Norte", "Paraíba", "Alagoas", "Sergipe", "Bahia" ],
+              color: "#e3ec54",
+              hoverColor: "#74771A",
+              text: "Beireleibe"
+          }
+      ]
+    })
   }
 };
 var listOfUfs = [];
@@ -143,14 +144,14 @@ var listOfUfs = [];
 </script>
 
 <style scoped>
-    /* Custom, iPhone Retina */ 
+    /* Custom, iPhone Retina */
     @media only screen and (min-width : 320px) {
         .box-mapa {
             display: none;
         }
     }
 
-    /* Extra Small Devices, Phones */ 
+    /* Extra Small Devices, Phones */
     @media only screen and (min-width : 480px) {
 
     }
