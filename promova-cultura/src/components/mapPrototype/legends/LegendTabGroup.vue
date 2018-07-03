@@ -12,9 +12,9 @@
         </li>
     </ul>
     <div class="tab-content legend-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="projeto" aria-labelledby="projeto-tab" role="tabpanel"><base-legend :dataLegend="legends.heatMap" /></div>
-        <div class="tab-pane fade" v-if="filtersActivate.proponentes" id="proponente" aria-labelledby="proponente-tab" role="tabpanel"><base-legend :dataLegend="legends.proponentes" /></div>
-        <div class="tab-pane fade" v-if="filtersActivate.incentivadores" id="incentivador" aria-labelledby="incentivador-tab" role="tabpanel"><base-legend :dataLegend="legends.incentivadores" /></div>
+        <div class="tab-pane fade show active" id="projeto" aria-labelledby="projeto-tab" role="tabpanel"><base-legend :dataLegend="legends.heatMap" :typeOfData="'projetos'" /></div>
+        <div class="tab-pane fade" v-if="filtersActivate.proponentes" id="proponente" aria-labelledby="proponente-tab" role="tabpanel"><base-legend :dataLegend="legends.proponentes" :typeOfData="'proponentes'" /></div>
+        <div class="tab-pane fade" v-if="filtersActivate.incentivadores" id="incentivador" aria-labelledby="incentivador-tab" role="tabpanel"><base-legend :dataLegend="legends.incentivadores" :typeOfData="'incentivadores'" /></div>
     </div>
 </div>
 </template>

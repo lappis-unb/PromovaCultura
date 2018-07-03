@@ -2,15 +2,15 @@
     <div>
         <div class="legend-item">
             <h3>Projetos</h3>
-            <base-legend :dataLegend="legends.heatMap" />
+            <base-legend :dataLegend="legends.heatMap" :typeOfData="'projetos'" />
         </div>
         <div class="legend-item" v-if="filtersActivate.proponentes">
             <h3>Proponentes</h3>
-            <base-legend :dataLegend="legends.proponentes" />
+            <base-legend :dataLegend="legends.proponentes" :typeOfData="'proponentes'" />
         </div>
         <div class="legend-item" v-if="filtersActivate.incentivadores">
             <h3>Incentivadores</h3>
-            <base-legend :dataLegend="legends.incentivadores" />
+            <base-legend :dataLegend="legends.incentivadores" :typeOfData="'incentivadores'" />
         </div>
     </div>
 </template>

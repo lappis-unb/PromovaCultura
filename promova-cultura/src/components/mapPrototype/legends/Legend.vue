@@ -1,6 +1,6 @@
 <template>
 <div>
-    <ul class="legend-list" v-if="dataLegend.length!=0">
+    <ul class="legend-list" v-if="dataLegend[dataLegend.length-1].max!=0 && dataLegend.length != 0">
         <li v-for="data in dataLegend" :key="data.color" v-if="data.max != 0">
             <img class="legend-color" :src="data.color" v-if="dataLegend[0].image"/>
             <div class="legend-color" :style="'background:'+ data.color" v-else></div>
@@ -9,7 +9,7 @@
     </ul>
     <ul class="legend-list" v-else>
         <li>
-            <span>Não há informações</span>
+            <span>Não há {{ typeOfData }} neste segmento.</span>
         </li>
     </ul>
 </div>
@@ -18,7 +18,8 @@
 <script>
 export default {
     props: {
-        dataLegend: Array
+        dataLegend: Array,
+        typeOfData: String
     }
 };
 </script>
