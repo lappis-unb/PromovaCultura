@@ -48,7 +48,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="./index.html">Promova Cultura</a>
+                        <a class="navbar-brand" href="#">PromovaCultura</a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
@@ -58,7 +58,16 @@
                             <li>
                                 <a href="funil.html">Funil</a>
                             </li>
+                            <li>
+                                <a href="tela-mapa-heat-uf.html">Mapa de Calor (UF)</a>
+                            </li>
+                            <li>
+                                <a href="tela-mapa-heat-group.html">Mapa de Calor (Região)</a>
+                            </li>
                         </ul>
+                        <form class="navbar-form navbar-right">
+                            <input type="text" class="form-control" placeholder="Pesquisar">
+                        </form>
                     </div>
                 </div>
         </nav>
@@ -185,7 +194,7 @@
                     $('.content')[0].textContent = "Quantidade de projetos de " + data.name + ": " + result
                     console.log("Quantidade de projetos de " + data.name + ": " + listOfUfs[data.abbreviation])
                 },
-                /*
+
                 groups: [
                     {
                         enable: true,
@@ -214,7 +223,7 @@
                     {
                         enable: true,
                         name: "Sul",
-                        members: ["Rio Grande do Sul", "Santa Catarina", "Paraná" ],
+                        members: ["Rio Grande do Sul", "Santa Catarina", "Paraná"],
                         color: "#80d492",
                         hoverColor: "#80d492",
                         text: "Beireleibe"
@@ -222,12 +231,12 @@
                     {
                         enable: true,
                         name: "Nordeste",
-                        members: ["Maranhão", "Piauí", "Pernambuco", "Ceará", "Rio Grande do Norte", "Paraíba", "Alagoas", "Sergipe", "Bahia" ],
+                        members: ["Maranhão", "Piauí", "Pernambuco", "Ceará", "Rio Grande do Norte", "Paraíba", "Alagoas", "Sergipe", "Bahia"],
                         color: "#e3ec54",
                         hoverColor: "#e3ec54",
                         text: "Beireleibe"
                     }
-                ]*/
+                ]
             });
         });
 
