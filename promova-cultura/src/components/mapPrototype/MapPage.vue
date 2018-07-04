@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import fetchResource from "@/util/apiComunication.js";
+import { batchFetch } from "@/util/apiComunication.js";
 import Mapd2m1 from "@/components/mapPrototype/layouts/map-d2-m1"
 
 export default {
@@ -91,17 +91,23 @@ export default {
       this.selected = segment;
       this.fetchAllResources();
     },
-    fetchAllResources(){
+    async fetchAllResources(){
       console.log(`Fetching API.\nLEVEL: ${this.level}\nSEGMENT: ${this.selected}`);
 
       if (this.level === "UF") {
-        fetchResource("projetos_por_uf", this.tmp, this.selected);
-        fetchResource("proponentes_por_uf", this.tmp, this.selected);
-        fetchResource("incentivadores_por_uf", this.tmp, this.selected);
+        let data = await batchFetch("uf", this.selected);
+        window.data = data; // TODO: Remove this line later, this is only a debug code
+
+        this.tmp.projects = data.projetos_por_uf;
+        this.tmp.proponentes = data.proponentes_por_uf;
+        this.tmp.incentivadores = data.incentivadores_por_uf;
       } else {
-        fetchResource("projetos_por_regiao", this.tmp, this.selected);
-        fetchResource("proponentes_por_regiao", this.tmp, this.selected);
-        fetchResource("incentivadores_por_regiao", this.tmp, this.selected);
+        let data = await batchFetch("regiao", this.selected);
+        window.data = data; // TODO: Remove this line later, this is only a debug code
+
+        this.tmp.projects = data.projetos_por_regiao;
+        this.tmp.proponentes = data.proponentes_por_regiao;
+        this.tmp.incentivadores = data.incentivadores_por_regiao;
       }
     },
     showProponentes(show){
