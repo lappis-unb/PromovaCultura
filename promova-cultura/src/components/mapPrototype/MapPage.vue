@@ -1,24 +1,12 @@
 <template>
-  <layout-d2-m1
-    :data="data"
-    :legends="legends"
-    :maxValues="maxValues"
-    :level="level"
-    @updatedSegment="updatedSegment"
-    @showProponentes="showProponentes"
-    @showIncentivadores="showIncentivadores"
-    @changeLevel="changeLevel"
-
-    :legendMobile="legendMobile"
-    :filterMobile="filterMobile"
-    :legendDesktop="legendDesktop"
-    :filterDesktop="filterDesktop"
-    :filtersActivate="filtersActivate"
- />
+<layout-d2-m1 :data="data" :legends="legends" :maxValues="maxValues" :level="level" @updatedSegment="updatedSegment" @showProponentes="showProponentes" @showIncentivadores="showIncentivadores" @changeLevel="changeLevel" :legendMobile="legendMobile" :filterMobile="filterMobile"
+  :legendDesktop="legendDesktop" :filterDesktop="filterDesktop" :filtersActivate="filtersActivate" />
 </template>
 
 <script>
-import { batchFetch } from "@/util/apiComunication.js";
+import {
+  batchFetch
+} from "@/util/apiComunication.js";
 import Mapd2m1 from "@/components/mapPrototype/layouts/map-d2-m1"
 
 export default {
@@ -38,7 +26,7 @@ export default {
       data: {
         projects: {},
         proponentes: {},
-        incentivadores: {},
+        incentivadores: {}
       },
       filtersActivate: {
         proponentes: false,
@@ -55,85 +43,84 @@ export default {
         incentivadores: [],
       },
       tmp: {
-        projects: {},
-        proponentes: {},
-        incentivadores: {},
+        projectsUF: {},
+        proponentesUF: {},
+        incentivadoresUF: {},
+        projectsRegion: {},
+        proponentesRegion: {},
+        incentivadoresRegion: {},
       },
       level: 'UF'
     };
   },
-  watch:{
+  watch: {
     tmp: {
-        handler(data){
-          this.data.projects = this.tmp.projects;
-          this.maxValues.projects=this.getMaxByUF(this.tmp.projects, "projects");
-          this.maxValues.proponentes=this.getMaxByUF(this.tmp.proponentes, "proponentes");
-          this.maxValues.incentivadores=this.getMaxByUF(this.tmp.incentivadores, "incentivadores");
-          this.generateLegends();
-          if(Object.keys(this.data.incentivadores).length!=0){
-            this.data.incentivadores  = this.tmp.incentivadores;
-          }
-          if(Object.keys(this.data.proponentes).length!=0){
-            this.data.proponentes  = this.tmp.proponentes;
-          }
-        },
-        deep: true
+      handler(data) {
+        if (this.level == "UF") {
+          this.data.projects = this.tmp.projectsUF;
+          this.maxValues.projects = this.getMaxByUF(this.tmp.projectsUF, "projects");
+          this.maxValues.proponentes = this.getMaxByUF(this.tmp.proponentesUF, "proponentes");
+          this.maxValues.incentivadores = this.getMaxByUF(this.tmp.incentivadoresUF, "incentivadores");
+
+          this.showPins();
+        } else {
+          this.data.projects = this.tmp.projectsRegion;
+          this.maxValues.projects = this.getMaxByUF(this.tmp.projectsRegion, "projects");
+          this.maxValues.proponentes = this.getMaxByUF(this.tmp.proponentesRegion, "proponentes");
+          this.maxValues.incentivadores = this.getMaxByUF(this.tmp.incentivadoresRegion, "incentivadores");
+
+          this.showPins();
+        }
+
+        this.generateLegends();
+
+      },
+      deep: true
     },
     level() {
-     console.log("watch level " + this.level)
+      console.log("watch level " + this.level)
     },
   },
   mounted() {
     this.fetchAllResources();
   },
   methods: {
-    updatedSegment(segment){
+    updatedSegment(segment) {
       this.selected = segment;
       this.fetchAllResources();
     },
-    async fetchAllResources(){
+    async fetchAllResources() {
       console.log(`Fetching API.\nLEVEL: ${this.level}\nSEGMENT: ${this.selected}`);
 
-      if (this.level === "UF") {
-        let data = await batchFetch("uf", this.selected);
-        window.data = data; // TODO: Remove this line later, this is only a debug code
+      let data = await batchFetch("uf", this.selected);
+      window.data = data; // TODO: Remove this line later, this is only a debug code
 
-        this.tmp.projects = data.projetos_por_uf;
-        this.tmp.proponentes = data.proponentes_por_uf;
-        this.tmp.incentivadores = data.incentivadores_por_uf;
-      } else {
-        let data = await batchFetch("regiao", this.selected);
-        window.data = data; // TODO: Remove this line later, this is only a debug code
+      this.tmp.projectsUF = data.projetos_por_uf;
+      this.tmp.proponentesUF = data.proponentes_por_uf;
+      this.tmp.incentivadoresUF = data.incentivadores_por_uf;
 
-        this.tmp.projects = data.projetos_por_regiao;
-        this.tmp.proponentes = data.proponentes_por_regiao;
-        this.tmp.incentivadores = data.incentivadores_por_regiao;
-      }
+      data = await batchFetch("regiao", this.selected);
+
+      this.tmp.projectsRegion = data.projetos_por_regiao;
+      this.tmp.proponentesRegion = data.proponentes_por_regiao;
+      this.tmp.incentivadoresRegion = data.incentivadores_por_regiao;
     },
-    showProponentes(show){
+    showProponentes(show) {
       this.filtersActivate.proponentes = show;
-      if (show) {
-        this.data.proponentes=this.tmp.proponentes;
-      } else {
-        this.data.proponentes = {};
-      }
+      this.showPins()
     },
-    showIncentivadores(show){
+    showIncentivadores(show) {
       this.filtersActivate.incentivadores = show;
-      if (show) {
-        this.data.incentivadores=this.tmp.incentivadores;
-      } else {
-        this.data.incentivadores = {};
-      }
+      this.showPins()
     },
-    changeLevel(level){
+    changeLevel(level) {
       this.level = level;
       this.fetchAllResources();
     },
     getMaxByUF(data, type) {
       const ufList = Object.keys(data);
 
-      if(this.useMaxWithRanking){
+      if (this.useMaxWithRanking) {
         const max = ufList.reduce((currentMax, uf) => {
           if (data[uf] > currentMax) {
             return data[uf];
@@ -152,7 +139,7 @@ export default {
         return max;
       }
     },
-    generateLegends(){
+    generateLegends() {
       let imagesListP = [
         '@/../static/svg-icons/proponente_LVL_1.svg',
         '@/../static/svg-icons/proponente_LVL_2.svg',
@@ -167,26 +154,44 @@ export default {
         '@/../static/svg-icons/Investidores_LVL_4.svg',
         '@/../static/svg-icons/Investidores_LVL_5.svg'
       ]
-      this.legends.proponentes = this.getMapLegend(this.maxValues.proponentes, [0,5,10,20,35,100], imagesListP, true);
-      this.legends.incentivadores = this.getMapLegend(this.maxValues.incentivadores, [0,5,10,20,35,100], imagesListI, true);
+      this.legends.proponentes = this.getMapLegend(this.maxValues.proponentes, [0, 5, 10, 20, 35, 100], imagesListP, true);
+      this.legends.incentivadores = this.getMapLegend(this.maxValues.incentivadores, [0, 5, 10, 20, 35, 100], imagesListI, true);
       this.legends.heatMap = this.getMapLegend(this.maxValues.projects);
     },
-    getMapLegend(maxValue, percentList=[], colorList=[], isImage=false){
-        let legends = []
-        let percents = percentList.length == 0 ? [0,0,1,5,10,20,35,100] : percentList;
-        let colors = colorList.length == 0 ? ["#efe8c6","#daf39d","#b8e844", "#8db824", "#66861a", "#4d6513", "#2c380e"] : colorList;
+    getMapLegend(maxValue, percentList = [], colorList = [], isImage = false) {
+      let legends = []
+      let percents = percentList.length == 0 ? [0, 0, 1, 5, 10, 20, 35, 100] : percentList;
+      let colors = colorList.length == 0 ? ["#efe8c6", "#daf39d", "#b8e844", "#8db824", "#66861a", "#4d6513", "#2c380e"] : colorList;
 
-        for(let i = 0; i < percents.length-1; i++){
-          let colorBackground = colors[i];
-          legends[i] = {
-            image: isImage,
-            color: colorBackground,
-            min: parseInt((percents[i]/100)*maxValue),
-            max: parseInt((percents[i+1]/100)*maxValue),
-          };
-        }
-        return legends;
+      for (let i = 0; i < percents.length - 1; i++) {
+        let colorBackground = colors[i];
+        legends[i] = {
+          image: isImage,
+          color: colorBackground,
+          min: parseInt((percents[i] / 100) * maxValue),
+          max: parseInt((percents[i + 1] / 100) * maxValue),
+        };
+      }
+      return legends;
     },
+
+    showPins() {
+      if (this.filtersActivate.incentivadores) {
+        this.data.incentivadores =
+          this.level == "UF" ? this.tmp.incentivadoresUF :
+          this.tmp.incentivadoresRegion;
+      } else {
+        this.data.incentivadores = {};
+      }
+
+      if (this.filtersActivate.proponentes) {
+        this.data.proponentes =
+          this.level == "UF" ? this.tmp.proponentesUF :
+          this.tmp.proponentesRegion;
+      } else {
+        this.data.proponentes = {};
+      }
+    }
   },
 };
 </script>
