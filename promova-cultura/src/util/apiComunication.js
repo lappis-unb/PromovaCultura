@@ -18,8 +18,7 @@ function fetchData(type = "", projectSegment = "") {
     `;
 
     const queryAsUrl = encodeURI(query);
-
-    const promise = cacheFetch(`http://192.168.1.221:5000/graphql?query=${queryAsUrl}`);
+    const promise = cacheFetch(`https://salic.dev.lappis.rocks/graphql?query=${queryAsUrl}`);
 
     return promise;
 }
