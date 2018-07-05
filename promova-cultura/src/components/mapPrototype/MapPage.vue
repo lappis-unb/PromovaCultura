@@ -174,9 +174,8 @@ export default {
       for (let i = 0; i < percents.length - 1; i++) {
         let colorBackground = colors[i];
 
-        min = max+1;
+        min = max == 0 ? 0 : (max+1);
         max = parseInt((percents[i + 1] / 100) * maxValue);
-
         legends[i] = {
           image: isImage,
           color: colorBackground,
