@@ -24,16 +24,18 @@ export default {
         /* min-height: 500px; */
     }
 
-    /* Small Devices, Tablets */
-    @media only screen and (min-width: 768px) {
-        .legend-group-scroll {
-            height: 230px;
-        }
-    }
     /* Really small screen */
     @media only screen and (min-width: 220px) {
         .legend-group-scroll{
             height: 76vh;
         }  
     }
+
+    /* Small Devices, Tablets */
+    @media only screen and (min-width: 768px) {
+        .legend-group-scroll {
+            height: 230px;
+        }
+    }
+
 </style>
