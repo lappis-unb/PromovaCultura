@@ -29,11 +29,15 @@ export const fetchData = (types, projectSegment = "") => {
     return promise;
 }
 
-export const batchFetch = async (local, segment="") => {
+export const batchFetch = async (segment="") => {
     let types = [
-        `projetos_por_${local}`,
-        `proponentes_por_${local}`,
-        `incentivadores_por_${local}`,
+        "projetos_por_uf",
+        "proponentes_por_uf",
+        "incentivadores_por_uf",
+
+        "projetos_por_regiao",
+        "proponentes_por_regiao",
+        "incentivadores_por_regiao",
     ];
 
     let response = await fetchData(types, segment);
