@@ -1,6 +1,19 @@
 <template>
-<layout-d2-m1 :data="data" :legends="legends" :maxValues="maxValues" :level="level" @updatedSegment="updatedSegment" @showProponentes="showProponentes" @showIncentivadores="showIncentivadores" @changeLevel="changeLevel" :legendMobile="legendMobile" :filterMobile="filterMobile"
-  :legendDesktop="legendDesktop" :filterDesktop="filterDesktop" :filtersActivate="filtersActivate" />
+  <layout-d2-m1
+    :data="data"
+    :legends="legends"
+    :maxValues="maxValues"
+    :level="level"
+    @updatedSegment="updatedSegment"
+    @showProponentes="showProponentes"
+    @showIncentivadores="showIncentivadores"
+    @changeLevel="changeLevel"
+    :legendMobile="legendMobile"
+    :filterMobile="filterMobile"
+    :legendDesktop="legendDesktop"
+    :filterDesktop="filterDesktop"
+    :filtersActivate="filtersActivate"
+  />
 </template>
 
 <script>
@@ -61,19 +74,15 @@ export default {
           this.maxValues.projects = this.getMaxByUF(this.tmp.projectsUF, "projects");
           this.maxValues.proponentes = this.getMaxByUF(this.tmp.proponentesUF, "proponentes");
           this.maxValues.incentivadores = this.getMaxByUF(this.tmp.incentivadoresUF, "incentivadores");
-
-          this.showPins();
         } else {
           this.data.projects = this.tmp.projectsRegion;
           this.maxValues.projects = this.getMaxByUF(this.tmp.projectsRegion, "projects");
           this.maxValues.proponentes = this.getMaxByUF(this.tmp.proponentesRegion, "proponentes");
           this.maxValues.incentivadores = this.getMaxByUF(this.tmp.incentivadoresRegion, "incentivadores");
-
-          this.showPins();
         }
 
+        this.showPins();
         this.generateLegends();
-
       },
       deep: true
     },
@@ -90,28 +99,24 @@ export default {
       this.fetchAllResources();
     },
     async fetchAllResources() {
-      console.log(`Fetching API.\nLEVEL: ${this.level}\nSEGMENT: ${this.selected}`);
-
-      let data = await batchFetch("uf", this.selected);
-      window.data = data; // TODO: Remove this line later, this is only a debug code
+      console.log(`Fetching API.\nSEGMENT: ${this.selected}`);
+      const data = await batchFetch(this.selected);
+      console.log("Data fetched: ", data);
 
       this.tmp.projectsUF = data.projetos_por_uf;
       this.tmp.proponentesUF = data.proponentes_por_uf;
       this.tmp.incentivadoresUF = data.incentivadores_por_uf;
-
-      data = await batchFetch("regiao", this.selected);
-
       this.tmp.projectsRegion = data.projetos_por_regiao;
       this.tmp.proponentesRegion = data.proponentes_por_regiao;
       this.tmp.incentivadoresRegion = data.incentivadores_por_regiao;
     },
     showProponentes(show) {
       this.filtersActivate.proponentes = show;
-      this.showPins()
+      this.showPins();
     },
     showIncentivadores(show) {
       this.filtersActivate.incentivadores = show;
-      this.showPins()
+      this.showPins();
     },
     changeLevel(level) {
       this.level = level;
