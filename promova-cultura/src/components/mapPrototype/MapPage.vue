@@ -69,6 +69,20 @@ export default {
   watch: {
     tmp: {
       handler(data) {
+        this.updateChildrenProps();
+        this.generateLegends();
+      },
+      deep: true
+    },
+    level() {
+      this.updateChildrenProps();
+    },
+  },
+  mounted() {
+    this.fetchAllResources();
+  },
+  methods: {
+    updateChildrenProps(){
         if (this.level == "UF") {
           this.data.projects = this.tmp.projectsUF;
           this.maxValues.projects = this.getMaxByUF(this.tmp.projectsUF, "projects");
@@ -80,20 +94,8 @@ export default {
           this.maxValues.proponentes = this.getMaxByUF(this.tmp.proponentesRegion, "proponentes");
           this.maxValues.incentivadores = this.getMaxByUF(this.tmp.incentivadoresRegion, "incentivadores");
         }
-
         this.showPins();
-        this.generateLegends();
-      },
-      deep: true
     },
-    level() {
-      console.log("watch level " + this.level)
-    },
-  },
-  mounted() {
-    this.fetchAllResources();
-  },
-  methods: {
     updatedSegment(segment) {
       this.selected = segment;
       this.fetchAllResources();
@@ -101,7 +103,7 @@ export default {
     async fetchAllResources() {
       console.log(`Fetching API.\nSEGMENT: ${this.selected}`);
       const data = await batchFetch(this.selected);
-      console.log("Data fetched: ", JSON.stringify(data));
+      //console.log("Data fetched: ", JSON.stringify(data));
 
       this.tmp.projectsUF = data.projetos_por_uf;
       this.tmp.proponentesUF = data.proponentes_por_uf;
@@ -120,7 +122,6 @@ export default {
     },
     changeLevel(level) {
       this.level = level;
-      this.fetchAllResources();
     },
     getMaxByUF(data, type) {
       const ufList = Object.keys(data);
