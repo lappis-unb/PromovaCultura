@@ -4,7 +4,8 @@
         <li v-for="data in dataLegend" :key="data.color" v-if="data.max != 0">
             <img class="legend-color" :src="data.color" v-if="dataLegend[0].image"/>
             <div class="legend-color" :style="'background:'+ data.color" v-else></div>
-            <span>{{data.min}} até {{data.max}}</span>
+            <span v-if="data.min==data.max">{{data.max}}</span>
+            <span v-else >{{data.min}} até {{data.max}}</span>
         </li>
     </ul>
     <ul class="legend-list" v-else>

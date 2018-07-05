@@ -101,7 +101,7 @@ export default {
     async fetchAllResources() {
       console.log(`Fetching API.\nSEGMENT: ${this.selected}`);
       const data = await batchFetch(this.selected);
-      console.log("Data fetched: ", data);
+      console.log("Data fetched: ", JSON.stringify(data));
 
       this.tmp.projectsUF = data.projetos_por_uf;
       this.tmp.proponentesUF = data.proponentes_por_uf;
@@ -168,13 +168,20 @@ export default {
       let percents = percentList.length == 0 ? [0, 0, 1, 5, 10, 20, 35, 100] : percentList;
       let colors = colorList.length == 0 ? ["#efe8c6", "#daf39d", "#b8e844", "#8db824", "#66861a", "#4d6513", "#2c380e"] : colorList;
 
+      let min = 0;
+      let max = 0;
+
       for (let i = 0; i < percents.length - 1; i++) {
         let colorBackground = colors[i];
+
+        min = max+1;
+        max = parseInt((percents[i + 1] / 100) * maxValue);
+
         legends[i] = {
           image: isImage,
           color: colorBackground,
-          min: parseInt((percents[i] / 100) * maxValue),
-          max: parseInt((percents[i + 1] / 100) * maxValue),
+          min: (max!=0 && min==0) ? 1 : min,
+          max: max,
         };
       }
       return legends;
