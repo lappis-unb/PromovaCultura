@@ -1,0 +1,140 @@
+html body {
+    background: #F7F7F7;
+}
+
+.prototype-library .card {
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.prototype-library .card-text {
+    color: #bbb;
+}
+
+.prototype-library .card .card-body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, .125);
+    text-align: left;
+}
+
+.prototype-library .card .card-body a h4 {
+    margin-bottom: 25px;
+    color: #212529;
+}
+
+.prototype-library .card .card-body a:hover {
+    text-decoration: none;
+}
+
+.prototype-library .card .card-body ul {
+    list-style: none;
+    padding-left: 0;
+    color: #999;
+}
+
+.prototype-library .card .card-body ul li {
+    line-height: 24px;
+    overflow: auto;
+    padding-bottom: 5px;
+}
+
+.prototype-library .card .card-body ul li i {
+    font-size: 14px;
+    margin-right: 8px;
+    border-right: 1px dotted #ddd;
+    display: block;
+    width: 9%;
+    height: 15px;
+    float: left;
+    position: relative;
+    top: 7px;
+}
+
+.prototype-library .card .card-body ul li span {
+    display: block;
+    float: left;
+    width: 80%;
+}
+
+.prototype-library .card .card-body ul li:last-child i {
+    padding-left: 4px;
+}
+
+.card-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.button-view {
+    position: absolute;
+    opacity: 0;
+    background: rgba(0, 0, 0, .4);
+    width: 100%;
+    height: 100%;
+}
+
+.card-image:hover .button-view {
+    opacity: 1;
+    top: 0px;
+    transition: 1s;
+}
+
+.card-image:hover .hover {
+    transform: scale(1.3);
+    transition: 1s;
+}
+
+.button-view i {
+    font-size: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -12px;
+    margin-top: -32px;
+    color: #fff;
+    opacity: 0.9;
+}
+
+.button-view .text-img {
+    font-size: 18px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    margin-left: -54px;
+    margin-top: 30px;
+    color: #fff;
+    opacity: 0.9;
+}
+
+
+/* Small devices (landscape phones, 576px and up) */
+
+@media (min-width: 576px) {
+    ...
+}
+
+
+/* Medium devices (tablets, 768px and up) */
+
+@media (min-width: 768px) {
+    .prototype-library .card .card-body {
+        height: 220px;
+    }
+}
+
+
+/* Large devices (desktops, 992px and up) */
+
+@media (min-width: 992px) {
+    ...
+}
+
+
+/* Extra large devices (large desktops, 1200px and up) */
+
+@media (min-width: 1200px) {
+    ...
+}
