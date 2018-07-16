@@ -4,10 +4,9 @@ import cacheFetch from 'cache-fetch';
 export const fetchData = (types, projectSegment = "") => {
     let segmentQuery = "";
 
-    if (projectSegment !== "" && typeof projectSegment === "string") {
+    if (projectSegment !== "" && projectSegment != "Todos os segmentos" && typeof projectSegment === "string") {
         segmentQuery = `(segmento: "${projectSegment}")`;
     }
-
 
     let query = `
       query {
