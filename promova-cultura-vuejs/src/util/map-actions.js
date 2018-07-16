@@ -14,9 +14,9 @@ function displayBrazilMap(mapType) {
 
 function darkenAllMap(brazilMap) {
   for (let state of brazilMap.paths) {
-    state.color = "#efe8c6";
-    state.hoverColor = "#efe8c6";
-    state.selectedColor = "#efe8c6";
+    state.color = "#dadada";
+    state.hoverColor = "#dadada";
+    state.selectedColor = "#dadada";
   }
 
   $("#brazil-map").trigger("reDraw", brazilMap);
