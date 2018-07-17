@@ -23,8 +23,6 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
-
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 
   <!-- Funil -->
@@ -35,109 +33,81 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
   <!-- Slider -->
-  <!--
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.js"></script>
-  -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.js"></script>
 
   <style>
-    #output {
-      visibility: hidden;
+    @media screen and (max-width: 574px) {
+      /* <= 574 */
+      #slider {
+        width: 90%;
+        height: 15px;
+        margin: 0 auto;
+      }
     }
 
-    #slider-range {
-      margin: 48px 24px 0;
+    @media screen and (min-width: 575px) {
+      /* > 574px */
+      #slider {
+        width: 15px;
+        height: 100%;
+      }
     }
 
-    #slider-range.vertical {
-      margin: 0;
+    .title-slider {
+      text-align: center;
+      margin: 25px;
+    }
+    /* Custom, iPhone Retina */
+    @media only screen and (min-width: 320px) {
+      #slider {
+        width: 90%;
+        height: 15px;
+        margin: 0 auto;
+      }
     }
 
-    .ui-slider-handle-label {
-      position: relative;
-      padding: 8px 16px;
-      top: -48px;
-      left: -12px;
-      background: coral;
-      border-radius: .4em;
+    /* Extra Small Devices, Phones */
+    @media only screen and (min-width: 480px) {
+      #slider {
+        width: 90%;
+        height: 15px;
+        margin: 0 auto;
+      }
     }
 
-    .ui-slider-handle-label:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border: 8px solid transparent;
-      border-top-color: coral;
-      border-bottom: 0;
-      margin-left: -8px;
-      margin-bottom: -8px;
+    /* Small Devices, Tablets */
+    @media only screen and (min-width: 768px) {
+      #slider {
+        width: 15px;
+        height: 100%;
+      }
     }
 
-    .vertical .ui-slider-handle-label {
-      padding: 8px 12px;
-      top: 0;
-      left: -48px;
+    /* Medium Devices, Desktops */
+    @media only screen and (min-width: 992px) {
+      #slider {
+        width: 15px;
+        height: 100%;
+      }
     }
 
-    .vertical #ui-slider-handle-label-1:after {
-      content: '';
-      position: absolute;
-      right: 0;
-      left: 0;
-      top: 50%;
-      width: 0;
-      height: 0;
-      border: none;
-      border: 8px solid transparent;
-      border-left-color: coral;
-      border-right: 0;
-      margin: auto;
-      margin-top: -8px;
-      margin-right: -8px;
+    /* Large Devices, Wide Screens */
+    @media only screen and (min-width: 1200px) {
+      #slider {
+        width: 15px;
+        height: 100%;
+      }
     }
 
 
-    .vertical #ui-slider-handle-label-2 {
-      left: 32px;
-    }
 
-    .vertical #ui-slider-handle-label-2:after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 0;
-      height: 0;
-      border: none;
-      border: 8px solid transparent;
-      border-right-color: coral;
-      border-left: 0;
-      margin-top: -8px;
-      margin-left: -8px;
-    }
 
-    #slider-vertical {
-      height: 100%;
-      width: auto;
-    }
 
-    #slider-horizontal {
-      height: auto;
-      width: 100%;
-    }
+
+
   </style>
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
 
 <body>
@@ -158,17 +128,18 @@
       <div class="col-sm-8 col-sm-push-4">
         <canvas id="myChart" height="300"></canvas>
       </div>
-      <div class="col-sm-4 slider-goes-here col-sm-pull-8">
-        <div id="slider-range"></div>
+
+      <div class="col-sm-4 col-sm-pull-8">
+        <div class="title-slider">
+          <b>Saúde do projeto</b>
+        </div>
         <div id="slider"></div>
-        <output id="output"></output>
       </div>
     </div>
   </div>
 
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/scripts.js"></script>
-  <script src="js/pgwslideshow.min.js"></script>
+  
   <script>
     // https://jqueryui.com/slider/
     $(function () {
@@ -183,16 +154,13 @@
     function myFunction(min, max) {
       var val = [min, max] //gets the oninput value
       window.weight = (val.reduce((acc, curr) => acc + curr, 0)) / (val.length);
-      console.log(window.weight)
-      document.getElementById('output').innerHTML = val //displays this value to the html page
-      // console.log(val)
 
       projetos = 60 * window.getWeight();
       propostas = 40 * window.getWeight();
       captados = 30 * window.getWeight();
       executados = 20 * window.getWeight();
 
-      data = [projetos, propostas, captados, executados];
+      data = [propostas, propostas, captados, executados];
 
       addData(myChart, data)
     }
@@ -206,9 +174,10 @@
     let captados = 50 * window.getWeight();
     let executados = 30 * window.getWeight();
 
+
     let data = {
       datasets: [{
-        data: [propostas, projetos, captados, executados],
+        data: [propostas+"fdsa", projetos, captados, executados],
         backgroundColor: [
           "#FF6384",
           "#36A2EB",
@@ -223,9 +192,9 @@
         "Quantidade de executados"
       ]
     };
+    
     window.chart_data = data;
-    console.log(window.chart_data.datasets[0].data)
-    fontSize = (executados / projetos) * canvas.width;
+    //fontSize = (executados / projetos) * canvas.width;
 
     var myChart = new Chart(ctx, {
       type: 'funnel',
@@ -236,9 +205,9 @@
           display: false,
         },
         tooltips: {
-          enabled: false,
+          enabled: true,
         },
-        topWidth: fontSize,
+        //topWidth: fontSize,
         sort: "desc",
         plugins: {
           datalabels: {
@@ -246,16 +215,16 @@
             align: 'center',
             color: '#FFFFFF',
             font: {
-              size: 50
+              size: 30
             }
           }
         }
       }
     });
 
-    var slider = document.getElementById('slider');
-    noUiSlider.create(slider, {
-      start: [0, 100],
+
+    const sliderOptions = {
+      start: [1, 10],
       connect: true,
       range: {
         'min': 1,
@@ -270,17 +239,49 @@
         stepped: true,
         density: 6
       },
-    });
-    var snapValues = [
-      document.getElementById('slider-snap-value-lower'),
-      document.getElementById('slider-snap-value-upper')
-    ];
+    };
 
-    slider.noUiSlider.on('update', function (values, handle) {
-      console.log(values, data)
-      myFunction(parseInt(values[0]), parseInt(values[1]));
-    });
+    function setupSlider() {
+      const slider = document.getElementById('slider');
+      if (slider)
+        slider.innerHTML = ""; // clear slider content
 
+      if (slider.noUiSlider) {
+        // clear noUiSlider for rebuilding
+        slider.noUiSlider.destroy();
+      }
+
+      noUiSlider.create(
+        slider,
+        sliderOptions,
+        true /* Allow destruction + rebuilding */
+      );
+
+      const snapValues = [
+        document.getElementById('slider-snap-value-lower'),
+        document.getElementById('slider-snap-value-upper')
+      ];
+
+      slider.noUiSlider.on('update', function (values, handle) {
+        myFunction(parseInt(values[0]), parseInt(values[1]));
+      });
+    }
+
+    function WidthChange(mq) {
+      if (mq.matches) {
+        // window width is at least 574px
+        sliderOptions.orientation = "vertical";
+      } else {
+        // window width is less than 574px
+        sliderOptions.orientation = "horizontal";
+      }
+      setupSlider();
+    }
+
+    // https://www.sitepoint.com/javascript-media-queries/
+    const mq = window.matchMedia("(min-width: 768px)");
+    mq.addListener(WidthChange);
+    WidthChange(mq);
   </script>
 
 </body>
