@@ -35,8 +35,12 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
   <!-- Slider -->
+  <!--
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.3.2/rangeslider.js"></script>
+  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.js"></script>
 
   <style>
     #output {
@@ -116,6 +120,16 @@
       margin-top: -8px;
       margin-left: -8px;
     }
+
+    #slider-vertical {
+      height: 100%;
+      width: auto;
+    }
+
+    #slider-horizontal {
+      height: auto;
+      width: 100%;
+    }
   </style>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -146,6 +160,7 @@
       </div>
       <div class="col-sm-4 slider-goes-here col-sm-pull-8">
         <div id="slider-range"></div>
+        <div id="slider"></div>
         <output id="output"></output>
       </div>
     </div>
@@ -158,40 +173,6 @@
     // https://jqueryui.com/slider/
     $(function () {
       width = $(window).width();
-      if (width > 768) {
-        $("#slider-range").addClass("vertical");
-      }
-
-      $("#slider-range.vertical").slider({
-        orientation: "vertical",
-      })
-      $("#slider-range").slider({
-        // orientation: "vertical",
-        range: true,
-        min: 1,
-        max: 10,
-        values: [1, 10],
-        slide: function (event, ui) {
-          myFunction(parseInt(ui.values[0]), parseInt(ui.values[1]));
-
-          var handle1 = $(this).children('.ui-slider-handle').first();
-
-          if (handle1.children().length <= 0) {
-            handle1.append("<span class='ui-slider-handle-label' id='ui-slider-handle-label-1'>" + ui.values[0] + "</span>");
-          } else {
-            $("#ui-slider-handle-label-1").text(ui.values[0]);
-          }
-
-          var handle2 = $(this).children('.ui-slider-handle').last();
-
-          if (handle2.children().length <= 0) {
-            handle2.append("<span class='ui-slider-handle-label' id='ui-slider-handle-label-2'>" + ui.values[1] + "</span>");
-          } else {
-            $("#ui-slider-handle-label-2").text(ui.values[1]);
-          }
-
-        }
-      });
     });
 
     function addData(chart, data) {
@@ -206,8 +187,6 @@
       document.getElementById('output').innerHTML = val //displays this value to the html page
       // console.log(val)
 
-
-      document.getElementById('output').innerHTML = val; //displays this value to the html page
       projetos = 60 * window.getWeight();
       propostas = 40 * window.getWeight();
       captados = 30 * window.getWeight();
@@ -260,7 +239,6 @@
           enabled: false,
         },
         topWidth: fontSize,
-        //bottomWidth: 1000,
         sort: "desc",
         plugins: {
           datalabels: {
@@ -274,6 +252,35 @@
         }
       }
     });
+
+    var slider = document.getElementById('slider');
+    noUiSlider.create(slider, {
+      start: [0, 100],
+      connect: true,
+      range: {
+        'min': 1,
+        'max': 10
+      },
+      orientation: 'horizontal',
+      direction: 'ltr',
+      tooltips: true,
+      step: 1,
+      pips: {
+        mode: 'steps',
+        stepped: true,
+        density: 6
+      },
+    });
+    var snapValues = [
+      document.getElementById('slider-snap-value-lower'),
+      document.getElementById('slider-snap-value-upper')
+    ];
+
+    slider.noUiSlider.on('update', function (values, handle) {
+      console.log(values, data)
+      myFunction(parseInt(values[0]), parseInt(values[1]));
+    });
+
   </script>
 
 </body>
