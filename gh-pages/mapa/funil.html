@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Protótipos - Mapa</title>
 
+  <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/bootstrap2.min.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
@@ -18,17 +19,8 @@
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="https:/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-
   <!-- Funil -->
-  <script src="https://d3js.org/d3.v5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
-  <script src="js/d3-funnel.js"></script>
   <script src="js/chart.funnel.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
@@ -144,10 +136,10 @@
     window.getWeight = () => (window.weight + Math.floor(Math.random() * 2));
 
     function getData() {
-      const projetos = 90 * window.getWeight();
-      const propostas = 70 * window.getWeight();
+      const propostas = 90 * window.getWeight();
+      const projetos = 70 * window.getWeight();
       const captados = 50 * window.getWeight();
-      const executados = 30 * window.getWeight();
+      const executados = 40 * window.getWeight();
 
       return [propostas, projetos, captados, executados];
     }
@@ -205,10 +197,11 @@
     (function () {
       const canvas = document.getElementById("myChart");
       const ctx = canvas.getContext('2d');
+      const canvasData = getData();
 
       let data = {
         datasets: [{
-          data: getData(),
+          data: canvasData,
           backgroundColor: [
             "#FF6384",
             "#36A2EB",
@@ -217,29 +210,34 @@
           ],
         }],
         labels: [
-          "Quantidade de projetos",
-          "Quantidade de propostas",
-          "Quantidade de captados",
-          "Quantidade de executados"
+          "Projetos",
+          "Propostas",
+          "Captados",
+          "Executados",
         ],
       };
 
-      //const fontSize = (executados / projetos) * canvas.width;
+      const fontSize = (canvasData[3] / canvasData[1]) * canvas.width;
 
       // myChart is GLOBAL
       window.myChart = new Chart(ctx, {
         type: 'funnel',
         data: data,
         options: {
+          title: {
+            display: false,
+            position: 'top',
+            text: 'Titulo das legendas'
+          },
           responsive: true,
           legend: {
-            display: true,
+            display: false,
             fullWidth: true,
           },
           tooltips: {
             enabled: true,
           },
-          //topWidth: fontSize,
+          topWidth: fontSize,
           sort: "desc",
           plugins: {
             datalabels: {
@@ -247,8 +245,13 @@
               align: 'center',
               color: '#FFFFFF',
               font: {
-                size: 30
-              }
+                size: 15,
+              },
+              textAlign: 'center',
+              formatter(value, context) {
+                const label = context.chart.data.labels[context.dataIndex];
+                return [value, label];
+              },
             }
           }
         }
