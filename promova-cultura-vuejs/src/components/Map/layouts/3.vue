@@ -10,7 +10,7 @@
     />
 </template>
 <script>
-import MapPage from "@/components/Map/MapPage"
+import MapPage from "@/pages/MapPage"
 
 export default {
     components: {
