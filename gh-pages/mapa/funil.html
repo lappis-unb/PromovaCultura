@@ -58,7 +58,9 @@
       text-align: center;
       margin: 25px;
     }
+
     /* Custom, iPhone Retina */
+
     @media only screen and (min-width: 320px) {
       #slider {
         width: 90%;
@@ -68,6 +70,7 @@
     }
 
     /* Extra Small Devices, Phones */
+
     @media only screen and (min-width: 480px) {
       #slider {
         width: 90%;
@@ -77,6 +80,7 @@
     }
 
     /* Small Devices, Tablets */
+
     @media only screen and (min-width: 768px) {
       #slider {
         width: 15px;
@@ -85,6 +89,7 @@
     }
 
     /* Medium Devices, Desktops */
+
     @media only screen and (min-width: 992px) {
       #slider {
         width: 15px;
@@ -93,19 +98,13 @@
     }
 
     /* Large Devices, Wide Screens */
+
     @media only screen and (min-width: 1200px) {
       #slider {
         width: 15px;
         height: 100%;
       }
     }
-
-
-
-
-
-
-
   </style>
 
 </head>
@@ -139,116 +138,39 @@
   </div>
 
   <script src="js/bootstrap.min.js"></script>
-  
+
   <script>
-    // https://jqueryui.com/slider/
-    $(function () {
-      width = $(window).width();
-    });
-
-    function addData(chart, data) {
-      chart.data.datasets[0].data = data;
-      chart.update();
-    }
-
-    function myFunction(min, max) {
-      var val = [min, max] //gets the oninput value
-      window.weight = (val.reduce((acc, curr) => acc + curr, 0)) / (val.length);
-
-      projetos = 60 * window.getWeight();
-      propostas = 40 * window.getWeight();
-      captados = 30 * window.getWeight();
-      executados = 20 * window.getWeight();
-
-      data = [propostas, propostas, captados, executados];
-
-      addData(myChart, data)
-    }
-    window.weight = 50;
+    window.weight = 5.5; // initial (min + max / 2)
     window.getWeight = () => (window.weight + Math.floor(Math.random() * 2));
 
-    var canvas = document.getElementById("myChart");
-    var ctx = canvas.getContext('2d');
-    let projetos = 90 * window.getWeight();
-    let propostas = 70 * window.getWeight();
-    let captados = 50 * window.getWeight();
-    let executados = 30 * window.getWeight();
+    function getData() {
+      const projetos = 90 * window.getWeight();
+      const propostas = 70 * window.getWeight();
+      const captados = 50 * window.getWeight();
+      const executados = 30 * window.getWeight();
 
+      return [propostas, projetos, captados, executados];
+    }
 
-    let data = {
-      datasets: [{
-        data: [propostas+"fdsa", projetos, captados, executados],
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#34CE56"
-        ],
-      }],
-      labels: [
-        "Quantidade de projetos",
-        "Quantidade de propostas",
-        "Quantidade de captados",
-        "Quantidade de executados"
-      ]
-    };
-    
-    window.chart_data = data;
-    //fontSize = (executados / projetos) * canvas.width;
+    function updateChart(min, max) {
+      // update GLOBAL weight value
+      window.weight = (min + max) / 2;
 
-    var myChart = new Chart(ctx, {
-      type: 'funnel',
-      data: data,
-      options: {
-        responsive: true,
-        legend: {
-          display: false,
-        },
-        tooltips: {
-          enabled: true,
-        },
-        //topWidth: fontSize,
-        sort: "desc",
-        plugins: {
-          datalabels: {
-            anchor: 'center',
-            align: 'center',
-            color: '#FFFFFF',
-            font: {
-              size: 30
-            }
-          }
-        }
-      }
-    });
-
-
-    const sliderOptions = {
-      start: [1, 10],
-      connect: true,
-      range: {
-        'min': 1,
-        'max': 10
-      },
-      orientation: 'horizontal',
-      direction: 'ltr',
-      tooltips: true,
-      step: 1,
-      pips: {
-        mode: 'steps',
-        stepped: true,
-        density: 6
-      },
-    };
+      // Update GLOBAL chart data
+      window.myChart.data.datasets[0].data = getData();
+      window.myChart.update();
+    }
 
     function setupSlider() {
       const slider = document.getElementById('slider');
-      if (slider)
+
+      if (slider) {
         slider.innerHTML = ""; // clear slider content
 
-      if (slider.noUiSlider) {
-        // clear noUiSlider for rebuilding
-        slider.noUiSlider.destroy();
+        if (slider.noUiSlider) {
+          // clear noUiSlider for rebuilding
+          slider.noUiSlider.destroy();
+        }
       }
 
       noUiSlider.create(
@@ -263,11 +185,11 @@
       ];
 
       slider.noUiSlider.on('update', function (values, handle) {
-        myFunction(parseInt(values[0]), parseInt(values[1]));
+        updateChart(parseInt(values[0]), parseInt(values[1]));
       });
     }
 
-    function WidthChange(mq) {
+    function mediaQueryWidthChangeDection(mq) {
       if (mq.matches) {
         // window width is at least 574px
         sliderOptions.orientation = "vertical";
@@ -278,10 +200,86 @@
       setupSlider();
     }
 
-    // https://www.sitepoint.com/javascript-media-queries/
-    const mq = window.matchMedia("(min-width: 768px)");
-    mq.addListener(WidthChange);
-    WidthChange(mq);
+    // Chart encapsulation.
+    // NO ACCIDENTAL GLOBALS, if you want a global, meke it explicit, ex: window.my_global = 123456;
+    (function () {
+      const canvas = document.getElementById("myChart");
+      const ctx = canvas.getContext('2d');
+
+      let data = {
+        datasets: [{
+          data: getData(),
+          backgroundColor: [
+            "#FF6384",
+            "#36A2EB",
+            "#FFCE56",
+            "#34CE56"
+          ],
+        }],
+        labels: [
+          "Quantidade de projetos",
+          "Quantidade de propostas",
+          "Quantidade de captados",
+          "Quantidade de executados"
+        ],
+      };
+
+      //const fontSize = (executados / projetos) * canvas.width;
+
+      // myChart is GLOBAL
+      window.myChart = new Chart(ctx, {
+        type: 'funnel',
+        data: data,
+        options: {
+          responsive: true,
+          legend: {
+            display: true,
+            fullWidth: true,
+          },
+          tooltips: {
+            enabled: true,
+          },
+          //topWidth: fontSize,
+          sort: "desc",
+          plugins: {
+            datalabels: {
+              anchor: 'center',
+              align: 'center',
+              color: '#FFFFFF',
+              font: {
+                size: 30
+              }
+            }
+          }
+        }
+      });
+    })();
+
+    // Slider encapsulation
+    // NO ACCIDENTAL GLOBALS, if you want a global, meke it explicit, ex: window.my_global = 123456;
+    (function () {
+       window.sliderOptions = {
+        start: [1, 10],
+        connect: true,
+        range: {
+          'min': 1,
+          'max': 10
+        },
+        orientation: 'horizontal',
+        direction: 'ltr',
+        tooltips: true,
+        step: 1,
+        pips: {
+          mode: 'steps',
+          stepped: true,
+          density: 6
+        },
+      };
+
+      const mq = window.matchMedia("(min-width: 768px)");
+      mq.addListener(mediaQueryWidthChangeDection);
+      mediaQueryWidthChangeDection(mq);
+    })();
   </script>
 
 </body>
