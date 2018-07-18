@@ -1,14 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import BrazilMapPage from '@/pages/BrazilMapPage'
-import BrazilMapRegionPage from '@/pages/BrazilMapRegionPage'
-import FunilPage from '@/pages/FunilPage'
 import HomePage from '@/pages/HomePage'
-import NaturalLanguageFilterPage from '@/pages/NaturalLanguageFilterPage'
+import BrazilMapPage from '@/pages/BrazilMapPage'
 import MapPage1 from '@/components/Map/layouts/1'
 import MapPage2 from '@/components/Map/layouts/2'
 import MapPage3 from '@/components/Map/layouts/3'
 import MapPage4 from '@/components/Map/layouts/4'
+import BrazilMapRegionPage from '@/pages/BrazilMapRegionPage'
+import NaturalLanguageFilterPage from '@/pages/NaturalLanguageFilterPage'
 
 Vue.use(Router)
 
@@ -28,11 +27,6 @@ export default new Router({
       path: '/map_region',
       name: 'BrazilMapRegionPage',
       component: BrazilMapRegionPage
-    },
-    {
-      path: '/funil',
-      name: 'FunilPage',
-      component: FunilPage
     },
     {
       path: '/nl',
