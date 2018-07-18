@@ -116,6 +116,15 @@
       margin-top: -8px;
       margin-left: -8px;
     }
+
+    .info-number {
+      font-size: 12px;
+    }
+
+    #funil {
+      margin-bottom: 3%;
+    }
+
   </style>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -141,31 +150,13 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-sm-8 col-sm-push-4">
+      <div class="col-sm-8 col-sm-push-4" id="funil">
         <canvas id="myChart" height="300"></canvas>
       </div>
       <div class="col-sm-4 slider-goes-here col-sm-pull-8">
         <div id="slider-range"></div>
         <output id="output"></output>
       </div>
-    
-      <!-- <div>
-        <div class="card">
-          <div class="card-header">
-            Pessoas Envolvidas(absoluto)
-          </div>
-          <div class="card-body">
-            <div>
-              <img src="images/svg-icons/proponente_LVL_1.svg" style="width: 30px; height: 30px;">
-              <h5 class="card-title" id="proponent-number" style="display: inline-block;"> 2 proponentes</h5>
-            </div>
-            <div>
-              <img src="images/svg-icons/Investidores_LVL_1.svg" style="width: 30px; height: 30px;">
-              <h5 class="card-title" id="investor-number" style="display: inline-block;"> 2 incentivadores</h5>
-            </div>
-          </div>
-        </div>
-      </div> -->
 
       <div class="col-sm-12">
         <div class="card">
@@ -175,18 +166,24 @@
           <div class="card-body">
             <div class="container">
               <div class="row">
-                <img class="col-xs-3" src="images/svg-icons/proponente_LVL_1.svg" style="width: 30px; height: 30px; padding: 0px;">
-                <div class="col-xs-9 progress" style="padding: 0px;">
-                  <div class="progress-bar progress-bar-info" role="progressbar" id="inv-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                <img class="col-xs-2" src="images/svg-icons/proponente_LVL_1.svg" style="width: 30px; height: 30px; padding: 0px;">
+                <div class="col-xs-7 progress" style="padding: 0px;">
+                  <div class="progress-bar progress-bar-info" role="progressbar" id="prop-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:100%">
                   </div>
+                </div>
+                <div class="col-xs-3">
+                   <div class="info-number proponent">100</div>
                 </div>
               </div>
               <div class="row">
-                <img class="col-xs-3" src="images/svg-icons/Investidores_LVL_1.svg" style="width: 30px; height: 30px; padding: 0px;">
-                <div class="col-xs-9 progress" style="padding: 0px;">
-                  <div class="progress-bar progress-bar-warning" role="progressbar" id="prop-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                <img class="col-xs-2" src="images/svg-icons/Investidores_LVL_1.svg" style="width: 30px; height: 30px; padding: 0px;">
+                <div class="col-xs-7 progress" style="padding: 0px;">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" id="inv-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:100%">
                   </div>
                 </div>
+                  <div class="col-xs-3">
+                    <div class="info-number investor">100</div>
+                  </div>
               </div>
             </div>
           </div>
@@ -202,8 +199,11 @@
     // https://jqueryui.com/slider/
 
     function changeNumberOfPropAndInc (min, max){
-      $('#prop-bar').css('width', String(Math.random()*100));
-      $('#inv-bar').css('width', String(Math.random()*100));
+      num = Math.random() * 100
+      $('#prop-bar').css('width', String(num)+ "%");
+      $('#inv-bar').css('width', String(num) + "%");
+      $('.proponent').text(Math.floor(num));
+      $('.investor').text(Math.floor(num));
     }
 
     $(function () {
@@ -230,7 +230,7 @@
             handle1.append("<span class='ui-slider-handle-label' id='ui-slider-handle-label-1'>" + ui.values[0] + "</span>");
           } else {
             $("#ui-slider-handle-label-1").text(ui.values[0]);
-          }          
+          }
 
           var handle2 = $(this).children('.ui-slider-handle').last();
 
