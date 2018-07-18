@@ -148,6 +148,50 @@
         <div id="slider-range"></div>
         <output id="output"></output>
       </div>
+    
+      <!-- <div>
+        <div class="card">
+          <div class="card-header">
+            Pessoas Envolvidas(absoluto)
+          </div>
+          <div class="card-body">
+            <div>
+              <img src="images/svg-icons/proponente_LVL_1.svg" style="width: 30px; height: 30px;">
+              <h5 class="card-title" id="proponent-number" style="display: inline-block;"> 2 proponentes</h5>
+            </div>
+            <div>
+              <img src="images/svg-icons/Investidores_LVL_1.svg" style="width: 30px; height: 30px;">
+              <h5 class="card-title" id="investor-number" style="display: inline-block;"> 2 incentivadores</h5>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            Pessoas Envolvidas
+          </div>
+          <div class="card-body">
+            <div class="container">
+              <div class="row">
+                <img class="col-xs-3" src="images/svg-icons/proponente_LVL_1.svg" style="width: 30px; height: 30px; padding: 0px;">
+                <div class="col-xs-9 progress" style="padding: 0px;">
+                  <div class="progress-bar progress-bar-info" role="progressbar" id="inv-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <img class="col-xs-3" src="images/svg-icons/Investidores_LVL_1.svg" style="width: 30px; height: 30px; padding: 0px;">
+                <div class="col-xs-9 progress" style="padding: 0px;">
+                  <div class="progress-bar progress-bar-warning" role="progressbar" id="prop-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -156,6 +200,12 @@
   <script src="js/pgwslideshow.min.js"></script>
   <script>
     // https://jqueryui.com/slider/
+
+    function changeNumberOfPropAndInc (min, max){
+      $('#prop-bar').css('width', String(Math.random()*100));
+      $('#inv-bar').css('width', String(Math.random()*100));
+    }
+
     $(function () {
       width = $(window).width();
       if (width > 768) {
@@ -166,7 +216,7 @@
         orientation: "vertical",
       })
       $("#slider-range").slider({
-        // orientation: "vertical",
+        // orientation: "vertical ",
         range: true,
         min: 1,
         max: 10,
@@ -180,7 +230,7 @@
             handle1.append("<span class='ui-slider-handle-label' id='ui-slider-handle-label-1'>" + ui.values[0] + "</span>");
           } else {
             $("#ui-slider-handle-label-1").text(ui.values[0]);
-          }
+          }          
 
           var handle2 = $(this).children('.ui-slider-handle').last();
 
@@ -190,6 +240,7 @@
             $("#ui-slider-handle-label-2").text(ui.values[1]);
           }
 
+          changeNumberOfPropAndInc(ui.values[0], ui.values[1]);
         }
       });
     });
