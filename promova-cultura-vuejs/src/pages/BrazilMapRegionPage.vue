@@ -2,8 +2,10 @@
   <div class="container">
     <link href="../../static/jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-8">
+        <div class="map">
         <div id="brazil-map">
+        </div>
         </div>
       </div>
       <div class="col-sm-4">
@@ -32,7 +34,7 @@ export default {
   name: "BrazilMapRegion",
   data() {
     return {
-      content: "Selecione um estado no mapa para saber a quantidade de projetos no mesmo.",
+      content: "Selecione um estado no funil para saber a quantidade de projetos no mesmo.",
       titleCard: "Brasil",
       selected: "",
       listOfUfs: [],
@@ -172,12 +174,19 @@ var listOfUfs = [];
       .select-states {
           display: none;
       }
+      .map{
+        display: inline-block;
+      }
+
     }
 
     /* Large Devices, Wide Screens */
     @media only screen and (min-width : 1200px) {
       .select-states {
           display: none;
+      }
+      .map{
+        display: inline-block;
       }
     }
 

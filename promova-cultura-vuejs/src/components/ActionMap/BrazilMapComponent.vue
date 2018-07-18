@@ -56,14 +56,14 @@ export default {
 /* Medium Devices, Desktops */
 @media only screen and (min-width: 992px) {
   .box-mapa {
-    display: block;
+    display: inline-block;
   }
 }
 
 /* Large Devices, Wide Screens */
 @media only screen and (min-width: 1200px) {
   .box-mapa {
-    display: block;
+    display: inline-block;
   }
 }
 </style>

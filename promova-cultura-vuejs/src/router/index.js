@@ -5,10 +5,10 @@ import BrazilMapRegionPage from '@/pages/BrazilMapRegionPage'
 import FunilPage from '@/pages/FunilPage'
 import HomePage from '@/pages/HomePage'
 import NaturalLanguageFilterPage from '@/pages/NaturalLanguageFilterPage'
-import MapPage1 from '@/components/mapPrototype/layouts/1'
-import MapPage2 from '@/components/mapPrototype/layouts/2'
-import MapPage3 from '@/components/mapPrototype/layouts/3'
-import MapPage4 from '@/components/mapPrototype/layouts/4'
+import MapPage1 from '@/components/Map/layouts/1'
+import MapPage2 from '@/components/Map/layouts/2'
+import MapPage3 from '@/components/Map/layouts/3'
+import MapPage4 from '@/components/Map/layouts/4'
 
 Vue.use(Router)
 
