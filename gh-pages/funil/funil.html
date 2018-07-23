@@ -25,7 +25,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
   <!-- Slider -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.css" />
+  <link rel="stylesheet" href="./css/nouislider.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/11.1.0/nouislider.min.js"></script>
 
   <style>
@@ -40,10 +40,10 @@
 
     @media screen and (min-width: 575px) {
       /* > 574px */
-      #slider {
+      /* #slider {
         width: 15px;
         height: 100%;
-      }
+      } */
     }
 
     .title-slider {
@@ -74,10 +74,10 @@
     /* Small Devices, Tablets */
 
     @media only screen and (min-width: 768px) {
-      #slider {
+      /* #slider {
         width: 15px;
         height: 100%;
-      }
+      } */
     }
 
     /* Medium Devices, Desktops */
@@ -203,10 +203,10 @@
         datasets: [{
           data: canvasData,
           backgroundColor: [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "#34CE56"
+            "#9EBA36",
+            "#6F8928",
+            "#516610",
+            "#455421"
           ],
         }],
         labels: [
@@ -262,10 +262,10 @@
     // NO ACCIDENTAL GLOBALS, if you want a global, meke it explicit, ex: window.my_global = 123456;
     (function () {
        window.sliderOptions = {
-        start: [1, 10],
+        start: [0, 10],
         connect: true,
         range: {
-          'min': 1,
+          'min': 0,
           'max': 10
         },
         orientation: 'horizontal',
@@ -278,11 +278,12 @@
           density: 6
         },
       };
-
-      const mq = window.matchMedia("(min-width: 768px)");
-      mq.addListener(mediaQueryWidthChangeDection);
-      mediaQueryWidthChangeDection(mq);
+      
+      // const mq = window.matchMedia("(min-width: 768px)");
+      // mq.addListener(mediaQueryWidthChangeDection);
+      // mediaQueryWidthChangeDection(mq);
     })();
+    setupSlider();
   </script>
 
 </body>
