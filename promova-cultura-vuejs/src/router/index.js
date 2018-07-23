@@ -6,6 +6,7 @@ import MapPage1 from '@/components/Map/layouts/1'
 import MapPage2 from '@/components/Map/layouts/2'
 import MapPage3 from '@/components/Map/layouts/3'
 import MapPage4 from '@/components/Map/layouts/4'
+import Funnel from '@/pages/FunnelPage'
 import BrazilMapRegionPage from '@/pages/BrazilMapRegionPage'
 import NaturalLanguageFilterPage from '@/pages/NaturalLanguageFilterPage'
 
@@ -52,6 +53,11 @@ export default new Router({
       path: '/map-prototype-4',
       name: 'MapPage4',
       component: MapPage4
+    },
+    {
+      path: '/funnel',
+      name: 'Funnel',
+      component: Funnel
     },
   ]
 })

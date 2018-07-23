@@ -84,17 +84,17 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   left: auto;
 }
 .noUi-target {
-  background: #D8D8D8;
+  background: #fafafa;
   border-radius: 4px;
-  cursor: pointer;
-  border: 1px solid #D8D8D8;
-  box-shadow: inset 0 1px 1px #D8D8D8, 0 3px 6px -5px #bbb;
+  border: 1px solid #d3d3d3;
+  box-shadow: inset 0 1px 1px #f0f0f0, 0 3px 6px -5px #bbb;
 }
+
 .noUi-connects {
   border-radius: 3px;
 }
 .noUi-connect {
-  background: #49A0B7;
+  background: #3fb8af;
 }
 .noUi-draggable {
   cursor: ew-resize;
@@ -103,12 +103,15 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   cursor: ns-resize;
 }
 .noUi-handle {
-  background: #49A0B7;
-  cursor: hand;
-  background-color: #49A0B7;
-  border-radius: 80%;
+  border: 1px solid #d9d9d9;
+  border-radius: 3px;
+  background: #fff;
+  cursor: default;
+  box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ebebeb, 0 3px 6px -3px #bbb;
 }
-
+.noUi-active {
+  box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ddd, 0 3px 6px -3px #bbb;
+}
 .noUi-handle:after {
   left: 17px;
 }
@@ -146,7 +149,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 .noUi-value-sub {
   color: #ccc;
-  font-size: 10px;
+  font-size: 15px;
 }
 .noUi-marker {
   position: absolute;
@@ -211,9 +214,9 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 .noUi-tooltip {
   display: block;
   position: absolute;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d9d9d9;
   border-radius: 3px;
-  background: #D8D8D8;
+  background: #fff;
   color: #000;
   padding: 5px;
   text-align: center;
@@ -230,4 +233,42 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   transform: translate(0, -50%);
   top: 50%;
   right: 120%;
+}
+
+/* Peter */
+
+body #slider {
+  height: 7px;
+}
+
+.noUi-target {
+  border: none;
+  position: relative;
+  top: 2px;
+  background: #ccc;
+}
+
+.noUi-pips-horizontal {
+  padding-top: 0;
+}
+
+.noUi-connect {
+  background: #49a0b7;
+}
+
+.noUi-horizontal .noUi-handle {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background: #49a0b7;
+  box-shadow: none;
+  border: none;
+}
+
+.noUi-tooltip {
+  background: #d8d8d8;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #666;
+  font-size: 18px;
 }
