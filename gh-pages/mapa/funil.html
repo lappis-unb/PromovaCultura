@@ -118,21 +118,68 @@
     }
 
     .info-number {
-      font-size: 10px;
+      /* font-size: 26px; */
+      font-weight: bold;
+      display: block;
+    }
+
+    .progress {
+      border-radius: 15px;
+      margin-top: 5vh;
+      height: 2vh;
+    }
+
+    .proponent {
+      color: #5bc0de;
+      text-align: center;
+      margin-top: 1.5vh;
+    }
+
+    .investor {
+      color: #f0ad4e;
+      text-align: center;
+      margin-top: 1.5vh;
     }
 
     #funil {
       margin-bottom: 3%;
     }
 
+    .info-type {
+      color: #737477;
+      font-weight: bold;
+
+    }
+
+    @media (max-width: 575px) {
+      .info-number {
+        font-size: 20px;
+      }
+      .info-type {
+        font-size: 10px;
+      }
+    }
+
+    @media (min-width: 576px) {
+      .info-number {
+        font-size: 28px;
+      }
+    }
+
+    @media (min-width: 768px) {
+
+    }
+
+    @media (min-width: 992px) {
+
+    }
+
+    @media (min-width: 1200px) {
+
+    }
+
   </style>
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
 
 <body>
@@ -147,47 +194,6 @@
       </div>
     </nav>
   </header>
-
-  <!-- <div class="container">
-    <div class="row">
-      <div class="col-sm-8 col-sm-push-4" id="funil">
-        <canvas id="myChart" height="300"></canvas>
-      </div>
-      <div class="col-sm-4 slider-goes-here col-sm-pull-8">
-        <div id="slider-range"></div>
-        <output id="output"></output>
-      </div>
-        <div class="col-sm-12">
-          <div class="card">
-            <div class="card-header">
-              Pessoas Envolvidas
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <img class="col-xs-2" src="images/svg-icons/proponente_LVL_1.svg" style="width: 30px; height: 30px; padding: 0px;">
-                <div class="col-xs-7 progress" style="padding: 0px;">
-                  <div class="progress-bar progress-bar-info" role="progressbar" id="prop-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                  </div>
-                </div>
-                <div class="col-xs-3">
-                  <div class="info-number proponent">100</div>
-                </div>
-              </div>
-              <div class="row">
-                <img class="col-xs-2" src="images/svg-icons/Investidores_LVL_1.svg" style="width: 30px; height: 30px; padding: 0px;">
-                <div class="col-xs-7 progress" style="padding: 0px;">
-                  <div class="progress-bar progress-bar-warning" role="progressbar" id="inv-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                  </div>
-                </div>
-                  <div class="col-xs-3">
-                    <div class="info-number investor">100</div>
-                  </div>
-              </div>
-            </div>
-        </div>
-        </div>
-    </div>
-  </div> -->
 
   <div class="container">
     <div class="row">
@@ -209,24 +215,35 @@
           </div>
           <div class="card-body">
             <div class="row">
-              <img class="col-xs-2 col-md-2" src="images/svg-icons/proponente_LVL_1.svg" style="width: 30px; height: 30px; padding: 0px;">
-              <div class="col-xs-7 col-md-8 progress" style="padding: 0px;">
+              <div class="col-xs-3 col-md-2">
+                <img src="images/svg-icons/Proponentes_ICONE.svg" style="width: 50px; height: 50px; padding: 0px; margin-top: 2vh;">
+              </div>
+              <div class="col-xs-4 col-md-6 progress" style="padding: 0px;">
                 <div class="progress-bar progress-bar-info" role="progressbar" id="prop-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
                   style="width:100%">
                 </div>
               </div>
-              <div class="col-xs-3 col-md-2">
-                <div class="info-number proponent">1000000</div>
+              <div class="col-xs-5 col-md-4">
+                <div class="proponent">
+                  <span class="info-number">1000000</span>
+                  <span class="info-type">PROPONENTES</span>
+                </div>
               </div>
-
-              <img class="col-xs-2 col-md-2" src="images/svg-icons/Investidores_LVL_1.svg" style="width: 30px; height: 30px; padding: 0px;">
-              <div class="col-xs-7 col-md-8 progress" style="padding: 0px;">
+            </div>
+            <div class="row">
+              <div class="col-xs-3 col-md-2">
+                <img src="images/svg-icons/Investidores_ICONE.svg" style="width: 50px; height: 50px; padding: 0px; margin-top: 2vh;">
+              </div>
+              <div class="col-xs-4 col-md-6 progress" style="padding: 0px;">
                 <div class="progress-bar progress-bar-warning" role="progressbar" id="inv-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
                   style="width:100%">
                 </div>
               </div>
-              <div class="col-xs-3 col-md-2">
-                <div class="info-number proponent">1000000</div>
+              <div class="col-xs-5 col-md-4">
+                <div class="investor">
+                  <span class="info-number">1000000</span>
+                  <span class="info-type">INCENTIVADORES</span>
+                </div>
               </div>
             </div>
           </div>
@@ -243,12 +260,11 @@
   <script>
     // https://jqueryui.com/slider/
 
-    function changeNumberOfPropAndInc (min, max){
+    function changeNumberOfPropAndInc(min, max) {
       num = Math.random() * 100
-      $('#prop-bar').css('width', String(num)+ "%");
+      $('#prop-bar').css('width', String(num) + "%");
       $('#inv-bar').css('width', String(num) + "%");
-      $('.proponent').text(Math.floor(num));
-      $('.investor').text(Math.floor(num));
+      $('.info-number').text(Math.floor(num));
     }
 
     $(function () {
