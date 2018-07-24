@@ -19,7 +19,12 @@
         </div>
       </div>
       <div class="col-sm-8">
-        <canvas id="myChart" height="300"></canvas>
+        <canvas
+          id="myChart"
+          height="300"
+          data-value='600 32px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
+          data-label='600 14px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
+        ></canvas>
       </div>
     </div>
   </div>
@@ -29,7 +34,8 @@
 import $ from "jquery";
 import "../../static/funnel/chart.js";
 import "../../static/funnel/chart.funnel.js";
-import "../../static/funnel/chartjsPluginDatalabels.js";
+import "../../static/funnel/chartjs-plugin-datalabels.min.js";
+
 import vueSlider from "vue-slider-component";
 
 export default {
