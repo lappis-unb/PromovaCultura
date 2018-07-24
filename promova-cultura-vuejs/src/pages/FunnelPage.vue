@@ -2,6 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-4">
+        <legend class="title-slider">Saúde do Projeto</legend>
         <div class="title-slider">
           <vue-slider ref="slider" id="custom-tootip"
             v-bind="slider_data"
@@ -51,9 +52,28 @@ export default {
         show: true,
         tooltip: "always",
         piecewise: true,
+
         tooltipStyle: {
-          backgroundColor: "#666",
-          borderColor: "#666"
+          backgroundColor: "#d8d8d8",
+          borderColor: "#d8d8d8",
+          color: "#666",
+          fontSize: "18px",
+          fontWeight: "600",
+          padding: "2px 5px 0px 5px"
+        },
+        tooltipDir: ["bottom", "bottom"],
+        sliderStyle: [
+          {
+            backgroundColor: "#49A0B7",
+            boxShadow: "none"
+          },
+          {
+            backgroundColor: "#49A0B7",
+            boxShadow: "none"
+          }
+        ],
+        labelActiveStyle: {
+          "color": "red"
         }
       }
     };
@@ -146,15 +166,24 @@ $(function() {
 </script>
 
 <style scoped>
-title-slider{
-
+.title-slider {
+  margin-bottom: 40px;
+  font-size: 24px;
+  color: #666;
 }
+
 .custom-label {
   position: absolute;
   bottom: 100%;
   left: 0;
   transform: translate(-50%, -12px);
   margin-left: 3px;
+  color: #666;
+  font-size: 15px;
+}
+.vue-slider-piecewise .vue-slider-piecewise-item:first-child .custom-label,
+.vue-slider-piecewise .vue-slider-piecewise-item:last-child .custom-label {
+  font-size: 16px;
 }
 .custom-label::after {
   content: "";
@@ -167,11 +196,10 @@ title-slider{
   background-color: #000;
 }
 .custom-label.active {
-  color: #4a9fb6;
-  font-weight: bold;
+  color: #666;
 }
 .custom-label.active::after {
-  background-color: #4a9fb6;
+  background-color: #49A0B7;
   width: 2px;
 }
 </style>
