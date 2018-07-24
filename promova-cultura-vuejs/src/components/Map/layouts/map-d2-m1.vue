@@ -88,6 +88,9 @@
 
         </div>
     </div>
+    <div class="row">
+        <location-info/>
+    </div>
 </div>
 </template>
 
@@ -102,6 +105,8 @@ import LegendCardVerticalGroup from "@/components/Map/legends/LegendCardVertical
 import LegendCardVerticalScrollGroup from "@/components/Map/legends/LegendCardVerticalScrollGroup"
 import LegendTabGroup from "@/components/Map/legends/LegendTabGroup"
 import LegendHorizontalGroup from "@/components/Map/legends/LegendHorizontalGroup"
+
+import LocationInfo from "@/components/mapPrototype/info/LocationInfo"
 
 export default {
   props: {
@@ -125,6 +130,7 @@ export default {
     "legend-tab": LegendTabGroup,
     "legend-card-vertical-scroll-group": LegendCardVerticalScrollGroup,
     "legend-card-vertical-group": LegendCardVerticalGroup,
+    "location-info": LocationInfo,
   },
   methods: {
     updateSegment: function(selected) {
