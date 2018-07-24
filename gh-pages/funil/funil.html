@@ -22,10 +22,8 @@
   <!-- Funil -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
   <script src="js/chart.funnel.js"></script>
-  <!--
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-  -->
-  <script src="./js/chartjs-plugin-datalabels.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> -->
+  <script src="./js/chartjs-plugin-datalabels.min.js"></script>
 
   <!-- Slider -->
   <link rel="stylesheet" href="./css/nouislider.css" />
@@ -120,7 +118,12 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-8 col-sm-push-4">
-        <canvas id="myChart" height="300"></canvas>
+        <canvas
+          id="myChart"
+          height="300"
+          data-value='600 32px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
+          data-label='600 14px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
+        ></canvas>
       </div>
 
       <div class="col-sm-4 col-sm-pull-8">
@@ -213,10 +216,10 @@
           ],
         }],
         labels: [
-          "Projetos",
-          "Propostas",
-          "Captados",
-          "Executados",
+          "PROJETOS",
+          "PROPOSTAS",
+          "CAPTADOS",
+          "EXECUTADOS",
         ],
       };
 
