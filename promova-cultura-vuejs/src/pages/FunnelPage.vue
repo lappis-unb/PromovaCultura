@@ -1,15 +1,15 @@
 <template>
   <div class="container">
     <div class="row">
+      <funnel-component :value="slider_data.value"/>
+      <slider-funnel :value="slider_data.value"/>
       <div class="col-sm-4">
         <legend class="title-slider">Saúde do Projeto</legend>
-        <div class="title-slider">
           <vue-slider ref="slider" id="custom-tootip"
             v-bind="slider_data"
             v-model="slider_data.value"
-            @click="this.dragEnd()"
-            @drag-end="dragEnd"
-            @drag-start="dragStart"
+            @drag-end="updateChart"
+            @drag-start="updateChart"
           >    
             <template slot="label" slot-scope="{ label, active }">
               <span :class="['custom-label', { active }]">
@@ -17,7 +17,6 @@
               </span>
             </template>
           </vue-slider>
-        </div>
       </div>
       <div class="col-sm-8">
         <canvas
@@ -38,11 +37,15 @@ import "../../static/funnel/chart.js";
 import "../../static/funnel/chart.funnel.js";
 import "../../static/funnel/chartjs-plugin-datalabels.min.js";
 import vueSlider from "vue-slider-component";
+import FunnelComponent from "@/components/Funnel/FunnelComponent";
+import SliderFunnel from "@/components/Funnel/SliderFunnel";
 
 export default {
   name: "Funnel",
   components: {
-    vueSlider
+    vueSlider,
+    FunnelComponent,
+    SliderFunnel
   },
   data() {
     return {
@@ -58,7 +61,6 @@ export default {
         show: true,
         tooltip: "always",
         piecewise: true,
-
         tooltipStyle: {
           backgroundColor: "#d8d8d8",
           borderColor: "#d8d8d8",
@@ -67,56 +69,35 @@ export default {
           fontWeight: "600",
           padding: "2px 5px 0px 5px"
         },
-        tooltipDir: ["bottom", "bottom"],
-        sliderStyle: [
-          {
-            backgroundColor: "#49A0B7",
-            boxShadow: "none"
-          },
-          {
-            backgroundColor: "#49A0B7",
-            boxShadow: "none"
-          }
-        ],
-        labelActiveStyle: {
-          color: "red"
+        tooltipDir: "bottom",
+        sliderStyle: {
+          backgroundColor: "#49A0B7",
+          boxShadow: "none"
         }
       }
     };
   },
   methods: {
     updateChart() {
-      // console.log('mexendo', this.slider_data.value[0], this.slider_data.value[1])
-      // update GLOBAL weight value
-      window.weight =
-        (this.slider_data.value[0] + this.slider_data.value[1]) / 2;
-
-      // Update GLOBAL chart data
-      window.myChart.data.datasets[0].data = getData();
+      window.myChart.data.datasets[0].data = this.getData();
       window.myChart.update();
     },
-    dragEnd() {
-      this.updateChart();
-    },
-    dragStart() {
-      this.updateChart();
+    getWeight() {
+      let weight = (this.slider_data.value[0] + this.slider_data.value[1]) / 2;
+      return (weight || 5.5) + Math.floor(Math.random() * 2);
     },
     getData() {
-      const propostas = 90 * window.getWeight();
-      const projetos = 70 * window.getWeight();
-      const captados = 50 * window.getWeight();
-      const executados = 40 * window.getWeight();
+      const propostas = 90 * this.getWeight();
+      const projetos = 70 * this.getWeight();
+      const captados = 50 * this.getWeight();
+      const executados = 40 * this.getWeight();
 
       return [propostas, projetos, captados, executados];
     }
   },
   mounted() {
     // Re-adjust slider width after 800 milisec because of bootstrap
-    window.weight = 5.5; // initial (min + max / 2)
-    window.getWeight = () => window.weight + Math.floor(Math.random() * 2);
-
     const canvas = document.getElementById("myChart");
-    const ctx = canvas.getContext("2d");
     const canvasData = this.getData();
 
     let data = {
@@ -129,9 +110,8 @@ export default {
       labels: ["Projetos", "Propostas", "Captados", "Executados"]
     };
 
-    const fontSize = canvasData[3] / canvasData[1] * 125;
     // myChart is GLOBAL
-    window.myChart = new Chart(ctx, {
+    window.myChart = new Chart(canvas.getContext("2d"), {
       type: "funnel",
       data: data,
       options: {
@@ -148,7 +128,7 @@ export default {
         tooltips: {
           enabled: false
         },
-        topWidth: fontSize,
+        topWidth: canvasData[3] / canvasData[1] * 125,
         sort: "desc",
         plugins: {
           datalabels: {
@@ -181,7 +161,6 @@ export default {
   font-size: 24px;
   color: #666;
 }
-
 .custom-label {
   position: absolute;
   bottom: 100%;
