@@ -9,6 +9,7 @@
             v-model="slider_data.value"
             @click="this.dragEnd()"
             @drag-end="dragEnd"
+            @drag-start="dragStart"
           >    
             <template slot="label" slot-scope="{ label, active }">
               <span :class="['custom-label', { active }]">
@@ -21,7 +22,8 @@
       <div class="col-sm-8">
         <canvas
           id="myChart"
-          height="300"
+          width="100"
+          height="80"
           data-value='600 32px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
           data-label='600 14px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
         ></canvas>
@@ -77,7 +79,7 @@ export default {
           }
         ],
         labelActiveStyle: {
-          "color": "red"
+          color: "red"
         }
       }
     };
@@ -95,85 +97,82 @@ export default {
     },
     dragEnd() {
       this.updateChart();
+    },
+    dragStart() {
+      this.updateChart();
+    },
+    getData() {
+      const propostas = 90 * window.getWeight();
+      const projetos = 70 * window.getWeight();
+      const captados = 50 * window.getWeight();
+      const executados = 40 * window.getWeight();
+
+      return [propostas, projetos, captados, executados];
     }
   },
   mounted() {
     // Re-adjust slider width after 800 milisec because of bootstrap
-    window.setTimeout(() => {
-      this.$refs.slider.refresh();
-    }, 800);
-  },
+    window.weight = 5.5; // initial (min + max / 2)
+    window.getWeight = () => window.weight + Math.floor(Math.random() * 2);
 
-};
+    const canvas = document.getElementById("myChart");
+    const ctx = canvas.getContext("2d");
+    const canvasData = this.getData();
 
-window.weight = 5.5; // initial (min + max / 2)
-window.getWeight = () => window.weight + Math.floor(Math.random() * 2);
+    let data = {
+      datasets: [
+        {
+          data: canvasData,
+          backgroundColor: ["#9EBA36", "#6F8928", "#516610", "#455421"]
+        }
+      ],
+      labels: ["Projetos", "Propostas", "Captados", "Executados"]
+    };
 
-function getData() {
-  const propostas = 90 * window.getWeight();
-  const projetos = 70 * window.getWeight();
-  const captados = 50 * window.getWeight();
-  const executados = 40 * window.getWeight();
-
-  return [propostas, projetos, captados, executados];
-}
-
-// Chart encapsulation.
-// NO ACCIDENTAL GLOBALS, if you want a global, make it explicit, ex: window.my_global = 123456;
-$(function() {
-  const canvas = document.getElementById("myChart");
-  const ctx = canvas.getContext("2d");
-  const canvasData = getData();
-
-  let data = {
-    datasets: [
-      {
-        data: canvasData,
-        backgroundColor: ["#9EBA36", "#6F8928", "#516610", "#455421"]
-      }
-    ],
-    labels: ["Projetos", "Propostas", "Captados", "Executados"]
-  };
-
-  const fontSize = canvasData[3] / canvasData[1] * 125;
-  // myChart is GLOBAL
-  window.myChart = new Chart(ctx, {
-    type: "funnel",
-    data: data,
-    options: {
-      title: {
-        display: false,
-        position: "top",
-        text: "Titulo das legendas"
-      },
-      responsive: true,
-      legend: {
-        display: false,
-        fullWidth: true
-      },
-      tooltips: {
-        enabled: false
-      },
-      topWidth: fontSize,
-      sort: "desc",
-      plugins: {
-        datalabels: {
-          anchor: "center",
-          align: "center",
-          color: "#FFFFFF",
-          font: {
-            size: 15
-          },
-          textAlign: "center",
-          formatter(value, context) {
-            const label = context.chart.data.labels[context.dataIndex];
-            return [value, label];
+    const fontSize = canvasData[3] / canvasData[1] * 125;
+    // myChart is GLOBAL
+    window.myChart = new Chart(ctx, {
+      type: "funnel",
+      data: data,
+      options: {
+        title: {
+          display: false,
+          position: "top",
+          text: "Titulo das legendas"
+        },
+        responsive: true,
+        legend: {
+          display: false,
+          fullWidth: true
+        },
+        tooltips: {
+          enabled: false
+        },
+        topWidth: fontSize,
+        sort: "desc",
+        plugins: {
+          datalabels: {
+            anchor: "center",
+            align: "center",
+            color: "#FFFFFF",
+            font: {
+              size: 15
+            },
+            textAlign: "center",
+            formatter(value, context) {
+              const label = context.chart.data.labels[context.dataIndex];
+              return [value, label];
+            }
           }
         }
       }
-    }
-  });
-});
+    });
+
+    window.setTimeout(() => {
+      this.$refs.slider.refresh();
+    }, 800);
+  }
+};
 </script>
 
 <style scoped>
@@ -210,7 +209,7 @@ $(function() {
   color: #666;
 }
 .custom-label.active::after {
-  background-color: #49A0B7;
+  background-color: #49a0b7;
   width: 2px;
 }
 </style>
