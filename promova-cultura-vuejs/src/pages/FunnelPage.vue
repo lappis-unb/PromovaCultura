@@ -45,12 +45,11 @@ export default {
   data() {
     return {
       slider_data: {
-        width: "100%",
+        width: "auto",
         min: 0,
         max: 10,
         piecewiseLabel: true,
         value: [0, 10],
-        width: "100%",
         height: 4,
         dotSize: 14,
         interval: 1,
@@ -97,7 +96,14 @@ export default {
     dragEnd() {
       this.updateChart();
     }
-  }
+  },
+  mounted() {
+    // Re-adjust slider width after 800 milisec because of bootstrap
+    window.setTimeout(() => {
+      this.$refs.slider.refresh();
+    }, 800);
+  },
+
 };
 
 window.weight = 5.5; // initial (min + max / 2)
