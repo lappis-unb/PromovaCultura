@@ -1,5 +1,8 @@
 <template>
-    <funil-card :people="people"/>
+  <div>
+    <button v-on:click="increase_number">Aumenta</button>
+    <funil-card :people="people" />
+  </div>
 </template>
 
 <script>
@@ -15,9 +18,15 @@ export default {
   data() {
     return {
         people: {
-            proponentes: 10000000,
-            incentivadores: 1000000
+            proponentes: 50,
+            incentivadores: 50
         }
+    }
+  },
+  methods: {
+    increase_number() {
+      this.people.proponentes = this.people.proponentes + 23;
+      this.people.incentivadores = this.people.incentivadores + 25;
     }
   }
 };

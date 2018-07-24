@@ -11,10 +11,10 @@
                     <img class="people-image" src="@/../static/svg-icons/Proponentes_ICONE.svg">
                 </div>
 
-                <div class="bar-holder col-xs-4 col-md-6">
+                <div class="col-xs-4 col-md-6 bar-holder">
                     <span class="progress-indicator" id="proponent-indicator">{{ people.proponentes }}</span>
                     <div class="progress">
-                    <div class="progress-bar progress-bar-info" role="progressbar" id="prop-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar progress-bar-info" role="progressbar" id="prop-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="propPercentage">
                     </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                 <div class="bar-holder col-xs-4 col-md-6">
                     <span class="progress-indicator" id="investor-indicator">{{ people.incentivadores }}</span>
                     <div class="progress">
-                    <div class="progress-bar progress-bar-warning" role="progressbar" id="inv-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar progress-bar-warning" role="progressbar" id="inv-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="propPercentage">
                     </div>
                     </div>
                 </div>
@@ -59,8 +59,18 @@
 export default {
     props: {
         people: Object
-    }
+    },
+    computed: {
+        propPercentage: function () {
+            return "width: " + this.people.proponentes + "%;"
+        },
+
+        incPercentage: function () {
+            return "width: " + this.people.incentivadores + "%;"
+        }
+    },
 };
+
 </script>
 
 <style scoped>
@@ -81,10 +91,6 @@ export default {
     color: #f0ad4e;
     text-align: center;
     margin-top: 1.5vh;
-}
-
-.progress-bar {
-    width: 100%;
 }
 
 .progress-indicator {
