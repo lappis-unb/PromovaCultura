@@ -1,23 +1,22 @@
 <template>
     <div>
-        <!-- class="col-xs-12 col-md-9 col-md-push-3 col-lg-6 col-lg-push-3" -->
+        <!-- class="col-12 col-md-9 col-md-push-3 col-lg-6 col-lg-push-3" -->
         <div class="card">
             <div class="card-header">
                 Pessoas Envolvidas
             </div>
             <div class="card-body">
                 <div class="row">
-                  <div class="col-xs-3 col-md-2">
+                  <div class="col-3 col-sm-3 col-md-2">
                       <img class="people-image" src="@/../static/svg-icons/Proponentes_ICONE.svg">
                   </div>
-
-                  <div class="col-xs-4 col-md-6 bar-holder">
+                  <div class="col-4 col-sm-4 col-md-6 bar-holder">
                       <span class="progress-indicator" id="proponent-indicator">{{ people.proponentes }}</span>
                       <div class="progress">
                         <div class="progress-bar progress-bar-info" role="progressbar" id="prop-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="propPercentage"></div>
                       </div>
                   </div>
-                  <div class="col-xs-5 col-md-4">
+                  <div class="col-5 col-sm-4 col-md-4">
                       <div class="proponent">
                         <span class="info-number">{{ people.proponentes }}</span>
                         <span class="info-type">PROPONENTES</span>
@@ -25,16 +24,16 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-xs-3 col-md-2">
+                  <div class="col-3 col-md-2">
                       <img class="people-image" src="@/../static/svg-icons/Investidores_ICONE.svg">
                   </div>
-                  <div class="bar-holder col-xs-4 col-md-6">
+                  <div class="bar-holder col-4 col-md-6">
                       <span class="progress-indicator" id="investor-indicator">{{ people.incentivadores }}</span>
                       <div class="progress">
                         <div class="progress-bar progress-bar-warning" role="progressbar" id="inv-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="incPercentage"></div>
                       </div>
                   </div>
-                  <div class="col-xs-5 col-md-4">
+                  <div class="col-5 col-md-4">
                       <div class="investor">
                         <span class="info-number">{{ people.incentivadores }}</span>
                         <span class="info-type">INCENTIVADORES</span>
@@ -138,6 +137,10 @@ export default {
 @media (min-width: 576px) {
   .info-number {
     font-size: 28px;
+  }
+
+  .info-type {
+    font-size: 13px;
   }
 }
 

@@ -8,7 +8,7 @@
       v-model="slider_data.value"
       @drag-end="updateChart"
       @drag-start="updateChart"
-    >    
+    >
       <template slot="label" slot-scope="{ label, active }">
         <span :class="['custom-label', { active }]">
           {{ label }}

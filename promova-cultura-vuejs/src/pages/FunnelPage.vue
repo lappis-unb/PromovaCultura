@@ -1,7 +1,8 @@
 <template>
   <div class="container">
+    <funnel-component/>
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-5 col-md-5">
         <legend class="title-slider">Saúde do Projeto</legend>
         <vue-slider ref="slider" id="custom-tootip"
           v-bind="slider_data"
@@ -9,6 +10,7 @@
           @click="this.dragEnd()"
           @drag-end="dragEnd"
           @drag-start="dragStart"
+          v-if="showSlider"
         >    
           <template slot="label" slot-scope="{ label, active }">
             <span :class="['custom-label', { active }]">
@@ -18,7 +20,7 @@
         </vue-slider>
         <funnel-card class="funnel-card" :people="people" />
       </div>
-      <div class="col-sm-6">
+      <div class="col-5 col-md-5 offset-md-1 funnel-element">
         <canvas
           id="myChart"
           width="100"
@@ -37,14 +39,14 @@ import "../../static/funnel/chart.js";
 import "../../static/funnel/chart.funnel.js";
 import "../../static/funnel/chartjs-plugin-datalabels.min.js";
 import vueSlider from "vue-slider-component";
-// import FunnelComponent from "@/components/Funnel/FunnelComponent";
+import FunnelComponent from "@/components/Funnel/FunnelComponent";
 import FunnelCard from "@/components/Funnel/FunnelCard";
 
 export default {
   name: "Funnel",
   components: {
     vueSlider,
-    //FunnelComponent,
+    FunnelComponent,
     FunnelCard
   },
   data() {
@@ -53,6 +55,7 @@ export default {
         proponentes: 0,
         incentivadores: 0
       },
+      showSlider: false,
       slider_data: {
         width: "auto",
         min: 0,
@@ -65,7 +68,6 @@ export default {
         show: true,
         tooltip: "always",
         piecewise: true,
-
         tooltipStyle: {
           backgroundColor: "#d8d8d8",
           borderColor: "#d8d8d8",
@@ -90,7 +92,6 @@ export default {
   },
   methods: {
     updateChart() {
-      // console.log('mexendo', this.slider_data.value[0], this.slider_data.value[1])
       // update GLOBAL weight value
       window.weight = (this.slider_data.value[0] + this.slider_data.value[1]) / 2;
 
@@ -176,8 +177,9 @@ export default {
     });
 
     window.setTimeout(() => {
+      this.showSlider = true;
       this.$refs.slider.refresh();
-    }, 800);
+    }, 200);
   }
 };
 </script>
@@ -220,6 +222,9 @@ export default {
   width: 2px;
 }
 .funnel-card {
-  margin-top: 10vh;
+  margin-top: 15vh;
+}
+.funnel-element {
+  margin-top: 5vh;
 }
 </style>
