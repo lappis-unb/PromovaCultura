@@ -1,24 +1,24 @@
 <template>
   <div class="container">
     <div class="row">
-      <funnel-component/>
-      <div class="col-sm-4">
+      <div class="col-sm-6">
         <legend class="title-slider">Saúde do Projeto</legend>
-          <vue-slider ref="slider" id="custom-tootip"
-            v-bind="slider_data"
-            v-model="slider_data.value"
-            @click="this.dragEnd()"
-            @drag-end="dragEnd"
-            @drag-start="dragStart"
-          >    
-            <template slot="label" slot-scope="{ label, active }">
-              <span :class="['custom-label', { active }]">
-                {{ label }}
-              </span>
-            </template>
-          </vue-slider>
+        <vue-slider ref="slider" id="custom-tootip"
+          v-bind="slider_data"
+          v-model="slider_data.value"
+          @click="this.dragEnd()"
+          @drag-end="dragEnd"
+          @drag-start="dragStart"
+        >    
+          <template slot="label" slot-scope="{ label, active }">
+            <span :class="['custom-label', { active }]">
+              {{ label }}
+            </span>
+          </template>
+        </vue-slider>
+        <funnel-card class="funnel-card" :people="people" />
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-6">
         <canvas
           id="myChart"
           width="100"
@@ -37,16 +37,22 @@ import "../../static/funnel/chart.js";
 import "../../static/funnel/chart.funnel.js";
 import "../../static/funnel/chartjs-plugin-datalabels.min.js";
 import vueSlider from "vue-slider-component";
-import FunnelComponent from "@/components/Funnel/FunnelComponent"
+// import FunnelComponent from "@/components/Funnel/FunnelComponent";
+import FunnelCard from "@/components/Funnel/FunnelCard";
 
 export default {
   name: "Funnel",
   components: {
     vueSlider,
-    FunnelComponent,
+    //FunnelComponent,
+    FunnelCard
   },
   data() {
     return {
+      people: {
+        proponentes: 0,
+        incentivadores: 0
+      },
       slider_data: {
         width: "auto",
         min: 0,
@@ -78,10 +84,7 @@ export default {
             backgroundColor: "#49A0B7",
             boxShadow: "none"
           }
-        ],
-        labelActiveStyle: {
-          color: "red"
-        }
+        ]
       }
     };
   },
@@ -89,11 +92,14 @@ export default {
     updateChart() {
       // console.log('mexendo', this.slider_data.value[0], this.slider_data.value[1])
       // update GLOBAL weight value
-      window.weight =
-        (this.slider_data.value[0] + this.slider_data.value[1]) / 2;
+      window.weight = (this.slider_data.value[0] + this.slider_data.value[1]) / 2;
 
+      let dataCanvas = this.getData();
+      this.people.proponentes = dataCanvas[0] / 10;
+      this.people.incentivadores = dataCanvas[1] / 10;
+      
       // Update GLOBAL chart data
-      window.myChart.data.datasets[0].data = this.getData();
+      window.myChart.data.datasets[0].data = dataCanvas;
       window.myChart.update();
     },
     dragEnd() {
@@ -212,5 +218,8 @@ export default {
 .custom-label.active::after {
   background-color: #49a0b7;
   width: 2px;
+}
+.funnel-card {
+  margin-top: 10vh;
 }
 </style>
