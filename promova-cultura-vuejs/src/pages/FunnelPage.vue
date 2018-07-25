@@ -1,31 +1,29 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-5 col-md-5">
-        
-        <legend class="title-slider">Saúde do Projeto</legend>
-        
-        <vue-slider ref="slider" id="custom-tootip"
-          v-bind="slider_data"
-          v-model="slider_data.value"
-          @drag-end="updateChart"
-          @drag-start="updateChart"
-          v-if="showSlider"
-        >    
-          <template slot="label" slot-scope="{ label, active }">
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-7 order-md-last col-sm-12 order-col-first">
+      <div class="funnel-element">
+        <funnel-component :weightFunnel="weightFunnel" :canvasData="canvasData" />
+      </div>
+    </div>
+
+    <div class="col-md-5 order-md-first col-sm-12 order-col-last">
+      <legend class="title-slider">Saúde do Projeto</legend>
+
+      <vue-slider ref="slider" id="custom-tootip" v-bind="slider_data" v-model="slider_data.value" @drag-end="updateChart" @drag-start="updateChart" v-if="showSlider">
+        <template slot="label" slot-scope="{ label, active }">
             <span :class="['custom-label', { active }]">
               {{ label }}
             </span>
           </template>
-        </vue-slider>
+      </vue-slider>
 
-        <funnel-card class="funnel-card" :people="people" />
-      </div>
-      <div class="col-5 col-md-5 offset-md-1 funnel-element">
-        <funnel-component :weightFunnel="weightFunnel" :canvasData="canvasData"/>
-      </div>
+      <funnel-card class="funnel-card" :people="people" />
     </div>
+
   </div>
+</div>
 </template>
 
 <script>
@@ -44,7 +42,7 @@ export default {
   data() {
     return {
       weightFunnel: 25,
-      canvasData: [321,231, 132, 123],
+      canvasData: [321, 231, 132, 123],
       people: {
         proponentes: 25,
         incentivadores: 10
@@ -71,8 +69,7 @@ export default {
           padding: "2px 5px 0px 5px"
         },
         tooltipDir: ["bottom", "bottom"],
-        sliderStyle: [
-          {
+        sliderStyle: [{
             backgroundColor: "#49A0B7",
             boxShadow: "none"
           },
@@ -130,10 +127,12 @@ export default {
   color: #666;
   font-size: 15px;
 }
+
 .vue-slider-piecewise .vue-slider-piecewise-item:first-child .custom-label,
 .vue-slider-piecewise .vue-slider-piecewise-item:last-child .custom-label {
   font-size: 16px;
 }
+
 .custom-label::after {
   content: "";
   position: absolute;
@@ -144,9 +143,11 @@ export default {
   height: 5px;
   background-color: #000;
 }
+
 .custom-label.active {
   color: #666;
 }
+
 .custom-label.active::after {
   background-color: #49a0b7;
   width: 2px;
@@ -155,6 +156,7 @@ export default {
 .funnel-card {
   margin-top: 15vh;
 }
+
 .funnel-element {
   margin-top: 5vh;
 }
