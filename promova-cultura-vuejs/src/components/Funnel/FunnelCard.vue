@@ -6,37 +6,30 @@
                 Pessoas Envolvidas
             </div>
             <div class="card-body">
-                <div class="row">
+
+
+                <div class="row" v-bind:key="props.title" v-for="props in dataprops">
                   <div class="col-3 col-sm-3 col-md-2">
-                      <img class="people-image" src="@/../static/svg-icons/Proponentes_ICONE.svg">
+                      <img class="people-image" :src="props.image">
                   </div>
-                  <div class="col-4 col-sm-4 col-md-6 bar-holder">
-                      <span class="progress-indicator" id="proponent-indicator">{{ people.proponentes }}</span>
+                  <div class="col-3 col-sm-4 col-md-5 bar-holder">
+                      <span class="progress-indicator" id="proponent-indicator">
+                        {{ props.people.proponentes }}
+                      </span>
                       <div class="progress">
-                        <div class="progress-bar progress-bar-info" role="progressbar" id="prop-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="propPercentage"></div>
+                        <div class="progress-bar progress-bar-info"
+                          role="progressbar"
+                          :class="props.css"
+                          aria-valuenow="50"
+                          aria-valuemin="0"
+                          aria-valuemax="100" :style="propPercentage">
+                        </div>
                       </div>
                   </div>
-                  <div class="col-5 col-sm-4 col-md-4">
-                      <div class="proponent">
-                        <span class="info-number">{{ people.proponentes }}</span>
-                        <span class="info-type">PROPONENTES</span>
-                      </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-3 col-md-2">
-                      <img class="people-image" src="@/../static/svg-icons/Investidores_ICONE.svg">
-                  </div>
-                  <div class="bar-holder col-4 col-md-6">
-                      <span class="progress-indicator" id="investor-indicator">{{ people.incentivadores }}</span>
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-warning" role="progressbar" id="inv-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" :style="incPercentage"></div>
-                      </div>
-                  </div>
-                  <div class="col-5 col-md-4">
-                      <div class="investor">
-                        <span class="info-number">{{ people.incentivadores }}</span>
-                        <span class="info-type">INCENTIVADORES</span>
+                  <div class="col-6 col-sm-5 col-md-5">
+                      <div :class="props.font_color">
+                        <span class="info-number">{{ props.people }}</span>
+                        <span class="info-type">{{ props.title }}</span>
                       </div>
                   </div>
                 </div>
@@ -47,9 +40,17 @@
 
 <script>
 export default {
+  data() {
+    return {
+    };
+  },
   props: {
     people: Object
   },
+  mounted() {
+    console.log(this.dataprops[0].people);
+  }
+  ,
   computed: {
     propPercentage: function() {
       return "width: " + this.people.proponentes + "%;";
@@ -57,6 +58,25 @@ export default {
 
     incPercentage: function() {
       return "width: " + this.people.incentivadores + "%;";
+    },
+
+    dataprops() {
+      return [
+        {
+          title: "PROPONENTES",
+          image: "@/../static/svg-icons/Proponentes_ICONE.svg",
+          people: this.people.proponentes,
+          css: 'prop-bar',
+          font_color: 'proponent'
+        },
+        {
+          title: "INCENTIVADORES",
+          image: "@/../static/svg-icons/Investidores_ICONE.svg",
+          people: this.people.incentivadores,
+          css: 'inv-bar',
+          font_color: 'investor'
+        }
+      ]
     }
   }
 };
@@ -109,11 +129,11 @@ export default {
   margin-top: 2vh;
 }
 
-#inv-bar {
+.inv-bar {
   background-color: #f0ad4e;
 }
 
-#prop-bar {
+.prop-bar {
   background-color: #5bc0de;
 }
 
