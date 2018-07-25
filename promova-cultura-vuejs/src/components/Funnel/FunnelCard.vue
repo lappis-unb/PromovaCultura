@@ -189,14 +189,19 @@ export default {
 }
 /* Small Devices, Tablets */
 @media only screen and (min-width: 768px) {
-  .title-stack {
-    font-size: 26px;
-  }
+  
 }
 /* Medium Devices, Desktops */
 @media only screen and (min-width: 992px) {
   .info-type {
     font-size: 13px;
+  }
+  .title-stack {
+    font-size: 24px;
+  }  
+  .card-stack {
+    margin-top: 120px;
+    
   }
 }
 /* Large Devices, Wide Screens */

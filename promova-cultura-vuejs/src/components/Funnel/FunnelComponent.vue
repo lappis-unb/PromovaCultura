@@ -1,13 +1,7 @@
 <template>
   <div>
   <!-- {{this.canvasData}} -->
-  <!-- <canvas
-    id="myChart"
-    width="100"
-    height="80"
-    data-value='600 32px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
-    data-label='600 14px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
-  ></canvas> -->
+  <!--  -->
   </div>
 </template>
 

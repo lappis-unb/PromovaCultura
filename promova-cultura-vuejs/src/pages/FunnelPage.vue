@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <div class="row">
-    <div class="col-lg-8 order-lg-last col-md-12 order-md-first">
+    <div class="col-lg-7 order-lg-last col-md-12 order-md-first">
       <div class="funnel-element">
         <canvas
           id="myChart"
@@ -12,24 +12,26 @@
         ></canvas>
       </div>
     </div>
-    <div class="col-lg-4 order-lg-first col-md-12 order-md-last">
+    <div class="col-lg-5 order-lg-first col-md-12 order-md-last">
       <div class="slider-width">
-        <legend class="title-slider">Saúde do Projeto</legend>
-        <vue-slider 
-          ref="slider"
-          id="custom-tootip"
-          v-bind="slider_data"
-          v-model="slider_data.value"
-          @drag-end="updateChart"
-          @drag-start="updateChart"
-          v-if="showSlider"
-        >
-          <template slot="label" slot-scope="{ label, active }">
-              <span :class="['custom-label', { active }]">
-                {{ label }}
-              </span>
-            </template>
-        </vue-slider>
+        <div class="slider-container">
+          <legend class="title-slider">Saúde do Projeto</legend>
+          <vue-slider 
+            ref="slider"
+            id="custom-tootip"
+            v-bind="slider_data"
+            v-model="slider_data.value"
+            @drag-end="updateChart"
+            @drag-start="updateChart"
+            v-if="showSlider"
+          >
+            <template slot="label" slot-scope="{ label, active }">
+                <span :class="['custom-label', { active }]">
+                  {{ label }}
+                </span>
+              </template>
+          </vue-slider>
+        </div>
         <funnel-card class="funnel-card" :people="people" />
       </div>
     </div>
@@ -54,8 +56,8 @@ export default {
   data() {
     return {
       people: {
-        proponentes: 0,
-        incentivadores: 0
+        proponentes: 50,
+        incentivadores: 23
       },
       showSlider: false,
       slider_data: {
@@ -102,12 +104,6 @@ export default {
       // Update GLOBAL chart data
       window.myChart.data.datasets[0].data = dataCanvas;
       window.myChart.update();
-    },
-    dragEnd() {
-      this.updateChart();
-    },
-    dragStart() {
-      this.updateChart();
     },
     getData() {
       const propostas = 90 * window.getWeight();
@@ -173,7 +169,6 @@ export default {
     });
     window.setTimeout(() => {
       this.showSlider = true;
-      // this.$refs.slider.refresh();
     }, 200);
   }
 };
@@ -248,15 +243,21 @@ export default {
 }
 /* Small Devices, Tablets */
 @media only screen and (min-width: 768px) {
-  .title-slider {
-    font-size: 26px;
-  }
   .funnel-card{
     margin-top: 80px;
   }
 }
 /* Medium Devices, Desktops */
 @media only screen and (min-width: 992px) {
+  .title-slider {
+    font-size: 24px;
+  }
+  .funnel-card{
+    margin-top: 80px;
+  }
+  .slider-container {
+    margin-right: 20px;
+  }
 }
 /* Large Devices, Wide Screens */
 @media only screen and (min-width: 1200px) {
