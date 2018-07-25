@@ -1,15 +1,15 @@
 <template>
   <div class="container">
-    <funnel-component/>
     <div class="row">
       <div class="col-5 col-md-5">
+        
         <legend class="title-slider">Saúde do Projeto</legend>
+        
         <vue-slider ref="slider" id="custom-tootip"
           v-bind="slider_data"
           v-model="slider_data.value"
-          @click="this.dragEnd()"
-          @drag-end="dragEnd"
-          @drag-start="dragStart"
+          @drag-end="updateChart"
+          @drag-start="updateChart"
           v-if="showSlider"
         >    
           <template slot="label" slot-scope="{ label, active }">
@@ -18,16 +18,11 @@
             </span>
           </template>
         </vue-slider>
+
         <funnel-card class="funnel-card" :people="people" />
       </div>
       <div class="col-5 col-md-5 offset-md-1 funnel-element">
-        <canvas
-          id="myChart"
-          width="100"
-          height="80"
-          data-value='600 32px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
-          data-label='600 14px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
-        ></canvas>
+        <funnel-component :weightFunnel="weightFunnel" :canvasData="canvasData"/>
       </div>
     </div>
   </div>
@@ -35,25 +30,24 @@
 
 <script>
 import $ from "jquery";
-import "../../static/funnel/chart.js";
-import "../../static/funnel/chart.funnel.js";
-import "../../static/funnel/chartjs-plugin-datalabels.min.js";
 import vueSlider from "vue-slider-component";
-import FunnelComponent from "@/components/Funnel/FunnelComponent";
 import FunnelCard from "@/components/Funnel/FunnelCard";
+import FunnelComponent from "@/components/Funnel/FunnelComponent";
 
 export default {
   name: "Funnel",
   components: {
     vueSlider,
     FunnelComponent,
-    FunnelCard
+    FunnelCard,
   },
   data() {
     return {
+      weightFunnel: 25,
+      canvasData: [321,231, 132, 123],
       people: {
-        proponentes: 0,
-        incentivadores: 0
+        proponentes: 25,
+        incentivadores: 10
       },
       showSlider: false,
       slider_data: {
@@ -91,94 +85,30 @@ export default {
     };
   },
   methods: {
-    updateChart() {
-      // update GLOBAL weight value
-      window.weight = (this.slider_data.value[0] + this.slider_data.value[1]) / 2;
-
-      let dataCanvas = this.getData();
-      this.people.proponentes = dataCanvas[0] / 10;
-      this.people.incentivadores = dataCanvas[1] / 10;
-      
-      // Update GLOBAL chart data
-      window.myChart.data.datasets[0].data = dataCanvas;
-      window.myChart.update();
-    },
-    dragEnd() {
-      this.updateChart();
-    },
-    dragStart() {
-      this.updateChart();
-    },
-    getData() {
-      const propostas = 90 * window.getWeight();
-      const projetos = 70 * window.getWeight();
-      const captados = 50 * window.getWeight();
-      const executados = 40 * window.getWeight();
+    getData(weight) {
+      const propostas = 90 * weight;
+      const projetos = 70 * weight;
+      const captados = 50 * weight;
+      const executados = 40 * weight;
 
       return [propostas, projetos, captados, executados];
+    },
+    updateChart() {
+      this.weightFunnel =
+        (this.slider_data.value[0] + this.slider_data.value[1]) / 2;
+
+      this.canvasData = this.getData(this.weightFunnel);
+      this.people.proponentes = this.canvasData[0] / 10;
+      this.people.incentivadores = this.canvasData[1] / 10;
+
+      // Update GLOBAL chart data
+      window.myChart.data.datasets[0].data = this.canvasData;
+      window.myChart.update();
     }
   },
   mounted() {
-    // Re-adjust slider width after 800 milisec because of bootstrap
-    window.weight = 5.5; // initial (min + max / 2)
-    window.getWeight = () => window.weight + Math.floor(Math.random() * 2);
-
-    const canvas = document.getElementById("myChart");
-    const ctx = canvas.getContext("2d");
-    const canvasData = this.getData();
-
-    let data = {
-      datasets: [
-        {
-          data: canvasData,
-          backgroundColor: ["#9EBA36", "#6F8928", "#516610", "#455421"]
-        }
-      ],
-      labels: ["Projetos", "Propostas", "Captados", "Executados"]
-    };
-
-    const fontSize = canvasData[3] / canvasData[1] * 125;
-    // myChart is GLOBAL
-    window.myChart = new Chart(ctx, {
-      type: "funnel",
-      data: data,
-      options: {
-        title: {
-          display: false,
-          position: "top",
-          text: "Titulo das legendas"
-        },
-        responsive: true,
-        legend: {
-          display: false,
-          fullWidth: true
-        },
-        tooltips: {
-          enabled: false
-        },
-        topWidth: fontSize,
-        sort: "desc",
-        plugins: {
-          datalabels: {
-            anchor: "center",
-            align: "center",
-            color: "#FFFFFF",
-            font: {
-              size: 15
-            },
-            textAlign: "center",
-            formatter(value, context) {
-              const label = context.chart.data.labels[context.dataIndex];
-              return [value, label];
-            }
-          }
-        }
-      }
-    });
-
     window.setTimeout(() => {
       this.showSlider = true;
-      this.$refs.slider.refresh();
     }, 200);
   }
 };
@@ -221,6 +151,7 @@ export default {
   background-color: #49a0b7;
   width: 2px;
 }
+
 .funnel-card {
   margin-top: 15vh;
 }
