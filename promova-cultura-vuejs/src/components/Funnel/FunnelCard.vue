@@ -6,15 +6,13 @@
                 Pessoas Envolvidas
             </div>
             <div class="card-body">
-
-
                 <div class="row" v-bind:key="props.title" v-for="props in dataprops">
-                  <div class="col-3 col-sm-3 col-md-2">
+                  <div class="col-3 col-sm-3 col-md-3">
                       <img class="people-image" :src="props.image">
                   </div>
-                  <div class="col-3 col-sm-4 col-md-5 bar-holder">
-                      <span class="progress-indicator" id="proponent-indicator">
-                        {{ props.people.proponentes }}
+                  <div class="col-3 col-sm-4 col-md-4 bar-holder">
+                      <span class="progress-indicator" :id="props.color_number_bar">
+                        {{ props.total_percentage }}
                       </span>
                       <div class="progress">
                         <div class="progress-bar progress-bar-info"
@@ -22,13 +20,13 @@
                           :class="props.css"
                           aria-valuenow="50"
                           aria-valuemin="0"
-                          aria-valuemax="100" :style="propPercentage">
+                          aria-valuemax="100" :style="props.bar_style">
                         </div>
                       </div>
                   </div>
                   <div class="col-6 col-sm-5 col-md-5">
                       <div :class="props.font_color">
-                        <span class="info-number">{{ props.people }}</span>
+                        <span class="info-number">{{ props.total_number }}</span>
                         <span class="info-type">{{ props.title }}</span>
                       </div>
                   </div>
@@ -52,14 +50,6 @@ export default {
   }
   ,
   computed: {
-    propPercentage: function() {
-      return "width: " + this.people.proponentes + "%;";
-    },
-
-    incPercentage: function() {
-      return "width: " + this.people.incentivadores + "%;";
-    },
-
     dataprops() {
       return [
         {
@@ -67,14 +57,22 @@ export default {
           image: "@/../static/svg-icons/Proponentes_ICONE.svg",
           people: this.people.proponentes,
           css: 'prop-bar',
-          font_color: 'proponent'
+          font_color: 'proponent',
+          color_number_bar: 'proponent-indicator',
+          bar_style: "width: " + this.people.proponentes + "%;",
+          total_number: 82191,
+          get total_percentage() { return parseInt((Math.random()) * 82191) } 
         },
         {
           title: "INCENTIVADORES",
           image: "@/../static/svg-icons/Investidores_ICONE.svg",
           people: this.people.incentivadores,
           css: 'inv-bar',
-          font_color: 'investor'
+          font_color: 'investor',
+          color_number_bar: 'investor-indicator',
+          bar_style: "width: " + this.people.incentivadores + "%;",
+          total_number: 46532,
+          get total_percentage() { return parseInt((Math.random()) * 46532) }
         }
       ]
     }
