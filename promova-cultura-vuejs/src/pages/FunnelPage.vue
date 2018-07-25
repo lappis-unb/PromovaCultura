@@ -4,7 +4,7 @@
 
     <div class="col-md-7 order-md-last col-sm-12 order-col-first">
       <div class="funnel-element">
-        <funnel-component :weightFunnel="weightFunnel" :canvasData="canvasData" />
+        <funnel-component :canvasData="canvasData" />
       </div>
     </div>
 
@@ -28,24 +28,24 @@
 
 <script>
 import $ from "jquery";
+import "../../static/funnel/chart.js";
+import "../../static/funnel/chart.funnel.js";
+import "../../static/funnel/chartjs-plugin-datalabels.min.js";
 import vueSlider from "vue-slider-component";
-import FunnelCard from "@/components/Funnel/FunnelCard";
 import FunnelComponent from "@/components/Funnel/FunnelComponent";
-
+import FunnelCard from "@/components/Funnel/FunnelCard";
 export default {
   name: "Funnel",
   components: {
     vueSlider,
     FunnelComponent,
-    FunnelCard,
+    FunnelCard
   },
   data() {
     return {
-      weightFunnel: 25,
-      canvasData: [321, 231, 132, 123],
       people: {
-        proponentes: 25,
-        incentivadores: 10
+        proponentes: 0,
+        incentivadores: 0
       },
       showSlider: false,
       slider_data: {
@@ -69,7 +69,8 @@ export default {
           padding: "2px 5px 0px 5px"
         },
         tooltipDir: ["bottom", "bottom"],
-        sliderStyle: [{
+        sliderStyle: [
+          {
             backgroundColor: "#49A0B7",
             boxShadow: "none"
           },
@@ -82,30 +83,88 @@ export default {
     };
   },
   methods: {
-    getData(weight) {
-      const propostas = 90 * weight;
-      const projetos = 70 * weight;
-      const captados = 50 * weight;
-      const executados = 40 * weight;
-
-      return [propostas, projetos, captados, executados];
-    },
     updateChart() {
-      this.weightFunnel =
-        (this.slider_data.value[0] + this.slider_data.value[1]) / 2;
-
-      this.canvasData = this.getData(this.weightFunnel);
-      this.people.proponentes = this.canvasData[0] / 10;
-      this.people.incentivadores = this.canvasData[1] / 10;
+      // update GLOBAL weight value
+      window.weight = (this.slider_data.value[0] + this.slider_data.value[1]) / 2;
+      let dataCanvas = this.getData();
+      this.people.proponentes = dataCanvas[0] / 10;
+      this.people.incentivadores = dataCanvas[1] / 10;
 
       // Update GLOBAL chart data
-      window.myChart.data.datasets[0].data = this.canvasData;
+      window.myChart.data.datasets[0].data = dataCanvas;
       window.myChart.update();
+    },
+    dragEnd() {
+      this.updateChart();
+    },
+    dragStart() {
+      this.updateChart();
+    },
+    getData() {
+      const propostas = 90 * window.getWeight();
+      const projetos = 70 * window.getWeight();
+      const captados = 50 * window.getWeight();
+      const executados = 40 * window.getWeight();
+      return [propostas, projetos, captados, executados];
     }
   },
   mounted() {
+    // Re-adjust slider width after 800 milisec because of bootstrap
+    window.weight = 5.5; // initial (min + max / 2)
+    window.getWeight = () => window.weight + Math.floor(Math.random() * 2);
+    const canvas = document.getElementById("myChart");
+    const ctx = canvas.getContext("2d");
+    const canvasData = this.getData();
+    let data = {
+      datasets: [
+        {
+          data: canvasData,
+          backgroundColor: ["#9EBA36", "#6F8928", "#516610", "#455421"]
+        }
+      ],
+      labels: ["Projetos", "Propostas", "Captados", "Executados"]
+    };
+    const fontSize = canvasData[3] / canvasData[1] * 125;
+    // myChart is GLOBAL
+    window.myChart = new Chart(ctx, {
+      type: "funnel",
+      data: data,
+      options: {
+        title: {
+          display: false,
+          position: "top",
+          text: "Titulo das legendas"
+        },
+        responsive: true,
+        legend: {
+          display: false,
+          fullWidth: true
+        },
+        tooltips: {
+          enabled: false
+        },
+        topWidth: fontSize,
+        sort: "desc",
+        plugins: {
+          datalabels: {
+            anchor: "center",
+            align: "center",
+            color: "#FFFFFF",
+            font: {
+              size: 15
+            },
+            textAlign: "center",
+            formatter(value, context) {
+              const label = context.chart.data.labels[context.dataIndex];
+              return [value, label];
+            }
+          }
+        }
+      }
+    });
     window.setTimeout(() => {
       this.showSlider = true;
+      this.$refs.slider.refresh();
     }, 200);
   }
 };
