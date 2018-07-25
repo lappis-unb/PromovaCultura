@@ -1,12 +1,13 @@
 <template>
-  <div class="container">
-    <canvas
-      id="myChart"
-      width="100"
-      height="80"
-      data-value='600 32px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
-      data-label='600 14px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
-    ></canvas>
+  <div>
+  <!-- {{this.canvasData}} -->
+  <canvas
+    id="myChart"
+    width="100"
+    height="80"
+    data-value='600 32px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
+    data-label='600 14px "Helvetica Neue", "Helvetica", "Arial", sans-serif'
+  ></canvas>
   </div>
 </template>
 
@@ -23,12 +24,12 @@ export default {
     };
   },
   props: {
-    canvasData: Array,
+    canvasData: Array
   },
   mounted() {
     const canvas = document.getElementById("myChart");
     const ctx = canvas.getContext("2d");
-    
+
     let data = {
       datasets: [
         {
@@ -36,7 +37,7 @@ export default {
           backgroundColor: ["#9EBA36", "#6F8928", "#516610", "#455421"]
         }
       ],
-      labels: ["Projetos", "Propostas", "Captados", "Executados"]
+      labels: ["PROJETO", "PROPOSTAS", "CAPTADOS", "EXECUTADOS"]
     };
 
     // myChart is GLOBAL
@@ -81,4 +82,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

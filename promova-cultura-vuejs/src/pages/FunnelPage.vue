@@ -1,25 +1,31 @@
 <template>
 <div class="container">
   <div class="row">
-
-    <div class="col-md-7 order-md-last col-sm-12 order-col-first">
+    <div class="col-lg-8 order-lg-last col-md-12 order-md-first">
       <div class="funnel-element">
-        <funnel-component :weightFunnel="weightFunnel" :canvasData="canvasData" />
+        <funnel-component :canvasData="canvasData" />
       </div>
     </div>
-
-    <div class="col-md-5 order-md-first col-sm-12 order-col-last">
-      <legend class="title-slider">Saúde do Projeto</legend>
-
-      <vue-slider ref="slider" id="custom-tootip" v-bind="slider_data" v-model="slider_data.value" @drag-end="updateChart" @drag-start="updateChart" v-if="showSlider">
-        <template slot="label" slot-scope="{ label, active }">
-            <span :class="['custom-label', { active }]">
-              {{ label }}
-            </span>
-          </template>
-      </vue-slider>
-
-      <funnel-card class="funnel-card" :people="people" />
+    <div class="col-lg-4 order-lg-first col-md-12 order-md-last">
+      <div class="slider-width">
+        <legend class="title-slider">Saúde do Projeto</legend>
+        <vue-slider 
+          ref="slider"
+          id="custom-tootip"
+          v-bind="slider_data"
+          v-model="slider_data.value"
+          @drag-end="updateChart"
+          @drag-start="updateChart"
+          v-if="showSlider"
+        >
+          <template slot="label" slot-scope="{ label, active }">
+              <span :class="['custom-label', { active }]">
+                {{ label }}
+              </span>
+            </template>
+        </vue-slider>
+        <funnel-card class="funnel-card" :people="people" />
+      </div>
     </div>
 
   </div>
@@ -37,12 +43,12 @@ export default {
   components: {
     vueSlider,
     FunnelComponent,
-    FunnelCard,
+    FunnelCard
   },
   data() {
     return {
       weightFunnel: 25,
-      canvasData: [321, 231, 132, 123],
+      canvasData: [100, 100, 100, 100],
       people: {
         proponentes: 25,
         incentivadores: 10
@@ -69,20 +75,21 @@ export default {
           padding: "2px 5px 0px 5px"
         },
         tooltipDir: ["bottom", "bottom"],
-        sliderStyle: [{
-            backgroundColor: "#49A0B7",
-            boxShadow: "none"
-          },
-          {
-            backgroundColor: "#49A0B7",
-            boxShadow: "none"
-          }
-        ]
+        sliderStyle: {
+          backgroundColor: "#49A0B7",
+          boxShadow: "none",
+          width: "18px",
+          height: "18px"
+        },
+        processStyle: {
+          backgroundColor: "#49A0B7"
+        }
       }
     };
   },
   methods: {
     getData(weight) {
+      console.log('Entrou aqui', weight)
       const propostas = 90 * weight;
       const projetos = 70 * weight;
       const captados = 50 * weight;
@@ -97,9 +104,11 @@ export default {
       this.canvasData = this.getData(this.weightFunnel);
       this.people.proponentes = this.canvasData[0] / 10;
       this.people.incentivadores = this.canvasData[1] / 10;
+      console.log(this.weightFunnel, this.canvasData)
 
       // Update GLOBAL chart data
       window.myChart.data.datasets[0].data = this.canvasData;
+      console.log(window.myChart.data.datasets[0].data)
       window.myChart.update();
     }
   },
@@ -112,12 +121,6 @@ export default {
 </script>
 
 <style scoped>
-.title-slider {
-  margin-bottom: 40px;
-  font-size: 24px;
-  color: #666;
-}
-
 .custom-label {
   position: absolute;
   bottom: 100%;
@@ -154,10 +157,49 @@ export default {
 }
 
 .funnel-card {
-  margin-top: 15vh;
+  margin-top: 75px;
 }
 
 .funnel-element {
-  margin-top: 5vh;
+  margin-bottom: 50px;
+}
+
+.slider-width {
+  padding: 0 30px;
+}
+
+.title-slider {
+  color: #666;
+  font-weight: 600;
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width: 320px) {
+  .title-slider {
+    margin-bottom: 40px;
+    font-size: 20px;
+  }
+}
+/* Extra Small Devices, Phones */
+@media only screen and (min-width: 480px) {
+  .title-slider {
+    margin-bottom: 40px;
+    font-size: 20px;
+  }
+}
+/* Small Devices, Tablets */
+@media only screen and (min-width: 768px) {
+  .title-slider {
+    font-size: 26px;
+  }
+  .funnel-card{
+    margin-top: 80px;
+  }
+}
+/* Medium Devices, Desktops */
+@media only screen and (min-width: 992px) {
+}
+/* Large Devices, Wide Screens */
+@media only screen and (min-width: 1200px) {
 }
 </style>
