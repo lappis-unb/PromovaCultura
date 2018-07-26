@@ -14,8 +14,8 @@
     </div>
     <div class="col-lg-5 order-lg-first col-md-12 order-md-last">
       <div class="slider-width">
+        <legend class="title-slider">Saúde do Projeto</legend>
         <div class="slider-container">
-          <legend class="title-slider">Saúde do Projeto</legend>
           <vue-slider 
             ref="slider"
             id="custom-tootip"
@@ -73,14 +73,14 @@ export default {
         tooltip: "always",
         piecewise: true,
         tooltipStyle: {
-          backgroundColor: "#d8d8d8",
-          borderColor: "#d8d8d8",
-          color: "#666",
+          backgroundColor: "#49a0b7",
+          borderColor: "#49a0b7",
+          color: "white",
           fontSize: "18px",
           fontWeight: "600",
           padding: "2px 5px 0px 5px"
         },
-        tooltipDir: ["bottom", "bottom"],
+        //tooltipDir: ["bottom", "bottom"],
         sliderStyle: {
           backgroundColor: "#49A0B7",
           boxShadow: "none",
@@ -127,7 +127,7 @@ export default {
           backgroundColor: ["#9EBA36", "#6F8928", "#516610", "#455421"]
         }
       ],
-      labels: ["Projetos", "Propostas", "Captados", "Executados"]
+      labels: ["Propostas", "Projetos", "Captados", "Executados"]
     };
     const fontSize = canvasData[3] / canvasData[1] * 125;
     // myChart is GLOBAL
@@ -202,7 +202,7 @@ export default {
 }
 
 .custom-label.active {
-  color: #666;
+  color: #49a0b7;
 }
 
 .custom-label.active::after {
@@ -250,6 +250,7 @@ export default {
 /* Medium Devices, Desktops */
 @media only screen and (min-width: 992px) {
   .title-slider {
+    margin-bottom: 50px;
     font-size: 24px;
   }
   .funnel-card{
@@ -257,6 +258,7 @@ export default {
   }
   .slider-container {
     margin-right: 20px;
+    padding: 5px;
   }
 }
 /* Large Devices, Wide Screens */
