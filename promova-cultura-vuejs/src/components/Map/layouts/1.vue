@@ -1,6 +1,6 @@
 <template>
     <!-- Desktop filtro aberto e legenda em abas
-    Mobile filtro modal e legenda abaixo do funil na vertical -->
+    Mobile filtro modal e legenda abaixo do mapa na vertical -->
     <map-page
         :legendMobile="'card-vertical'"
         :filterMobile="'modal'"

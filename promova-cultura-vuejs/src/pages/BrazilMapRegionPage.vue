@@ -34,7 +34,7 @@ export default {
   name: "BrazilMapRegion",
   data() {
     return {
-      content: "Selecione um estado no funil para saber a quantidade de projetos no mesmo.",
+      content: "Selecione um estado no mapa para saber a quantidade de projetos no mesmo.",
       titleCard: "Brasil",
       selected: "",
       listOfUfs: [],
