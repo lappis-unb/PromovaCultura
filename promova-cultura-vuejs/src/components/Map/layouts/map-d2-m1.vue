@@ -12,59 +12,61 @@
                     <i class="fas fa-list"></i>
                 </button>
             </div>
-            <brazil-map :projects="data.projects" :proponentes="data.proponentes" :incentivadores="data.incentivadores" :legends="legends" :maxValues="maxValues" :level="level" />
+            <div class="map">
+              <brazil-map :projects="data.projects" :proponentes="data.proponentes" :incentivadores="data.incentivadores" :legends="legends" :maxValues="maxValues" :level="level" />
+            </div>
         </div>
         <div class="col-lg-4 offset-lg-1">
             <div class="d-none d-lg-block"> <!-- Shows in desktop Hides in mobile platform -->
-              <card-filters 
+              <card-filters
                 @updatedSegment="updateSegment"
                 @showProponentes="showProponentes"
                 @showIncentivadores="showIncentivadores"
                 @changeLevel="changeLevel"
                 v-if="filterDesktop=='card'"/>
-              <collapsed-filters 
+              <collapsed-filters
                 @updatedSegment="updateSegment"
                 @showProponentes="showProponentes"
                 @showIncentivadores="showIncentivadores"
                 @changeLevel="changeLevel"
                 v-if="filterDesktop=='collapsed'"/>
-              
+
               <legend-card-vertical-scroll-group
-                :legends="legends" 
+                :legends="legends"
                 v-if="legendDesktop=='card-vertical-scroll'"
                 :filtersActivate="filtersActivate"/>
               <legend-card-vertical-group
                 :legends="legends"
                 v-if="legendDesktop=='card-vertical'"
                 :filtersActivate="filtersActivate"/>
-              <legend-tab 
+              <legend-tab
                 :legends="legends"
                 v-if="legendDesktop=='tab'"
                 :filtersActivate="filtersActivate"/>
             </div>
             <div class="d-lg-none"> <!-- Shows in mobile Hides in desktop platform -->
-              <card-filters 
+              <card-filters
                 @updatedSegment="updateSegment"
                 @showProponentes="showProponentes"
                 @showIncentivadores="showIncentivadores"
                 @changeLevel="changeLevel"
                 v-if="filterMobile=='card'"/>
-              <collapsed-filters 
+              <collapsed-filters
                 @updatedSegment="updateSegment"
                 @showProponentes="showProponentes"
                 @showIncentivadores="showIncentivadores"
                 @changeLevel="changeLevel"
                 v-if="filterMobile=='collapsed'"/>
-              
+
               <legend-card-vertical-scroll-group
-                :legends="legends" 
+                :legends="legends"
                 v-if="legendMobile=='card-vertical-scroll'"
                 :filtersActivate="filtersActivate"/>
               <legend-card-vertical-group
                 :legends="legends"
                 v-if="legendMobile=='card-vertical'"
                 :filtersActivate="filtersActivate"/>
-              <legend-tab 
+              <legend-tab
                 :legends="legends"
                 :filtersActivate="filtersActivate"
                 v-if="legendMobile=='tab'"/>
@@ -83,7 +85,7 @@
             <legend-horizontal :legends="legends" :filtersActivate="filtersActivate"
             v-if="legendMobile=='horizontal'"/>
           </div>
-          
+
         </div>
     </div>
 </div>
@@ -102,16 +104,16 @@ import LegendTabGroup from "@/components/Map/legends/LegendTabGroup"
 import LegendHorizontalGroup from "@/components/Map/legends/LegendHorizontalGroup"
 
 export default {
-  props:{
-      legends: Object,
-      data: Object,
-      level: String,
-      maxValues: Object,
-      legendDesktop: String,
-      legendMobile: String,
-      filterDesktop: String,
-      filterMobile: String,
-      filtersActivate: Object
+  props: {
+    legends: Object,
+    data: Object,
+    level: String,
+    maxValues: Object,
+    legendDesktop: String,
+    legendMobile: String,
+    filterDesktop: String,
+    filterMobile: String,
+    filtersActivate: Object
   },
   components: {
     "brazil-map": BrazilMap,
@@ -125,16 +127,16 @@ export default {
     "legend-card-vertical-group": LegendCardVerticalGroup,
   },
   methods: {
-    updateSegment: function(selected){
+    updateSegment: function(selected) {
       this.$emit('updatedSegment', selected)
     },
-   showProponentes: function(proponentesIsActivated){
+    showProponentes: function(proponentesIsActivated) {
       this.$emit('showProponentes', proponentesIsActivated)
     },
-    showIncentivadores: function(incentivadoresIsActivated){
+    showIncentivadores: function(incentivadoresIsActivated) {
       this.$emit('showIncentivadores', incentivadoresIsActivated)
     },
-    changeLevel: function(level){
+    changeLevel: function(level) {
       this.$emit('changeLevel', level);
     }
   }
@@ -142,11 +144,12 @@ export default {
 </script>
 
 <style>
-.modal-button-group{
+.modal-button-group {
   float: right;
   margin-right: 10px;
 }
-.modal-button-group button{
+
+.modal-button-group button {
   margin-bottom: 10px;
   display: block;
   z-index: 100;
@@ -165,39 +168,50 @@ export default {
   top: 3px;
 }
 
-.card{
-  margin-bottom: 30px;  
+.card {
+  margin-bottom: 30px;
 }
 
 /* Really small screen */
+
 @media only screen and (min-width: 220px) {
   .map-container {
     display: flex;
     margin-bottom: 30px;
-  }  
+  }
 }
 
 /* Custom, iPhone Retina */
-@media only screen and (min-width: 320px) {  
 
-}
+@media only screen and (min-width: 320px) {}
+
 /* Extra Small Devices, Phones */
-@media only screen and (min-width: 480px) {
-}
+
+@media only screen and (min-width: 480px) {}
+
 /* Small Devices, Tablets */
-@media only screen and (min-width: 768px) {
-}
+
+@media only screen and (min-width: 768px) {}
+
 /* Medium Devices, Desktops */
-@media only screen and (min-width: 992px) { 
-#modal-button-filter {
+
+@media only screen and (min-width: 992px) {
+  #modal-button-filter {
     display: none;
   }
   #modal-button-legend {
     display: none;
   }
-}
-/* Large Devices, Wide Screens */
-@media only screen and (min-width: 1200px) {
+  .map {
+    display: inline-block;
+  }
 }
 
+/* Large Devices, Wide Screens */
+
+@media only screen and (min-width: 1200px) {
+  .map {
+    display: inline-block;
+  }
+}
 </style>

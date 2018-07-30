@@ -26,10 +26,10 @@ export default {
     return {
       maps: {},
       basePinData: {
-        srcWidth: 74,
-        srcHeight: 81,
+        srcWidth: 40,
+        srcHeight: 40,
         pinWidth: 40,
-        pinHeight: 30
+        pinHeight: 40
       }
     };
   },
