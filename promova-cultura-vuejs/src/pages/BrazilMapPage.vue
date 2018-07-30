@@ -2,22 +2,22 @@
   <div class="container">
     <link href="../../static/jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-8">
         <brazil-map-component/>
-        
+
         <div class="select-states">
           <h3>Selecione um estado</h3>
-          
+
           <select name="brazil-states" class="form-control" v-model="selected" @change="selectDropdown(selected)">
               <option v-for="option in options" :value="option.value" :key="option.value">
                 {{ option.text }}
               </option>
           </select>
-          
+
           <brazil-modal-card :titleCard="titleCard" :contentCard="content"/>
         </div>
       </div>
-      
+
       <div class="col-sm-4">
         <brazil-card :titleCard="titleCard" :contentCard="content"/>
       </div>
@@ -106,7 +106,7 @@ export default {
 };
 
 var listOfUfs = [];
-$.get("http://api.salic.cultura.gov.br/v1/projetos/?limit=100", function(data) {
+$.get("https://salic.dev.lappis.rocks/v1/projetos/?limit=100", function(data) {
   var ufs = [];
   var projetos = data._embedded.projetos;
   for (var i = 0; i < projetos.length; i++) {

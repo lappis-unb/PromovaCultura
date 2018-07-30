@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import BrazilMapPage from '@/pages/BrazilMapPage'
-import BrazilMapRegionPage from '@/pages/BrazilMapRegionPage'
-import FunilPage from '@/pages/FunilPage'
 import HomePage from '@/pages/HomePage'
+import BrazilMapPage from '@/pages/BrazilMapPage'
+import MapPage1 from '@/components/Map/layouts/1'
+import MapPage2 from '@/components/Map/layouts/2'
+import MapPage3 from '@/components/Map/layouts/3'
+import MapPage4 from '@/components/Map/layouts/4'
+import Funnel from '@/pages/FunnelPage'
+import BrazilMapRegionPage from '@/pages/BrazilMapRegionPage'
 import NaturalLanguageFilterPage from '@/pages/NaturalLanguageFilterPage'
-import MapPage1 from '@/components/mapPrototype/layouts/1'
-import MapPage2 from '@/components/mapPrototype/layouts/2'
-import MapPage3 from '@/components/mapPrototype/layouts/3'
-import MapPage4 from '@/components/mapPrototype/layouts/4'
 
 Vue.use(Router)
 
@@ -28,11 +28,6 @@ export default new Router({
       path: '/map_region',
       name: 'BrazilMapRegionPage',
       component: BrazilMapRegionPage
-    },
-    {
-      path: '/funil',
-      name: 'FunilPage',
-      component: FunilPage
     },
     {
       path: '/nl',
@@ -58,6 +53,11 @@ export default new Router({
       path: '/map-prototype-4',
       name: 'MapPage4',
       component: MapPage4
+    },
+    {
+      path: '/funnel',
+      name: 'Funnel',
+      component: Funnel
     },
   ]
 })
