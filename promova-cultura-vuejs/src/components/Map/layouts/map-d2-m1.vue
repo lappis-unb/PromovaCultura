@@ -13,7 +13,21 @@
                 </button>
             </div>
             <div class="map">
-              <brazil-map :projects="data.projects" :proponentes="data.proponentes" :incentivadores="data.incentivadores" :legends="legends" :maxValues="maxValues" :level="level" />
+              <location-info
+                :showOn="locationInfoShowOn"
+                :projects="data.projects"
+                :proponents="data.proponentes"
+                :incentivators="data.incentivadores"
+              />
+
+              <brazil-map
+                :projects="data.projects"
+                :proponentes="data.proponentes"
+                :incentivadores="data.incentivadores"
+                :legends="legends"
+                :maxValues="maxValues"
+                :level="level"
+              />
             </div>
         </div>
         <div class="col-lg-4 offset-lg-1">
@@ -88,9 +102,6 @@
 
         </div>
     </div>
-    <div class="row">
-        <location-info/>
-    </div>
 </div>
 </template>
 
@@ -106,7 +117,7 @@ import LegendCardVerticalScrollGroup from "@/components/Map/legends/LegendCardVe
 import LegendTabGroup from "@/components/Map/legends/LegendTabGroup"
 import LegendHorizontalGroup from "@/components/Map/legends/LegendHorizontalGroup"
 
-import LocationInfo from "@/components/mapPrototype/info/LocationInfo"
+import LocationInfo from "@/components/Map/info/LocationInfo"
 
 export default {
   props: {
@@ -118,7 +129,8 @@ export default {
     legendMobile: String,
     filterDesktop: String,
     filterMobile: String,
-    filtersActivate: Object
+    filtersActivate: Object,
+    locationInfoShowOn: String,
   },
   components: {
     "brazil-map": BrazilMap,

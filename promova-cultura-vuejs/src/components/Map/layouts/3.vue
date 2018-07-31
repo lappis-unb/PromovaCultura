@@ -7,6 +7,7 @@
         :legendDesktop="'card-vertical'"
         :filterDesktop="'collapsed'"
         :useMaxWithRanking=true
+        locationInfoShowOn="hover"
     />
 </template>
 <script>

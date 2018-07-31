@@ -8,17 +8,8 @@ export const fetchData = (types, projectSegment = "") => {
         segmentQuery = `(segmento: "${projectSegment}")`;
     }
 
-    let query = `
-      query {
-    `;
-
-    query += types.map(type => `
-        ${type} ${segmentQuery} {
-            local,
-            quantidade
-        }
-    `).join("");
-
+    let query = "query {";
+    query += types.map(type => `${type} ${segmentQuery}\n`).join("");
     query += "}";
 
     const queryAsUrl = encodeURI(query);
@@ -46,8 +37,8 @@ export const batchFetch = async (segment="") => {
     types.forEach(type => {
         listOfUfs[type] = {};
 
-        for (let region of data[type]) {
-            listOfUfs[type][region.local] = region.quantidade;
+        for (let region of Object.keys(data[type])) {
+          listOfUfs[type][region] = data[type][region]; // { "AC": 123, "AM": 456, ...}
         }
     });
 

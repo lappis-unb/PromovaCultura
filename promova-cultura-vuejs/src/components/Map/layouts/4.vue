@@ -7,6 +7,7 @@
         :legendDesktop="'horizontal'"
         :filterDesktop="'card'"
         :useMaxWithRanking=true
+        locationInfoShowOn="hover"
     />
 </template>
 <script>

@@ -1,17 +1,16 @@
 <template>
-    <div class="map-container">
-        <div class="jsmaps-wrapper" id="brazil-map"/>
-        <div style="display:none">{{projects}}</div>
-        <div style="display:none">{{proponentes}}</div>
-        <div style="display:none">{{incentivadores}}</div>
-    </div>
+  <div class="map-container">
+    <div class="jsmaps-wrapper" id="brazil-map"/>
+    <div style="display:none">{{projects}}</div>
+    <div style="display:none">{{proponentes}}</div>
+    <div style="display:none">{{incentivadores}}</div>
+  </div>
 </template>
 
 <script>
-import mapActions from '@/util/map-actions';
+import mapActions from "@/util/map-actions";
 
 export default {
-
   props: {
     projects: Object,
     proponentes: Object,
@@ -47,7 +46,7 @@ export default {
       this.map,
       this.legends,
       this.basePinData,
-      this.proponentes
+      this.proponentes,
     );
 
     mapActions.setIncentivadoresPins(
