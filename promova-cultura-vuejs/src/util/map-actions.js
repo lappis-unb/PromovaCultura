@@ -2,13 +2,15 @@ import $ from "jquery";
 import "@/../static/jsmaps/brazil.js";
 import "@/../static/jsmaps/brazil_region.js";
 
+import LocationInfoControl from './LocationInfoControl';
+
+
 function displayBrazilMap(mapType) {
   $("#brazil-map").JSMaps({
     map: mapType,
-    onStateClick: function (data) {
-      console.log(data.abbreviation + ": ");
-      console.log(data);
-    }
+    onStateClick: LocationInfoControl.onStateClick,
+    onStateOver: LocationInfoControl.onMouseOverState,
+    onStateOut: LocationInfoControl.onMouseOutState
   });
 }
 
@@ -25,7 +27,7 @@ function darkenAllMap(brazilMap) {
 function getColorBylegend(qtd, maplegend) {
   let colorSub;
   for (let i = 0; i < maplegend.length; i++) {
-    if(maplegend[i].min <= qtd && qtd <= maplegend[i].max){
+    if (maplegend[i].min <= qtd && qtd <= maplegend[i].max) {
       colorSub = maplegend[i].color;
       break;
     }
@@ -35,28 +37,28 @@ function getColorBylegend(qtd, maplegend) {
 }
 
 function makeHeatMap(brazilMap, projects, legends) {
-    const localList = Object.keys(projects);
+  const localList = Object.keys(projects);
 
-    if (localList.length === 0) {
-      console.log("Projects is empty, nothing to heat");
-      return;
-    }
-    localList.forEach(local => {
-      let numberOfProjects = projects[local];
+  if (localList.length === 0) {
+    console.log("Projects is empty, nothing to heat");
+    return;
+  }
+  localList.forEach(local => {
+    let numberOfProjects = projects[local];
 
-      for (let state of brazilMap.paths) {
-        if (state.abbreviation === local) {
-          let stateColor = getColorBylegend(numberOfProjects, legends.heatMap);
+    for (let state of brazilMap.paths) {
+      if (state.abbreviation === local) {
+        let stateColor = getColorBylegend(numberOfProjects, legends.heatMap);
 
-          state.color = stateColor;
-          state.hoverColor = stateColor;
-          state.selectedColor = stateColor;
+        state.color = stateColor;
+        state.hoverColor = "#C5C01E";
+        state.selectedColor = "#C5C01E";
 
-          break; // There is no need to continue if the local was found
-        }
+        break; // There is no need to continue if the local was found
       }
-    });
-    $("#brazil-map").trigger("reDraw", brazilMap);
+    }
+  });
+  $("#brazil-map").trigger("reDraw", brazilMap);
 }
 
 function setProponentesPins(maps, brazilMap, legends, basePinData, proponentes) {
@@ -80,7 +82,8 @@ function setProponentesPins(maps, brazilMap, legends, basePinData, proponentes) 
           ...basePinData,
           xPos: state.textX - 10,
           yPos: state.textY,
-          name: `${local}: ${proponentes[local]}`,
+          name: state.name,
+          abbreviation: state.abbreviation,
           src: getColorBylegend(proponentes[local], legends.proponentes),
           type: 'proponente',
         };
@@ -115,7 +118,8 @@ function setIncentivadoresPins(incentivadores, maps, brazilMap, legends, basePin
           ...basePinData,
           xPos: state.textX + 10,
           yPos: state.textY,
-          name: `${uf}: ${incentivadores[uf]}`,
+          name: state.name,
+          abbreviation: state.abbreviation,
           src: getColorBylegend(incentivadores[uf], legends.incentivadores),
           type: 'investidor',
         };

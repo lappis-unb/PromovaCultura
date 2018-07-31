@@ -14,6 +14,7 @@
     :legendDesktop="legendDesktop"
     :filterDesktop="filterDesktop"
     :filtersActivate="filtersActivate"
+    :locationInfoShowOn="locationInfoShowOn"
   />
 </template>
 
@@ -34,6 +35,10 @@ export default {
     legendDesktop: String,
     filterDesktop: String,
     useMaxWithRanking: Boolean,
+    locationInfoShowOn: {
+      type: String,
+      default: "click"
+    },
   },
   data() {
     return {
