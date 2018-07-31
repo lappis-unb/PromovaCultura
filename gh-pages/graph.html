@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+  <title>Grafo De Deslocamento</title>
+  <script src="js/echarts.js"></script>
+  <script src=js/utils.js></script>
+</head>
+
+<body>
+  <div class="row">
+    <div class="col-md-8" id="main" style="width: 900px;height:700px;"></div>
+    <div class="col-md-4">
+      <select id="segment-filter" onchange="dropSelect(this)">
+        <option value="Teatro">Teatro</option>
+        <option value="Circo">Circo</option>
+        <option value="Orquestra">Orquestra</option>
+        <option value="Museu">Museu</option>
+      </select>
+    </div>
+  </div>
+
+
+  <script type="text/javascript">
+    var _data = []
+
+    var myChart = echarts.init(document.getElementById('main'));
+
+    var option = {
+      title: {
+        text: "Grafo De Deslocamento",
+        subtext: "Por Estado/Região",
+        top: "top",
+        left: "left"
+      },
+      tooltip: {},
+      legend: [{
+        formatter: function(name) {
+          return echarts.format.truncateText(name, 40, '14px Arial', '…');
+        },
+        tooltip: {
+          show: true
+        },
+        selectedMode: 'false',
+        bottom: 1,
+        data: ['Norte', 'Nordeste', 'Sudeste', 'Sul', 'Centro-Oeste']
+      }],
+      toolbox: {
+        show: true,
+        feature: {
+          dataView: {
+            show: false,
+            readOnly: true
+          },
+          restore: {
+            show: false
+          },
+          saveAsImage: {
+            show: false
+          }
+        }
+      },
+      // animation: true,
+      // animationDuration: 1000000,
+      // animationEasingUpdate: 'linear',
+      series: [{
+        name: 'Quantidade De Projetos',
+        type: 'graph',
+        layout: 'force',
+        force: {
+          repulsion: 50000,
+          gravity: 0.05,
+          layoutAnimation: true
+        },
+        symbol: "circle",
+        // edgeSymbol: ['circle', 'arrow'],
+        // edgeSymbolSize: 10,
+        data: chartData,
+        // links: getLinks(),
+        links: _data,
+        categories: categories,
+        focusNodeAdjacency: true,
+        roam: true,
+        label: {
+          normal: {
+            color: '#000000',
+            show: true,
+            position: 'inside',
+            fontWeight: 'bold'
+          }
+        },
+        lineStyle: {
+          color: "#bbbbbb",
+          type: "solid",
+          // curveness: 0.2,
+        }
+      }]
+    };
+
+    myChart.setOption(option);
+
+    var _ufList = []
+    var counter = {}
+    var sourceList = []
+    var counterLinks = {}
+
+    var result = ""
+    var inverse = ""
+
+    function linkRange(width) {
+      if (width >= 0 && width <= 50) {
+        width = 1
+      } else if (width >= 51 && width <= 150) {
+        width = 2
+      } else if (width >= 151 && width <= 600) {
+        width = 3
+      } else if (width >= 601 && width <= 1500) {
+        width = 4
+      } else {
+        width = 5
+      }
+
+      return width
+    }
+
+    function getLinks() {
+      return $.ajax({
+        url: "https://salic.dev.lappis.rocks/graphiql?query=%7B%0A%20%20deslocamentos%20%7B%0A%20%20%20%20UFOrigem%0A%20%20%20%20UFDestino%0A%20%20%7D%0A%20%20%0A%7D",
+        type: "GET",
+        success: function ProcessData(data) {
+          let deslocamentos = data.data.deslocamentos
+
+          deslocamentos.forEach(function(element) {
+
+            if (element.UFOrigem == element.UFDestino) {
+              _ufList.push(element.UFOrigem)
+              return;
+            }
+
+             result = element["UFOrigem"] + " - " + element["UFDestino"];
+             inverse = element["UFDestino"] + " - " + element["UFOrigem"];
+
+            if (counterLinks[result] !== undefined) {
+              counterLinks[result] += 1;
+            } else {
+              if (counterLinks[inverse] !== undefined) {
+                counterLinks[inverse] += 1;
+              } else {
+                counterLinks[result] = 1;
+              }
+            }
+          })
+
+          linksNames = Object.keys(counterLinks)
+
+          linksNames.forEach(function(element){
+
+          _data.push({
+            source: element.substr(0, element.indexOf(' -')) ,
+            target: element.substring(element.indexOf("- ") + 2),
+            lineStyle: {
+              width: linkRange(counterLinks[element]),
+              opacity: 1
+            }
+          })
+        })
+          counter = _.countBy(_ufList)
+
+          chartData.forEach(function(element) {
+            element.value = counter[element.name]
+            element.symbolSize = counter[element.name] / 100
+          })
+
+
+          myChart.setOption(option)
+        },
+        error: function(error) {
+          var text = JSON.parse(error.responseText);
+          for (let i in text) {
+            alert(text[i]);
+          }
+
+        }
+      });
+
+    }
+  </script>
+</body>
+
+</html>
