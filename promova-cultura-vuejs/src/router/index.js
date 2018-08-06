@@ -9,6 +9,7 @@ import MapPage4 from '@/components/Map/layouts/4'
 import Funnel from '@/pages/FunnelPage'
 import BrazilMapRegionPage from '@/pages/BrazilMapRegionPage'
 import NaturalLanguageFilterPage from '@/pages/NaturalLanguageFilterPage'
+import NestedPie from '@/pages/NestedPie'
 
 Vue.use(Router)
 
@@ -58,6 +59,11 @@ export default new Router({
       path: '/funnel',
       name: 'Funnel',
       component: Funnel
+    },
+    {
+      path: '/projects-per-year',
+      name: 'ProjectsInTime',
+      component: NestedPie
     },
   ]
 })

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-br">
+
+<header>
+
+  <!-- Meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <script src="//unpkg.com/sunburst-chart"></script>
+  <link href="lib/style.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+
+  <!-- jQuery and Slider -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous">
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,800|Poppins:300,400,500,600,700" rel="stylesheet">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a href="https://lappis-unb.github.io/PromovaCultura/" style="color: black;">Promova Cultura</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <title>Projetos no Tempo</title>
+
+</header>
+
+<body>
+  <div id="main">
+    <div id="chart-holder">
+      <div id="chart">
+      </div>
+    </div>
+
+    <div class=filter-options>
+      <select onchange="update_area(this.value)">
+        <option value="Artes Cênicas">Artes Cênicas</option>
+        <option value="Audiovisual">Audiovisual</option>
+        <option value="Música">Música</option>
+        <option value="Artes Visuais">Artes Visuais</option>
+        <option value="Patrimônio Cultural">Patrimônio Cultural</option>
+        <option value="Humanidades">Humanidades</option>
+        <option value="Artes Integradas">Artes Integradas</option>
+        <option value="Museus e Memória">Museus e Memória</option>
+      </select>
+
+      <div id="slider-holder" style="margin-top: 2%;">
+        <p>
+          <label for="amount">Anos:</label>
+          <input type="text" id="amount" readonly>
+        </p>
+
+        <div id="slider-range">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+<script src="/lib/sunburst.js"></script>
