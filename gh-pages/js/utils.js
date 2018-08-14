@@ -13,8 +13,6 @@ function dropSelect(e) {
   myChart.setOption(option);
 }
 
-
-
 categories = [{
   'name': 'Norte',
   'itemStyle': {
@@ -23,7 +21,7 @@ categories = [{
 }, {
   'name': 'Nordeste',
   'itemStyle': {
-    'color': "#e4ea59"
+    'color': "#cbd14d"
   }
 }, {
   'name': 'Sudeste',
@@ -268,253 +266,61 @@ chartData = [{
   "draggable": "true"
 }]
 
-links = [{
-    "source": "São Paulo",
-    "target": "Rio De Janeiro",
-    "lineStyle": {
-      "width": 3
-    }
-  },
-  {
-    "source": "Pernambuco",
-    "target": "Maranhão",
-    "lineStyle": {
-      "width": 3
-    }
-  },
-  {
-    "source": "Minas Gerais",
-    "target": "Amazonas",
-    "lineStyle": {
-      "width": 3
-    }
-  },
-  {
-    "source": "Rio De Janeiro",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  },
-  {
-    "source": "Pará",
-    "target": "Rio Grande Do Norte",
-    "lineStyle": {
-      "width": 3
-    }
-  },
-  {
-    "source": "Pará",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  },
-  {
-    "source": "Distrito Federal",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  },
-  {
-    "source": "Paraíba",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  },
-  {
-    "source": "São Paulo",
-    "target": "Tocantins",
-    "lineStyle": {
-      "width": 3
-    }
-  },
-  {
-    "source": "Roraima",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Rondônia",
-    "target": "Rondônia",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Alagoas",
-    "target": "Goiás",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Alagoas",
-    "target": "Rondônia",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Alagoas",
-    "target": "Roraima",
-    "lineStyle": {
-      "width": 3
-    }
-  },
-  {
-    "source": "Roraima",
-    "target": "Amapá",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Distrito Federal",
-    "target": "Amazonas",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Rio Grande Do Sul",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Santa Catarina",
-    "target": "Alagoas",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Paraná",
-    "target": "Tocantins",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Espírito Santo",
-    "target": "Minas Gerais",
-    "lineStyle": {
-      "width": 3
-    }
-  },
-  {
-    "source": "Maranhão",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Rondônia",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Mato Grosso Do Sul",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Ceará",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Mato Grosso",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Acre",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Sergipe",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Amazonas",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Bahia",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  }, {
-    "source": "Piauí",
-    "target": "São Paulo",
-    "lineStyle": {
-      "width": 3
-    }
-  }
-]
+_links = [{}]
 
-var iti = {};
-
-function omelete() {
-  var ligations = {
-    "data": {
-      "deslocamentos": [{
-          "UFOrigem": "Minas Gerais",
-          "UFDestino": "São Paulo"
-        },
-        {
-          "UFOrigem": "Minas Gerais",
-          "UFDestino": "Minas Gerais"
-        },
-        {
-          "UFOrigem": "Rio de Janeiro",
-          "UFDestino": "Minas Gerais"
-        },
-        {
-          "UFOrigem": "Rio de Janeiro",
-          "UFDestino": "Rio Grande do Sul"
-        },
-        {
-          "UFOrigem": "Rio de Janeiro",
-          "UFDestino": "Distrito Federal"
-        },
-        {
-          "UFOrigem": "São Paulo",
-          "UFDestino": "Minas Gerais"
-        },
-        {
-          "UFOrigem": "São Paulo",
-          "UFDestino": "Minas Gerais"
-        },
-        {
-          "UFOrigem": "Minas Gerais",
-          "UFDestino": "São Paulo"
-        },
-      ]
-    }
-  }
-
-  $.each(ligations.data.deslocamentos, function(index, value) {
-    var result = value["UFOrigem"] + " - " + value["UFDestino"];
-    var inverse = value["UFDestino"] + " - " + value["UFOrigem"];
-
-    if (iti[result] !== undefined) {
-      iti[result] += 1;
-    } else {
-      if (iti[inverse] !== undefined) {
-        iti[inverse] += 1;
-      } else {
-        iti[result] = 1;
-      }
-    }
-  });
-}
+// var iti = {};
+//
+// function omelete() {
+//   var ligations = {
+//     "data": {
+//       "deslocamentos": [{
+//           "UFOrigem": "Minas Gerais",
+//           "UFDestino": "São Paulo"
+//         },
+//         {
+//           "UFOrigem": "Minas Gerais",
+//           "UFDestino": "Minas Gerais"
+//         },
+//         {
+//           "UFOrigem": "Rio de Janeiro",
+//           "UFDestino": "Minas Gerais"
+//         },
+//         {
+//           "UFOrigem": "Rio de Janeiro",
+//           "UFDestino": "Rio Grande do Sul"
+//         },
+//         {
+//           "UFOrigem": "Rio de Janeiro",
+//           "UFDestino": "Distrito Federal"
+//         },
+//         {
+//           "UFOrigem": "São Paulo",
+//           "UFDestino": "Minas Gerais"
+//         },
+//         {
+//           "UFOrigem": "São Paulo",
+//           "UFDestino": "Minas Gerais"
+//         },
+//         {
+//           "UFOrigem": "Minas Gerais",
+//           "UFDestino": "São Paulo"
+//         },
+//       ]
+//     }
+//   }
+//
+//   $.each(ligations.data.deslocamentos, function(index, value) {
+//     var result = value["UFOrigem"] + " - " + value["UFDestino"];
+//     var inverse = value["UFDestino"] + " - " + value["UFOrigem"];
+//
+//     if (iti[result] !== undefined) {
+//       iti[result] += 1;
+//     } else {
+//       if (iti[inverse] !== undefined) {
+//         iti[inverse] += 1;
+//       } else {
+//         iti[result] = 1;
+//       }
+//     }
+//   });
+// }

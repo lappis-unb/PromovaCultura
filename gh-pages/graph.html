@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.5/dist/loadingoverlay.min.js"></script>
   <title>Grafo De Deslocamento</title>
   <script src="js/echarts.js"></script>
   <script src=js/utils.js></script>
@@ -14,19 +15,22 @@
 
 <body>
   <div class="row">
-    <div class="col-md-8" id="main" style="width: 900px;height:700px;"></div>
-    <div class="col-md-4">
+    <div class="col-md-12 "id="main" style="width: 500px;height:700px;"></div>
+    <!-- <div class="col-md-4">
       <select id="segment-filter" onchange="dropSelect(this)">
         <option value="Teatro">Teatro</option>
         <option value="Circo">Circo</option>
         <option value="Orquestra">Orquestra</option>
         <option value="Museu">Museu</option>
       </select>
-    </div>
+    </div> -->
   </div>
 
 
   <script type="text/javascript">
+  $("#main").LoadingOverlay("show", {
+      background  : "rgba(255, 255, 255)"
+  });
     var _links = []
 
     var myChart = echarts.init(document.getElementById('main'));
@@ -50,45 +54,43 @@
         bottom: 1,
         data: ['Norte', 'Nordeste', 'Sudeste', 'Sul', 'Centro-Oeste']
       }],
-      toolbox: {
-        show: true,
-        feature: {
-          dataView: {
-            show: false,
-            readOnly: true
-          },
-          restore: {
-            show: false
-          },
-          saveAsImage: {
-            show: false
-          }
-        }
-      },
-      // animation: true,
+
+      // toolbox: {
+      //   show: false,
+      //   feature: {
+      //     dataView: {
+      //       show: false,
+      //       readOnly: true
+      //     },
+      //     restore: {
+      //       show: false
+      //     },
+      //     saveAsImage: {
+      //       show: false
+      //     }
+      //   }
+      // },
+      // animation: false,
       // animationDuration: 1000000,
       // animationEasingUpdate: 'linear',
       series: [{
-        name: 'Quantidade De Projetos',
+        name: 'Deslocamentos Internos',
         type: 'graph',
         layout: 'force',
         force: {
-          repulsion: 50000,
-          gravity: 0.05,
+          repulsion: 40000,
+          // gravity: 0.05,
           layoutAnimation: true
         },
         symbol: "circle",
-        // edgeSymbol: ['circle', 'arrow'],
-        // edgeSymbolSize: 10,
         data: chartData,
-        // links: getLinks(),
         links: _links,
         categories: categories,
         focusNodeAdjacency: true,
         roam: true,
         label: {
           normal: {
-            color: '#000000',
+            color: '#ffffff',
             show: true,
             position: 'inside',
             fontWeight: 'bold'
@@ -97,14 +99,19 @@
         lineStyle: {
           color: "#bbbbbb",
           type: "solid",
+          label: {
+              show: false,
+          },
           // curveness: 0.2,
         }
       }]
     };
 
+    getLinks()
+
     myChart.setOption(option);
 
-    var _ufList = []
+    var internalDisplacement = []
     var counter = {}
     var sourceList = []
     var counterLinks = {}
@@ -128,68 +135,96 @@
       return width
     }
 
+    function symbolRange(symbolSize) {
+      if (symbolSize >= 0 && symbolSize <= 50) {
+        symbolSize = 25
+      } else if (symbolSize >= 51 && symbolSize <= 150) {
+        symbolSize = 50
+      } else if (symbolSize >= 151 && symbolSize <= 600) {
+        symbolSize = 75
+      } else if (symbolSize >= 601 && symbolSize <= 1500) {
+        symbolSize = 100
+      } else {
+        symbolSize = 150
+      }
+
+      return symbolSize
+    }
+
+    function retorna(data){
+      let deslocamentos = data.data.deslocamentos
+
+      deslocamentos.forEach(function(element) {
+        if (element.UFOrigem == element.UFDestino) {
+          internalDisplacement.push(element.UFOrigem)
+          return;
+        }
+
+        result = element["UFOrigem"] + " - " + element["UFDestino"];
+        inverse = element["UFDestino"] + " - " + element["UFOrigem"];
+
+        if (counterLinks[result] !== undefined) {
+          counterLinks[result] += 1;
+        }
+        else {
+          if (counterLinks[inverse] !== undefined) {
+            counterLinks[inverse] += 1;
+          } else {
+            counterLinks[result] = 1;
+          }
+        }
+
+      })
+
+      linksNames = Object.keys(counterLinks)
+
+      linksNames.forEach(function(element) {
+
+        _links.push({
+          source: ufDict[element.substr(0, element.indexOf(' -'))],
+          target: ufDict[element.substring(element.indexOf("- ") + 2)],
+          lineStyle: {
+            width: linkRange(counterLinks[element]),
+            opacity: 1,
+            curveness: 0.3,
+          }
+        })
+      })
+
+
+      counter = _.countBy(internalDisplacement)
+      // console.log(counter)
+
+      chartData.forEach(function(element) {
+        element.value = counter[element.name]
+        element.symbolSize = symbolRange(counter[element.name])
+        element.name = ufDict[element.name]
+      })
+      console.log(_links)
+      console.log(chartData)
+
+      myChart.setOption(option)
+      console.log(option)
+    }
+
     function getLinks() {
-      return $.ajax({
+
+      $.ajax({
         url: "https://salic.dev.lappis.rocks/graphiql?query=%7B%0A%20%20deslocamentos%20%7B%0A%20%20%20%20UFOrigem%0A%20%20%20%20UFDestino%0A%20%20%7D%0A%20%20%0A%7D",
         type: "GET",
         success: function(data) {
-          let deslocamentos = data.data.deslocamentos
+          retorna(data)
+          setTimeout(function(){$("#main").LoadingOverlay("hide");}, 15000);
 
-          deslocamentos.forEach(function(element) {
-
-            if (element.UFOrigem == element.UFDestino) {
-              _ufList.push(element.UFOrigem)
-              return;
-            }
-
-            result = element["UFOrigem"] + " - " + element["UFDestino"];
-            inverse = element["UFDestino"] + " - " + element["UFOrigem"];
-
-            if (counterLinks[result] !== undefined) {
-              counterLinks[result] += 1;
-            } else {
-              if (counterLinks[inverse] !== undefined) {
-                counterLinks[inverse] += 1;
-              } else {
-                counterLinks[result] = 1;
-              }
-            }
-          })
-
-          linksNames = Object.keys(counterLinks)
-
-          linksNames.forEach(function(element) {
-
-            _links.push({
-              source: ufDict[element.substr(0, element.indexOf(' -'))],
-              target: ufDict[element.substring(element.indexOf("- ") + 2)],
-              lineStyle: {
-                width: linkRange(counterLinks[element]),
-                opacity: 1
-              }
-            })
-          })
-          counter = _.countBy(_ufList)
-          // console.log(counter)
-
-          chartData.forEach(function(element) {
-            element.value = counter[element.name]
-            element.symbolSize = counter[element.name] / 100
-            element.name = ufDict[element.name]
-          })
-
-          myChart.setOption(option)
-          console.log(option)
         },
+
         error: function(error) {
-          var text = JSON.parse(error.responseText);
-          for (let i in text) {
-            alert(text[i]);
-          }
+          // alert(error);
+          console.log(error)
         }
       });
-
     }
+
   </script>
 </body>
 
