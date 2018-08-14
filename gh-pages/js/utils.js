@@ -43,43 +43,33 @@ categories = [{
 }]
 
 ufDict = {
-  "Norte": [
-    ("AC", "Acre"),
-    ("AP", "Amapá"),
-    ("AM", "Amazonas"),
-    ("PA", "Pará"),
-    ("RO", "Rondônia"),
-    ("RR", "Roraima"),
-    ("TO", "Tocantins")
-  ],
-  "Nordeste": [
-    ("AL", "Alagoas"),
-    ("BA", "Bahia"),
-    ("CE", "Ceará"),
-    ("MA", "Maranhão"),
-    ("PB", "Paraíba"),
-    ("PE", "Pernambuco"),
-    ("PI", "Piauí"),
-    ("RN", "Rio Grande do Norte"),
-    ("SE", "Sergipe"),
-  ],
-  "Sudeste": [
-    ("ES", "Espírito Santo"),
-    ("MG", "Minas Gerais"),
-    ("RJ", "Rio de Janeiro"),
-    ("SP", "São Paulo"),
-  ],
-  "Sul": [
-    ("PR", "Paraná"),
-    ("RS", "Rio Grande do Sul"),
-    ("SC", "Santa Catarina"),
-  ],
-  "Centro-Oeste": [
-    ("DF", "Distrito Federal"),
-    ("GO", "Goiás"),
-    ("MT", "Mato Grosso"),
-    ("MS", "Mato Grosso do Sul"),
-  ]
+  "Acre": "AC",
+  "Amapá": "AP",
+  "Amazonas": "AM",
+  "Pará": "PA",
+  "Rondônia": "RO",
+  "Roraima": "RR",
+  "Tocantins": "TO",
+  "Alagoas": "AL",
+  "Bahia": "BA",
+  "Ceará": "CE",
+  "Maranhão": "MA",
+  "Paraíba": "PB",
+  "Pernambuco": "PE",
+  "Piauí": "PI",
+  "Rio Grande do Norte": "RN",
+  "Sergipe": "SE",
+  "Espírito Santo": "ES",
+  "Minas Gerais": "MG",
+  "Rio de Janeiro": "RJ",
+  "São Paulo": "SP",
+  "Paraná": "PR",
+  "Rio Grande do Sul": "RS",
+  "Santa Catarina": "SC",
+  "Distrito Federal": "DF",
+  "Goiás": "GO",
+  "Mato Grosso": "MT",
+  "Mato Grosso do Sul": "MS",
 }
 
 ufList = [
@@ -120,7 +110,6 @@ chartData = [{
   "symbolSize": 15,
   "draggable": "true",
   "value": 27
-
 }, {
   "name": "Amapá",
   "value": 8,
@@ -475,58 +464,57 @@ links = [{
 
 var iti = {};
 
-function omelete(){
+function omelete() {
   var ligations = {
     "data": {
-      "deslocamentos": [
-          {
-            "UFOrigem": "Minas Gerais",
-            "UFDestino": "São Paulo"
-          },
-          {
-            "UFOrigem": "Minas Gerais",
-            "UFDestino": "Minas Gerais"
-          },
-          {
-            "UFOrigem": "Rio de Janeiro",
-            "UFDestino": "Minas Gerais"
-          },
-          {
-            "UFOrigem": "Rio de Janeiro",
-            "UFDestino": "Rio Grande do Sul"
-          },
-          {
-            "UFOrigem": "Rio de Janeiro",
-            "UFDestino": "Distrito Federal"
-          },
-          {
-            "UFOrigem": "São Paulo",
-            "UFDestino": "Minas Gerais"
-          },
-          {
-            "UFOrigem": "São Paulo",
-            "UFDestino": "Minas Gerais"
-          },
-          {
-            "UFOrigem": "Minas Gerais",
-            "UFDestino": "São Paulo"
-          },
-        ]
+      "deslocamentos": [{
+          "UFOrigem": "Minas Gerais",
+          "UFDestino": "São Paulo"
+        },
+        {
+          "UFOrigem": "Minas Gerais",
+          "UFDestino": "Minas Gerais"
+        },
+        {
+          "UFOrigem": "Rio de Janeiro",
+          "UFDestino": "Minas Gerais"
+        },
+        {
+          "UFOrigem": "Rio de Janeiro",
+          "UFDestino": "Rio Grande do Sul"
+        },
+        {
+          "UFOrigem": "Rio de Janeiro",
+          "UFDestino": "Distrito Federal"
+        },
+        {
+          "UFOrigem": "São Paulo",
+          "UFDestino": "Minas Gerais"
+        },
+        {
+          "UFOrigem": "São Paulo",
+          "UFDestino": "Minas Gerais"
+        },
+        {
+          "UFOrigem": "Minas Gerais",
+          "UFDestino": "São Paulo"
+        },
+      ]
+    }
+  }
+
+  $.each(ligations.data.deslocamentos, function(index, value) {
+    var result = value["UFOrigem"] + " - " + value["UFDestino"];
+    var inverse = value["UFDestino"] + " - " + value["UFOrigem"];
+
+    if (iti[result] !== undefined) {
+      iti[result] += 1;
+    } else {
+      if (iti[inverse] !== undefined) {
+        iti[inverse] += 1;
+      } else {
+        iti[result] = 1;
       }
     }
-
-    $.each(ligations.data.deslocamentos, function(index, value)  {
-      var result = value["UFOrigem"] + " - " + value["UFDestino"];
-      var inverse = value["UFDestino"] + " - " + value["UFOrigem"];
-
-      if(iti[result] !== undefined){
-        iti[result] += 1;
-      }else{
-        if(iti[inverse] !== undefined){
-          iti[inverse] += 1;
-        }else{
-          iti[result] = 1;
-        }
-      }
-    });
+  });
 }

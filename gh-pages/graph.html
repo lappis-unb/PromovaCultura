@@ -27,7 +27,7 @@
 
 
   <script type="text/javascript">
-    var _data = []
+    var _links = []
 
     var myChart = echarts.init(document.getElementById('main'));
 
@@ -82,7 +82,7 @@
         // edgeSymbolSize: 10,
         data: chartData,
         // links: getLinks(),
-        links: _data,
+        links: _links,
         categories: categories,
         focusNodeAdjacency: true,
         roam: true,
@@ -132,7 +132,7 @@
       return $.ajax({
         url: "https://salic.dev.lappis.rocks/graphiql?query=%7B%0A%20%20deslocamentos%20%7B%0A%20%20%20%20UFOrigem%0A%20%20%20%20UFDestino%0A%20%20%7D%0A%20%20%0A%7D",
         type: "GET",
-        success: function ProcessData(data) {
+        success: function(data) {
           let deslocamentos = data.data.deslocamentos
 
           deslocamentos.forEach(function(element) {
@@ -142,8 +142,8 @@
               return;
             }
 
-             result = element["UFOrigem"] + " - " + element["UFDestino"];
-             inverse = element["UFDestino"] + " - " + element["UFOrigem"];
+            result = element["UFOrigem"] + " - " + element["UFDestino"];
+            inverse = element["UFDestino"] + " - " + element["UFOrigem"];
 
             if (counterLinks[result] !== undefined) {
               counterLinks[result] += 1;
@@ -158,33 +158,34 @@
 
           linksNames = Object.keys(counterLinks)
 
-          linksNames.forEach(function(element){
+          linksNames.forEach(function(element) {
 
-          _data.push({
-            source: element.substr(0, element.indexOf(' -')) ,
-            target: element.substring(element.indexOf("- ") + 2),
-            lineStyle: {
-              width: linkRange(counterLinks[element]),
-              opacity: 1
-            }
+            _links.push({
+              source: ufDict[element.substr(0, element.indexOf(' -'))],
+              target: ufDict[element.substring(element.indexOf("- ") + 2)],
+              lineStyle: {
+                width: linkRange(counterLinks[element]),
+                opacity: 1
+              }
+            })
           })
-        })
           counter = _.countBy(_ufList)
+          // console.log(counter)
 
           chartData.forEach(function(element) {
             element.value = counter[element.name]
             element.symbolSize = counter[element.name] / 100
+            element.name = ufDict[element.name]
           })
 
-
           myChart.setOption(option)
+          console.log(option)
         },
         error: function(error) {
           var text = JSON.parse(error.responseText);
           for (let i in text) {
             alert(text[i]);
           }
-
         }
       });
 
