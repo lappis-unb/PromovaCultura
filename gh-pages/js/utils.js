@@ -113,157 +113,209 @@ chartData = [{
   "value": 8,
   "symbolSize": 30,
   "category": "Norte",
-  "draggable": "true"
+  "draggable": "true",
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Amazonas",
   "symbolSize": 16,
   "category": "Norte",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Pará",
   "symbolSize": 60,
   "category": "Norte",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Rondônia",
   "symbolSize": 15,
   "category": "Norte",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Roraima",
   "value": 60,
   "symbolSize": 60,
   "category": "Norte",
-  "draggable": "true"
+  "draggable": "true",
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Tocantins",
   "symbolSize": 50,
   "category": "Norte",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Alagoas",
   "value": 20,
   "symbolSize": 30,
   "category": "Nordeste",
-  "draggable": "true"
+  "draggable": "true",
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Bahia",
   "symbolSize": 16,
   "category": "Nordeste",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Ceará",
   "symbolSize": 16,
   "category": "Nordeste",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Maranhão",
   "value": 6,
   "symbolSize": 18,
   "category": "Nordeste",
-  "draggable": "true"
+  "draggable": "true",
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Paraíba",
   "symbolSize": 15,
   "category": "Nordeste",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Pernambuco",
   "symbolSize": 16,
   "category": "Nordeste",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Piauí",
   "value": 6,
   "symbolSize": 18,
   "category": "Nordeste",
-  "draggable": "true"
+  "draggable": "true",
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Rio Grande do Norte",
   "symbolSize": 16,
   "category": "Nordeste",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Sergipe",
   "symbolSize": 16,
   "category": "Nordeste",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Distrito Federal",
   "value": 5,
   "symbolSize": 40,
   "category": "Centro-Oeste",
-  "draggable": "true"
+  "draggable": "true",
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Goiás",
   "symbolSize": 30,
   "category": "Centro-Oeste",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Mato Grosso",
   "symbolSize": 7,
   "category": "Centro-Oeste",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Mato Grosso do Sul",
   "value": 4,
   "symbolSize": 18,
   "category": "Centro-Oeste",
-  "draggable": "true"
+  "draggable": "true",
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Espírito Santo",
   "symbolSize": 20,
   "category": "Sudeste",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Minas Gerais",
   "symbolSize": 25,
   "category": "Sudeste",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Rio de Janeiro",
   "value": 7,
   "symbolSize": 10,
   "category": "Sudeste",
-  "draggable": "true"
+  "draggable": "true",
+  "x": 0,
+  "y": 0,
 }, {
   "name": "São Paulo",
   "symbolSize": 75,
   "category": "Sudeste",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Paraná",
   "value": 7,
   "symbolSize": 30,
   "category": "Sul",
-  "draggable": "true"
+  "draggable": "true",
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Rio Grande do Sul",
   "symbolSize": 7,
   "category": "Sul",
   "draggable": "true",
-  "value": 7
+  "value": 7,
+  "x": 0,
+  "y": 0,
 }, {
   "name": "Santa Catarina",
   "value": 30,
   "symbolSize": 30,
   "category": "Sul",
-  "draggable": "true"
+  "draggable": "true",
+  "x": 0,
+  "y": 0,
 }]
 
 _links = [{}]

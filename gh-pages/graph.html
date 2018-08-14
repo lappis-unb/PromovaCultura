@@ -28,9 +28,9 @@
 
 
   <script type="text/javascript">
-  $("#main").LoadingOverlay("show", {
-      background  : "rgba(255, 255, 255)"
-  });
+  // $("#main").LoadingOverlay("show", {
+  //     background  : "rgba(255, 255, 255)"
+  // });
     var _links = []
 
     var myChart = echarts.init(document.getElementById('main'));
@@ -76,7 +76,7 @@
       series: [{
         name: 'Deslocamentos Internos',
         type: 'graph',
-        layout: 'force',
+        layout: 'none',
         force: {
           repulsion: 40000,
           // gravity: 0.05,
@@ -125,11 +125,11 @@
       } else if (width >= 51 && width <= 150) {
         width = 2
       } else if (width >= 151 && width <= 600) {
-        width = 3
-      } else if (width >= 601 && width <= 1500) {
         width = 4
+      } else if (width >= 601 && width <= 1500) {
+        width = 6
       } else {
-        width = 5
+        width = 8
       }
 
       return width
@@ -143,9 +143,9 @@
       } else if (symbolSize >= 151 && symbolSize <= 600) {
         symbolSize = 75
       } else if (symbolSize >= 601 && symbolSize <= 1500) {
-        symbolSize = 100
+        symbolSize = 90
       } else {
-        symbolSize = 150
+        symbolSize = 120
       }
 
       return symbolSize
@@ -199,6 +199,8 @@
         element.value = counter[element.name]
         element.symbolSize = symbolRange(counter[element.name])
         element.name = ufDict[element.name]
+        element.x = Math.floor(Math.random() * Math.floor(15)),
+        element.y = Math.floor(Math.random() * Math.floor(15))
       })
       console.log(_links)
       console.log(chartData)
@@ -214,12 +216,12 @@
         type: "GET",
         success: function(data) {
           retorna(data)
-          setTimeout(function(){$("#main").LoadingOverlay("hide");}, 15000);
+          // setTimeout(function(){$("#main").LoadingOverlay("hide");}, 15000);
 
         },
 
         error: function(error) {
-          // alert(error);
+          alert("Falha na conexão. Reinicie a página");
           console.log(error)
         }
       });
