@@ -3,6 +3,7 @@ import "@/../static/jsmaps/brazil.js";
 import "@/../static/jsmaps/brazil_region.js";
 
 import LocationInfoControl from './LocationInfoControl';
+import EventBus from '@/util/EventBus';
 
 
 function displayBrazilMap(mapType) {
@@ -59,6 +60,7 @@ function makeHeatMap(brazilMap, projects, legends) {
     }
   });
   $("#brazil-map").trigger("reDraw", brazilMap);
+  EventBus.$emit('mapOnMouseOver', null);
 }
 
 function setProponentesPins(maps, brazilMap, legends, basePinData, proponentes) {
@@ -95,6 +97,7 @@ function setProponentesPins(maps, brazilMap, legends, basePinData, proponentes) 
   });
 
   $("#brazil-map").trigger("reDraw", maps);
+  EventBus.$emit('mapOnMouseOver', null);
 }
 
 function setIncentivadoresPins(incentivadores, maps, brazilMap, legends, basePinData) {
@@ -131,6 +134,7 @@ function setIncentivadoresPins(incentivadores, maps, brazilMap, legends, basePin
   });
 
   $("#brazil-map").trigger("reDraw", maps);
+  EventBus.$emit('mapOnMouseOver', null);
 }
 
 export default {

@@ -18,6 +18,7 @@
                 :projects="data.projects"
                 :proponents="data.proponentes"
                 :incentivators="data.incentivadores"
+                :segment="segment"
               />
 
               <brazil-map
@@ -131,6 +132,7 @@ export default {
     filterMobile: String,
     filtersActivate: Object,
     locationInfoShowOn: String,
+    segment: String,
   },
   components: {
     "brazil-map": BrazilMap,
