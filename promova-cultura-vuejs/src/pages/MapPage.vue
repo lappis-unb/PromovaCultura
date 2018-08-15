@@ -5,6 +5,7 @@
     :legends="legends"
     :maxValues="maxValues"
     :level="level"
+    :segment="selected"
     @updatedSegment="updatedSegment"
     @showProponentes="showProponentes"
     @showIncentivadores="showIncentivadores"
@@ -69,7 +70,8 @@ export default {
         proponentesRegion: {},
         incentivadoresRegion: {},
       },
-      level: 'UF'
+      level: 'UF',
+      selected: 'Todos os segmentos',
     };
   },
   watch: {

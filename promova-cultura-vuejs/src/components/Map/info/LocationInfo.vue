@@ -38,7 +38,7 @@
                 </div>
             </div>
             <p class= "location-info-last">
-                Preservação/Restauração de memória cinematográfica
+                {{segment}}
             </p>
         </div>
     </div>
@@ -59,6 +59,7 @@ export default {
       type: String,
       default: "click" // click | hover
     },
+    segment: String,
   },
 
   data() {
@@ -67,6 +68,7 @@ export default {
       totalProjects: 0,
       totalProponents: 0,
       totalIncentivators: 0,
+      prevData: {},
     }
   },
 
@@ -92,10 +94,14 @@ export default {
   mounted() {
     EventBus.$on('mapOnMouseOver', (data) => {
       // console.log( JSON.stringify(data, null, 4) );
-      this.updateCurrent(data.name);
-      this.updateTotalProjects(data.abbreviation);
-      this.updateTotalProponents(data.abbreviation);
-      this.updateTotalIncentivators(data.abbreviation);
+      if(data!=null){
+        this.prevData = data;
+      }
+
+      this.updateCurrent(this.prevData.name);
+      this.updateTotalProjects(this.prevData.abbreviation);
+      this.updateTotalProponents(this.prevData.abbreviation);
+      this.updateTotalIncentivators(this.prevData.abbreviation);
     });
   },
 
