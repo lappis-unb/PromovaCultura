@@ -3,6 +3,7 @@
 // Version 3.1.3
 import jQuery from "jquery"
 import "./raphael.js"
+import EventBus from '@/util/EventBus';
 
 
 (function($) {
@@ -119,7 +120,7 @@ import "./raphael.js"
       'retainPanZoomOnRedraw': true,
       'displayPreloader': false,
       'preloaderText': 'Loading map...',
-      'disableTooltip': true,
+      'disableTooltip': false,
       'selectElement': true,
       'selectElementDevices': ['mobile'],
       'selectElementDefaultText': 'Please select',
@@ -398,7 +399,10 @@ import "./raphael.js"
               }
               
               // Tooltip
-              isMouseover ? showTooltip(target.name) : removeTooltip();
+              EventBus.$emit('mapOnMouseOver', target);
+              setTimeout(function () {
+                  isMouseover ? showTooltip($('.LocationInfo').html()) : removeTooltip();
+              }, 1);
 
               // Trigger callback
               if ($.isFunction(callback)) {
@@ -540,7 +544,13 @@ import "./raphael.js"
             }
 
             // Tooltip
-            isMouseover ? showTooltip(target.name) : removeTooltip();
+            // isMouseover ? showTooltip(target.name) : removeTooltip();
+
+            EventBus.$emit('mapOnMouseOver', null);
+            setTimeout(function () {
+                isMouseover ? showTooltip($('.LocationInfo').html()) : removeTooltip();
+            }, 1);
+
 
             // Trigger callback
             if ($.isFunction(callback)) {
@@ -663,7 +673,8 @@ import "./raphael.js"
 
         $('.jsmaps-tooltip').css({
           left: mouseX - $('.jsmaps-tooltip').width()/2,
-          top: mouseY + tooltipOffsetY
+          top: mouseY + tooltipOffsetY,
+          position: "fixed"
         });
       }
 

@@ -159,6 +159,10 @@ export default {
     changeLevel: function(level) {
       this.$emit('changeLevel', level);
     }
+  },
+  mounted(){
+    if(this.locationInfoShowOn=='click')
+      window.JSMaps.maps.brazil.config['disableTooltip'] = true;
   }
 }
 </script>
