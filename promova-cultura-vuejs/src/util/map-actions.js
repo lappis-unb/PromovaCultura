@@ -60,7 +60,6 @@ function makeHeatMap(brazilMap, projects, legends) {
     }
   });
   $("#brazil-map").trigger("reDraw", brazilMap);
-  EventBus.$emit('mapOnMouseOver', null);
 }
 
 function setProponentesPins(maps, brazilMap, legends, basePinData, proponentes) {
