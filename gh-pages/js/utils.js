@@ -55,9 +55,9 @@ ufDict = {
   "Mato Grosso do Sul": "MS",
 }
 
-var _links = []
+var linkData = []
 
-chartData = [{
+circleData = [{
   "name": "Acre",
   "category": "Norte",
   "symbolSize": 15,
