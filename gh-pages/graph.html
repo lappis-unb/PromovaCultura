@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.5/dist/loadingoverlay.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="css/graph.css">
+  <script src="js/echarts.js"></script>
+  <script src=js/utils.js></script>
+  <script src=js/graph.js></script>
+  <title>Grafo De Deslocamento</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">Promova Cultura</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7 col-md-12">
+        <div id="graph"></div>
+      </div>
+      <div class="col-lg-4 offset-lg-1 col-md-12">
+        <div class="card">
+          <legend class="card-header">Legendas</legend>
+
+          <div class="card-body">
+            <div class="legend-group-scroll">
+              <div>
+                <div class="legend-item">
+                  <h3>Deslocamento externo <span>(entre estados)</span></h3>
+                  <p>A expessura da linha indica a quantidade de projetos que deslocam entre os estados.</p>
+                  <div>
+                    <ul class="external-displacement">
+                      <li><span> </span>0 até 50</li>
+                      <li><span> </span>51 até 150</li>
+                      <li><span> </span>151 até 600</li>
+                      <li><span> </span>601 até 1500</li>
+                      <li><span> </span>1500+</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="legend-item">
+                  <h3>Deslocamento interno <span>(no estado)</span></h3>
+                  <p>O tamanho do circulo indica a quantidade de projetos que deslocam internamente no estado.</p>
+                  <div>
+                    <ul class="internal-displacement">
+                      <li>
+                        <div><span></span></div>0 até 50</li>
+                      <li>
+                        <div><span></span></div>51 até 150</li>
+                      <li>
+                        <div><span></span></div>151 até 600</li>
+                      <li>
+                        <div><span></span></div>601 até 1500</li>
+                      <li>
+                        <div><span></span></div>1500+</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $("#graph").LoadingOverlay("show", {
+      background: "rgba(255, 255, 255)"
+    });
+    var myChart = echarts.init(document.getElementById('graph'));
+
+    function mediaQuery(middle, big, small) {
+      if (small.matches) {
+        circleData.forEach(function(circle) {
+          circle.symbolSize = circle.symbolSize / 1.6
+        })
+        myChart.setOption(option)
+      } else if (middle.matches) { // If media query matches
+        console.log("entrou")
+        circleData.forEach(function(circle) {
+          circle.symbolSize = circle.symbolSize / 1.4
+        })
+        myChart.setOption(option)
+      } else if (big.matches) {
+        circleData.forEach(function(circle) {
+          circle.symbolSize = circle.symbolSize / 1.1
+        })
+        myChart.setOption(option)
+      } else {
+        myChart.setOption(option)
+
+      }
+
+    }
+
+    var middle = window.matchMedia("(max-width: 768px)")
+    var big = window.matchMedia("(max-width: 1200px)")
+    var small = window.matchMedia("(max-width: 500px)")
+  </script>
+</body>
+
+</html>
