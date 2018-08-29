@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.5/dist/loadingoverlay.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="css/segment.css">
+  <script src="js/echarts.js"></script>
+  <script src=js/utils.js></script>
+  <title>Volume de Gratuitos Por Área/Segmento</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="./index.html">Promova Cultura</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-8">
+        <div id="graph"></div>
+      </div>
+
+      <div class="col-lg-4 col-md-4">
+        <div class="card">
+          <legend class="card-header card-legend">Legendas</legend>
+          <div class="card-body">
+            <div class="legend-group-scroll">
+              <div>
+                <div class="legend-item">
+                  <h3>Acesso Gratuito <span>(aos projetos)</span></h3>
+                  <p>O tamanho do circulo indica a porcentagem de acessos gratuitos aos projetos culturais.</p>
+                  <div>
+                    <ul class="legend-free-access">
+                      <li>
+                        <div><span></span></div>0 a 10%</li>
+                      <li>
+                        <div><span></span></div>10% a 30%</li>
+                      <li>
+                        <div><span></span></div>30% a 90%</li>
+                      <li>
+                        <div><span></span></div>90% a 100%</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .LocationInfo {
+      position: absolute;
+      top: -1000px;
+      left: -1000px;
+      z-index: 1050;
+      display: none;
+    }
+
+    .popover.fade.show {
+      max-width: 285px;
+    }
+
+    .popover .popover-body {
+      padding: 0px;
+    }
+
+    /* .card {
+    width: 285px;
+  } */
+
+    .tooltip-header {
+      text-align: center;
+
+    }
+
+    .card-header {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .icon-popup {
+      float: left;
+      height: 30px;
+      width: 30px;
+    }
+
+    .has-border {
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      padding-top: 5px;
+    }
+
+    .location-info-second-line {
+      overflow: hidden;
+      padding-top: 15px;
+    }
+
+    .location-info-first-line p {
+      font-size: 15px;
+    }
+
+    .location-info-last {
+      font-size: 12px;
+    }
+
+    /* .location-info-first-line p {
+    font-variant: small-caps;
+  } */
+
+    .location-info-first-line p,
+    .location-info-second-line p,
+    .location-info-last {
+      color: #2b2c2d;
+      text-align: center;
+      margin-bottom: 0px;
+    }
+
+    .location-info-first-line span,
+    .location-info-second-line span {
+      display: block;
+      font-weight: 600;
+    }
+
+    .location-info-first-line span {
+      font-size: 36px;
+      line-height: 26px;
+    }
+
+    .location-info-second-line {
+      font-size: 12px;
+    }
+
+    .location-info-second-line,
+    .location-info-last {
+      font-style: italic;
+    }
+
+    .location-info-second-line span {
+      font-size: 18px;
+      font-style: normal;
+      line-height: 16px;
+    }
+
+    .single-prop-inc {
+      float: none;
+      width: 50%;
+      margin: 0 auto;
+    }
+
+    .multiple-prop-inc {
+      float: left;
+      width: 50%;
+    }
+
+    .location-info-last {
+      clear: both;
+      padding: 20px 40px 0 40px;
+    }
+  </style>
+
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('graph'));
+
+    function mediaQuery(small) {
+      if (small.matches) {
+        option.legend[0].textStyle.fontSize = 15
+        option.legend[0].textStyle.fontWeight = "bold"
+        myChart.setOption(option)
+      }
+        myChart.setOption(option)
+      }
+
+
+
+    var small = window.matchMedia("(max-width: 768px)")
+
+    var option = {
+      title: {
+        show: false,
+        text: "Grafo De Deslocamento",
+        subtext: "Por Estado/Região",
+        top: "top",
+        left: "left"
+      },
+      tooltip: {
+        confine: true,
+        padding: 0,
+        // width: "20%",
+        // backgroundColor: '#aaa',
+        // borderColor: '#aaa',
+        // borderWidth: 1,
+        // width: "50px",
+        formatter: function(obj) {
+          var value = obj.value;
+          if (obj.data.name != obj.data.category) {
+            return '<div class="card"> <div class="card-header tooltip-header">' +
+              obj.data.name +
+              '</div> <div class="card-body"> <div class="location-info-first-line has-border"> <p> <span> ' +
+              obj.data.value.toFixed(2) + " %" +
+              '</span>  ' +
+              'de projetos gratuitos' +
+              '</p></div><p class= "location-info-last">' + obj.data.category + '</p></div></div>'
+          } else {
+            console.log(obj.data)
+            return '<div class="card"> <div class="card-header tooltip-header">' +
+              obj.data.category +
+              '</div> <div class="card-body"> <div class="location-info-first-line has-border"> <p> <span> ' +
+              obj.data.value.toFixed(2) + " %" +
+              '</span>  ' +
+              'de projetos gratuitos' +
+              '</p></div>'
+          }
+        }
+      },
+      legend: [{
+        tooltip: {
+          show: false
+        },
+        align: "auto",
+        top: "top",
+        orient: "horizontal",
+        data: [, "Música", "Patrimônio Cultural", "Audiovisual", "Artes Visuais", "Humanidades", "Artes Cênicas"],
+        backgroundColor: "rgba(255,255,255,0.9)",
+        padding: [10, 0 , 10, 0],
+        textStyle: {
+          fontSize: 12,
+        }
+      }],
+      series: [{
+        name: 'Deslocamentos Internos',
+        type: 'graph',
+        layout: 'force',
+        force: {
+          repulsion: 400,
+          gravity: 0.55,
+          edgeLength: 70,
+        },
+        draggable: true,
+        data: graphData,
+        roam: true,
+        links: links,
+        categories: segmentCategories,
+      }]
+    };
+
+    getData()
+
+    $("#graph").LoadingOverlay("show", {
+      background: "rgba(255, 255, 255)"
+    });
+
+    var freeSegments = {}
+    var allSegments = {}
+    var graphSegments = {}
+    var graphData = []
+
+    function populateFreeSegments(segmentName, quantity) {
+      if (freeSegments[segmentName] !== undefined) {
+        freeSegments[segmentName] += quantity
+      } else {
+        freeSegments[segmentName] = quantity
+      }
+    }
+
+    function populateAllSegments(segmentName, quantity) {
+      if (allSegments[segmentName] !== undefined) {
+        allSegments[segmentName] += quantity
+      } else {
+        allSegments[segmentName] = quantity
+      }
+    }
+    var freeAreas = {}
+
+    function calculateFreeAreas() {
+      graphData.forEach(function(element) {
+        if (freeAreas[element.category] !== undefined) {
+          freeAreas[element.category] += element.freeQuantity
+        } else {
+          freeAreas[element.category] = element.freeQuantity
+        }
+
+      })
+    }
+    var allAreas = {}
+
+    function calculateAllAreas() {
+      graphData.forEach(function(element) {
+        if (allAreas[element.category] !== undefined) {
+          allAreas[element.category] += element.allQuantity
+        } else {
+          allAreas[element.category] = element.allQuantity
+        }
+
+      })
+    }
+
+    var areaPercentages = {}
+
+    function calculateAreaValue() {
+      Object.keys(freeAreas).forEach(function(element) {
+        var percentage = freeAreas[element] / allAreas[element]
+        areaPercentages[element] = percentage * 100
+
+      })
+      console.log(areaPercentages)
+    }
+
+
+    function calculateSymbolValue() {
+      Object.keys(freeSegments).forEach(function(element) {
+        var percentage = freeSegments[element] / allSegments[element]
+        graphSegments[element] = percentage * 100
+      })
+    }
+
+    function buildGraphData() {
+      Object.keys(graphSegments).forEach(function(element) {
+        let symbolSize = calculateSymbolSize(graphSegments[element])
+        graphData.push({
+          "name": element,
+          "symbolSize": symbolSize,
+          "category": segments[element],
+          "value": graphSegments[element],
+          "freeQuantity": freeSegments[element],
+          "allQuantity": allSegments[element],
+          label:{
+            show:false,
+          },
+          "itemStyle": {
+            "borderColor": "#ECECEC",
+            "borderWidth": 3,
+          }
+        })
+
+      })
+      calculateFreeAreas()
+      calculateAllAreas()
+      calculateAreaValue()
+
+      Object.keys(areas).forEach(function(element) {
+        areas[element].forEach(function(segment, index, array) {
+
+          if (areas[element][0] == segment) {
+            if (areas[element][0] == "Museus e Memória" || areas[element][0] == "Artes Integradas") {
+              return;
+            }
+
+            console.log(areaPercentages, element)
+            graphData.push({
+              "name": areas[element][0],
+              "symbolSize": 50,
+              "category": element,
+              "value": areaPercentages[element],
+              "freeQuantity": allAreas[element],
+              "allQuantity": freeAreas[element],
+              "itemStyle": {
+                "color": "transparent",
+                "borderColor": "#ECECEC",
+                "borderWidth": 0,
+              },
+              label: {
+                normal: {
+                  color: '#4C4C4C',
+                  fontSize: 14,
+                  show: true,
+                  position: 'inside',
+                  fontWeight: 'bold'
+                }
+              },
+            })
+          }
+        })
+      })
+
+    }
+
+
+    function calculateSymbolSize(segmentValue) {
+
+      if (segmentValue >= 0 && segmentValue <= 10) {
+        symbolSize = 25
+      } else if (segmentValue > 10 && segmentValue <= 30) {
+        symbolSize = 50
+      } else if (segmentValue > 30 && segmentValue <= 90) {
+        symbolSize = 75
+      } else if (segmentValue > 90 && segmentValue <= 100) {
+        symbolSize = 100
+      } else {
+        symbolSize = 125
+      }
+      return symbolSize
+    }
+
+    function getData() {
+
+      $.ajax({
+        url: "https://salic.dev.lappis.rocks/graphiql?query=%7B%0A%20%20distribuicoes%7B%0A%20%20%20%20QtdeVendaNormal%0A%09%09PrecoUnitarioNormal%0A%20%20%20%20QtdeVendaPromocional%0A%20%20%20%20PrecoUnitarioPromocional%0A%20%20%20%20segmento%0A%20%20%7D%0A%7D",
+        type: "GET",
+        success: function(data) {
+
+          data.data.distribuicoes.forEach(function(element) {
+            if (element.QtdeVendaNormal == 0 && element.QtdeVendaPromocional == 0) {
+              return;
+            } else {
+              quantity = element.QtdeVendaNormal + element.QtdeVendaPromocional
+              populateAllSegments(element.segmento, quantity)
+            }
+
+            if (element.PrecoUnitarioNormal == "0.00" && element.QtdeVendaNormal != 0) {
+              populateFreeSegments(element.segmento, element.QtdeVendaNormal)
+            } else if (element.PrecoUnitarioPromocional == "0.00" && element.QtdeVendaPromocional != 0) {
+              populateFreeSegments(element.segmento, element.QtdeVendaPromocional)
+            }
+          })
+          calculateSymbolValue()
+          invertAreaDict()
+          buildGraphData()
+          buildLinks()
+
+
+
+          option.series[0].data = graphData
+          option.series[0].links = links
+
+          // myChart.setOption(option)
+          mediaQuery(small) // Call listener function at run time
+          small.addListener(mediaQuery) // Attach listener function on state changes
+          $("#graph").LoadingOverlay("hide")
+        },
+        error: function(error) {
+          alert("Falha na conexão. Reinicie a página.");
+        }
+      });
+    }
+
+    var segments = {}
+
+    function invertAreaDict() {
+      Object.keys(areas).forEach(function(element) {
+        areas[element].forEach(function(segment) {
+          segments[segment] = element
+        })
+      })
+    }
+
+    var links = []
+
+    function buildLinks() {
+
+      Object.keys(areas).forEach(function(element) {
+        areas[element].forEach(function(segment, index, array) {
+
+          links.push({
+            source: areas[element][0],
+            target: segment,
+            lineStyle: {
+              width: 0,
+            }
+          })
+        })
+      })
+    }
+  </script>
+</body>
+
+</html>
