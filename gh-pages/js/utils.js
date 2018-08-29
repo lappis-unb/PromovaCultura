@@ -247,3 +247,255 @@ circleData = [{
   "x": 7,
   "y": -5,
 }]
+
+var areas = {
+  "Artes Cênicas": [
+    "Artes Cênicas",
+    "Teatro",
+    "Dança",
+    "Circo",
+    "Ópera",
+    "Mímica",
+    "Ópera Rock",
+    "Ações de capacitação e treinamento de pessoal 1",
+    "Teatro de formas animadas",
+    "Teatro de mamulengos",
+    "Teatro de  bonecos e congêneres",
+    "Desfile de  escola de samba",
+    "Desfile de bloco carnavalesco",
+    "Desfile de  cortejo da cultura popular ",
+    "Construção de salas de teatro munic(< 100 mil hab) 1",
+    "Construção de centros comunit.Munic(< 100 mil hab)",
+    "Manutenção de salas de teatro Munic(< 100 mil hab)",
+    "Manutenção de centros comunit.Munic(< 100 mil hab)",
+    "Teatro musical"
+  ],
+  "Audiovisual": [
+    "Audiovisual",
+    "Distribuição Cinematográfica",
+    "Preservação/Restauração da Memória Cinematográfica",
+    "Jogos eletrônicos",
+    "Videofonográfica",
+    "Produção Cinematográfica de curta metragem",
+    "Rádio/Tvs Educativa",
+    "Multimídia",
+    "Produção Cinematográfica de média metragem",
+    "Formação/Pesquisa e informação",
+    "Formação /Pesquisa/Informação",
+    "Exibição Cinematográfica",
+    "Produção Cinematográfica",
+    "Infra-estrutura Técnica Audiovisual",
+    "Produção Videofonográfica de curta metragem",
+    "Produção Videofonográfica de média metragem",
+    "Formação Audiovisual",
+    "Pesquisa Audiovisual",
+    "Rádios e TVs Educativas não comerciais",
+    "Doação de acervos audiovisuais",
+    "Construção de salas de cinema (< 100 mil hab)",
+    "Manutenção de salas de cinema (< 100 mil hab)",
+    "Constr. centro comunitário c/sala cinema(<100 mil)",
+    "Manut. centro comunitário c/sala cinema(<100 mil)",
+    "Difusão de acervo audiovisual",
+    "Preservação de acervos audiovisuais",
+    "Restauração de acervos audiovisuais",
+    "Produção de web série",
+    "Projetos Audiovisuais Transmidiáticos",
+    "Aquisi. equipamentos p/manut.-acervos audiovisuais",
+    "Produção de conteúdo audiovisual de curta metragem",
+    "Produção de conteúdo audiovisual de média metragem",
+    "Produção Televisiva",
+    "Difusão de acervo e conteúdo audiovisual",
+    "Difusão"
+  ],
+  "Música": [
+    "Música",
+    "Música Popular Cantada",
+    "Música Erudita",
+    "Música Instrumental",
+    "Áreas Integradas",
+    "Orquestra",
+    "Doações de Acervos Musicais",
+    "Canto Coral",
+    "Ações de capacitação e treinamento de pessoal"
+  ],
+  "Artes Visuais": [
+    "Artes Visuais",
+    "Plásticas",
+    "Gráficas",
+    "Filatelia",
+    "Gravura",
+    "Cartazes",
+    "Fotografia",
+    "Exposição Itinerante",
+    "Design",
+    "Artes Plásticas",
+    "Artes Gráficas",
+    "Exposição de Artes Visuais",
+    "Moda",
+    "Doações de Acervos de Artes Visuais",
+    "Formação técnica e artística de profissionais",
+    "Projeto educativo de artes visuais",
+    "Projeto de fomento à cadeia produtiva arte visual",
+    "Ações educativo-culturais"
+  ],
+  "Patrimônio Cultural": [
+    "Patrimônio Cultural",
+    "História",
+    "Arquitetônico",
+    "Arqueológico",
+    "Museu",
+    "Acervo",
+    "Acervos Museológicos",
+    "Cultura Afro Brasileira",
+    "Cultura Indígena",
+    "Artesanato/Folclore",
+    "Preservação de Patrimônio Imaterial",
+    "Manutenção de equipamentos culturais em geral",
+    "Ações de capacitação",
+    "Doações / aquisições de acervos culturais em geral",
+    "Preservação de Patrimônio Material",
+    "Restauração de Patrimônio Material",
+    "Preservação de Patrimônio Museológico",
+    "Restauração de Patrimônio Museológico",
+    "Preservação de Acervos",
+    "Restauração de Acervos",
+    "Preservação de Acervos Museológicos",
+    "Restauração de Acervos Museológicos",
+    "Gastronomia",
+    "Aquisição de equipamentos p/ manutenção de acervos",
+    "Manutenção de salas de Teatro (<100 mil hab)",
+    "Manu centro comunitário c/sl teatro (<100 mil hab)",
+    "Construção de equipamentos culturais em geral",
+    "Construção de salas de teatro munic(< 100 mil hab)",
+    "Identificação, registro, educação do patrimônio",
+    "Ações document./pesquisa/digitaliz./sistem.-acervo",
+    "Preserv./revitaliz./edificações destinada-acervos",
+    "Ações segurança p/preservação patrimônio/acervos",
+    "Planos anuais de preservação do patrimônio/acervos",
+    "Ações educativo-culturais",
+    "Treinamento  pessoal/aquis.equip. p/manut. Acervos",
+    "Elaboração de projetos de arquitetura e urbanismo"
+  ],
+  "Humanidades": [
+    "Humanidades",
+    "Produção de obras seriadas",
+    "Edição de Livros",
+    "Obras de Referência",
+    "História 1",
+    "Filosofia",
+    "Acervo Bibliográfico",
+    "Arquivo",
+    "Biblioteca",
+    "Evento Literário",
+    "Periódicos",
+    "Ações de formação e capacitação",
+    "Eventos e ações de incentivo à leitura",
+    "Livros  ou obras de referência - valor Artístico",
+    "Livros  ou obras de referência - valor Literário",
+    "Livros ou  obras de referência - valor Humanístico",
+    "Periódicos e outras publicações",
+    "Treina pessoal p manuten de acervos bibliográficos",
+    "Aquisiç equip p/manuten de acervos bibliográficos",
+    "Doação de acervos acessíveis ao público em geral",
+    "Impressos/eletrônicos-artístico, literário, human.",
+    "Aquis.acervos biblio.-artístico, literário, human.",
+    "Aquisi. arquivísticos-artístico, literário, human.",
+    "Manut. acervos biblio.artístico, literário, human.",
+    "Manut. acervos arquiv.artístico, literário, human.",
+    "Prese. acervos biblio.artístico, literário, human.",
+    "Prese. acervos arquiv.artístico, literário, human.",
+    "Resta. acervos biblio.artístico, literário, human.",
+    "Resta. acervos arquiv.artístico, literário, human.",
+    "Treinamento-pessoal, demais ações de capacitação",
+    "Aquis.equip. p/manut. acervos de bibliot. Públicas",
+    "Aquisição equipamentos p/manut. acervos de museus",
+    "Aquisição equip. p/manut. acervos arquivo públicos",
+    "Aquisição equip. p/manut. acervos de cinematecas"
+  ],
+  "Artes Integradas": [
+    "Artes Integradas",
+    "Restauração/Bolsas",
+    "Multimídia 1",
+    "Carnaval",
+    "Carnaval fora de época",
+    "Cultura Popular",
+    "Equipamentos culturais multifuncionais"
+  ],
+  "Museus e Memória": [
+    "Museus e Memória",
+    "Doação ou aquisição de acervos para museus",
+    "Doação de acervos p/instit. preservação da memória",
+    "Aquisição acervos p/instit. preservação da memória",
+    "Preservação. Restauração, conservaçao, registro",
+    "Identificação, registro e promoção",
+    "Documentação e digitalização de acervos",
+    "Sistemas de informações",
+    "Ações de segurança para preservação de acervos",
+    "Planos anuais de atividades e planos museológicos",
+    "Exposições realizadas em museus",
+    "Exposições organizadas com acervos de museus",
+    "Exposições organizadas com museografia",
+    "Pesquisa",
+    "Ações educativs, seminários, congresso, palestras",
+    "Criação projetos, construção, restauração, reforma",
+    "Implan. projetos, construção, restauração, reforma",
+    "Espaços museais",
+    "Treinamento de pessoal",
+    "Aquisição de equipamentos p/preservação de acervos",
+    "Aquisição de equipamentos p/manutenção de acervos"
+  ]
+}
+
+
+segmentCategories = [{
+  "name": "Artes Integradas",
+  'itemStyle': {
+    'color': "#df5451"
+  }
+}, {
+  "name": "Música",
+  'itemStyle': {
+    'color': "#27ddad"
+  }
+}, {
+  "name": "Patrimônio Cultural",
+  'itemStyle': {
+    'color': "#5faee6"
+  }
+}, {
+  "name": "Audiovisual",
+  'itemStyle': {
+    'color': "#f7ea00"
+  }
+}, {
+  "name": "Artes Visuais",
+  'itemStyle': {
+    'color': "#ec9a5e"
+  }
+}, {
+  "name": "Humanidades",
+  'itemStyle': {
+    'color': "#87d041"
+  }
+}, {
+  "name": "Artes Cênicas",
+  'itemStyle': {
+    'color': "#c966ff"
+  }
+}, {
+  "name": "Museus e Memória",
+  'itemStyle': {
+    'color': "#7688c1"
+  }
+}]
+
+colors = [
+  "#df5451",
+  "#27ddad",
+  "#5faee6",
+  "#f7ea00",
+  "#ec9a5e",
+  "#87d041",
+  "#c966ff",
+  "#7688c1"
+]
