@@ -1,0 +1,44 @@
+#main {
+    display: flex;
+    margin-top: 5%;
+}
+
+#slider-holder {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 5vh;
+}
+
+#slider-holder > p {
+    text-align: center;
+}
+
+#amount {
+    border: 0;
+    color: #f6931f;
+    font-weight: bold;
+}
+
+.sunburst-viz text .text-contour {
+    stroke: none;
+}
+
+#chart {
+    width: 31.5%;
+    margin-left: 33%;
+}
+
+.filter-options {
+    height: 35%;
+    width: 20%;
+    margin-top: 10%;
+    box-shadow: 1px solid rgba(0,0,0,125)
+}
+
+.filter-options > select {
+    margin-left: 30%;
+}
+
+#chart-holder {
+    width: 50%;
+}
