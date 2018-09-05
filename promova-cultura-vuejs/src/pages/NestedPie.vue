@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="slider-container" style="width: 520px; margin: auto;">
+                <div class="slider-container">
                     <div class="slider-title">
                     Projetos por Ano
                     </div>
@@ -162,7 +162,8 @@ export default {
         window.option = {
             tooltip: {
                 trigger: 'item',
-                formatter: "{b}: {c} ({d}%)"
+                formatter: "{b}: {c} ({d}%)",
+                confine: true,
             },
             legend: {
                 orient: 'horizontal',
@@ -393,12 +394,20 @@ export default {
   background-color: #49a0b7;
 }
 
+.slider-container{
+    max-width: 520px;
+    margin: auto;
+}
+
 /* Custom, iPhone Retina */
 @media only screen and (min-width: 320px) {
     .chart-content {
         margin: auto;
-        height: 70vh;
+        height: 500px;
         width: 300px;
+    }
+    .custom-label {
+        font-size: 10px;
     }
 }
 
@@ -406,6 +415,7 @@ export default {
 @media only screen and (min-width: 480px) {
     .chart-content {
         width: 400px;
+        height: 500px;
     }
 }
 
@@ -413,6 +423,10 @@ export default {
 @media only screen and (min-width: 768px) {
     .chart-content {
         width: 700px;
+        height: 700px;
+    }
+    .custom-label {
+        font-size: 15px;
     }
 }
 
