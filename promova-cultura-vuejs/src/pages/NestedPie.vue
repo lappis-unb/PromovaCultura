@@ -1,5 +1,4 @@
 <template>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -7,7 +6,7 @@
                     <div class="slider-title">
                     Projetos por Ano
                     </div>
-                    <vue-slider ref="slider" id="custom-tootip" v-bind="slider_data" @drag-end="change_data(this)">
+                    <vue-slider ref="slider" id="custom-slider" v-bind="slider_data" @callback="change_data">
                         <template slot="label" slot-scope="{ label, active }">
                             <span :class="['custom-label', { active }]">
                                 {{ label }}
@@ -26,7 +25,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -42,7 +40,7 @@ export default {
     data() {
         return {
             slider_data: {
-                width: "auto",
+                width: "80%",
                 min: 2010,
                 max: 2018,
                 value: 2010,
@@ -50,6 +48,10 @@ export default {
                 dotSize: 14,
                 interval: 1,
                 piecewise: true,
+                style:{
+                    marginRight: "10%",
+                    marginLeft: "10%",
+                },
                 tooltipStyle: {
                     backgroundColor: "#49a0b7",
                     borderColor: "#49a0b7",
@@ -69,17 +71,33 @@ export default {
                     backgroundColor: "#ccc"
                 },
                 piecewiseStyle: {
-                    "backgroundColor": "#aaa",
                     "visibility": "visible",
-                    "width": "4px",
+                    width: "4px",
                     "height": "4px",
+                    margin: "0px",
                 },
             },
         };
     },
     methods: {
-        change_data(){
-            actualYear = this.$refs.slider.getValue();
+        onResize() {
+            if(window.innerWidth<=1200){
+                option.series[1].label.show = false;
+                option.series[1].label.emphasis.show = false;
+                option.series[1].labelLine.show = false;
+                option.series[1].labelLine.emphasis.show=false;
+                myChart.setOption(option);
+            }else{
+                option.series[1].label.show = true;
+                option.series[1].label.emphasis.show = true;
+                option.series[1].labelLine.show = true;
+                option.series[1].labelLine.emphasis.show=true;
+                myChart.setOption(option);
+            }
+            myChart.resize();
+        },
+        change_data(value){
+            actualYear = value;
             this.update_data_vue();
         },
         insert_data_vue(){
@@ -129,7 +147,12 @@ export default {
         update_data_vue(){
             var vue_instance = this;
 
-            $.get(`https://salic.dev.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function (segments_in_a_year) {
+
+
+            if(this.segment_request!=null){
+                this.segment_request.abort();
+            }
+            this.segment_request = $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function (segments_in_a_year) {
                 let segments = segments_in_a_year.data.total_por_segmento;
 
                 $.each(areas[actual_area], function (index, body) {
@@ -140,14 +163,38 @@ export default {
                     }
                 });
 
-            }).then(function () {
-                if (area_changed) {
-                    option.series[1].data = [];
+            });
+
+            this.segment_request.then(function () {
+                if(this.area_request!=null){
+                    this.area_request.abort();
                 }
 
-                vue_instance.insert_data_vue();
+                this.area_request = $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_area(ano_projeto%3A%20"${String(actualYear).slice(2, 4)}")%0A%7D&`, function(areas_in_a_year){
+                    $.each(areas_in_a_year.data.total_por_area, function (area, value) {
+                        $.each(option.series[0]["data"], function(k, v){
+                            v["value"] = areas_in_a_year.data.total_por_area[v["name"]];
+                        });
+                    });
+                });
+
+                this.area_request.then(function() {
+                    if(area_changed){
+                        option.series[1].data = [];
+                    }
+
+                    vue_instance.insert_data_vue();
+                    vue_instance.area_request=null;
+                    vue_instance.segment_request=null;
+                })
             });
         },
+    },
+    created() {
+        window.addEventListener('resize', this.onResize)
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize', this.onResize)
     },
     mounted: function () {
         window.actual_area = "Artes Cênicas";
@@ -197,11 +244,34 @@ export default {
                     label: {
                         color: '#666',
                         fontSize:'14',
+                        formatter: function(args){
+                            var words_array = args.name.replace(/([a-zA-Z][a-zA-Z]+\.?)(\/)/g, function(whole, firstGroup, secondGroup){
+                                return firstGroup + " " + secondGroup + " ";
+                            }).split(" ");
+                            window.final_array = [];
+                            for(let i=0; i<words_array.length; i++){
+                                if(i % 4 === 0){
+                                    final_array.push("\n");
+                                }
+                                final_array.push(words_array[i]);
+                            }
+                            return final_array.join(" ");
+                        },
+                        emphasis: {
+                            show: false,
+                        }
+                    },
+                    labelLine: {
+                        show: true,
+                        emphasis:{
+                            show: false,
+                        }
                     },
                     data: []
                 }
             ]
         };
+        this.onResize();
 
         $.each(option.series[0].data, function(i, v){
             area_to_color[v["name"]] = v["itemStyle"]["color"];
@@ -234,7 +304,7 @@ export default {
 
         // Initial data
 
-        $.get("https://salic.dev.lappis.rocks/graphiql?query=query%20%7B%0A%20%20areas%0A%7D&", function (segments) {
+        $.get("https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20areas%0A%7D&", function (segments) {
             $.each(segments.data.areas, function (area, value) {
                 let count=0;
                 let increment=0.05;
@@ -254,7 +324,7 @@ export default {
                 });
             });
         }).then(function () {
-            $.get(`https://salic.dev.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%2215%22)%0A%7D&`, function (segments_in_a_year) {
+            $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function (segments_in_a_year) {
                 let segments = segments_in_a_year.data.total_por_segmento;
                 $.each(areas[actual_area], function (index, body) {
                     if (segments[body["name"]] != undefined) {
@@ -262,7 +332,7 @@ export default {
                     }
                 });
             }).then(function () {
-                $.get("https://salic.dev.lappis.rocks/graphiql?query=query{total_por_area}", function (areas) {
+                $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_area(ano_projeto%3A%20"${String(actualYear).slice(2, 4)}")%0A%7D&`, function (areas) {
                     $.each(areas.data.total_por_area, function (area, value) {
                         $.each(option.series[0]["data"], function(k, v){
                             v["value"] = areas.data.total_por_area[v["name"]];
@@ -336,9 +406,8 @@ export default {
 
         }
 
-
         function update_data() {
-            $.get(`https://salic.dev.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function (segments_in_a_year) {
+            $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function (segments_in_a_year) {
                 let segments = segments_in_a_year.data.total_por_segmento;
 
                 $.each(areas[actual_area], function (index, body) {
@@ -348,7 +417,6 @@ export default {
                         body["value"] = 0;
                     }
                 });
-
             }).then(function () {
                 if (area_changed) {
                     option.series[1].data = [];
@@ -359,7 +427,6 @@ export default {
         }
     }
 };
-
 
 
 </script>
@@ -399,11 +466,20 @@ export default {
     margin: auto;
 }
 
+#custom-slider{
+    width: 260px !important;
+}
+
 /* Custom, iPhone Retina */
 @media only screen and (min-width: 320px) {
+    #custom-slider{
+        width: 240px !important;
+    }
     .chart-content {
+        position:relative;
+        top:-60px;
         margin: auto;
-        height: 500px;
+        height: 420px;
         width: 300px;
     }
     .custom-label {
@@ -413,6 +489,9 @@ export default {
 
 /* Extra Small Devices, Phones */
 @media only screen and (min-width: 480px) {
+    #custom-slider{
+        width: 400px !important;
+    }
     .chart-content {
         width: 400px;
         height: 500px;
@@ -421,6 +500,9 @@ export default {
 
 /* Small Devices, Tablets */
 @media only screen and (min-width: 768px) {
+    #custom-slider{
+        width: auto;
+    }
     .chart-content {
         width: 700px;
         height: 700px;
@@ -434,6 +516,7 @@ export default {
 @media only screen and (min-width: 992px) {
     .chart-content {
         width: 900px;
+        top:-30px;
     }
 }
 
@@ -441,6 +524,7 @@ export default {
 @media only screen and (min-width: 1200px) {
     .chart-content {
         width: 1100px;
+        top: 0px;
     }
 }
 
