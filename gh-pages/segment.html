@@ -60,6 +60,16 @@
             </div>
           </div>
         </div>
+        <div class="alert alert-warning" role="alert" style="display:none">
+          Áreas Culturais <strong>ausentes</strong> no gráfico não disponibilizaram acesso gratuito.
+        </div>
+        <div class="alert alert-warning observation" role="alert">
+          As Áreas Culturais abaixo estão <strong>ausentes</strong> no gráfico por não disponibilizarem acesso gratuito.
+          <ul>
+            <li>Artes Integradas</li>
+            <li>Museus E Memória</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -93,6 +103,7 @@
     .card-header {
       font-size: 18px;
       color: #333;
+
     }
 
     .icon-popup {
@@ -120,10 +131,6 @@
       font-size: 12px;
     }
 
-    /* .location-info-first-line p {
-    font-variant: small-caps;
-  } */
-
     .location-info-first-line p,
     .location-info-second-line p,
     .location-info-last {
@@ -141,6 +148,15 @@
     .location-info-first-line span {
       font-size: 36px;
       line-height: 26px;
+    }
+
+    .location-info-first-line span span {
+      font-size: 24px;
+      font-weight: normal;
+      display: inline;
+      position: relative;
+      left: 3px;
+      top: -3px;
     }
 
     .location-info-second-line {
@@ -184,10 +200,8 @@
         option.legend[0].textStyle.fontWeight = "bold"
         myChart.setOption(option)
       }
-        myChart.setOption(option)
-      }
-
-
+      myChart.setOption(option)
+    }
 
     var small = window.matchMedia("(max-width: 768px)")
 
@@ -202,20 +216,15 @@
       tooltip: {
         confine: true,
         padding: 0,
-        // width: "20%",
-        // backgroundColor: '#aaa',
-        // borderColor: '#aaa',
-        // borderWidth: 1,
-        // width: "50px",
         formatter: function(obj) {
           var value = obj.value;
           if (obj.data.name != obj.data.category) {
             return '<div class="card"> <div class="card-header tooltip-header">' +
               obj.data.name +
               '</div> <div class="card-body"> <div class="location-info-first-line has-border"> <p> <span> ' +
-              obj.data.value.toFixed(2) + " %" +
+              obj.data.value.toFixed(2) + "<span>" + "%" + "</span>" +
               '</span>  ' +
-              'de projetos gratuitos' +
+              'de acesso gratuito' +
               '</p></div><p class= "location-info-last">' + obj.data.category + '</p></div></div>'
           } else {
             console.log(obj.data)
@@ -238,7 +247,7 @@
         orient: "horizontal",
         data: [, "Música", "Patrimônio Cultural", "Audiovisual", "Artes Visuais", "Humanidades", "Artes Cênicas"],
         backgroundColor: "rgba(255,255,255,0.9)",
-        padding: [10, 0 , 10, 0],
+        padding: [10, 0, 10, 0],
         textStyle: {
           fontSize: 12,
         }
@@ -340,8 +349,8 @@
           "value": graphSegments[element],
           "freeQuantity": freeSegments[element],
           "allQuantity": allSegments[element],
-          label:{
-            show:false,
+          label: {
+            show: false,
           },
           "itemStyle": {
             "borderColor": "#ECECEC",
@@ -361,7 +370,6 @@
             if (areas[element][0] == "Museus e Memória" || areas[element][0] == "Artes Integradas") {
               return;
             }
-
             console.log(areaPercentages, element)
             graphData.push({
               "name": areas[element][0],
@@ -411,7 +419,8 @@
     function getData() {
 
       $.ajax({
-        url: "https://salic.dev.lappis.rocks/graphiql?query=%7B%0A%20%20distribuicoes%7B%0A%20%20%20%20QtdeVendaNormal%0A%09%09PrecoUnitarioNormal%0A%20%20%20%20QtdeVendaPromocional%0A%20%20%20%20PrecoUnitarioPromocional%0A%20%20%20%20segmento%0A%20%20%7D%0A%7D",
+        url: "https://salicapi.lappis.rocks/graphiql?query=%7B%0A%20%20distribuicoes%7B%0A%20%20%20%20QtdeVendaNormal%0A%09%09PrecoUnitarioNormal%0A%20%20%20%20QtdeVendaPromocional%0A%20%20%20%20PrecoUnitarioPromocional%0A%20%20%20%20segmento%0A%20%20%7D%0A%7D",
+        url: "js/segment.json",
         type: "GET",
         success: function(data) {
 
@@ -434,12 +443,9 @@
           buildGraphData()
           buildLinks()
 
-
-
           option.series[0].data = graphData
           option.series[0].links = links
 
-          // myChart.setOption(option)
           mediaQuery(small) // Call listener function at run time
           small.addListener(mediaQuery) // Attach listener function on state changes
           $("#graph").LoadingOverlay("hide")
@@ -463,7 +469,6 @@
     var links = []
 
     function buildLinks() {
-
       Object.keys(areas).forEach(function(element) {
         areas[element].forEach(function(segment, index, array) {
 
