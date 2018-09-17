@@ -33,7 +33,6 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-9">
-
         <div id="graph"></div>
       </div>
 
@@ -51,9 +50,6 @@
               <ul class="prototype-steps">
                 <li>Para escolher quais áreas visualizar, clique nas legendas</li>
               </ul>
-              <!-- <p>O gráfico interior mostra as áreas e o exterior mostra os segmentos pertencentes a Área escolhida.</p>
-                  - Clique em uma área para selecioná-la.<br><br>
-                  - Arraste o círculo dentro da barra para mudar o ano de pesquisa<br><br>-->
             </div>
           </div>
         </div>
@@ -171,9 +167,6 @@
       padding: 0px;
     }
 
-    /* .card {
-    width: 285px;
-  } */
 
     .tooltip-header {
       text-align: center;
@@ -353,11 +346,6 @@
 
     getData()
 
-    // $("#graph").LoadingOverlay("show", {
-    //   background: "rgba(255, 255, 255)"
-    // });
-    // $("#graph").easyOverlay("start");
-
 
     var freeSegments = {}
     var allSegments = {}
@@ -514,8 +502,7 @@
     function getData() {
 
       $.ajax({
-        // url: "https://salicapi.lap,.pis.rocks/graphiql?query=%7B%0A%20%20distribuicoes%7B%0A%20%20%20%20QtdeVendaNormal%0A%09%09PrecoUnitarioNormal%0A%20%20%20%20QtdeVendaPromocional%0A%20%20%20%20PrecoUnitarioPromocional%0A%20%20%20%20segmento%0A%20%20%7D%0A%7D",
-        url: "js/segment.json",
+        url: "https://salicapi.lappis.rocks/graphiql?query=%7B%0A%20%20distribuicoes%7B%0A%20%20%20%20QtdeVendaNormal%0A%09%09PrecoUnitarioNormal%0A%20%20%20%20QtdeVendaPromocional%0A%20%20%20%20PrecoUnitarioPromocional%0A%20%20%20%20segmento%0A%20%20%7D%0A%7D",
         type: "GET",
         success: function(data) {
 
@@ -541,11 +528,8 @@
           option.series[0].data = graphData
           option.series[0].links = links
 
-          mediaQuery(small) // Call listener function at run time
-          small.addListener(mediaQuery) // Attach listener function on state changes
-          $("#graph").LoadingOverlay("hide")
-          // $("#graph").easyOverlay("stop");
-
+          mediaQuery(small)
+          small.addListener(mediaQuery)
         },
         error: function(error) {
           alert("Falha na conexão. Reinicie a página.");
