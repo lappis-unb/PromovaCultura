@@ -30,12 +30,12 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-lg-8 col-md-8">
+      <div class="col-lg-9">
         <div id="graph"></div>
       </div>
 
-      <div class="col-lg-4 col-md-4">
-        <div class="card">
+      <div class="col-lg-3">
+        <div class="card card-container">
           <legend class="card-header card-legend">Legendas</legend>
           <div class="card-body">
             <div class="legend-group-scroll">
@@ -63,11 +63,9 @@
         <div class="alert alert-warning" role="alert" style="display:none">
           Áreas Culturais <strong>ausentes</strong> no gráfico não disponibilizaram acesso gratuito.
         </div>
-        <div class="alert alert-warning observation" role="alert">
+        <div id="warningtest" class="alert alert-warning observation" role="alert">
           As Áreas Culturais abaixo estão <strong>ausentes</strong> no gráfico por não disponibilizarem acesso gratuito.
           <ul>
-            <li>Artes Integradas</li>
-            <li>Museus E Memória</li>
           </ul>
         </div>
       </div>
@@ -196,8 +194,11 @@
 
     function mediaQuery(small) {
       if (small.matches) {
-        option.legend[0].textStyle.fontSize = 15
+        option.legend[0].textStyle.fontSize = 18
+        // option.legend[0].textStyle.lineHeight = 100
         option.legend[0].textStyle.fontWeight = "bold"
+        option.series[0].force.repulsion = 200
+        option.series[0].force.gravity = 0.4
         myChart.setOption(option)
       }
       myChart.setOption(option)
@@ -227,7 +228,6 @@
               'de acesso gratuito' +
               '</p></div><p class= "location-info-last">' + obj.data.category + '</p></div></div>'
           } else {
-            console.log(obj.data)
             return '<div class="card"> <div class="card-header tooltip-header">' +
               obj.data.category +
               '</div> <div class="card-body"> <div class="location-info-first-line has-border"> <p> <span> ' +
@@ -245,7 +245,7 @@
         align: "auto",
         top: "top",
         orient: "horizontal",
-        data: [, "Música", "Patrimônio Cultural", "Audiovisual", "Artes Visuais", "Humanidades", "Artes Cênicas"],
+        data: [],
         backgroundColor: "rgba(255,255,255,0.9)",
         padding: [10, 0, 10, 0],
         textStyle: {
@@ -258,7 +258,7 @@
         layout: 'force',
         force: {
           repulsion: 400,
-          gravity: 0.55,
+          gravity: 0.40,
           edgeLength: 70,
         },
         draggable: true,
@@ -328,7 +328,6 @@
         areaPercentages[element] = percentage * 100
 
       })
-      console.log(areaPercentages)
     }
 
 
@@ -370,7 +369,6 @@
             if (areas[element][0] == "Museus e Memória" || areas[element][0] == "Artes Integradas") {
               return;
             }
-            console.log(areaPercentages, element)
             graphData.push({
               "name": areas[element][0],
               "symbolSize": 50,
@@ -395,6 +393,19 @@
             })
           }
         })
+      })
+
+      option.legend[0].data = Object.keys(areaPercentages)
+      console.log(Object.keys(areas))
+
+      var areaDiff = Object.keys(areas).filter(x => !Object.keys(areaPercentages).includes(x));
+      populateAreaWarning(areaDiff)
+    }
+
+    function populateAreaWarning(areaList){
+
+      areaList.forEach(function(element){
+        $(warningtest).append("<li>" + element +"</li>")
       })
 
     }

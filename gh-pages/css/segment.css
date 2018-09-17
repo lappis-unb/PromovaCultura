@@ -1,12 +1,12 @@
 .navbar {
   margin-bottom: 50px;
 }
-.card{
+.card.card-container{
   margin-bottom: 30px;
 }
 
 .container{
-  max-width: 1600px;
+  max-width: 1400px;
 }
 
 .card-header {
@@ -126,7 +126,7 @@
 
 @media (min-width: 992px) {
   #graph {
-    width: 600px;
+    width: 100%;
     height: 600px;
   }
 }
