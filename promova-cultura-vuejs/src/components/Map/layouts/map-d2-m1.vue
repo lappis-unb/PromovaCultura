@@ -168,6 +168,14 @@ export default {
 </script>
 
 <style>
+.active{
+  font-weight: bold;
+}
+
+.active span{
+  font-weight: normal;
+}
+
 .modal-button-group {
   float: right;
   margin-right: 10px;

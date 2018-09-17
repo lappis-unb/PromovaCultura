@@ -4,11 +4,11 @@
         <li class="nav-item">
             <a class="nav-link active" id="projeto-tab" data-toggle="tab" href="#projeto" role="tab" aria-controls="projeto" aria-selected="true">Projetos</a>
         </li>
-        <li class="nav-item" v-if="filtersActivate.proponentes">
-            <a class="nav-link" id="proponente-tab" data-toggle="tab" href="#proponente" role="tab" aria-controls="proponente" aria-selected="false">Proponentes</a>
+        <li class="nav-item">
+            <a class="nav-link" v-bind:class="{ disabled: !filtersActivate.proponentes}" id="proponente-tab" data-toggle="tab" href="#proponente" role="tab" aria-controls="proponente" aria-selected="false">Proponentes</a>
         </li>
-        <li class="nav-item" v-if="filtersActivate.incentivadores">
-            <a class="nav-link" id="incentivador-tab" data-toggle="tab" href="#incentivador" role="tab" aria-controls="incentivador" aria-selected="false">Incentivadores</a>
+        <li class="nav-item">
+            <a class="nav-link" v-bind:class="{ disabled: !filtersActivate.incentivadores}" id="incentivador-tab" data-toggle="tab" href="#incentivador" role="tab" aria-controls="incentivador" aria-selected="false">Incentivadores</a>
         </li>
     </ul>
     <div class="tab-content legend-content" id="myTabContent">
