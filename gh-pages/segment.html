@@ -3,9 +3,11 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.5/dist/loadingoverlay.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,27 +15,51 @@
   <script src="js/echarts.js"></script>
   <script src=js/utils.js></script>
   <script src=js/jquery.easy-overlay.js></script>
-  <title>Volume de Gratuitos Por Área/Segmento</title>
+  <title>Gráfico com porcentagem de acessos gratuitos aos projetos culturais</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column flex-md-row">
     <div class="container">
-      <a class="navbar-brand" href="./index.html">Promova Cultura</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      </div>
+      <a class="navbar-brand mr-auto" href="#">Promova Cultura</a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link about-btn" href="#" data-toggle="modal" data-target="#about-modal"><i class="fas fa-info-circle"></i> <span>Sobre o protótipo</span></a>
+        </li>
+      </ul>
     </div>
   </nav>
 
   <div class="container">
     <div class="row">
       <div class="col-lg-9">
+
         <div id="graph"></div>
       </div>
+
+
+      <div class="modal fade" id="about-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Sobre o protótipo</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+              <h2 class="prototype-intro">Essa página retrata quais segmentos culturais disponibilizam <strong>acesso gratuito</strong> em suas atividades.</h2>
+              <ul class="prototype-steps">
+                <li>Para escolher quais áreas visualizar, clique nas legendas</li>
+              </ul>
+              <!-- <p>O gráfico interior mostra as áreas e o exterior mostra os segmentos pertencentes a Área escolhida.</p>
+                  - Clique em uma área para selecioná-la.<br><br>
+                  - Arraste o círculo dentro da barra para mudar o ano de pesquisa<br><br>-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
 
       <div class="col-lg-3">
         <div class="card card-container">
@@ -74,6 +100,61 @@
   </div>
 
   <style>
+    a.about-btn {
+      color: #111;
+      font-size: 14px;
+    }
+
+    .about-btn span {
+      display: none;
+    }
+
+    .about-btn i {
+      font-size: 24px;
+    }
+
+    #link-text {
+      font-weight: 600;
+      color: #275B8C;
+      cursor: pointer;
+    }
+
+    .fa-info-circle {
+      font-size: 16px;
+      position: relative;
+      top: 2px;
+      margin-right: 3px;
+    }
+
+    .prototype-intro {
+      font-size: 15px;
+    }
+
+    .prototype-steps {
+      list-style: none;
+      padding-left: 0;
+      margin-right: 5px;
+    }
+
+    .prototype-steps li::before {
+      content: "-";
+    }
+
+
+
+    /* Small devices (landscape phones, 576px and up) */
+
+    @media (min-width: 576px) {
+      .about-btn span {
+        display: inline-block;
+      }
+
+      .about-btn i {
+        font-size: 22px;
+      }
+
+    }
+
     .LocationInfo {
       position: absolute;
       top: -1000px;
@@ -405,10 +486,10 @@
       populateAreaWarning(areaDiff)
     }
 
-    function populateAreaWarning(areaList){
+    function populateAreaWarning(areaList) {
 
-      areaList.forEach(function(element){
-        $(warningtest).append("<li>" + element +"</li>")
+      areaList.forEach(function(element) {
+        $(warningtest).append("<li>" + element + "</li>")
       })
 
     }
