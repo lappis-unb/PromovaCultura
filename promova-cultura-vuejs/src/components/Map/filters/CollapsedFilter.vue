@@ -1,10 +1,12 @@
 <template>
 <div class="card" id="accordion">
   <legend class="card-header">
-    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-      <i class="fa" aria-hidden="true"></i>
+    <a href="#" class="btn-filters btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
         Filtrar
-      </button>
+        <div class="div-chevron">
+            <i class="fa" aria-hidden="true"></i>
+        </div>
+    </a>
   </legend>
   <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
     <div class="card-body">
@@ -40,11 +42,11 @@ export default {
 <style scoped>
 
 [data-toggle="collapse"] .fa:before {
-  content: "\f139";
+  content: "\f078";
 }
 
 [data-toggle="collapse"].collapsed .fa:before {
-  content: "\f13a";
+  content: "\f054";
 }
 
 .card-header a {
@@ -52,5 +54,24 @@ export default {
   font-size: 16px;
   font-weight: bold;
   text-transform: uppercase;
+
 }
+
+.btn-filters {
+    display: block;
+    text-align: left;
+}
+
+.btn-link.focus, .btn-link:focus {
+    text-decoration: none;
+}
+
+.btn-filters:hover {
+    text-decoration: none;
+}
+
+.div-chevron {
+    float: right;
+}
+
 </style>
