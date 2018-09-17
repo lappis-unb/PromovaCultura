@@ -1,11 +1,16 @@
 .navbar {
   margin-bottom: 50px;
 }
+
+.navbar-brand {
+  color: #333 !important;
+}
+
 .card.card-container{
   margin-bottom: 30px;
 }
 
-.container{
+.container.page{
   max-width: 1400px;
 }
 

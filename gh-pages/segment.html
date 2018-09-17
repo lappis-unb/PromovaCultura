@@ -19,17 +19,19 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column flex-md-row">
-    <div class="container">
-      <a class="navbar-brand mr-auto" href="#">Promova Cultura</a>
+    <div class="container nav-bar">
+      <a class="navbar-brand" href="#">Promova Cultura</a>
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link about-btn" href="#" data-toggle="modal" data-target="#about-modal"><i class="fas fa-info-circle"></i> <span>Sobre o protótipo</span></a>
+          <a class="nav-link about-btn" href="#" data-toggle="modal" data-target="#about-modal">
+            <i class="fas fa-info-circle"></i> <span>Sobre o protótipo</span>
+          </a>
         </li>
       </ul>
     </div>
   </nav>
 
-  <div class="container">
+  <div class="container page">
     <div class="row">
       <div class="col-lg-9">
         <div id="graph"></div>
@@ -95,8 +97,12 @@
   </div>
 
   <style>
+    .container.nav-bar{
+      padding:0;
+    }
+
     a.about-btn {
-      color: #111;
+      color: #333;
       font-size: 14px;
     }
 
