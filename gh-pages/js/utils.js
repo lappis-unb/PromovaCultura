@@ -450,37 +450,37 @@ var areas = {
 segmentCategories = [{
   "name": "Artes Integradas",
   'itemStyle': {
-    'color': "#df5451"
+    'color': "#1bbc9b"
   }
 }, {
   "name": "Música",
   'itemStyle': {
-    'color': "#27ddad"
+    'color': "#2dcc70"
   }
 }, {
   "name": "Patrimônio Cultural",
   'itemStyle': {
-    'color': "#5faee6"
+    'color': "#3598db"
   }
 }, {
   "name": "Audiovisual",
   'itemStyle': {
-    'color': "#f7ea00"
+    'color': "#34495e"
   }
 }, {
   "name": "Artes Visuais",
   'itemStyle': {
-    'color': "#ec9a5e"
+    'color': "#e84c3d"
   }
 }, {
   "name": "Humanidades",
   'itemStyle': {
-    'color': "#87d041"
+    'color': "#e77e23"
   }
 }, {
   "name": "Artes Cênicas",
   'itemStyle': {
-    'color': "#c966ff"
+    'color': "#f1c40f"
   }
 }, {
   "name": "Museus e Memória",
