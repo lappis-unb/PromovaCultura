@@ -503,6 +503,20 @@
       return symbolSize
     }
 
+    $("#graph").LoadingOverlay("show", {
+      background: "rgba(255, 255, 255, 1)",
+      image: "",
+      fontawesome: "fa fa-circle-notch fa-spin",
+      fontawesomeColor: "#565656"
+    });
+
+    $("#warningtest").LoadingOverlay("show", {
+      background: "rgba(255, 255, 255, 1)",
+      image: "",
+      fontawesome: "fa fa-circle-notch fa-spin",
+      fontawesomeColor: "#565656"
+    });
+
     function getData() {
 
       $.ajax({
@@ -534,9 +548,23 @@
 
           mediaQuery(small)
           small.addListener(mediaQuery)
+          $("#graph").LoadingOverlay("hide")
+          $("#warningtest").LoadingOverlay("hide")
+
         },
         error: function(error) {
-          alert("Falha na conexão. Reinicie a página.");
+          $("#graph").LoadingOverlay("hide")
+          $("#warningtest").LoadingOverlay("hide")
+
+          $("#graph").LoadingOverlay("show", {
+            background: "rgba(255, 255, 255, 1)",
+            image: "",
+            text: "Conexão falhou. Tente reiniciar a página.",
+            textResizeFactor: 0.17,
+            textAutoResize: false,
+            textColor: "#ff0000"
+          });
+
         }
       });
     }

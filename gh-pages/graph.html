@@ -83,7 +83,10 @@
 
   <script type="text/javascript">
     $("#graph").LoadingOverlay("show", {
-      background: "rgba(255, 255, 255)"
+      background: "rgba(255, 255, 255, 1)",
+      image: "",
+      fontawesome: "fa fa-circle-notch fa-spin",
+      fontawesomeColor: "#565656"
     });
     var myChart = echarts.init(document.getElementById('graph'));
 
