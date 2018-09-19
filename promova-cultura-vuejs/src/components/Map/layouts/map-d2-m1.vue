@@ -56,7 +56,7 @@
                 :filtersActivate="filtersActivate"/>
               <legend-tab
                 :legends="legends"
-                v-if="legendDesktop=='tab'"
+                v-if="legendMobile!='tab' && legendDesktop=='tab'"
                 :filtersActivate="filtersActivate"/>
             </div>
             <div class="d-lg-none"> <!-- Shows in mobile Hides in desktop platform -->
@@ -84,8 +84,12 @@
               <legend-tab
                 :legends="legends"
                 :filtersActivate="filtersActivate"
-                v-if="legendMobile=='tab'"/>
+                v-if="legendMobile=='tab' && legendDesktop!='tab'"/>
             </div>
+            <legend-tab
+                :legends="legends"
+                v-if="legendMobile=='tab' && legendDesktop=='tab'"
+                :filtersActivate="filtersActivate"/>
         </div>
         <modal-filters @updatedSegment="updateSegment" @showProponentes="showProponentes" @showIncentivadores="showIncentivadores" @changeLevel="changeLevel" />
         <legend-modal :legends="legends" :filtersActivate="filtersActivate"/>
@@ -168,6 +172,14 @@ export default {
 </script>
 
 <style>
+.active{
+  font-weight: bold;
+}
+
+.active span{
+  font-weight: normal;
+}
+
 .modal-button-group {
   float: right;
   margin-right: 10px;

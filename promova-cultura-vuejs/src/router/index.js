@@ -6,6 +6,7 @@ import MapPage1 from '@/components/Map/layouts/1'
 import MapPage2 from '@/components/Map/layouts/2'
 import MapPage3 from '@/components/Map/layouts/3'
 import MapPage4 from '@/components/Map/layouts/4'
+import MapPage5 from '@/components/Map/layouts/5'
 import Funnel from '@/pages/FunnelPage'
 import BrazilMapRegionPage from '@/pages/BrazilMapRegionPage'
 import NaturalLanguageFilterPage from '@/pages/NaturalLanguageFilterPage'
@@ -64,6 +65,11 @@ export default new Router({
       path: '/projects-per-year',
       name: 'ProjectsInTime',
       component: NestedPie
+    },
+    {
+      path: '/map-prototype-5',
+      name: 'MapPage5',
+      component: MapPage5
     },
   ]
 })

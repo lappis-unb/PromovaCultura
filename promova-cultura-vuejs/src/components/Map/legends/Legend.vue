@@ -1,6 +1,8 @@
 <template>
 <div>
-    <ul class="legend-list" v-if="dataLegend.length && dataLegend[dataLegend.length-1].max!=0 && dataLegend.length != 0">
+    <ul class="legend-list" v-if="dataLegend.length && dataLegend[dataLegend.length-1].max!=0 && dataLegend.length != 0
+        && ((filtersActivate && filtersActivate[typeOfData])
+        || typeOfData=='projetos')">
         <li v-for="(data) in dataLegend" :key="data.color" v-if="data.max != 0 || data.min!=0">
             <img class="legend-color" :src="data.color" v-if="dataLegend[0].image"/>
             <div class="legend-color" :style="'background:'+ data.color" v-else></div>
@@ -9,7 +11,10 @@
         </li>
     </ul>
     <ul class="legend-list" v-else>
-        <li>
+        <li v-if="dataLegend.length && dataLegend[dataLegend.length-1].max!=0 && dataLegend.length != 0">
+            <span>Ative o filtro de {{ typeOfData }}.</span>
+        </li>
+        <li v-else>
             <span>Não há {{ typeOfData }} neste segmento.</span>
         </li>
     </ul>
@@ -20,7 +25,8 @@
 export default {
     props: {
         dataLegend: Array,
-        typeOfData: String
+        typeOfData: String,
+        filtersActivate: Object
     }
 };
 </script>

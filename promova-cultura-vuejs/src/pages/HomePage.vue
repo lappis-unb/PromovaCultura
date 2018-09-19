@@ -10,5 +10,6 @@
         <router-link class="list-group-item" to="/map-prototype-2">Protótipo 2 do controle dos filtros</router-link>
         <router-link class="list-group-item" to="/map-prototype-3">Protótipo 3 do controle dos filtros</router-link>
         <router-link class="list-group-item" to="/map-prototype-4">Protótipo 4 do controle dos filtros</router-link>
+        <router-link class="list-group-item" to="/map-prototype-5">Protótipo 5 do controle dos filtros</router-link>
     </div>
 </template>
