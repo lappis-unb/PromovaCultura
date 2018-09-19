@@ -31,6 +31,9 @@
 <script>
 import $ from "jquery";
 import vueSlider from "vue-slider-component";
+import echarts from "../../static/echarts/echarts.js";
+import LoadingOverlay from "../../static/loader/loader.js";
+
 
 export default {
     name: 'NestedPie',
@@ -86,13 +89,17 @@ export default {
                 option.series[1].label.emphasis.show = false;
                 option.series[1].labelLine.show = false;
                 option.series[1].labelLine.emphasis.show=false;
-                myChart.setOption(option);
+                if(canResize){
+                    myChart.setOption(option);
+                }
             }else{
                 option.series[1].label.show = true;
                 option.series[1].label.emphasis.show = true;
                 option.series[1].labelLine.show = true;
                 option.series[1].labelLine.emphasis.show=true;
-                myChart.setOption(option);
+                if(canResize){
+                    myChart.setOption(option);
+                }
             }
             myChart.resize();
         },
@@ -197,6 +204,14 @@ export default {
         window.removeEventListener('resize', this.onResize)
     },
     mounted: function () {
+        $("#chart").LoadingOverlay("show", {
+            background: "rgba(255, 255, 255, 1)",
+            image: "",
+            fontawesome: "fa fa-circle-notch fa-spin",
+            fontawesomeColor: "#565656"
+        });
+
+        window.canResize = false;
         window.actual_area = "Artes Cênicas";
         window.area_changed = false;
         window.actualYear = 2010;
@@ -304,6 +319,7 @@ export default {
 
         // Initial data
 
+
         $.get("https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20areas%0A%7D&", function (segments) {
             $.each(segments.data.areas, function (area, value) {
                 let count=0;
@@ -339,9 +355,10 @@ export default {
                         });
                     });
                 }).then(function() {
+                    $("#chart").LoadingOverlay("hide");
+                    canResize = true;
                     insert_data();
                 });
-
             });
         });
 
