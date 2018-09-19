@@ -152,6 +152,7 @@ export default {
       myChart.setOption(option);
     },
     update_data_vue() {
+
       var vue_instance = this;
 
 
@@ -160,6 +161,13 @@ export default {
         this.segment_request.abort();
       }
       this.segment_request = $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function(segments_in_a_year) {
+        $("#chart").LoadingOverlay("show", {
+          background: "rgba(255, 255, 255, 0.5)",
+          image: "",
+          fontawesome: "fa fa-circle-notch fa-spin",
+          fontawesomeColor: "#565656"
+        });
+
         let segments = segments_in_a_year.data.total_por_segmento;
 
         $.each(areas[actual_area], function(index, body) {
@@ -191,6 +199,8 @@ export default {
           }
 
           vue_instance.insert_data_vue();
+
+          $("#chart").LoadingOverlay("hide");
           vue_instance.area_request = null;
           vue_instance.segment_request = null;
         })
@@ -204,6 +214,7 @@ export default {
     window.removeEventListener('resize', this.onResize)
   },
   mounted: function() {
+
     $("#chart").LoadingOverlay("show", {
       background: "rgba(255, 255, 255, 1)",
       image: "",
@@ -404,7 +415,6 @@ export default {
     })
 
     x.fail(function() {
-      console.log("XX")
       $("#chart").LoadingOverlay("hide")
 
       $("#chart").LoadingOverlay("show", {
