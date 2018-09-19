@@ -55,14 +55,23 @@ var option = {
 
 function getData() {
   $.ajax({
-    url: "https://salic.dev.lappis.rocks/graphiql?query=%7B%0A%20%20deslocamentos%20%7B%0A%20%20%20%20UFOrigem%0A%20%20%20%20UFDestino%0A%20%20%7D%0A%20%20%0A%7D",
+    url: "https://salicapi.lappis.rocks/graphiql?query=%7B%0A%20%20deslocamentos(limit%3A9999999)%20%7B%0A%20%20%20%20UFOrigem%0A%20%20%20%20UFDestino%0A%20%20%7D%0A%20%20%0A%7D",
     type: "GET",
     success: function(data) {
       buildGraph(data)
       $("#graph").LoadingOverlay("hide")
     },
     error: function(error) {
-      alert("Falha na conexão. Reinicie a página.");
+      $("#graph").LoadingOverlay("hide")
+
+      $("#graph").LoadingOverlay("show", {
+        background: "rgba(255, 255, 255, 1)",
+        image: "",
+        text: "Conexão falhou. Tente reiniciar a página.",
+        textResizeFactor: 0.17,
+        textAutoResize: false,
+        textColor: "#ff0000"
+      });
     }
   });
 }
