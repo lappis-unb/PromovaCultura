@@ -62,7 +62,6 @@ function getData() {
       $("#graph").LoadingOverlay("hide")
     },
     error: function(error) {
-      // alert("Falha na conexão. Reinicie a página.");
       $("#graph").LoadingOverlay("hide")
 
       $("#graph").LoadingOverlay("show", {

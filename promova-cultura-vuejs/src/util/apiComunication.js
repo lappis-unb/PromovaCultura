@@ -1,8 +1,17 @@
+import $ from "jquery";
 import cacheFetch from 'cache-fetch';
+import LoadingOverlay from "../../static/loader/loader.js";
 
 
 export const fetchData = (types, projectSegment = "") => {
     let segmentQuery = "";
+
+    $("#brazil-map").LoadingOverlay("show", {
+        background: "rgba(255, 255, 255, 1)",
+        image: "",
+        fontawesome: "fa fa-circle-notch fa-spin",
+        fontawesomeColor: "#565656"
+    });
 
     if (projectSegment !== "" && projectSegment != "Todos os segmentos" && typeof projectSegment === "string") {
         segmentQuery = `(segmento: "${projectSegment}")`;
@@ -44,4 +53,3 @@ export const batchFetch = async (segment="") => {
 
     return listOfUfs;
 }
-

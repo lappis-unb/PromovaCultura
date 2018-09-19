@@ -23,7 +23,8 @@
 import {
   batchFetch
 } from "@/util/apiComunication.js";
-import Mapd2m1 from "@/components/Map/layouts/map-d2-m1"
+import Mapd2m1 from "@/components/Map/layouts/map-d2-m1";
+import $ from "jquery";
 
 export default {
   name: "ControlFilterBrazilMap",
@@ -79,6 +80,7 @@ export default {
       handler(data) {
         this.updateChildrenProps();
         this.generateLegends();
+        $("#brazil-map").LoadingOverlay("hide");
       },
       deep: true
     },
