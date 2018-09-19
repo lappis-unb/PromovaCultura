@@ -1,6 +1,11 @@
 <template>
 <div class="container">
     <div class="row">
+      <div class="col-12" style="text-align:center; margin-bottom: 50px; color:#666;">
+        <h3>Mapa de Calor da Cultura</h3>
+      </div>
+    </div>
+    <div class="row">
         <div class="col-lg-7">
             <div class="modal-button-group">
                 <button type="button" id="modal-button-filter" class="btn btn-sm btn-default" data-toggle="modal" data-target="#modal-filter"

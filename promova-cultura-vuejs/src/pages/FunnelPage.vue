@@ -1,6 +1,11 @@
 <template>
 <div class="container">
   <div class="row">
+    <div class="col-12" style="text-align:center; margin-bottom: 50px; color:#666;">
+      <h3>Projetos por Índice de Saúde</h3>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-lg-7 order-lg-last col-md-12 order-md-first">
       <div class="funnel-element">
         <canvas
@@ -224,7 +229,7 @@ export default {
 
 .title-slider {
   color: #666;
-  font-weight: 600;
+  /* font-weight: 600; */
 }
 
 /* Custom, iPhone Retina */
