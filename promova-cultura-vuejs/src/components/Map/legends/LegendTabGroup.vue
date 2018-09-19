@@ -52,7 +52,6 @@ export default {
 .legend-content {
     padding: 20px;
     border: 1px solid #ddd;
-    border-top: 0;
 }
 
 </style>

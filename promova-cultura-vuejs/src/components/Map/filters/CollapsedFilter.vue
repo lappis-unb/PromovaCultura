@@ -1,14 +1,14 @@
 <template>
 <div class="card" id="accordion">
   <legend class="card-header">
-    <a href="#" class="btn-filters btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+    <a href="#" class="btn-filters btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
         <span class="title-filter">Filtrar</span>
         <span class="icon-filter">
             <i class="fa" aria-hidden="true"></i>
         </span>
     </a>
   </legend>
-  <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+  <div id="collapseOne" class="collapse hide show" aria-labelledby="headingOne" data-parent="#accordion">
     <div class="card-body">
       <filters @updatedSegment="updateSegment" @showProponentes="changeValueProponente" @showIncentivadores="changeValueIncentivadores" @changeLevel="changeLevel" />
     </div>
