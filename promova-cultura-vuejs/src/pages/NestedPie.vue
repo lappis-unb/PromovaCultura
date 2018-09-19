@@ -162,7 +162,7 @@ export default {
       }
       this.segment_request = $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function(segments_in_a_year) {
         $("#chart").LoadingOverlay("show", {
-          background: "rgba(255, 255, 255, 0.5)",
+          background: "rgba(255, 255, 255, 0.8)",
           image: "",
           fontawesome: "fa fa-circle-notch fa-spin",
           fontawesomeColor: "#565656"
