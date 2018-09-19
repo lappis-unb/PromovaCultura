@@ -229,7 +229,6 @@ export default {
 
 .title-slider {
   color: #666;
-  /* font-weight: 600; */
 }
 
 /* Custom, iPhone Retina */
