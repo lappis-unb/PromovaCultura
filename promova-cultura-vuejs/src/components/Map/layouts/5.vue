@@ -2,7 +2,7 @@
     <!-- Desktop filtro aberto e legenda horizontal
          Mobile filtro modal e legenda modal com scroll vertical -->
     <map-page
-        :legendMobile="'modal'"
+        :legendMobile="'tab'"
         :filterMobile="'modal'"
         :legendDesktop="'tab'"
         :filterDesktop="'collapsed'"

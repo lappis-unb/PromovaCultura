@@ -2,10 +2,10 @@
 <div class="card" id="accordion">
   <legend class="card-header">
     <a href="#" class="btn-filters btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        Filtrar
-        <div class="div-chevron">
+        <span class="title-filter">Filtrar</span>
+        <span class="icon-filter">
             <i class="fa" aria-hidden="true"></i>
-        </div>
+        </span>
     </a>
   </legend>
   <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
@@ -70,8 +70,12 @@ export default {
     text-decoration: none;
 }
 
-.div-chevron {
+.icon-filter {
     float: right;
+}
+
+.title-filter {
+    float: left;
 }
 
 </style>
