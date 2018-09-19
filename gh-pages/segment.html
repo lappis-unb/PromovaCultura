@@ -42,7 +42,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <legend class="card-header" id="exampleModalLabel">Sobre o protótipo
+              <legend class="card-header guide" id="exampleModalLabel">Sobre o protótipo
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 </legend>
               <span aria-hidden="true">&times;</span></button>
@@ -86,9 +86,9 @@
         <div class="alert alert-secondary" role="alert" style="display:none">
           Áreas Culturais <strong>ausentes</strong> no gráfico não disponibilizaram acesso gratuito.
         </div>
-        <div id="warningtest" class="alert alert-secondary observation" role="alert">
+        <div  class="alert alert-secondary observation" role="alert">
           As Áreas Culturais abaixo estão <strong>ausentes</strong> no gráfico por não disponibilizarem acesso gratuito.
-          <ul>
+          <ul id="warningtest">
           </ul>
         </div>
       </div>
@@ -96,9 +96,23 @@
   </div>
 
   <style>
+
+  .modal{
+    top: 10%;
+  }
+
+    .modal-header{
+      padding: 0;
+    }
+
+    .card-header.guide{
+      font-size: 1.25rem;
+    }
+
     .modal-body.guide-body {
       padding: 15px 30px;
     }
+
     .container.nav-bar{
       padding:0;
     }
@@ -138,10 +152,6 @@
     /* Small devices (landscape phones, 576px and up) */
 
     @media (min-width: 576px) {
-      .modal-header{
-        margin: 0px;
-        padding: 0px;
-      }
       .about-btn span {
         display: inline-block;
       }
@@ -149,7 +159,6 @@
       .about-btn i {
         font-size: 22px;
       }
-
     }
 
     .LocationInfo {
