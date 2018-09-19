@@ -42,15 +42,14 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Sobre o protótipo</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <legend class="card-header" id="exampleModalLabel">Sobre o protótipo
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </legend>
               <span aria-hidden="true">&times;</span></button>
             </div>
-            <div class="modal-body">
-              <h2 class="prototype-intro">Essa página retrata quais segmentos culturais disponibilizam <strong>acesso gratuito</strong> em suas atividades.</h2>
-              <ul class="prototype-steps">
-                <li>Para escolher quais áreas visualizar, clique nas legendas</li>
-              </ul>
+            <div class="modal-body guide-body">
+              <p> Essa página informa quais segmentos culturais disponibilizam <strong>acesso gratuito</strong> em suas atividades. </p>
+                <p>Para escolher quais áreas você gostaria de visualizar, clique nos itens acima do gráfico.</p>
             </div>
           </div>
         </div>
@@ -97,10 +96,12 @@
   </div>
 
   <style>
+    .modal-body.guide-body {
+      padding: 15px 30px;
+    }
     .container.nav-bar{
       padding:0;
     }
-
     a.about-btn {
       color: #333;
       font-size: 14px;
@@ -127,25 +128,20 @@
       margin-right: 3px;
     }
 
-    .prototype-intro {
+    .modal-body.guide-body p {
       font-size: 15px;
     }
-
-    .prototype-steps {
-      list-style: none;
-      padding-left: 0;
-      margin-right: 5px;
+    .modal-body.guide-body p:last-child{
+      margin-bottom: 0;
     }
-
-    .prototype-steps li::before {
-      content: "-";
-    }
-
-
 
     /* Small devices (landscape phones, 576px and up) */
 
     @media (min-width: 576px) {
+      .modal-header{
+        margin: 0px;
+        padding: 0px;
+      }
       .about-btn span {
         display: inline-block;
       }
@@ -181,7 +177,6 @@
     .card-header {
       font-size: 18px;
       color: #333;
-
     }
 
     .icon-popup {
@@ -271,6 +266,10 @@
 
   <script type="text/javascript">
     var myChart = echarts.init(document.getElementById('graph'));
+
+    $.LoadingOverlaySetup({
+      zIndex: 1000,
+    });
 
     function mediaQuery(small) {
       if (small.matches) {
