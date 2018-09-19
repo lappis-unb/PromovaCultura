@@ -131,11 +131,10 @@ export default {
 
 .title-stack {
   color: #666;
-  font-weight: 600;
 }
 
 .card-stack {
-  margin-bottom: 35px; 
+  margin-bottom: 35px;
 }
 
 .info-number {
