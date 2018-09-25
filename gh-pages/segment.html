@@ -487,10 +487,7 @@
 
       option.legend[0].data = Object.keys(areaPercentages)
 
-      var areaDiff = Object.keys(areas).filter(function (x) {
-        return !Object.keys(areaPercentages).indexOf(x);
-      });
-
+      var areaDiff = arr_diff(Object.keys(areas), Object.keys(areaPercentages));
       populateAreaWarning(areaDiff)
     }
 
@@ -502,6 +499,27 @@
 
     }
 
+    function arr_diff(a1, a2) {
+        var a = [], diff = [];
+
+        for (var i = 0; i < a1.length; i++) {
+          a[a1[i]] = true;
+        }
+
+        for (var i = 0; i < a2.length; i++) {
+          if (a[a2[i]]) {
+            delete a[a2[i]];
+          } else {
+            a[a2[i]] = true;
+          }
+        }
+
+        for (var k in a) {
+          diff.push(k);
+        }
+
+        return diff;
+    }
 
     function calculateSymbolSize(segmentValue) {
 
