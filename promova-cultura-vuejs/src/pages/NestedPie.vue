@@ -214,7 +214,7 @@ export default {
     window.removeEventListener('resize', this.onResize)
   },
   mounted: function() {
-
+    document.title = "Projetos por Ano"
     $("#chart").LoadingOverlay("show", {
       background: "rgba(255, 255, 255, 1)",
       image: "",

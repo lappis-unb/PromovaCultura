@@ -66,9 +66,7 @@ html body {
 }
 
 .list h4 {
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     font-size: 28px;
 }
 
@@ -128,6 +126,41 @@ html body {
     opacity: 0.9;
 }
 
+.title {
+    background-color: #2dcc70;
+    width: 100%;
+    height: 75px;
+    margin-bottom: 50px;
+    color: white;
+    display: table;
+
+}
+
+.title-text {
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: 600;
+}
+
+.legend {
+    text-align: center;
+    padding: 0px 15px;
+    font-size: 16px;
+    color: #999;
+}
+
+.legend a {
+    color: #1bbc9b;
+}
+
+.legend a:hover {
+    color: #1bbc9b;
+}
+
+.line {
+    background-color: #1bbc9b;
+    height: 2px;
+}
 
 /* Small devices (landscape phones, 576px and up) */
 
