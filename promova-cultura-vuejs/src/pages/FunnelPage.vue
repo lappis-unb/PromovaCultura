@@ -21,7 +21,7 @@
       <div class="slider-width">
         <legend class="title-slider">Saúde do Projeto</legend>
         <div class="slider-container">
-          <vue-slider 
+          <vue-slider
             ref="slider"
             id="custom-tootip"
             v-bind="slider_data"
@@ -120,6 +120,7 @@ export default {
   },
   mounted() {
     // Re-adjust slider width after 800 milisec because of bootstrap
+    document.title = "Índice de Saúde"
     window.weight = 5.5; // initial (min + max / 2)
     window.getWeight = () => window.weight + Math.floor(Math.random() * 2);
     const canvas = document.getElementById("myChart");

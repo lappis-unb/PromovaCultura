@@ -90,6 +90,8 @@ export default {
   },
   mounted() {
     this.fetchAllResources();
+    document.title = "Mapa de Calor"
+
   },
   methods: {
     updateChildrenProps(){
