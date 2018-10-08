@@ -1,27 +1,27 @@
 categories = [{
   'name': 'Norte',
   'itemStyle': {
-    'color': "#efa543"
+    'color': "#ff9933"
   }
 }, {
   'name': 'Nordeste',
   'itemStyle': {
-    'color': "#cbd14d"
+    'color': "#f4df4a"
   }
 }, {
   'name': 'Sudeste',
   'itemStyle': {
-    'color': "#3fa03f"
+    'color': "#2dcc70"
   }
 }, {
   'name': 'Sul',
   'itemStyle': {
-    'color': "#4a98a5"
+    'color': "#39a8e5"
   }
 }, {
   'name': 'Centro-Oeste',
   'itemStyle': {
-    'color': "#285177"
+    'color': "#517284"
   }
 }]
 
@@ -450,42 +450,42 @@ var areas = {
 segmentCategories = [{
   "name": "Artes Integradas",
   'itemStyle': {
-    'color': "#1bbc9b"
+    'color': "#39a8e5"
   }
 }, {
   "name": "Música",
   'itemStyle': {
-    'color': "#2dcc70"
+    'color': "#ff9933"
   }
 }, {
   "name": "Patrimônio Cultural",
   'itemStyle': {
-    'color': "#3598db"
+    'color': "#2dcc70"
   }
 }, {
   "name": "Audiovisual",
   'itemStyle': {
-    'color': "#34495e"
+    'color': "#e0534c"
   }
 }, {
   "name": "Artes Visuais",
   'itemStyle': {
-    'color': "#e84c3d"
+    'color': "#f4df4a"
   }
 }, {
   "name": "Humanidades",
   'itemStyle': {
-    'color': "#e77e23"
+    'color': "#1bbc9b"
   }
 }, {
   "name": "Artes Cênicas",
   'itemStyle': {
-    'color': "#f1c40f"
+    'color': "#7f6793"
   }
 }, {
   "name": "Museus e Memória",
   'itemStyle': {
-    'color': "#7688c1"
+    'color': "#517284"
   }
 }]
 
