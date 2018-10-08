@@ -242,7 +242,7 @@ export default {
         orient: 'horizontal',
         x: 'center',
         y: 'bottom',
-        data: ['Artes Cênicas', 'Audiovisual', 'Música', 'Artes Visuais', 'Patrimônio Cultural', 'Humanidades', 'Artes Integradas', 'Museus e Memória']
+        data: ['Audiovisual', 'Música', 'Artes Visuais', 'Patrimônio Cultural', 'Humanidades', 'Artes Integradas', 'Museus e Memória', 'Artes Cênicas']
       },
       series: [{
           type: 'pie',
@@ -255,7 +255,7 @@ export default {
               value: 100,
               name: 'Artes Cênicas',
               itemStyle: {
-                color: 'hsl(279,100%,70%)',
+                color: 'hsl(273,18%,49%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
@@ -264,7 +264,7 @@ export default {
               value: 100,
               name: 'Audiovisual',
               itemStyle: {
-                color: 'hsl(0,70%,60%)',
+                color: 'hsl(3,70%,59%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
@@ -273,7 +273,7 @@ export default {
               value: 100,
               name: 'Música',
               itemStyle: {
-                color: 'hsl(25,80%,65%)',
+                color: 'hsl(30,100%,60%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
@@ -282,7 +282,7 @@ export default {
               value: 100,
               name: 'Artes Visuais',
               itemStyle: {
-                color: 'hsl(57,100%,48%)',
+                color: 'hsl(53,89%,62%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
@@ -291,7 +291,7 @@ export default {
               value: 100,
               name: 'Patrimônio Cultural',
               itemStyle: {
-                color: 'hsl(90, 73%, 51%)',
+                color: 'hsl(145, 64%, 49%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
@@ -300,7 +300,7 @@ export default {
               value: 100,
               name: 'Humanidades',
               itemStyle: {
-                color: 'hsl(164, 73%, 51%)',
+                color: 'hsl(168, 75%, 42%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
@@ -309,7 +309,7 @@ export default {
               value: 100,
               name: 'Artes Integradas',
               itemStyle: {
-                color: 'hsl(205,73%,64%)',
+                color: 'hsl(201,77%,56%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
@@ -318,7 +318,7 @@ export default {
               value: 100,
               name: 'Museus e Memória',
               itemStyle: {
-                color: 'hsl(238,73%,64%)',
+                color: 'hsl(201,24%,42%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
