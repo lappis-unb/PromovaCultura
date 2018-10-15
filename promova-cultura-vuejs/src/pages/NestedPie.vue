@@ -300,7 +300,7 @@ export default {
               value: 100,
               name: 'Artes Integradas',
               itemStyle: {
-                color: 'hsl(201,77%,56%)',
+                color: 'hsl(196,81%,46%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
