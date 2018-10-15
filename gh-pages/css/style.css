@@ -127,7 +127,7 @@ html body {
 }
 
 .title {
-    background-color: #2dcc70;
+    background-color: #3aa53a;
     width: 100%;
     height: 75px;
     margin-bottom: 50px;
@@ -150,7 +150,7 @@ html body {
 }
 
 .legend a {
-    color: #1bbc9b;
+    color: #3aa53a;
 }
 
 .legend a:hover {
@@ -158,7 +158,7 @@ html body {
 }
 
 .line {
-    background-color: #1bbc9b;
+    background-color: #3aa53a;
     height: 2px;
 }
 
