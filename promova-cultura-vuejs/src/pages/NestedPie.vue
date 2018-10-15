@@ -8,10 +8,10 @@
         </div>
         <vue-slider ref="slider" id="custom-slider" v-bind="slider_data" @callback="change_data">
           <template slot="label" slot-scope="{ label, active }">
-                            <span :class="['custom-label', { active }]">
-                                {{ label }}
-                            </span>
-                        </template>
+            <span :class="['custom-label', { active }]">
+              {{ label }}
+            </span>
+          </template>
         </vue-slider>
       </div>
     </div>
@@ -253,18 +253,9 @@ export default {
           },
           data: [{
               value: 100,
-              name: 'Artes Cênicas',
-              itemStyle: {
-                color: 'hsl(273,18%,49%)',
-                borderColor: "#FFFFFF",
-                borderWidth: "5"
-              }
-            },
-            {
-              value: 100,
               name: 'Audiovisual',
               itemStyle: {
-                color: 'hsl(3,70%,59%)',
+                color: 'hsl(0,69%,54%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
@@ -273,7 +264,7 @@ export default {
               value: 100,
               name: 'Música',
               itemStyle: {
-                color: 'hsl(30,100%,60%)',
+                color: 'hsl(20,86%,55%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
@@ -282,7 +273,7 @@ export default {
               value: 100,
               name: 'Artes Visuais',
               itemStyle: {
-                color: 'hsl(53,89%,62%)',
+                color: 'hsl(49,83%,58%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
@@ -291,7 +282,7 @@ export default {
               value: 100,
               name: 'Patrimônio Cultural',
               itemStyle: {
-                color: 'hsl(145, 64%, 49%)',
+                color: 'hsl(120, 48%, 44%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
@@ -300,7 +291,7 @@ export default {
               value: 100,
               name: 'Humanidades',
               itemStyle: {
-                color: 'hsl(168, 75%, 42%)',
+                color: 'hsl(165, 76%, 38%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
@@ -318,11 +309,19 @@ export default {
               value: 100,
               name: 'Museus e Memória',
               itemStyle: {
-                color: 'hsl(201,24%,42%)',
+                color: 'hsl(198,33%,38%)',
                 borderColor: "#FFFFFF",
                 borderWidth: "5"
               }
-            }
+            }, {
+              value: 100,
+              name: 'Artes Cênicas',
+              itemStyle: {
+                color: 'hsl(273,18%,49%)',
+                borderColor: "#FFFFFF",
+                borderWidth: "5"
+              }
+            },
           ]
         },
         {
@@ -427,27 +426,27 @@ export default {
       });
     })
 
-    x.done(function () {
-        $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function (segments_in_a_year) {
-            let segments = segments_in_a_year.data.total_por_segmento;
-            $.each(areas[actual_area], function (index, body) {
-                if (segments[body["name"]] != undefined) {
-                    body["value"] = segments[body["name"]];
-                }
-            });
-        }).then(function () {
-            $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_area(ano_projeto%3A%20"${String(actualYear).slice(2, 4)}")%0A%7D&`, function (areas) {
-                $.each(areas.data.total_por_area, function (area, value) {
-                    $.each(option.series[0]["data"], function(k, v){
-                        v["value"] = areas.data.total_por_area[v["name"]];
-                    });
-                });
-            }).then(function() {
-                $("#chart").LoadingOverlay("hide");
-                canResize = true;
-                insert_data();
-            });
+    x.done(function() {
+      $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function(segments_in_a_year) {
+        let segments = segments_in_a_year.data.total_por_segmento;
+        $.each(areas[actual_area], function(index, body) {
+          if (segments[body["name"]] != undefined) {
+            body["value"] = segments[body["name"]];
+          }
         });
+      }).then(function() {
+        $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_area(ano_projeto%3A%20"${String(actualYear).slice(2, 4)}")%0A%7D&`, function(areas) {
+          $.each(areas.data.total_por_area, function(area, value) {
+            $.each(option.series[0]["data"], function(k, v) {
+              v["value"] = areas.data.total_por_area[v["name"]];
+            });
+          });
+        }).then(function() {
+          $("#chart").LoadingOverlay("hide");
+          canResize = true;
+          insert_data();
+        });
+      });
     });
 
     // // Functions to update data
@@ -577,6 +576,7 @@ export default {
   #custom-slider {
     width: 240px !important;
   }
+
   .chart-content {
     position: relative;
     top: -60px;
@@ -584,6 +584,7 @@ export default {
     height: 420px;
     width: 300px;
   }
+
   .custom-label {
     font-size: 10px;
   }
@@ -595,6 +596,7 @@ export default {
   #custom-slider {
     width: 400px !important;
   }
+
   .chart-content {
     width: 400px;
     height: 500px;
@@ -607,10 +609,12 @@ export default {
   #custom-slider {
     width: auto;
   }
+
   .chart-content {
     width: 700px;
     height: 700px;
   }
+
   .custom-label {
     font-size: 15px;
   }
