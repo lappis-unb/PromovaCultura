@@ -16,7 +16,6 @@ import "../static/bootstrap/bootstrap.min.js";
 import "../static/jsmaps/jsmaps.js";
 import "../static/jsmaps/jsmaps-panzoom.js";
 import "../static/jsmaps/jsmaps-libs.js";
-import "../static/jsmaps/lodash.js";
 
 export default {
   name: "App",
