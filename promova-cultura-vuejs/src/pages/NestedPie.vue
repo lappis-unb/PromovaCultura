@@ -31,7 +31,7 @@
 <script>
 import $ from "jquery";
 import vueSlider from "vue-slider-component";
-import echarts from "../../static/echarts/echarts.js";
+import echarts from 'echarts'
 import LoadingOverlay from "../../static/loader/loader.js";
 
 
