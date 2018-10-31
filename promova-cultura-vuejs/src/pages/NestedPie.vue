@@ -32,7 +32,7 @@
 import $ from "jquery";
 import vueSlider from "vue-slider-component";
 import echarts from 'echarts'
-import LoadingOverlay from "../../static/loader/loader.js";
+import LoadingOverlay from 'gasparesganga-jquery-loading-overlay';
 
 
 export default {
