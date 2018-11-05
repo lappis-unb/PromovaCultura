@@ -7,6 +7,7 @@ import MapPage2 from '@/components/Map/layouts/2'
 import MapPage3 from '@/components/Map/layouts/3'
 import MapPage4 from '@/components/Map/layouts/4'
 import MapPage5 from '@/components/Map/layouts/5'
+import ProponentMap from '@/components/Map/ProponentMap'
 import Funnel from '@/pages/FunnelPage'
 import BrazilMapRegionPage from '@/pages/BrazilMapRegionPage'
 import NaturalLanguageFilterPage from '@/pages/NaturalLanguageFilterPage'
@@ -71,5 +72,10 @@ export default new Router({
       name: 'MapPage5',
       component: MapPage5
     },
+    {
+      path: '/proponent-map',
+      name: 'ProponentMap',
+      component: ProponentMap
+    }
   ]
 })
