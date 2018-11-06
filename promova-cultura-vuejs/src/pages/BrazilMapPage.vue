@@ -106,14 +106,14 @@ export default {
 };
 
 var listOfUfs = [];
-$.get("https://salic.dev.lappis.rocks/v1/projetos/?limit=100", function(data) {
-  var ufs = [];
-  var projetos = data._embedded.projetos;
-  for (var i = 0; i < projetos.length; i++) {
-    ufs.push(projetos[i].UF);
-  }
-  listOfUfs = _.countBy(ufs);
-});
+// $.get("https://salic.dev.lappis.rocks/v1/projetos/?limit=100", function(data) {
+//   var ufs = [];
+//   var projetos = data._embedded.projetos;
+//   for (var i = 0; i < projetos.length; i++) {
+//     ufs.push(projetos[i].UF);
+//   }
+//   listOfUfs = _.countBy(ufs);
+// });
 </script>
 
 <style scoped>
