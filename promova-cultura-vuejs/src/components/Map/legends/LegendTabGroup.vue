@@ -1,13 +1,13 @@
 <template>
 <div>
     <ul class="nav nav-tabs legend-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
+        <li v-if="proponentMap==false" class="nav-item">
             <a class="nav-link active" id="projeto-tab" data-toggle="tab" href="#projeto" role="tab" aria-controls="projeto" aria-selected="true">Projetos</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="proponente-tab" data-toggle="tab" href="#proponente" role="tab" aria-controls="proponente" aria-selected="false">Proponentes</a>
         </li>
-        <li class="nav-item">
+        <li v-if="proponentMap==false" class="nav-item">
             <a class="nav-link" id="incentivador-tab" data-toggle="tab" href="#incentivador" role="tab" aria-controls="incentivador" aria-selected="false">Incentivadores</a>
         </li>
     </ul>
@@ -24,7 +24,8 @@ import Legend from "@/components/Map/legends/Legend";
 export default {
     props: {
         legends: {},
-        filtersActivate: Object
+        filtersActivate: Object,
+        proponentMap: Boolean
     },
     components: {
         "base-legend": Legend,
