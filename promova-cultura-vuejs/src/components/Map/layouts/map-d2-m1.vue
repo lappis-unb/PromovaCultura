@@ -24,6 +24,7 @@
                 :proponents="data.proponentes"
                 :incentivators="data.incentivadores"
                 :segment="segment"
+                :proponentMap=proponentMap
               />
 
               <brazil-map
@@ -33,6 +34,8 @@
                 :legends="legends"
                 :maxValues="maxValues"
                 :level="level"
+                :proponentMap=proponentMap
+
               />
             </div>
         </div>
@@ -61,6 +64,7 @@
                 :filtersActivate="filtersActivate"/>
               <legend-tab
                 :legends="legends"
+                :proponentMap=proponentMap
                 v-if="legendMobile!='tab' && legendDesktop=='tab'"
                 :filtersActivate="filtersActivate"/>
             </div>
@@ -87,11 +91,13 @@
                 v-if="legendMobile=='card-vertical'"
                 :filtersActivate="filtersActivate"/>
               <legend-tab
+                :proponentMap="proponentMap"
                 :legends="legends"
                 :filtersActivate="filtersActivate"
                 v-if="legendMobile=='tab' && legendDesktop!='tab'"/>
             </div>
             <legend-tab
+                :proponentMap="proponentMap"
                 :legends="legends"
                 v-if="legendMobile=='tab' && legendDesktop=='tab'"
                 :filtersActivate="filtersActivate"/>
@@ -142,6 +148,8 @@ export default {
     filtersActivate: Object,
     locationInfoShowOn: String,
     segment: String,
+    proponentMap: Boolean,
+
   },
   components: {
     "brazil-map": BrazilMap,

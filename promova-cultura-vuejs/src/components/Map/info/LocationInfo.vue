@@ -15,8 +15,11 @@
         </div>
         <div class="card-body">
             <div :class="'location-info-first-line has-border'">
-              <p> <span> {{totalProjects}} </span>
+              <p v-if="proponentMap==false"> <span> {{totalProjects}} </span>
                     projetos
+                </p>
+              <p v-else> <span> {{totalProjects}} </span>
+                    proponentes
                 </p>
             </div>
 
@@ -37,7 +40,7 @@
                     </p>
                 </div>
             </div>
-            <p class= "location-info-last">
+            <p v-if="proponentMap==false" class= "location-info-last">
                 {{segment}}
             </p>
         </div>
@@ -55,11 +58,13 @@ export default {
     projects: Object,
     proponents: Object,
     incentivators: Object,
+    proponentMap: Boolean,
     showOn: {
       type: String,
       default: "click" // click | hover
     },
     segment: String,
+
   },
 
   data() {
