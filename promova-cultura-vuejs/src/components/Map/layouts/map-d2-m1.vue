@@ -25,6 +25,8 @@
                 :incentivators="data.incentivadores"
                 :segment="segment"
                 :proponentMap=proponentMap
+                :approved_value="data.approved_value"
+                :captured_value="data.captured_value"
               />
 
               <brazil-map
@@ -67,6 +69,7 @@
                 :proponentMap=proponentMap
                 v-if="legendMobile!='tab' && legendDesktop=='tab'"
                 :filtersActivate="filtersActivate"/>
+
             </div>
             <div class="d-lg-none"> <!-- Shows in mobile Hides in desktop platform -->
               <card-filters
@@ -96,6 +99,12 @@
                 :filtersActivate="filtersActivate"
                 v-if="legendMobile=='tab' && legendDesktop!='tab'"/>
             </div>
+          <vue-csv-downloader v-if="proponentMap"
+            :data="data.csv"
+            :fields="data.fields"
+          >
+            Gerar CSV
+          </vue-csv-downloader>
             <legend-tab
                 :proponentMap="proponentMap"
                 :legends="legends"
@@ -134,6 +143,9 @@ import LegendTabGroup from "@/components/Map/legends/LegendTabGroup"
 import LegendHorizontalGroup from "@/components/Map/legends/LegendHorizontalGroup"
 
 import LocationInfo from "@/components/Map/info/LocationInfo"
+import VueCsvDownloader from 'vue-csv-downloader';
+
+
 
 export default {
   props: {
@@ -149,7 +161,6 @@ export default {
     locationInfoShowOn: String,
     segment: String,
     proponentMap: Boolean,
-
   },
   components: {
     "brazil-map": BrazilMap,
@@ -162,6 +173,7 @@ export default {
     "legend-card-vertical-scroll-group": LegendCardVerticalScrollGroup,
     "legend-card-vertical-group": LegendCardVerticalGroup,
     "location-info": LocationInfo,
+    VueCsvDownloader
   },
   methods: {
     updateSegment: function(selected) {
@@ -175,12 +187,12 @@ export default {
     },
     changeLevel: function(level) {
       this.$emit('changeLevel', level);
-    }
+    },
   },
   mounted(){
     if(this.locationInfoShowOn=='click')
       window.JSMaps.maps.brazil.config['disableTooltip'] = true;
-  }
+  },
 }
 </script>
 

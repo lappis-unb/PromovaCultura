@@ -48,7 +48,10 @@ export default {
         projects: {},
         proponentes: {},
         incentivadores: {},
-
+        captured_value: {},
+        approved_value: {},
+        fields: ["UF", "QuantidadeDeProponentes","ValorAprovado", "ValorCaptado"],
+        csv: []
       },
       filtersActivate: {
         proponentes: false,
@@ -70,7 +73,9 @@ export default {
         incentivadoresUF: {},
         projectsRegion: {},
         proponentesRegion: {},
-        incentivadoresRegion: {}
+        incentivadoresRegion: {},
+        captured_valueUF: {},
+        approved_valueUF: {}
       },
       level: "UF",
       selected: "Todos os segmentos"
@@ -81,7 +86,6 @@ export default {
       handler(data) {
         this.updateChildrenProps();
         this.generateLegends();
-        $("#brazil-map").LoadingOverlay("hide");
       },
       deep: true
     },
@@ -130,19 +134,29 @@ export default {
       this.selected = segment;
       this.fetchAllResources();
     },
+    generateCSV: function(){
+      // const object = this.data.approved_value;
+      var values = []
+      for (const [key, value] of Object.entries(this.data.approved_value)) {
+        values.push({
+          "UF": key,
+          "QuantidadeDeProponentes": this.data.projects[key],
+          "ValorAprovado": value,
+          "ValorCaptado": this.data.captured_value[key]
+        });
+      }
+
+      this.data.csv = values
+    },
     async fetchAllResources() {
       if (this.proponentMap) {
         const proponents = await simpleFetch("proponentes_por_uf");
-        // console.log("Data fetched: ", proponents.data);
-        // console.log(proponents.data.proponentes_por_uf)
         this.tmp.projectsUF = proponents.data.proponentes_por_uf;
-        // console.log(Object.keys(proponents.data.proponentes_por_uf))
         var approvedValues = {}
         var capturedValues = {}
         for (var uf of Object.keys(proponents.data.proponentes_por_uf)){
           if(uf === "  ")
           continue
-          // console.log(uf)
           var query = `projetos(UF:"${uf}") {
                               valor_captado
                               valor_aprovado
@@ -150,18 +164,17 @@ export default {
         const projects = await simpleFetch(query);
         var valor_captado = projects.data.projetos.map(a => a.valor_captado);
         var valor_aprovado = projects.data.projetos.map(a => a.valor_aprovado);
-        // valor_captado.reduce((a, b) => a + b, 0);
-        // console.log(sum); // 6
 
-        approvedValues[uf] == valor_aprovado.reduce((a, b) => a + b, 0)
-        capturedValues[uf] == valor_captado.reduce((a, b) => a + b, 0)
-        // console.log(projects.data.projetos)
+        approvedValues[uf] = valor_aprovado.reduce((a, b) => a + b, 0)
+        capturedValues[uf] = valor_captado.reduce((a, b) => a + b, 0)
         }
-        this.tmp.proponentesUF = approvedValues
-        this.tmp.incentivadoresUF = capturedValues
+
+        this.data.approved_value = approvedValues
+        console.log(approvedValues)
+        this.data.captured_value = capturedValues
+        this.generateCSV()
+
         
-        // this.tmp.proponentesUF = data.data.proponentes_por_uf;
-        // this.tmp.incentivadoresUF = data.data.proponentes_por_uf;
       } else {
         console.log(`Fetching API.\nSEGMENT: ${this.selected}`);
         const data = await batchFetch(this.selected);
