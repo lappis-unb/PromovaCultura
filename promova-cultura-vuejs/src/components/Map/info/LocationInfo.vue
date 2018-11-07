@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
             <div :class="'location-info-first-line has-border'">
-              <p v-if="proponentMap==false"> <span> {{totalProjects}} </span>
+              <p v-if="proponentMap===false"> <span> {{totalProjects}} </span>
                     projetos
                 </p>
               <p v-else> <span> {{totalProjects}} </span>
@@ -40,6 +40,21 @@
                     </p>
                 </div>
             </div>
+
+          <div :class="'location-info-second-line' + (displayBorder ? ' has-border' : '')"
+               v-if="displayBorder"
+          >                <div :class="propIncCssClass" >
+                    <p>
+                      <span>{{totalApprovedValue}}</span> Valor Aprovado
+                    </p>
+                </div>
+
+                <div :class="propIncCssClass" >
+                    <p>
+                      <span>{{totalCapturedValue}}</span> Valor Captado
+                    </p>
+                </div>
+            </div>
             <p v-if="proponentMap==false" class= "location-info-last">
                 {{segment}}
             </p>
@@ -59,6 +74,8 @@ export default {
     proponents: Object,
     incentivators: Object,
     proponentMap: Boolean,
+    approved_value: Object,
+    captured_value: Object,
     showOn: {
       type: String,
       default: "click" // click | hover
@@ -73,16 +90,21 @@ export default {
       totalProjects: 0,
       totalProponents: 0,
       totalIncentivators: 0,
+      totalApprovedValue: 0,
+      totalCapturedValue: 0,
       prevData: {},
     }
   },
 
   computed: {
     displayBorder() {
-      return this.displayProponents || this.displayIncentivators;
+      if(this.proponentMap)
+        return true
+      else
+        return this.displayProponents || this.displayIncentivators;
     },
     propIncCssClass() {
-      if (this.displayProponents && this.displayIncentivators) {
+      if ((this.displayProponents && this.displayIncentivators )|| this.proponentMap) {
         return "multiple-prop-inc";
       } else {
         return "single-prop-inc";
@@ -107,6 +129,9 @@ export default {
       this.updateTotalProjects(this.prevData.abbreviation);
       this.updateTotalProponents(this.prevData.abbreviation);
       this.updateTotalIncentivators(this.prevData.abbreviation);
+      this.updateTotalApprovedValue(this.prevData.abbreviation);
+      this.updateTotalCapturedValue(this.prevData.abbreviation);
+
     });
   },
 
@@ -122,6 +147,12 @@ export default {
     },
     updateTotalIncentivators(abbreviation) {
       this.totalIncentivators = this.incentivators[abbreviation] || 0;
+    },
+    updateTotalApprovedValue(abbreviation) {
+      this.totalApprovedValue = this.approved_value[abbreviation] || 0;
+    },
+    updateTotalCapturedValue(abbreviation) {
+      this.totalCapturedValue = this.captured_value[abbreviation] || 0;
     },
   }
 };
