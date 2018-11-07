@@ -4,9 +4,7 @@
     <map-page
         :proponentMap=true
         :legendMobile="'tab'"
-        :filterMobile="'modal'"
         :legendDesktop="'tab'"
-        :filterDesktop="'collapsed'"
         :useMaxWithRanking=false
         locationInfoShowOn="hover"
     />
