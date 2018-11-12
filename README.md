@@ -8,7 +8,7 @@
 
 ## Sobre o projeto
 
-<p align="justify"> O PromovaCultura tem como objetivo principal o desenvolvimento de visualizações relacionadas ao SALIC. </p>
+<p align="justify">O PromovaCultura tem como objetivo principal desenvolver visualizações de dados sobre a Lei Federal de Incentivo à Cultura.</p>
 
 ## Biblioteca de Protótipos 
 
