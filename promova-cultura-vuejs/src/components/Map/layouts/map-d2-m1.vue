@@ -69,7 +69,6 @@
                 :proponentMap=proponentMap
                 v-if="legendMobile!='tab' && legendDesktop=='tab'"
                 :filtersActivate="filtersActivate"/>
-
             </div>
             <div class="d-lg-none"> <!-- Shows in mobile Hides in desktop platform -->
               <card-filters
@@ -94,7 +93,6 @@
                 v-if="legendMobile=='card-vertical'"
                 :filtersActivate="filtersActivate"/>
               <legend-tab
-                :proponentMap="proponentMap"
                 :legends="legends"
                 :filtersActivate="filtersActivate"
                 v-if="legendMobile=='tab' && legendDesktop!='tab'"/>
