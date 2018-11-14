@@ -73,15 +73,10 @@ export default new Router({
       name: 'MapPage5',
       component: MapPage5
     },
-    // {
-    //   path: '/proponent-map',
-    //   name: 'ProponentMap',
-    //   component: ProponentMap
-    // },
     {
       path: '/proponent-map',
       name: 'ProponentMap',
-      component: MobileProponentMap
-    },
+      component: ProponentMap
+    }
   ]
 })
