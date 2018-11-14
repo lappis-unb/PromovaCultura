@@ -1,17 +1,17 @@
 <template>
   <div>
     <h1>Captação de recurso por UF desde 1992</h1>
-    <div class="sticky-top" style="position: fixed">
+    <div class="sticky-top" style="background-color: #eeeeee">
       <div class="row">
         <div class="offset-1 col-6">Estado</div>
         <div class="col-5">Captação</div>
       </div>
     </div>
 
-    <div v-for="(uf, index) in ufs">
+    <div v-for="(uf, index) in Object.keys(this.data.proponents)">
       <div class="row collapsibleState collapsed" data-toggle="collapse" :data-target="'#collapseStateContent' + index">
-        <div class="col-5 state">{{ uf }}</div>
-        <div class="col-5 amount">{{raisedAmount[uf]}}</div>
+        <div class="col-5 state">{{ufs[uf]}}</div>
+        <div class="col-5 amount">{{data.raisedAmount[uf]}}</div>
         <div class="col-2 arrow">
           <span class="icon-filter">
             <i class="fa" aria-hidden="true"></i>
@@ -22,15 +22,15 @@
         <div :id="'collapseStateContent' + index" class="collapsibleStateContent collapse">
           <div class="row">
             <div class="col-6">Proponentes</div>
-            <div class="col-6">33</div>
+            <div class="col-6">{{data.proponents[uf]}}</div>
           </div>
           <div class="row">
             <div class="col-6">Valor aprovado</div>
-            <div class="col-6">{{approvedValues[uf]}}</div>
+            <div class="col-6">{{data.approvedAmount[uf]}}</div>
           </div>
           <div class="row">
             <div class="col-6">Valor captado</div>
-            <div class="col-6">{{raisedAmount[uf]}}</div>
+            <div class="col-6">{{data.raisedAmount[uf]}}</div>
           </div>
         </div>
       </div>
@@ -39,21 +39,16 @@
 </template>
 
 <script>
+
+  import uf from "@/util/ufs.js";
+
   export default {
+    props:{
+      data: Object,
+    },
     data() {
       return {
-        ufs: ["São Paulo", "Distrito Federal","São Paulo", "Distrito Federal", "Pernambuco", "Pernambuco","São Paulo", "Distrito Federal", "Pernambuco","São Paulo", "Distrito Federal", "Pernambuco","São Paulo", "Distrito Federal", "Pernambuco",],
-        approvedValues: {
-          "São Paulo": 2345,
-          "Distrito Federal": 1234,
-          "Pernambuco": 5685786
-        },
-        raisedAmount: {
-          "São Paulo": 325556879,
-          "Distrito Federal": 3453453453,
-          "Pernambuco": 7879076
-        }
-
+          ufs: uf
       }
     }
   }
