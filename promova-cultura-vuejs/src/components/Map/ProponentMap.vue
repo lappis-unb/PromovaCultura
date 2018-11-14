@@ -4,8 +4,6 @@
       <map-page
         :proponentMap=true
         :useMaxWithRanking=false
-        :legendMobile="'tab'"
-        :legendDesktop="'tab'"
         locationInfoShowOn="hover"
       />
     </div>
@@ -61,7 +59,6 @@ export default {
       }
 
       this.data.approvedAmount = approvedValues
-      console.log(approvedValues)
       this.data.raisedAmount = raisedAmounts
     }
   }
