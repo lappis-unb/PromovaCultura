@@ -18,7 +18,7 @@
                 </button>
             </div>
             <div class="map">
-              <location-info
+              <location-info v-if="!proponentMap"
                 :showOn="locationInfoShowOn"
                 :projects="data.projects"
                 :proponents="data.proponentes"
@@ -27,6 +27,13 @@
                 :proponentMap=proponentMap
                 :approved_value="data.approved_value"
                 :captured_value="data.captured_value"
+              />
+              <proponent-info
+                v-if="proponentMap"
+                :showOn="locationInfoShowOn"
+                :segment="segment"
+                :proponentMap=proponentMap
+                :data="data"
               />
 
               <brazil-map
@@ -55,7 +62,6 @@
                 @showIncentivadores="showIncentivadores"
                 @changeLevel="changeLevel"
                 v-if="filterDesktop=='collapsed'"/>
-
               <legend-card-vertical-scroll-group
                 :legends="legends"
                 v-if="legendDesktop=='card-vertical-scroll'"
@@ -69,6 +75,21 @@
                 :proponentMap=proponentMap
                 v-if="legendMobile!='tab' && legendDesktop=='tab'"
                 :filtersActivate="filtersActivate"/>
+
+              <totals-card
+                :data="data"
+                :legends="legends"
+                :proponentMap="proponentMap"
+                :filtersActivate="filtersActivate"
+                v-if="proponentMap"
+              />
+              <div>
+              <vue-csv-downloader v-if="proponentMap"
+                                  :data="data.csv"
+                                  :fields="data.fields" class="btn btn-success">
+                Exportar Dados
+              </vue-csv-downloader>
+              </div>
             </div>
             <div class="d-lg-none"> <!-- Shows in mobile Hides in desktop platform -->
               <card-filters
@@ -97,12 +118,6 @@
                 :filtersActivate="filtersActivate"
                 v-if="legendMobile=='tab' && legendDesktop!='tab'"/>
             </div>
-          <vue-csv-downloader v-if="proponentMap"
-            :data="data.csv"
-            :fields="data.fields"
-          >
-            Gerar CSV
-          </vue-csv-downloader>
             <legend-tab
                 :proponentMap="proponentMap"
                 :legends="legends"
@@ -141,6 +156,8 @@ import LegendTabGroup from "@/components/Map/legends/LegendTabGroup"
 import LegendHorizontalGroup from "@/components/Map/legends/LegendHorizontalGroup"
 
 import LocationInfo from "@/components/Map/info/LocationInfo"
+import ProponentInfo from "@/components/Map/info/ProponentBarCard"
+import TotalsCard from "@/components/Map/info/TotalsCard"
 import VueCsvDownloader from 'vue-csv-downloader';
 
 
@@ -171,6 +188,8 @@ export default {
     "legend-card-vertical-scroll-group": LegendCardVerticalScrollGroup,
     "legend-card-vertical-group": LegendCardVerticalGroup,
     "location-info": LocationInfo,
+    "proponent-info": ProponentInfo,
+    "totals-card": TotalsCard,
     VueCsvDownloader
   },
   methods: {
