@@ -50,6 +50,8 @@ export default {
         incentivadores: {},
         captured_value: {},
         approved_value: {},
+        totals: {},
+        percentages: {},
         fields: ["UF", "QuantidadeDeProponentes","ValorAprovado", "ValorCaptado"],
         csv: []
       },
@@ -134,6 +136,8 @@ export default {
       this.selected = segment;
       this.fetchAllResources();
     },
+
+
     generateCSV: function(){
       // const object = this.data.approved_value;
       var values = []
@@ -168,10 +172,21 @@ export default {
         approvedValues[uf] = valor_aprovado.reduce((a, b) => a + b, 0)
         capturedValues[uf] = valor_captado.reduce((a, b) => a + b, 0)
         }
+        const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
 
         this.data.approved_value = approvedValues
-        console.log(approvedValues)
         this.data.captured_value = capturedValues
+        this.data.totals["approvedValue"] = sumValues(approvedValues)
+        this.data.totals["capturedValue"] = sumValues(capturedValues)
+        this.data.totals["proponents"] = sumValues(proponents.data.proponentes_por_uf)
+
+
+        var proponentPercentages = this.calculatePercentage(proponents.data.proponentes_por_uf, this.data.totals["proponents"])
+        var capturedPercentages = this.calculatePercentage(capturedValues, this.data.totals["capturedValue"])
+        var approvedPercentages = this.calculatePercentage(approvedValues, this.data.totals["approvedValue"])
+        this.data.percentages["approvedValue"] = approvedPercentages
+        this.data.percentages["capturedValue"] = capturedPercentages
+        this.data.percentages["proponents"] = proponentPercentages
         this.generateCSV()
 
         
@@ -187,6 +202,14 @@ export default {
         this.tmp.proponentesRegion = data.proponentes_por_regiao;
         this.tmp.incentivadoresRegion = data.incentivadores_por_regiao;
       }
+    },
+    calculatePercentage(objeto, total){
+      var totals = {}
+      for (var i of Object.keys(objeto)){
+        totals[i] = ((objeto[i]/total)*100).toFixed(2)
+      }
+      return totals
+
     },
     showProponentes(show) {
       this.filtersActivate.proponentes = show;
