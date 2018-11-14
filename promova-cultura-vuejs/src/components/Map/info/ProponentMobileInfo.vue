@@ -10,8 +10,9 @@
 
     <div v-for="(uf, index) in Object.keys(this.data.proponents)">
       <div class="row collapsibleState collapsed" data-toggle="collapse" :data-target="'#collapseStateContent' + index">
-        <div class="col-5 state">{{ufs[uf]}}</div>
-        <div class="col-5 amount">{{data.raisedAmount[uf]}}</div>
+        <div class="col-7 state" v-if="uf != '  '">{{ufs[uf]}}</div>
+        <div class="col-7 state" v-else>Sem Estado</div>
+        <div class="col-3 amount">{{data.raisedAmount[uf]}}</div>
         <div class="col-2 arrow">
           <span class="icon-filter">
             <i class="fa" aria-hidden="true"></i>
@@ -59,6 +60,11 @@
     text-align: center;
   }
 
+  .fa{
+    font-size: 30px;
+    width: 50%;
+    margin: auto;
+  }
   .collapsibleState{
     background-color: #CCC;
     position: relative;
@@ -78,8 +84,13 @@
    height: 100%;
    top: 0;
    right: 0;
+   width: 50%;
+   margin: auto;
    border-radius: 0 8px 8px 0;
-
+   color: #eee;
+   text-align: center;
+   line-height: 60px;
+   vertical-align: middle
  }
  .arrow span{
    margin: auto;
