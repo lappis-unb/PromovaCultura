@@ -34,6 +34,7 @@ export default {
         proponents: {},
         raisedAmount: {},
         approvedAmount: {},
+        totals:{}
       }
     };
   },
@@ -57,9 +58,13 @@ export default {
         approvedValues[uf] = valor_aprovado.reduce((a, b) => a + b, 0)
         raisedAmounts[uf] = valor_captado.reduce((a, b) => a + b, 0)
       }
+      const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
 
       this.data.approvedAmount = approvedValues
       this.data.raisedAmount = raisedAmounts
+      this.data.totals["approvedValue"] = sumValues(approvedValues)
+      this.data.totals["raisedAmount"] = sumValues(raisedAmounts)
+      this.data.totals["proponents"] = sumValues(proponents.data.proponentes_por_uf)
     }
   }
 };

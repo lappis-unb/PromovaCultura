@@ -1,10 +1,10 @@
 <template>
   <div>
     <h1>Captação de recurso por UF desde 1992</h1>
-    <div class="sticky-top" style="background-color: #eeeeee">
+    <div class="sticky-top" style="background-color: #ddd">
       <div class="row">
-        <div class="offset-1 col-6">Estado</div>
-        <div class="col-5">Captação</div>
+        <div class="offset-1 col-5 sticky">Estado</div>
+        <div class="col-6 sticky">Captação</div>
       </div>
     </div>
 
@@ -35,6 +35,13 @@
           </div>
         </div>
       </div>
+
+    <div class="sticky-bottom" style="background-color: #ddd">
+      <div class="row">
+        <div class="offset-1 col-5 sticky">Total</div>
+        <div class="col-6 sticky">{{totalRaisedAmount}}</div>
+      </div>
+    </div>
       <!--</ul>-->
     </div>
 </template>
@@ -47,11 +54,33 @@
     props:{
       data: Object,
     },
+    watch: {
+      data: {
+        handler(data) {
+          this.updateTotals();
+        },
+        deep: true
+      },
+    },
     data() {
       return {
-          ufs: uf
+        ufs: uf,
+        totalProponents: 0,
+        totalApprovedValue: 0,
+        totalRaisedAmount: 0,
       }
-    }
+    },
+    methods:{
+      updateTotals(){
+        this.totalProponents = this.data.totals["proponents"]
+        console.log(this.totalApprovedValue )
+        this.totalApprovedValue = (this.data.totals["approvedValue"]).toLocaleString('pt-BR', {
+          minimumFractionDigits: 2})
+        console.log(this.data )
+        this.totalRaisedAmount = (this.data.totals["raisedAmount"]).toLocaleString('pt-BR', {
+          minimumFractionDigits: 2})
+      }
+    },
   }
 </script>
 
@@ -59,7 +88,9 @@
   H1{
     text-align: center;
   }
-
+  .sticky{
+   font-size: 24px;
+  }
   .fa{
     font-size: 30px;
     width: 50%;
