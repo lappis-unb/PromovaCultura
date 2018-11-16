@@ -108,7 +108,7 @@
         this.current = newCurrent;
       },
       updateTotalProponents(abbreviation) {
-        this.totalProponents = this.data.projects[abbreviation] || 0;
+        this.totalProponents = this.data.proponentesMap[abbreviation] || 0;
       },
       updateTotalapprovedAmount(abbreviation) {
         this.totalapprovedAmount = this.data.approvedAmount[abbreviation] || 0;

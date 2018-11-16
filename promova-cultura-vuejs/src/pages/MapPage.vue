@@ -47,6 +47,7 @@ export default {
       data: {
         projects: {},
         proponentes: {},
+        proponentesMap: {},
         incentivadores: {},
         raisedAmount: {},
         approvedAmount: {},
@@ -155,7 +156,7 @@ export default {
     async fetchAllResources() {
       if (this.proponentMap) {
         const proponents = await simpleFetch("proponentes_por_uf");
-        this.tmp.projectsUF = proponents.data.proponentes_por_uf;
+        this.tmp.proponentesUF = proponents.data.proponentes_por_uf;
         var approvedAmounts = {}
         var raisedAmounts = {}
         for (var uf of Object.keys(proponents.data.proponentes_por_uf)){
@@ -175,6 +176,7 @@ export default {
         const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
 
         this.data.approvedAmount = approvedAmounts
+        this.tmp.projectsUF = raisedAmounts
         this.data.raisedAmount = raisedAmounts
         this.data.totals["approvedAmount"] = sumValues(approvedAmounts)
         this.data.totals["raisedAmount"] = sumValues(raisedAmounts)
@@ -204,8 +206,10 @@ export default {
 
     },
     showProponentes(show) {
-      this.filtersActivate.proponentes = show;
-      this.showPins();
+      if(!this.proponentMap) {
+        this.filtersActivate.proponentes = show;
+        this.showPins();
+      }
     },
     showIncentivadores(show) {
       this.filtersActivate.incentivadores = show;
@@ -314,7 +318,12 @@ export default {
           this.level == "UF"
             ? this.tmp.proponentesUF
             : this.tmp.proponentesRegion;
-      } else {
+      }
+
+      else if(this.proponentMap){
+        this.data.proponentesMap = this.tmp.proponentesUF
+      }
+      else {
         this.data.proponentes = {};
       }
     }
