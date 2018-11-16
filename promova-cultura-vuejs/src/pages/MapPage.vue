@@ -87,6 +87,7 @@ export default {
       handler(data) {
         this.updateChildrenProps();
         this.generateLegends();
+        $("#brazil-map").LoadingOverlay("hide");
       },
       deep: true
     },
