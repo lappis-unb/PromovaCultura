@@ -83,10 +83,10 @@
                 :filtersActivate="filtersActivate"
                 v-if="proponentMap"
               />
-              <div>
+              <div class="">
               <vue-csv-downloader v-if="proponentMap"
                                   :data="data.csv"
-                                  :fields="data.fields" class="btn btn-success">
+                                  :fields="data.fields" class="btn btn-success csv-button">
                 Exportar Dados
               </vue-csv-downloader>
               </div>
@@ -244,6 +244,10 @@ export default {
   font-size: 16px;
   position: relative;
   top: 3px;
+}
+
+.csv-button{
+  margin: 10px;
 }
 
 .card {
