@@ -30,7 +30,7 @@
             </li>
             <li class="list-group-item">
               <a>Valor Aprovado</a>
-              {{totalApprovedValue}}
+              {{totalapprovedAmount}}
             </li>
             <li class="list-group-item">
               <a>Valor Captado</a>
@@ -80,15 +80,6 @@
       legends: {},
       filtersActivate: Object
     },
-    // computed: {
-    //   totalApprovedValue: function () {
-    //     return (this.data.totals["approvedValue"]) || 0
-    //   },
-    //   totalRaisedAmount: function () {
-    //     return (this.data.totals["capturedValue"]) || 0
-    //   }
-    //
-    // },
     watch: {
       data: {
         handler(data) {
@@ -100,18 +91,16 @@
     data() {
       return {
         totalProponents: 0,
-        totalApprovedValue: 0,
+        totalapprovedAmount: 0,
         totalRaisedAmount: 0,
       }
     },
     methods:{
       updateTotals(){
         this.totalProponents = this.data.totals["proponents"]
-        console.log(this.totalApprovedValue )
-        this.totalApprovedValue = (this.data.totals["approvedValue"]).toLocaleString('pt-BR', {
+        this.totalapprovedAmount = (this.data.totals["approvedAmount"]).toLocaleString('pt-BR', {
       minimumFractionDigits: 2})
-        console.log(this.data )
-        this.totalRaisedAmount = (this.data.totals["capturedValue"]).toLocaleString('pt-BR', {
+        this.totalRaisedAmount = (this.data.totals["raisedAmount"]).toLocaleString('pt-BR', {
       minimumFractionDigits: 2})
       }
     },
@@ -179,64 +168,10 @@
 
   .list-group li {
     padding: auto 0;
-    /* border: 1px solid red;  */
-  }
-
-  /* The switch - the box around the slider */
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
-    float: right;
   }
 
   .switch input {
     display: none;
-  }
-
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
-
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
-
-  input.default:checked + .slider {
-    background-color: #333;
-  }
-
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-
-  .slider.round:before {
-    border-radius: 50%;
   }
 
   .input-position label:first-child {

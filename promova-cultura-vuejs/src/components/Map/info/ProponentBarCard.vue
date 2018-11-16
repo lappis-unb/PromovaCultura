@@ -13,13 +13,13 @@
         <div class="card-number">
           <img src="../../../../static/svg-icons/check_verde.svg"
                class="card-icon"></img>
-          R$ {{(this.totalApprovedValue).toLocaleString('pt-BR', {
+          R$ {{(this.totalapprovedAmount).toLocaleString('pt-BR', {
           minimumFractionDigits: 2})}}
         </div>
         <div class="card-number">
           <img src="../../../../static/svg-icons/cifrao_verde.svg"
                class="card-icon"></img>
-          R$ {{(this.totalCapturedValue).toLocaleString('pt-BR', {
+          R$ {{(this.totalraisedAmount).toLocaleString('pt-BR', {
           minimumFractionDigits: 2})}}
         </div>
       </div>
@@ -40,8 +40,8 @@
       proponents: Object,
       incentivators: Object,
       proponentMap: Boolean,
-      approved_value: Object,
-      captured_value: Object,
+      approvedAmount: Object,
+      raisedAmount: Object,
       showOn: {
         type: String,
         default: "click" // click | hover
@@ -54,8 +54,8 @@
       return {
         current: "",
         totalProponents: 0,
-        totalApprovedValue: 0,
-        totalCapturedValue: 0,
+        totalapprovedAmount: 0,
+        totalraisedAmount: 0,
         prevData: {},
       }
     },
@@ -63,8 +63,8 @@
       dataprops() {
         return {
           style_prop: "width: " + this.totalProponents + "%;",
-          style_approved: "width: " + this.totalApprovedValue + "%;",
-          style_raised: "width: " + this.totalCapturedValue + "%;",
+          style_approved: "width: " + this.totalapprovedAmount + "%;",
+          style_raised: "width: " + this.totalraisedAmount + "%;",
         };
       },
       displayBorder() {
@@ -97,8 +97,8 @@
 
         this.updateCurrent(this.prevData.name);
         this.updateTotalProponents(this.prevData.abbreviation);
-        this.updateTotalApprovedValue(this.prevData.abbreviation);
-        this.updateTotalCapturedValue(this.prevData.abbreviation);
+        this.updateTotalapprovedAmount(this.prevData.abbreviation);
+        this.updateTotalraisedAmount(this.prevData.abbreviation);
 
       });
     },
@@ -110,11 +110,11 @@
       updateTotalProponents(abbreviation) {
         this.totalProponents = this.data.projects[abbreviation] || 0;
       },
-      updateTotalApprovedValue(abbreviation) {
-        this.totalApprovedValue = this.data.approved_value[abbreviation] || 0;
+      updateTotalapprovedAmount(abbreviation) {
+        this.totalapprovedAmount = this.data.approvedAmount[abbreviation] || 0;
       },
-      updateTotalCapturedValue(abbreviation) {
-        this.totalCapturedValue = this.data.captured_value[abbreviation] || 0;
+      updateTotalraisedAmount(abbreviation) {
+        this.totalraisedAmount = this.data.raisedAmount[abbreviation] || 0;
       },
     }
   };

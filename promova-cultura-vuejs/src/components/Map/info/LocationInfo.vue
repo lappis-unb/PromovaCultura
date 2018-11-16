@@ -45,13 +45,13 @@
                v-if="displayBorder"
           >                <div :class="propIncCssClass" >
                     <p>
-                      <span>{{totalApprovedValue}}</span> Valor Aprovado
+                      <span>{{totalapprovedAmount}}</span> Valor Aprovado
                     </p>
                 </div>
 
                 <div :class="propIncCssClass" >
                     <p>
-                      <span>{{totalCapturedValue}}</span> Valor Captado
+                      <span>{{totalraisedAmount}}</span> Valor Captado
                     </p>
                 </div>
             </div>
@@ -74,8 +74,8 @@ export default {
     proponents: Object,
     incentivators: Object,
     proponentMap: Boolean,
-    approved_value: Object,
-    captured_value: Object,
+    approvedAmount: Object,
+    raisedAmount: Object,
     showOn: {
       type: String,
       default: "click" // click | hover
@@ -90,8 +90,8 @@ export default {
       totalProjects: 0,
       totalProponents: 0,
       totalIncentivators: 0,
-      totalApprovedValue: 0,
-      totalCapturedValue: 0,
+      totalapprovedAmount: 0,
+      totalraisedAmount: 0,
       prevData: {},
     }
   },
@@ -129,8 +129,8 @@ export default {
       this.updateTotalProjects(this.prevData.abbreviation);
       this.updateTotalProponents(this.prevData.abbreviation);
       this.updateTotalIncentivators(this.prevData.abbreviation);
-      this.updateTotalApprovedValue(this.prevData.abbreviation);
-      this.updateTotalCapturedValue(this.prevData.abbreviation);
+      this.updateTotalapprovedAmount(this.prevData.abbreviation);
+      this.updateTotalraisedAmount(this.prevData.abbreviation);
 
     });
   },
@@ -148,11 +148,11 @@ export default {
     updateTotalIncentivators(abbreviation) {
       this.totalIncentivators = this.incentivators[abbreviation] || 0;
     },
-    updateTotalApprovedValue(abbreviation) {
-      this.totalApprovedValue = this.approved_value[abbreviation] || 0;
+    updateTotalapprovedAmount(abbreviation) {
+      this.totalapprovedAmount = this.approvedAmount[abbreviation] || 0;
     },
-    updateTotalCapturedValue(abbreviation) {
-      this.totalCapturedValue = this.captured_value[abbreviation] || 0;
+    updateTotalraisedAmount(abbreviation) {
+      this.totalraisedAmount = this.raisedAmount[abbreviation] || 0;
     },
   }
 };

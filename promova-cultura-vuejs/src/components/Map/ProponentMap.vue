@@ -42,7 +42,7 @@ export default {
     async fetchAllResources() {
       const proponents = await simpleFetch("proponentes_por_uf");
       this.data.proponents = proponents.data.proponentes_por_uf;
-      var approvedValues = {}
+      var approvedAmounts = {}
       var raisedAmounts = {}
       for (var uf of Object.keys(proponents.data.proponentes_por_uf)) {
         if (uf === "  ")
@@ -55,14 +55,14 @@ export default {
         var valor_captado = projects.data.projetos.map(a => a.valor_captado);
         var valor_aprovado = projects.data.projetos.map(a => a.valor_aprovado);
 
-        approvedValues[uf] = valor_aprovado.reduce((a, b) => a + b, 0)
+        approvedAmounts[uf] = valor_aprovado.reduce((a, b) => a + b, 0)
         raisedAmounts[uf] = valor_captado.reduce((a, b) => a + b, 0)
       }
       const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
 
-      this.data.approvedAmount = approvedValues
+      this.data.approvedAmount = approvedAmounts
       this.data.raisedAmount = raisedAmounts
-      this.data.totals["approvedValue"] = sumValues(approvedValues)
+      this.data.totals["approvedAmount"] = sumValues(approvedAmounts)
       this.data.totals["raisedAmount"] = sumValues(raisedAmounts)
       this.data.totals["proponents"] = sumValues(proponents.data.proponentes_por_uf)
     }

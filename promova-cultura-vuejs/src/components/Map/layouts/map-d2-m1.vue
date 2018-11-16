@@ -25,8 +25,8 @@
                 :incentivators="data.incentivadores"
                 :segment="segment"
                 :proponentMap=proponentMap
-                :approved_value="data.approved_value"
-                :captured_value="data.captured_value"
+                :approvedAmount="data.approvedAmount"
+                :raisedAmount="data.raisedAmount"
               />
               <proponent-info
                 v-if="proponentMap"

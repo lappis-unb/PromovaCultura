@@ -48,10 +48,9 @@ export default {
         projects: {},
         proponentes: {},
         incentivadores: {},
-        captured_value: {},
-        approved_value: {},
+        raisedAmount: {},
+        approvedAmount: {},
         totals: {},
-        percentages: {},
         fields: ["UF", "QuantidadeDeProponentes","ValorAprovado", "ValorCaptado"],
         csv: []
       },
@@ -76,8 +75,8 @@ export default {
         projectsRegion: {},
         proponentesRegion: {},
         incentivadoresRegion: {},
-        captured_valueUF: {},
-        approved_valueUF: {}
+        raisedAmountUF: {},
+        approvedAmountUF: {}
       },
       level: "UF",
       selected: "Todos os segmentos"
@@ -139,14 +138,14 @@ export default {
 
 
     generateCSV: function(){
-      // const object = this.data.approved_value;
+      // const object = this.data.approvedAmount;
       var values = []
-      for (const [key, value] of Object.entries(this.data.approved_value)) {
+      for (const [key, value] of Object.entries(this.data.approvedAmount)) {
         values.push({
           "UF": key,
           "QuantidadeDeProponentes": this.data.projects[key],
           "ValorAprovado": value,
-          "ValorCaptado": this.data.captured_value[key]
+          "ValorCaptado": this.data.raisedAmount[key]
         });
       }
 
@@ -156,8 +155,8 @@ export default {
       if (this.proponentMap) {
         const proponents = await simpleFetch("proponentes_por_uf");
         this.tmp.projectsUF = proponents.data.proponentes_por_uf;
-        var approvedValues = {}
-        var capturedValues = {}
+        var approvedAmounts = {}
+        var raisedAmounts = {}
         for (var uf of Object.keys(proponents.data.proponentes_por_uf)){
           if(uf === "  ")
           continue
@@ -169,24 +168,17 @@ export default {
         var valor_captado = projects.data.projetos.map(a => a.valor_captado);
         var valor_aprovado = projects.data.projetos.map(a => a.valor_aprovado);
 
-        approvedValues[uf] = valor_aprovado.reduce((a, b) => a + b, 0)
-        capturedValues[uf] = valor_captado.reduce((a, b) => a + b, 0)
+        approvedAmounts[uf] = valor_aprovado.reduce((a, b) => a + b, 0)
+        raisedAmounts[uf] = valor_captado.reduce((a, b) => a + b, 0)
         }
         const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
 
-        this.data.approved_value = approvedValues
-        this.data.captured_value = capturedValues
-        this.data.totals["approvedValue"] = sumValues(approvedValues)
-        this.data.totals["capturedValue"] = sumValues(capturedValues)
+        this.data.approvedAmount = approvedAmounts
+        this.data.raisedAmount = raisedAmounts
+        this.data.totals["approvedAmount"] = sumValues(approvedAmounts)
+        this.data.totals["raisedAmount"] = sumValues(raisedAmounts)
         this.data.totals["proponents"] = sumValues(proponents.data.proponentes_por_uf)
 
-
-        var proponentPercentages = this.calculatePercentage(proponents.data.proponentes_por_uf, this.data.totals["proponents"])
-        var capturedPercentages = this.calculatePercentage(capturedValues, this.data.totals["capturedValue"])
-        var approvedPercentages = this.calculatePercentage(approvedValues, this.data.totals["approvedValue"])
-        this.data.percentages["approvedValue"] = approvedPercentages
-        this.data.percentages["capturedValue"] = capturedPercentages
-        this.data.percentages["proponents"] = proponentPercentages
         this.generateCSV()
 
         
@@ -194,7 +186,6 @@ export default {
         console.log(`Fetching API.\nSEGMENT: ${this.selected}`);
         const data = await batchFetch(this.selected);
         // console.log("Data fetched: ", JSON.stringify(data));
-        console.log(data.proponentes_por_uf)
         this.tmp.projectsUF = data.projetos_por_uf;
         this.tmp.proponentesUF = data.proponentes_por_uf;
         this.tmp.incentivadoresUF = data.incentivadores_por_uf;
