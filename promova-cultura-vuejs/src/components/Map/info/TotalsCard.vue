@@ -23,20 +23,20 @@
       <legend class="card-header">Total</legend>
       <div class="card-body">
         <div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <a>Quantidade De Proponentes</a>
-              {{totalProponents}}
-            </li>
-            <li class="list-group-item">
-              <a>Valor Aprovado</a>
-              {{totalapprovedAmount}}
-            </li>
-            <li class="list-group-item">
-              <a>Valor Captado</a>
-              {{totalRaisedAmount}}
-            </li>
-          </ul>
+          <div class="list-group list-group-flush">
+            <div>
+              <p class="total-label">Quantidade de Proponentes</p>
+              <p class="total-value">{{totalProponents}}</p>
+            </div>
+            <div>
+              <p class="total-label">Valor Aprovado</p>
+              <p class="total-value">R$ {{totalapprovedAmount}}</p>
+            </div>
+            <div>
+              <p class="total-label">Valor Captado</p>
+              <p class="total-value">R$ {{totalRaisedAmount}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -108,7 +108,19 @@
 </script>
 
 <style scoped>
-
+  .total-label{
+    text-align: center;
+  }
+  .total-value{
+    text-align: center;
+    font-weight: bold;
+    font-size: 26px;
+  }
+  .card-header{
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+  }
   .legend-tabs .nav-link {
     padding: 8px;
   }
