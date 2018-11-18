@@ -15,11 +15,8 @@
         </div>
         <div class="card-body">
             <div :class="'location-info-first-line has-border'">
-              <p v-if="proponentMap===false"> <span> {{totalProjects}} </span>
+              <p> <span> {{totalProjects}} </span>
                     projetos
-                </p>
-              <p v-else> <span> {{totalProjects}} </span>
-                    proponentes
                 </p>
             </div>
 
@@ -40,22 +37,7 @@
                     </p>
                 </div>
             </div>
-
-          <div :class="'location-info-second-line' + (displayBorder ? ' has-border' : '')"
-               v-if="displayBorder"
-          >                <div :class="propIncCssClass" >
-                    <p>
-                      <span>{{totalapprovedAmount}}</span> Valor Aprovado
-                    </p>
-                </div>
-
-                <div :class="propIncCssClass" >
-                    <p>
-                      <span>{{totalraisedAmount}}</span> Valor Captado
-                    </p>
-                </div>
-            </div>
-            <p v-if="proponentMap==false" class= "location-info-last">
+            <p class= "location-info-last">
                 {{segment}}
             </p>
         </div>
@@ -73,15 +55,11 @@ export default {
     projects: Object,
     proponents: Object,
     incentivators: Object,
-    proponentMap: Boolean,
-    approvedAmount: Object,
-    raisedAmount: Object,
     showOn: {
       type: String,
       default: "click" // click | hover
     },
     segment: String,
-
   },
 
   data() {
@@ -90,21 +68,16 @@ export default {
       totalProjects: 0,
       totalProponents: 0,
       totalIncentivators: 0,
-      totalapprovedAmount: 0,
-      totalraisedAmount: 0,
       prevData: {},
     }
   },
 
   computed: {
     displayBorder() {
-      if(this.proponentMap)
-        return true
-      else
-        return this.displayProponents || this.displayIncentivators;
+      return this.displayProponents || this.displayIncentivators;
     },
     propIncCssClass() {
-      if ((this.displayProponents && this.displayIncentivators )|| this.proponentMap) {
+      if (this.displayProponents && this.displayIncentivators) {
         return "multiple-prop-inc";
       } else {
         return "single-prop-inc";
@@ -129,9 +102,6 @@ export default {
       this.updateTotalProjects(this.prevData.abbreviation);
       this.updateTotalProponents(this.prevData.abbreviation);
       this.updateTotalIncentivators(this.prevData.abbreviation);
-      this.updateTotalapprovedAmount(this.prevData.abbreviation);
-      this.updateTotalraisedAmount(this.prevData.abbreviation);
-
     });
   },
 
@@ -147,12 +117,6 @@ export default {
     },
     updateTotalIncentivators(abbreviation) {
       this.totalIncentivators = this.incentivators[abbreviation] || 0;
-    },
-    updateTotalapprovedAmount(abbreviation) {
-      this.totalapprovedAmount = this.approvedAmount[abbreviation] || 0;
-    },
-    updateTotalraisedAmount(abbreviation) {
-      this.totalraisedAmount = this.raisedAmount[abbreviation] || 0;
     },
   }
 };

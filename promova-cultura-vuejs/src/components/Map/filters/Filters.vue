@@ -38,6 +38,7 @@
 </template>
 
 <script>
+    import "selectize";
     import segments from "@/util/segments";
 
     export default {
