@@ -1,49 +1,8 @@
 <template>
-  <div>
-    <div class="card">
-      <div class="card-body">
-        <div class="card-number">
-          <img src="../../../../static/svg-icons/proponente_verde.svg"
-               class="card-icon"></img>
-          - Quantidade de Proponentes
-        </div>
-        <div class="card-number">
-          <img src="../../../../static/svg-icons/check_verde.svg"
-               class="card-icon"></img>
-          - Valor Aprovado
-        </div>
-        <div class="card-number">
-          <img src="../../../../static/svg-icons/cifrao_verde.svg"
-               class="card-icon"></img>
-          - Valor Captado
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <legend class="card-header">Total</legend>
-      <div class="card-body">
-        <div>
-          <div class="list-group list-group-flush">
-            <div>
-              <p class="total-label">Quantidade de Proponentes</p>
-              <p class="total-value">{{totalProponents}}</p>
-            </div>
-            <div>
-              <p class="total-label">Valor Aprovado</p>
-              <p class="total-value">R$ {{totalapprovedAmount}}</p>
-            </div>
-            <div>
-              <p class="total-label">Valor Captado</p>
-              <p class="total-value">R$ {{totalRaisedAmount}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+  <div class="align-card">
     <ul class="nav nav-tabs legend-tabs" id="myTab" role="tablist">
       <li class="nav-item">
-        <a class="nav-link" id="proponente-tab" role="tab">Proponentes</a>
+        <a class="nav-link" id="proponente-tab" role="tab">Valor Captado</a>
       </li>
     </ul>
     <div class="tab-content legend-content" id="myTabContent">
@@ -64,6 +23,28 @@
         </div>
       </div>
     </div>
+
+      <div class="card">
+        <legend class="card-header">TOTAL</legend>
+        <div class="card-body">
+          <div>
+            <div class="list-group list-group-flush">
+                <div class="bottom-line">
+                  <p class="total-label">Quantidade de Proponentes</p>
+                  <p class="total-value">{{totalProponents}}</p>
+                </div>
+                <div class="bottom-line">
+                  <p class="total-label">Valor Aprovado</p>
+                  <p class="total-value">R$ {{totalapprovedAmount}}</p>
+                </div>
+                <div>
+                  <p class="total-label">Valor Captado</p>
+                  <p class="total-value">R$ {{totalRaisedAmount}}</p>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -108,18 +89,28 @@
 </script>
 
 <style scoped>
+  .align-card {
+    display: block;
+    justify-content: center;
+  }
   .total-label{
     text-align: center;
+    margin: 0;
+    font-size: 12px;
+    color: #666;
   }
   .total-value{
     text-align: center;
     font-weight: bold;
-    font-size: 26px;
+    font-size: 14px;
+    margin: 0;
+    color: #4d4d4d;
   }
   .card-header{
     text-align: center;
-    font-size: 28px;
+    font-size: 16px;
     font-weight: bold;
+    color: #666;
   }
   .legend-tabs .nav-link {
     padding: 8px;
@@ -188,5 +179,16 @@
 
   .input-position label:first-child {
     margin-right: 10px;
+  }
+
+  .card {
+    width: 250px;
+    height: 235px;
+    margin: 20px auto 0 auto;
+  }
+
+  .bottom-line {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
   }
 </style>
