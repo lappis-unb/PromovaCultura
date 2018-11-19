@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12" style="text-align:center; margin-bottom: 50px; color:#666;">
-        <h3>Mapa de Calor da Cultura</h3>
+        <h1>Captação de recurso por UF desde 1992</h1>
       </div>
     </div>
     <div class="row">

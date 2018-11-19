@@ -5,22 +5,19 @@
         {{current}}
       </div>
       <div class="card-body">
+        <p class="card-topic">Proponentes</p>
         <div class="card-number">
-          <img src="../../../../static/svg-icons/proponente_verde.svg"
-               class="card-icon"></img>
           {{this.totalProponents}}
         </div>
+        <p class="card-topic">Valor Aprovado</p>
         <div class="card-number">
-          <img src="../../../../static/svg-icons/check_verde.svg"
-               class="card-icon"></img>
           R$ {{(this.totalapprovedAmount).toLocaleString('pt-BR', {
           minimumFractionDigits: 2})}}
         </div>
+        <p class="card-topic"><b>Valor Captado</b></p>
         <div class="card-number">
-          <img src="../../../../static/svg-icons/cifrao_verde.svg"
-               class="card-icon"></img>
-          R$ {{(this.totalraisedAmount).toLocaleString('pt-BR', {
-          minimumFractionDigits: 2})}}
+          <span>R$ {{(this.totalraisedAmount).toLocaleString('pt-BR', {
+          minimumFractionDigits: 2})}}</span>
         </div>
       </div>
     </div>
@@ -126,20 +123,39 @@
     text-align: center;
     font-size: 20px;
     font-weight: bold;
-    color: #676767;
-    margin-top: 10px;
+    color: #2c380e;
+    padding-top: 5px;
   }
 
-  .card-body {
+  .card {
+    background-image: url("../../../../static/proponentMap/baloon_card.svg");
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    width: 239px !important;
+  }
+  .card-body{
     padding-top: 0px;
+  }
+  .card-topic {
+    color: #4f6615;
+    margin: 8px 0 0 0;
+    font-weight: 500;
   }
 
   .card-number {
-    /*text-align: center;*/
-    font-size: 20px;
+    font-size: 16px;
+    color: #4d4d4d;
+  }
+
+  .card-number span{
+    font-size: 16px;
     font-weight: bold;
-    color: #676767;
-    margin-top: 10px;
+    color: #333;
+  }
+
+  .card-number p {
+    font-size: 12px;
   }
 
   .card-icon {
@@ -320,4 +336,3 @@
     font-weight: bold;
   }
 </style>
-
