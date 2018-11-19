@@ -31,8 +31,8 @@
 <script>
 import $ from "jquery";
 import vueSlider from "vue-slider-component";
-import echarts from "../../static/echarts/echarts.js";
-import LoadingOverlay from "../../static/loader/loader.js";
+import echarts from 'echarts'
+import LoadingOverlay from 'gasparesganga-jquery-loading-overlay';
 
 
 export default {

@@ -104,29 +104,29 @@ export default {
         `;
 
       var self = this;
-      $.post("https://salic.dev.lappis.rocks/graphql", {
-        query: query
-      }).then(response => {
-        let data = undefined;
-        if (this.selectedProjectOrPreproject === "projetos") {
-          data = response.data.projetos;
-        } else {
-          data = response.data.propostas;
-        }
-        console.log(data);
-        let totalUfs = data.reduce((acc, curr) => {
-          if (acc[curr.UF] === undefined) {
-            acc[curr.UF] = 1;
-          } else {
-            acc[curr.UF] += 1;
-          }
-          return acc;
-        }, {});
+      // $.post("https://salic.dev.lappis.rocks/graphql", {
+      //   query: query
+      // }).then(response => {
+      //   let data = undefined;
+      //   if (this.selectedProjectOrPreproject === "projetos") {
+      //     data = response.data.projetos;
+      //   } else {
+      //     data = response.data.propostas;
+      //   }
+      //   console.log(data);
+      //   let totalUfs = data.reduce((acc, curr) => {
+      //     if (acc[curr.UF] === undefined) {
+      //       acc[curr.UF] = 1;
+      //     } else {
+      //       acc[curr.UF] += 1;
+      //     }
+      //     return acc;
+      //   }, {});
 
-        console.log(totalUfs);
-        self.dataNatural = totalUfs;
-        this.$emit("getDataMap", self.dataNatural);
-      });
+      //   console.log(totalUfs);
+      //   self.dataNatural = totalUfs;
+      //   this.$emit("getDataMap", self.dataNatural);
+      // });
     });
   }
 };

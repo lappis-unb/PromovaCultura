@@ -1,6 +1,6 @@
 import $ from "jquery";
 import cacheFetch from 'cache-fetch';
-import LoadingOverlay from "../../static/loader/loader.js";
+import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
 
 export const simpleFetch = async (endpoint) => {
   let query = "query {";
