@@ -133,6 +133,7 @@
     background-color: transparent;
     border: none;
     width: 239px !important;
+    height: 235px;
   }
   .card-body{
     padding-top: 0px;

@@ -2,7 +2,8 @@
   <div class="container">
     <div class="row">
       <div class="col-12" style="text-align:center; margin-bottom: 50px; color:#666;">
-        <h1>Captação de recurso por UF desde 1992</h1>
+        <h1 v-if="proponentMap">Captação de recurso por UF desde 1992</h1>
+        <h1 v-else>Mapa de Calor da Cultura</h1>
       </div>
     </div>
     <div class="row">
