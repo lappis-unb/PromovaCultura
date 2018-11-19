@@ -1,0 +1,71 @@
+<template>
+  <div>
+    <div class="d-none d-lg-block"> <!-- Shows in desktop Hides in mobile platform -->
+      <map-page
+        :proponentMap=true
+        :useMaxWithRanking=false
+        locationInfoShowOn="hover"
+      />
+    </div>
+    <div class="d-lg-none"> <!-- Shows in mobile Hides in desktop platform -->
+      <proponent-mobile-info
+        :data="data"
+      />
+    </div>
+  </div>
+
+</template>
+<script>
+import MapPage from "@/pages/MapPage";
+import ProponentMobileInfo from "@/components/Map/info/ProponentMobileInfo"
+import { batchFetch, simpleFetch } from "@/util/apiComunication.js";
+export default {
+  components: {
+    "map-page": MapPage,
+    "proponent-mobile-info": ProponentMobileInfo
+  },
+  mounted() {
+    this.fetchAllResources();
+    document.title = "Mapa de Captação - Proponente";
+  },
+  data() {
+    return {
+      data: {
+        proponents: {},
+        raisedAmount: {},
+        approvedAmount: {},
+        totals:{}
+      }
+    };
+  },
+  methods: {
+    async fetchAllResources() {
+      const proponents = await simpleFetch("proponentes_por_uf");
+      this.data.proponents = proponents.data.proponentes_por_uf;
+      var approvedAmounts = {}
+      var raisedAmounts = {}
+      for (var uf of Object.keys(proponents.data.proponentes_por_uf)) {
+        if (uf === "  ")
+          continue
+        var query = `projetos(UF:"${uf}") {
+                              valor_captado
+                              valor_aprovado
+                            }`;
+        const projects = await simpleFetch(query);
+        var valor_captado = projects.data.projetos.map(a => a.valor_captado);
+        var valor_aprovado = projects.data.projetos.map(a => a.valor_aprovado);
+
+        approvedAmounts[uf] = valor_aprovado.reduce((a, b) => a + b, 0)
+        raisedAmounts[uf] = valor_captado.reduce((a, b) => a + b, 0)
+      }
+      const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
+
+      this.data.approvedAmount = approvedAmounts
+      this.data.raisedAmount = raisedAmounts
+      this.data.totals["approvedAmount"] = sumValues(approvedAmounts)
+      this.data.totals["raisedAmount"] = sumValues(raisedAmounts)
+      this.data.totals["proponents"] = sumValues(proponents.data.proponentes_por_uf)
+    }
+  }
+};
+</script>
