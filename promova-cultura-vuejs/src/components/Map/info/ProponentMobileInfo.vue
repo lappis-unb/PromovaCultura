@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>Captação de recurso por UF desde 1992</h1>
-    <div class="sticky-top" style="background-color: #ddd">
+    <h1 class="proponent-title">Captação de recurso por UF desde 1992</h1>
+    <div class="sticky-top" style="background-color: white">
       <div class="row">
         <div class="offset-1 col-5 sticky">Estado</div>
         <div class="col-6 sticky">Captação</div>
@@ -36,10 +36,10 @@
       </div>
     </div>
 
-    <div class="sticky-bottom" style="background-color: #ddd">
-      <div class="row">
-        <div class="offset-1 col-5 sticky">Total</div>
-        <div class="col-6 sticky">{{totalRaisedAmount}}</div>
+    <div class="footer-fixed">
+      <div class="row sticky-total">
+        <div class="offset-1 col-5">Total</div>
+        <span class="col-6">R$ {{totalRaisedAmount}}</span>
       </div>
     </div>
     <!--</ul>-->
@@ -87,10 +87,12 @@
 <style scoped>
   H1 {
     text-align: center;
+
   }
 
   .sticky {
-    font-size: 24px;
+    font-size: 20px;
+    color: #808080;
   }
 
   .fa {
@@ -109,6 +111,10 @@
 
   .state, .amount {
     padding: 12px 8px;
+  }
+
+  .state {
+    font-weight: bold;
   }
 
   .amount {
@@ -149,5 +155,30 @@
 
   [data-toggle="collapse"].collapsed .fa:before {
     content: "\f054";
+  }
+
+  .proponent-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: bold;
+
+  }
+
+  .footer-fixed {
+    background-color: #ddd;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 10px;
+  }
+
+  .sticky-total {
+    color: #333;
+    font-size: 20px;
+  }
+
+  .sticky-total span {
+    font-weight: bold;
   }
 </style>
