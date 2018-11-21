@@ -13,6 +13,7 @@
         <div class="col-7 state" v-if="uf !== '  '">{{ufs[uf]}}</div>
         <div class="col-7 state" v-else>Sem Estado</div>
         <div class="col-3 amount">{{data.raisedAmount[uf]}}</div>
+        <div class="white-space-bar"></div>
         <div class="col-2 arrow">
           <span class="icon-filter">
             <i class="fa" aria-hidden="true"></i>
@@ -111,6 +112,7 @@
 
   .state, .amount {
     padding: 12px 8px;
+    background-color: #e6e6e6;
   }
 
   .state {
@@ -126,6 +128,7 @@
     background-color: #EF6B29;
     height: 100%;
     top: 0;
+    padding: 0 0 0 5px;
     right: 0;
     width: 50%;
     margin: auto;
@@ -155,6 +158,7 @@
 
   [data-toggle="collapse"].collapsed .fa:before {
     content: "\f054";
+    padding: 0;
   }
 
   .proponent-title {
@@ -165,12 +169,13 @@
   }
 
   .footer-fixed {
-    background-color: #ddd;
+    background-color: #ccc;
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
     padding-bottom: 10px;
+    z-index: 2;
   }
 
   .sticky-total {
@@ -180,5 +185,11 @@
 
   .sticky-total span {
     font-weight: bold;
+  }
+
+  .white-space-bar {
+    width: 5px;
+    background-color: white;
+    z-index: 1;
   }
 </style>
