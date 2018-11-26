@@ -47,7 +47,7 @@ export default {
       return [
         {
           title: "PROPONENTES",
-          image: "@/../static/svg-icons/Proponentes_ICONE.svg",
+          image: "@/../src/static/svg-icons/Proponentes_ICONE.svg",
           people: this.people.proponentes,
           css: "prop-bar",
           font_color: "proponent",
@@ -60,7 +60,7 @@ export default {
         },
         {
           title: "INCENTIVADORES",
-          image: "@/../static/svg-icons/Investidores_ICONE.svg",
+          image: "@/../src/static/svg-icons/Investidores_ICONE.svg",
           people: this.people.incentivadores,
           css: "inv-bar",
           font_color: "investor",

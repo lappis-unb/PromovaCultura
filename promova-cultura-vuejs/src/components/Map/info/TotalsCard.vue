@@ -3,17 +3,17 @@
     <div class="card">
       <div class="card-body">
         <div class="card-number">
-          <img src="../../../../static/svg-icons/proponente_verde.svg"
+          <img src="../../../static/svg-icons/proponente_verde.svg"
                class="card-icon"></img>
           - Quantidade de Proponentes
         </div>
         <div class="card-number">
-          <img src="../../../../static/svg-icons/check_verde.svg"
+          <img src="../../../static/svg-icons/check_verde.svg"
                class="card-icon"></img>
           - Valor Aprovado
         </div>
         <div class="card-number">
-          <img src="../../../../static/svg-icons/cifrao_verde.svg"
+          <img src="../../../static/svg-icons/cifrao_verde.svg"
                class="card-icon"></img>
           - Valor Captado
         </div>

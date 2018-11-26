@@ -26,8 +26,8 @@
 
 <script>
 import BrazilMap from "@/components/Map/MapComponent";
-import "@/../static/jsmaps/brazil_region.js";
-import "@/../static/jsmaps/brazil.js";
+import "@/../src/static/jsmaps/brazil_region.js";
+import "@/../src/static/jsmaps/brazil.js";
 
 export default {
   props: {
