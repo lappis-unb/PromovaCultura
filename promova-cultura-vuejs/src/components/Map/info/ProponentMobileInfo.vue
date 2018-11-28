@@ -1,38 +1,42 @@
 <template>
-  <div>
+  <div id="teste-prop">
     <h1 class="proponent-title">Captação de recurso por UF desde 1992</h1>
-    <div class="sticky-top" style="background-color: white">
-      <div class="row">
-        <div class="offset-1 col-5 sticky">Estado</div>
-        <div class="col-6 sticky">Captação</div>
-      </div>
-    </div>
 
-    <div v-for="(uf, index) in Object.keys(this.data.proponents)">
-      <div class="row collapsibleState collapsed" data-toggle="collapse" :data-target="'#collapseStateContent' + index">
-        <div class="col-7 state" v-if="uf !== '  '">{{ufs[uf]}}</div>
-        <div class="col-7 state" v-else>Sem Estado</div>
-        <div class="col-3 amount">{{data.raisedAmount[uf]}}</div>
-        <div class="white-space-bar"></div>
-        <div class="col-2 arrow">
-          <span class="icon-filter">
-            <i class="fa" aria-hidden="true"></i>
-          </span>
+    <div id="main-content">
+      <div id="loading-placeholder">
+      </div>
+      <div class="sticky-top" style="background-color: white">
+        <div class="row">
+          <div class="offset-1 col-5 sticky">Estado</div>
+          <div class="col-6 sticky">Captação</div>
         </div>
       </div>
+      <div v-for="(uf, index) in Object.keys(this.data.proponents)">
+        <div class="row collapsibleState collapsed uf-item" data-toggle="collapse" :data-target="'#collapseStateContent' + index">
+          <div class="col-7 state" v-if="uf !== '  '">{{ufs[uf]}}</div>
+          <div class="col-7 state" v-else>Sem Estado</div>
+          <div class="col-3 amount">{{data.raisedAmount[uf]}}</div>
+          <div class="white-space-bar"></div>
+          <div class="col-2 arrow">
+            <span class="icon-filter">
+              <i class="fa" aria-hidden="true"></i>
+            </span>
+          </div>
+        </div>
 
-      <div :id="'collapseStateContent' + index" class="collapsibleStateContent collapse">
-        <div class="row">
-          <div class="col-6">Proponentes</div>
-          <div class="col-6">{{data.proponents[uf]}}</div>
-        </div>
-        <div class="row">
-          <div class="col-6">Valor aprovado</div>
-          <div class="col-6">{{data.approvedAmount[uf]}}</div>
-        </div>
-        <div class="row">
-          <div class="col-6">Valor captado</div>
-          <div class="col-6">{{data.raisedAmount[uf]}}</div>
+        <div :id="'collapseStateContent' + index" class="collapsibleStateContent collapse">
+          <div class="row">
+            <div class="col-6">Proponentes</div>
+            <div class="col-6">{{data.proponents[uf]}}</div>
+          </div>
+          <div class="row">
+            <div class="col-6">Valor aprovado</div>
+            <div class="col-6">{{data.approvedAmount[uf]}}</div>
+          </div>
+          <div class="row">
+            <div class="col-6">Valor captado</div>
+            <div class="col-6">{{data.raisedAmount[uf]}}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -48,8 +52,9 @@
 </template>
 
 <script>
-
   import uf from "@/util/ufs.js";
+  import $ from "jquery";
+  import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
 
   export default {
     props: {
@@ -62,6 +67,15 @@
         },
         deep: true
       },
+    },
+    mounted() {
+      $("#loading-placeholder").LoadingOverlay("show", {
+        background: "rgba(255, 255, 255, 1)",
+        image: "",
+        fontawesome: "fa fa-circle-notch fa-spin",
+        fontawesomeColor: "#565656",
+        imageClass: "loading-animation"
+      });
     },
     data() {
       return {
@@ -80,6 +94,9 @@
         this.totalRaisedAmount = (this.data.totals["raisedAmount"]).toLocaleString('pt-BR', {
           minimumFractionDigits: 2
         })
+        $("#loading-placeholder").LoadingOverlay("hide");
+        $(".uf-item").toggleClass("visible");
+        $(".sticky-top").toggleClass("visible");
       }
     },
   }
@@ -89,6 +106,27 @@
   H1 {
     text-align: center;
 
+  }
+
+  #main-content {
+    position: relative;
+    width: 100%;
+  }
+
+  #loading-placeholder {
+    width: 100%;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    height: 200px;
+  }
+
+  .sticky-top, .uf-item {
+    visibility: hidden;
+  }
+
+  .visible {
+    visibility: visible;
   }
 
   .sticky {
