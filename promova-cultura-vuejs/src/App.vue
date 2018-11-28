@@ -12,6 +12,9 @@
 <script>
 import NavbarMenu from "@/components/NavbarMenu";
 import "bootstrap"
+import 'whatwg-fetch'
+import 'promise-polyfill/src/polyfill';
+
 
 import "./static/jsmaps/jsmaps.js";
 import "./static/jsmaps/jsmaps-panzoom.js";
