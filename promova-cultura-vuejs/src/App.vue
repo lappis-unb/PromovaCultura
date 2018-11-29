@@ -11,6 +11,7 @@
 
 <script>
 import NavbarMenu from "@/components/NavbarMenu";
+import "@babel/polyfill"
 import "bootstrap"
 import 'whatwg-fetch'
 import 'promise-polyfill/src/polyfill';
