@@ -24,14 +24,14 @@
               v-if="displayBorder"
             >
                 <div :class="propIncCssClass" v-if="displayProponents">
-                    <img src="@/../src/static/svg-icons/Proponentes_ICONE.svg" class="icon-popup"/>
+                    <img src="@/../static/svg-icons/Proponentes_ICONE.svg" class="icon-popup"/>
                     <p>
                       <span>{{totalProponents}}</span> proponentes
                     </p>
                 </div>
 
                 <div :class="propIncCssClass" v-if="displayIncentivators">
-                    <img src="@/../src/static/svg-icons/Investidores_ICONE.svg" class="icon-popup"/>
+                    <img src="@/../static/svg-icons/Investidores_ICONE.svg" class="icon-popup"/>
                     <p>
                       <span>{{totalIncentivators}}</span> incentivadores
                     </p>

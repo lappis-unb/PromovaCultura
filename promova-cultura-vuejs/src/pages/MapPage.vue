@@ -241,18 +241,18 @@ export default {
     },
     generateLegends() {
       let imagesListP = [
-        "@/../src/static/svg-icons/proponente_LVL_1.svg",
-        "@/../src/static/svg-icons/proponente_LVL_2.svg",
-        "@/../src/static/svg-icons/proponente_LVL_3.svg",
-        "@/../src/static/svg-icons/proponente_LVL_4.svg",
-        "@/../src/static/svg-icons/proponente_LVL_5.svg"
+        "@/../static/svg-icons/proponente_LVL_1.svg",
+        "@/../static/svg-icons/proponente_LVL_2.svg",
+        "@/../static/svg-icons/proponente_LVL_3.svg",
+        "@/../static/svg-icons/proponente_LVL_4.svg",
+        "@/../static/svg-icons/proponente_LVL_5.svg"
       ];
       let imagesListI = [
-        "@/../src/static/svg-icons/Investidores_LVL_1.svg",
-        "@/../src/static/svg-icons/Investidores_LVL_2.svg",
-        "@/../src/static/svg-icons/Investidores_LVL_3.svg",
-        "@/../src/static/svg-icons/Investidores_LVL_4.svg",
-        "@/../src/static/svg-icons/Investidores_LVL_5.svg"
+        "@/../static/svg-icons/Investidores_LVL_1.svg",
+        "@/../static/svg-icons/Investidores_LVL_2.svg",
+        "@/../static/svg-icons/Investidores_LVL_3.svg",
+        "@/../static/svg-icons/Investidores_LVL_4.svg",
+        "@/../static/svg-icons/Investidores_LVL_5.svg"
       ];
       this.legends.proponentes = this.getMapLegend(
         this.maxValues.proponentes,
