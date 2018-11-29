@@ -106,7 +106,7 @@ export default {
 };
 
 var listOfUfs = [];
-// $.get("https://salic.dev.lappis.rocks/v1/projetos/?limit=100", function(data) {
+// $.get("http://sali.dev.lappis.rocks/v1/projetos/?limit=100", function(data) {
 //   var ufs = [];
 //   var projetos = data._embedded.projetos;
 //   for (var i = 0; i < projetos.length; i++) {

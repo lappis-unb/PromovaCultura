@@ -104,7 +104,7 @@ export default {
         `;
 
       var self = this;
-      // $.post("https://salic.dev.lappis.rocks/graphql", {
+      // $.post("http://sali.dev.lappis.rocks/graphql", {
       //   query: query
       // }).then(response => {
       //   let data = undefined;
