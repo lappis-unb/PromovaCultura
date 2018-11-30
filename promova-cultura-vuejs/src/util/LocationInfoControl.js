@@ -1,5 +1,5 @@
 import $ from "jquery";
-// import "proxy-polyfill"
+import "../static/proxy.min.js"
 
 
 let __locationInfo = undefined;
