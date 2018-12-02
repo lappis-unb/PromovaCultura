@@ -241,7 +241,8 @@
   }
 
   .csv-button {
-    margin: 20px 25% 0 25%;
+    margin-top: 20px;
+    margin-left: 30.64%;
   }
 
   .card {

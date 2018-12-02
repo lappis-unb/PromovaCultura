@@ -93,6 +93,15 @@
     display: block;
     justify-content: center;
   }
+
+  .align-card #myTabContent {
+    margin: auto;
+    width: 85%;
+  }
+
+  .align-card .nav-item {
+    margin-left: 7.5%;
+  }
   .total-label{
     text-align: center;
     margin: 0;
@@ -182,8 +191,8 @@
   }
 
   .card {
-    width: 250px;
-    height: 235px;
+    width: 85%;
+    height: 225px;
     margin: 20px auto 0 auto;
   }
 
