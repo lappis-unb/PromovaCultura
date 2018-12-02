@@ -53,6 +53,8 @@ export const batchFetch = async (segment = "") => {
 
   try {
     var response = await fetchData(types, segment);
+    $("#brazil-map").LoadingOverlay("hide")
+
   } catch (err) {
     $("#brazil-map").LoadingOverlay("hide")
 
