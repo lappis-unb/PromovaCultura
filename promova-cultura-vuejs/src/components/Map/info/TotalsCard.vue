@@ -50,6 +50,8 @@
 
 <script>
   import Legend from "@/components/Map/legends/Legend";
+  import $ from "jquery";
+  import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
 
   export default {
     components: {
@@ -76,13 +78,30 @@
         totalRaisedAmount: 0,
       }
     },
+    mounted() {
+      $("#myTabContent").LoadingOverlay("show", {
+          background: "rgba(255, 255, 255, 1)",
+          image: "",
+          fontawesome: "fa fa-circle-notch fa-spin",
+          fontawesomeColor: "#565656"
+      });
+
+      $(".card-body").LoadingOverlay("show", {
+          background: "rgba(255, 255, 255, 1)",
+          image: "",
+          fontawesome: "fa fa-circle-notch fa-spin",
+          fontawesomeColor: "#565656"
+      });
+    },
     methods:{
       updateTotals(){
         this.totalProponents = this.data.totals["proponents"]
         this.totalapprovedAmount = (this.data.totals["approvedAmount"]).toLocaleString('pt-BR', {
-      minimumFractionDigits: 2})
+          minimumFractionDigits: 2})
         this.totalRaisedAmount = (this.data.totals["raisedAmount"]).toLocaleString('pt-BR', {
-      minimumFractionDigits: 2})
+          minimumFractionDigits: 2})
+        $("#myTabContent").LoadingOverlay("hide")
+        $(".card-body").LoadingOverlay("hide")
       }
     },
   }
