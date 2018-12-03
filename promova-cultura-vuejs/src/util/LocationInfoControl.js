@@ -1,4 +1,5 @@
 import $ from "jquery";
+import "../static/proxy.min.js"
 
 
 let __locationInfo = undefined;

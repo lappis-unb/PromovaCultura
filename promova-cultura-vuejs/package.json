@@ -14,6 +14,8 @@
     "pushgh": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "bootstrap": "^4.1.3",
     "cache-fetch": "^1.1.0",
     "echarts": "^4.2.0-rc.2",
     "gasparesganga-jquery-loading-overlay": "^2.1.6",
@@ -21,18 +23,14 @@
     "popper.js": "^1.14.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
-    "vue-slider-component": "^2.7.4"
+    "vue-slider-component": "^2.7.4",
+    "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
     "autoprefixer": "^7.1.2",
-    "babel-core": "^6.22.1",
-    "babel-helper-vue-jsx-merge-props": "^2.0.3",
-    "babel-loader": "^7.1.1",
-    "babel-plugin-syntax-jsx": "^6.18.0",
-    "babel-plugin-transform-runtime": "^6.22.0",
-    "babel-plugin-transform-vue-jsx": "^3.5.0",
-    "babel-preset-env": "^1.3.2",
-    "babel-preset-stage-2": "^6.22.0",
+    "babel-loader": "^8.0.0-beta.0",
     "chalk": "^2.0.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
