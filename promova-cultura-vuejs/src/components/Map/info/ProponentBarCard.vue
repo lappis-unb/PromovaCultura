@@ -1,8 +1,8 @@
 <template>
   <div id='location-modal' class="LocationInfo" :data-showon="showOn">
     <div class="card">
-      <div class="UFname">
-        {{current}}
+      <div class="card-header">
+        <p>{{current}}</p>
       </div>
       <div class="card-body">
         <p class="card-topic">Proponentes</p>
@@ -87,7 +87,6 @@
 
     mounted() {
       EventBus.$on('mapOnMouseOver', (data) => {
-        // console.log( JSON.stringify(data, null, 4) );
         if (data != null) {
           this.prevData = data;
         }
@@ -119,38 +118,41 @@
 
 <style scoped>
 
-  .UFname {
+  .card-header {
     text-align: center;
     font-size: 20px;
     font-weight: bold;
-    color: #2c380e;
     padding-top: 5px;
+    background-color: #8db824;
+    height: 35px;
+  }
+
+  .card-header p {
+    color: #31450b;
   }
 
   .card {
-    background-image: url("../../../../static/proponentMap/baloon_card.svg");
-    background-repeat: no-repeat;
-    background-color: transparent;
-    border: none;
-    width: 239px !important;
-    height: 235px;
+    width: 225px !important;
+    height: 220px;
+    text-align: center;
   }
   .card-body{
-    padding-top: 0px;
+    padding-top: 10px;
   }
   .card-topic {
-    color: #4f6615;
-    margin: 8px 0 0 0;
+    color: #66861a;
     font-weight: 500;
+    margin: 0;
   }
 
   .card-number {
+    margin: 0 0 6px 0;
     font-size: 16px;
     color: #4d4d4d;
   }
 
   .card-number span{
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     color: #333;
   }
