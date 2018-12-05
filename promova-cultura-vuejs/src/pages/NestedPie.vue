@@ -160,7 +160,7 @@ export default {
       if (this.segment_request != null) {
         this.segment_request.abort();
       }
-      this.segment_request = $.get(`http://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function(segments_in_a_year) {
+      this.segment_request = $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function(segments_in_a_year) {
         $("#chart").LoadingOverlay("show", {
           background: "rgba(255, 255, 255, 0.8)",
           image: "",
@@ -185,7 +185,7 @@ export default {
           this.area_request.abort();
         }
 
-        this.area_request = $.get(`http://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_area(ano_projeto%3A%20"${String(actualYear).slice(2, 4)}")%0A%7D&`, function(areas_in_a_year) {
+        this.area_request = $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_area(ano_projeto%3A%20"${String(actualYear).slice(2, 4)}")%0A%7D&`, function(areas_in_a_year) {
           $.each(areas_in_a_year.data.total_por_area, function(area, value) {
             $.each(option.series[0]["data"], function(k, v) {
               v["value"] = areas_in_a_year.data.total_por_area[v["name"]];
@@ -391,7 +391,7 @@ export default {
 
     // Initial data
 
-    var x = $.get("http://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20areas%0A%7D&", function(segments) {
+    var x = $.get("https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20areas%0A%7D&", function(segments) {
 
       $.each(segments.data.areas, function(area, value) {
         let count = 0;
@@ -427,7 +427,7 @@ export default {
     })
 
     x.done(function() {
-      $.get(`http://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function(segments_in_a_year) {
+      $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function(segments_in_a_year) {
         let segments = segments_in_a_year.data.total_por_segmento;
         $.each(areas[actual_area], function(index, body) {
           if (segments[body["name"]] != undefined) {
@@ -435,7 +435,7 @@ export default {
           }
         });
       }).then(function() {
-        $.get(`http://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_area(ano_projeto%3A%20"${String(actualYear).slice(2, 4)}")%0A%7D&`, function(areas) {
+        $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_area(ano_projeto%3A%20"${String(actualYear).slice(2, 4)}")%0A%7D&`, function(areas) {
           $.each(areas.data.total_por_area, function(area, value) {
             $.each(option.series[0]["data"], function(k, v) {
               v["value"] = areas.data.total_por_area[v["name"]];
@@ -510,7 +510,7 @@ export default {
     }
 
     function update_data() {
-      $.get(`http://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function(segments_in_a_year) {
+      $.get(`https://salicapi.lappis.rocks/graphiql?query=query%20%7B%0A%20%20total_por_segmento(ano_projeto%3A%20%22${String(actualYear).slice(2, 4)}%22)%0A%7D&`, function(segments_in_a_year) {
         let segments = segments_in_a_year.data.total_por_segmento;
 
         $.each(areas[actual_area], function(index, body) {
