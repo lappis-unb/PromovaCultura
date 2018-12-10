@@ -7,11 +7,9 @@ export const simpleFetch = async (endpoint) => {
   query += endpoint
   query += "}";
   const queryAsUrl = encodeURI(query);
-  
+
   const promise = await cacheFetch(`https://salicapi.lappis.rocks/graphql?query=${queryAsUrl}`);
-  
-  $("#brazil-map").LoadingOverlay("hide");
-  
+
   return promise.json()
 };
 

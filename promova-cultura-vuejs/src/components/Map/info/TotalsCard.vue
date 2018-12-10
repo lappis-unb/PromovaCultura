@@ -17,7 +17,20 @@
               <div class="legend-color" :style="'background:'+ data.color"
                    v-else></div>
               <span v-if="data.min==data.max">{{data.max}}</span>
-              <span v-else>{{data.min}} até {{data.max}}</span>
+              <span class="spacebar" v-if="(data.min < 1000000000 && data.min > 1000000)">
+                R$ {{parseFloat((data.min/1000000)).toFixed(1)}} mi até
+              </span>
+              <span class="spacebar" v-else-if="(data.min >= 1000000000)">
+                R$ {{parseFloat((data.min/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi até
+              </span>
+              <span v-else class="spacebar">R$ {{data.min.toLocaleString("pt-BR")}} até </span>
+              <span v-if="(data.max < 1000000000 && data.max > 1000000)">
+                 {{parseFloat((data.max/1000000).toFixed(1)).toLocaleString('pt-BR')}} mi
+              </span>
+              <span v-else-if="(data.max >= 1000000000)">
+                 {{parseFloat((data.max/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi
+              </span>
+              <span v-else>{{data.max.toLocaleString("pt-BR")}}</span>
             </li>
           </ul>
         </div>
@@ -35,11 +48,11 @@
                 </div>
                 <div class="bottom-line">
                   <p class="total-label">Valor Aprovado</p>
-                  <p class="total-value">R$ {{totalapprovedAmount}}</p>
+                  <p class="total-value">{{totalapprovedAmount}}</p>
                 </div>
                 <div>
                   <p class="total-label">Valor Captado</p>
-                  <p class="total-value">R$ {{totalRaisedAmount}}</p>
+                  <p class="total-value">{{totalRaisedAmount}}</p>
                 </div>
             </div>
           </div>
@@ -75,31 +88,33 @@
       return {
         totalProponents: 0,
         totalapprovedAmount: 0,
-        totalRaisedAmount: 0,
+        totalRaisedAmount: 0
       }
     },
     mounted() {
-      $("#myTabContent").LoadingOverlay("show", {
-          background: "rgba(255, 255, 255, 1)",
-          image: "",
-          fontawesome: "fa fa-circle-notch fa-spin",
-          fontawesomeColor: "#565656"
-      });
-
-      $(".card-body").LoadingOverlay("show", {
-          background: "rgba(255, 255, 255, 1)",
-          image: "",
-          fontawesome: "fa fa-circle-notch fa-spin",
-          fontawesomeColor: "#565656"
-      });
+      // $("#myTabContent").LoadingOverlay("show", {
+      //     background: "rgba(255, 255, 255, 1)",
+      //     image: "",
+      //     fontawesome: "fa fa-circle-notch fa-spin",
+      //     fontawesomeColor: "#565656"
+      // });
+      //
+      // $(".card-body").LoadingOverlay("show", {
+      //     background: "rgba(255, 255, 255, 1)",
+      //     image: "",
+      //     fontawesome: "fa fa-circle-notch fa-spin",
+      //     fontawesomeColor: "#565656"
+      // });
     },
     methods:{
       updateTotals(){
         this.totalProponents = this.data.totals["proponents"]
-        this.totalapprovedAmount = (this.data.totals["approvedAmount"]).toLocaleString('pt-BR', {
-          minimumFractionDigits: 2})
+        this.totalapprovedAmount = this.data.totals["approvedAmount"].toLocaleString('pt-BR', {
+          minimumFractionDigits: 2, style:"currency", currency: "BRL", currencyDisplay: "symbol"})
+
         this.totalRaisedAmount = (this.data.totals["raisedAmount"]).toLocaleString('pt-BR', {
-          minimumFractionDigits: 2})
+          minimumFractionDigits: 2, style:"currency", currency: "BRL", currencyDisplay: "symbol"})
+
         $("#myTabContent").LoadingOverlay("hide")
         $(".card-body").LoadingOverlay("hide")
       }
@@ -222,5 +237,9 @@
   .bottom-line {
     border-bottom: 1px solid #ddd;
     margin-bottom: 10px;
+  }
+
+  .spacebar {
+    margin-right: 4px;
   }
 </style>

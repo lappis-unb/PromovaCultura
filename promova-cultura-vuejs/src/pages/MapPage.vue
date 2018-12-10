@@ -154,13 +154,13 @@ export default {
       this.data.csv = values
     },
     async fetchAllResources() {
+      $("#brazil-map").LoadingOverlay("show", {
+        background: "rgba(255, 255, 255, 1)",
+        image: "",
+        fontawesome: "fa fa-circle-notch fa-spin",
+        fontawesomeColor: "#565656"
+      });
       if (this.proponentMap) {
-        $("#brazil-map").LoadingOverlay("show", {
-            background: "rgba(255, 255, 255, 1)",
-            image: "",
-            fontawesome: "fa fa-circle-notch fa-spin",
-            fontawesomeColor: "#565656"
-        });
 
         const proponents = await simpleFetch("proponentes_por_uf");
         this.tmp.proponentesUF = proponents.data.proponentes_por_uf;
