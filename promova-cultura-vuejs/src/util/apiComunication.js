@@ -4,8 +4,6 @@ import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
 
 
 export const fetchFlask = async (endpoint) => {
-
-  console.log(`http://127.0.0.1:5000/${endpoint}`)
   const promise = await cacheFetch(`http://127.0.0.1:5000/${endpoint}`);
   return promise.json()
 }

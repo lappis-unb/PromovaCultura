@@ -24,6 +24,7 @@
 import { batchFetch, simpleFetch, fetchFlask } from "@/util/apiComunication.js";
 import Mapd2m1 from "@/components/Map/layouts/map-d2-m1";
 import $ from "jquery";
+import "lodash"
 
 export default {
   name: "ControlFilterBrazilMap",
@@ -155,35 +156,26 @@ export default {
     },
     async fetchAllResources() {
       if (this.proponentMap) {
-        const proponent_count = await fetchFlask("proponent_count");
-        // const proponents = await simpleFetch("proponentes_por_uf");
-        this.tmp.proponentesUF = proponent_count
-        // var approvedAmounts = {}
-        // var raisedAmounts = {}
-        // for (var uf of Object.keys(proponents.data.proponentes_por_uf)){
-        //   if(uf === "  ")
-        //   continue
-        //   var query = `projetos(UF:"${uf}") {
-        //                       valor_captado
-        //                       valor_aprovado
-        //                     }`;
-        // const projects = await simpleFetch(query);
-        // var valor_captado = projects.data.projetos.map(a => a.valor_captado);
-        // var valor_aprovado = projects.data.projetos.map(a => a.valor_aprovado);
-        //
-        // approvedAmounts[uf] = valor_aprovado.reduce((a, b) => a + b, 0)
-        // raisedAmounts[uf] = valor_captado.reduce((a, b) => a + b, 0)
-        // }
-        // const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
-        //
-        const approved_amount_flask = await fetchFlask("approved_amount");
-        const raised_amount_flask = await fetchFlask("raised_amount");
-        this.data.approvedAmount = approved_amount_flask
-        this.tmp.projectsUF = raised_amount_flask
-        this.data.raisedAmount = raised_amount_flask
-        this.data.totals["approvedAmount"] = sumValues(approved_amount_flask)
-        this.data.totals["raisedAmount"] = sumValues(raised_amount_flask)
-        this.data.totals["proponents"] = sumValues(proponent_count)
+        const raisedAmount = await fetchFlask("raised_amount");
+        const all_data = await fetchFlask("proponent_complete");
+
+        var proponentCount = {}
+        var approvedAmount = {}
+
+        for (var uf of Object.keys(all_data)) {
+        proponentCount[uf] = all_data[uf]["Proponentes"];
+        approvedAmount[uf] = all_data[uf]["Aprovado"]
+        }
+        this.tmp.proponentesUF = proponentCount
+
+        const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
+
+        this.data.approvedAmount = approvedAmount
+        this.data.raisedAmount = raisedAmount
+        this.tmp.projectsUF = raisedAmount
+        this.data.totals["approvedAmount"] = sumValues(approvedAmount)
+        this.data.totals["raisedAmount"] = sumValues(raisedAmount)
+        this.data.totals["proponents"] = sumValues(proponentCount)
 
         this.generateCSV()
 
