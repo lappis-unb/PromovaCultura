@@ -181,7 +181,11 @@
   }
 
   .nav-item {
-    border: 1px #ccc solid
+    border: 1px;
+    border-bottom: 0;
+    background-color: white;
+    border-color: #ddd;
+    border-style: solid;
   }
 
   img.legend-color {
