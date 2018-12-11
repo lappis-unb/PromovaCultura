@@ -2,6 +2,13 @@ import $ from "jquery";
 import cacheFetch from 'cache-fetch';
 import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
 
+
+
+export const fetchFlask = async (endpoint) => {
+  const promise = await cacheFetch(`https://apipromova.lappis.rocks/${endpoint}`);
+  return promise.json()
+}
+
 export const simpleFetch = async (endpoint) => {
   let query = "query {";
   query += endpoint

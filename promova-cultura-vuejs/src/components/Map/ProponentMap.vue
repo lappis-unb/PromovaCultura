@@ -19,6 +19,7 @@
 import MapPage from "@/pages/MapPage";
 import ProponentMobileInfo from "@/components/Map/info/ProponentMobileInfo"
 import { batchFetch, simpleFetch } from "@/util/apiComunication.js";
+import {fetchFlask} from "../../util/apiComunication";
 export default {
   components: {
     "map-page": MapPage,
@@ -40,33 +41,18 @@ export default {
   },
   methods: {
     async fetchAllResources() {
-      const proponents = await simpleFetch("proponentes_por_uf");
-      this.data.proponents = proponents.data.proponentes_por_uf;
-      var approvedAmounts = {}
-      var raisedAmounts = {}
-      for (var uf of Object.keys(proponents.data.proponentes_por_uf)) {
-        if (uf === "  ")
-          continue
-        var query = `projetos(UF:"${uf}") {
-                              valor_captado
-                              valor_aprovado
-                            }`;
-        const projects = await simpleFetch(query);
-        var valor_captado = projects.data.projetos.map(a => a.valor_captado);
-        var valor_aprovado = projects.data.projetos.map(a => a.valor_aprovado);
+      const proponents = await fetchFlask("proponent_count");
+      this.data.proponents = proponents;
+      var approvedAmounts = await fetchFlask("approved_amount")
+      var raisedAmounts = await fetchFlask("raised_amount")
 
-        approvedAmounts[uf] = valor_aprovado.reduce((a, b) => a + b, 0)
-        raisedAmounts[uf] = valor_captado.reduce((a, b) => a + b, 0)
-      }
       const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
-      approvedAmounts["  "] = 10
-      raisedAmounts["  "] = 10
 
       this.data.approvedAmount = approvedAmounts
       this.data.raisedAmount = raisedAmounts
       this.data.totals["approvedAmount"] = sumValues(approvedAmounts)
       this.data.totals["raisedAmount"] = sumValues(raisedAmounts)
-      this.data.totals["proponents"] = sumValues(proponents.data.proponentes_por_uf)
+      this.data.totals["proponents"] = sumValues(proponents)
     }
   }
 };

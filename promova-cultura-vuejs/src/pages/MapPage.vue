@@ -25,6 +25,7 @@ import { batchFetch, simpleFetch } from "@/util/apiComunication.js";
 import Mapd2m1 from "@/components/Map/layouts/map-d2-m1";
 import $ from "jquery";
 import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
+import {fetchFlask} from "../util/apiComunication";
 
 export default {
   name: "ControlFilterBrazilMap",
@@ -145,7 +146,7 @@ export default {
       for (const [key, value] of Object.entries(this.data.approvedAmount)) {
         values.push({
           "UF": key,
-          "QuantidadeDeProponentes": this.data.projects[key],
+          "QuantidadeDeProponentes": this.tmp.proponentesUF[key],
           "ValorAprovado": value,
           "ValorCaptado": this.data.raisedAmount[key]
         });
@@ -162,24 +163,12 @@ export default {
       });
       if (this.proponentMap) {
 
-        const proponents = await simpleFetch("proponentes_por_uf");
-        this.tmp.proponentesUF = proponents.data.proponentes_por_uf;
-        var approvedAmounts = {}
-        var raisedAmounts = {}
-        for (var uf of Object.keys(proponents.data.proponentes_por_uf)){
-          if(uf === "  ")
-          continue
-          var query = `projetos(UF:"${uf}") {
-                              valor_captado
-                              valor_aprovado
-                            }`;
-        const projects = await simpleFetch(query);
-        var valor_captado = projects.data.projetos.map(a => a.valor_captado);
-        var valor_aprovado = projects.data.projetos.map(a => a.valor_aprovado);
+        // const proponents = await simpleFetch("proponentes_por_uf");
+        const proponents = await fetchFlask("proponent_count")
+        this.tmp.proponentesUF = proponents;
+        var approvedAmounts = await fetchFlask("approved_amount")
+        var raisedAmounts = await fetchFlask("raised_amount")
 
-        approvedAmounts[uf] = valor_aprovado.reduce((a, b) => a + b, 0)
-        raisedAmounts[uf] = valor_captado.reduce((a, b) => a + b, 0)
-        }
         const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
 
 
@@ -188,7 +177,7 @@ export default {
         this.data.raisedAmount = raisedAmounts
         this.data.totals["approvedAmount"] = sumValues(approvedAmounts)
         this.data.totals["raisedAmount"] = sumValues(raisedAmounts)
-        this.data.totals["proponents"] = sumValues(proponents.data.proponentes_por_uf)
+        this.data.totals["proponents"] = sumValues(proponents)
 
         this.generateCSV()
 

@@ -123,12 +123,12 @@
     font-size: 20px;
     font-weight: bold;
     padding-top: 5px;
-    background-color: #8db824;
+    background-color: #3aa53a;
     height: 35px;
   }
 
   .card-header p {
-    color: #31450b;
+    color: #1A3D1A;
   }
 
   .card {
@@ -140,7 +140,7 @@
     padding-top: 10px;
   }
   .card-topic {
-    color: #66861a;
+    color: #3aa53a;
     font-weight: 500;
     margin: 0;
   }
