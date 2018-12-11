@@ -159,7 +159,7 @@
     position: relative;
     border-radius: 8px;
     margin: 8px;
-    border-left: solid 8px #EF6B29;
+    border-left: solid 8px #3aa53a;
   }
 
   .state, .amount {
@@ -177,7 +177,7 @@
 
   .arrow {
     position: absolute;
-    background-color: #EF6B29;
+    background-color: #3aa53a;
     height: 100%;
     top: 0;
     padding: 0 0 0 5px;
