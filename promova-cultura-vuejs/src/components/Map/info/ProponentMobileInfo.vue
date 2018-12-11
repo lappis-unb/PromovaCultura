@@ -13,9 +13,17 @@
       </div>
       <div v-for="(uf, index) in Object.keys(this.data.proponents)">
         <div class="row collapsibleState collapsed uf-item" data-toggle="collapse" :data-target="'#collapseStateContent' + index">
-          <div class="col-7 state" v-if="uf !== '  '">{{ufs[uf]}}</div>
-          <div class="col-7 state" v-else>Sem Estado</div>
-          <div class="col-3 amount">{{data.raisedAmount[uf]}}</div>
+          <div class="col-6 state" v-if="uf !== '  '">{{ufs[uf]}}</div>
+          <div class="col-6 state" v-else>Sem Estado</div>
+          <div class="col-4 amount">
+            <span v-if="data.raisedAmount[uf] < 1000000000 && data.raisedAmount[uf] >= 1000000">
+              R$ {{parseFloat((data.raisedAmount[uf]/1000000)).toFixed(1)}} mi
+            </span>
+            <span v-else-if="(data.raisedAmount[uf] >= 1000000000)">
+              R$ {{parseFloat((data.raisedAmount[uf]/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi
+            </span>
+            <span v-else>R$ {{parseFloat(data.raisedAmount[uf]).toLocaleString("pt-BR")}}</span>
+          </div>
           <div class="white-space-bar"></div>
           <div class="col-2 arrow">
             <span class="icon-filter">
@@ -82,7 +90,7 @@
         ufs: uf,
         totalProponents: 0,
         totalapprovedAmount: 0,
-        totalRaisedAmount: 0,
+        totalRaisedAmount: 0
       }
     },
     methods: {

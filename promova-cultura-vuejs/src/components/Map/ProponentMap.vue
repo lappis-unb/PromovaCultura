@@ -59,6 +59,8 @@ export default {
         raisedAmounts[uf] = valor_captado.reduce((a, b) => a + b, 0)
       }
       const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
+      approvedAmounts["  "] = 10
+      raisedAmounts["  "] = 10
 
       this.data.approvedAmount = approvedAmounts
       this.data.raisedAmount = raisedAmounts

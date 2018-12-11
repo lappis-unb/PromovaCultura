@@ -17,14 +17,14 @@
               <div class="legend-color" :style="'background:'+ data.color"
                    v-else></div>
               <span v-if="data.min==data.max">{{data.max}}</span>
-              <span class="spacebar" v-if="(data.min < 1000000000 && data.min > 1000000)">
+              <span class="spacebar" v-if="(data.min < 1000000000 && data.min >= 1000000)">
                 R$ {{parseFloat((data.min/1000000)).toFixed(1)}} mi até
               </span>
               <span class="spacebar" v-else-if="(data.min >= 1000000000)">
                 R$ {{parseFloat((data.min/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi até
               </span>
               <span v-else class="spacebar">R$ {{data.min.toLocaleString("pt-BR")}} até </span>
-              <span v-if="(data.max < 1000000000 && data.max > 1000000)">
+              <span v-if="(data.max < 1000000000 && data.max >= 1000000)">
                  {{parseFloat((data.max/1000000).toFixed(1)).toLocaleString('pt-BR')}} mi
               </span>
               <span v-else-if="(data.max >= 1000000000)">
