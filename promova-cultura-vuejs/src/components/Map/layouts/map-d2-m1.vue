@@ -83,7 +83,7 @@
           />
           <vue-csv-downloader v-if="proponentMap"
                               :data="data.csv"
-                              :fields="data.fields" class="btn btn-success csv-button">
+                              :fields="data.fields" class="btn btn-success csv-button" id="csv-button">
             Exportar Dados
           </vue-csv-downloader>
         </div>
@@ -154,6 +154,8 @@
   import ProponentInfo from "@/components/Map/info/ProponentBarCard"
   import TotalsCard from "@/components/Map/info/TotalsCard"
   import VueCsvDownloader from 'vue-csv-downloader';
+  import $ from "jquery";
+  import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
 
 
   export default {

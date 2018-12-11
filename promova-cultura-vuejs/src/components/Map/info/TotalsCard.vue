@@ -92,19 +92,14 @@
       }
     },
     mounted() {
-      // $("#myTabContent").LoadingOverlay("show", {
-      //     background: "rgba(255, 255, 255, 1)",
-      //     image: "",
-      //     fontawesome: "fa fa-circle-notch fa-spin",
-      //     fontawesomeColor: "#565656"
-      // });
-      //
-      // $(".card-body").LoadingOverlay("show", {
-      //     background: "rgba(255, 255, 255, 1)",
-      //     image: "",
-      //     fontawesome: "fa fa-circle-notch fa-spin",
-      //     fontawesomeColor: "#565656"
-      // });
+      document.getElementById("csv-button").style.border='none';
+      $(".csv-button").LoadingOverlay("show", {
+          text: "Exportar Dados",
+          textColor: "white",
+          image: "",
+          background: "#dadada",
+          fontawesomeColor: "#565656"
+      });
     },
     methods:{
       updateTotals(){
@@ -117,6 +112,8 @@
 
         $("#myTabContent").LoadingOverlay("hide")
         $(".card-body").LoadingOverlay("hide")
+        $(".csv-button").LoadingOverlay("hide")
+
       }
     },
   }
