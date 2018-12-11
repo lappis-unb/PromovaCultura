@@ -285,12 +285,12 @@ export default {
         colorList.length == 0
           ? [
               "#dadada",
-              "#daf39d",
-              "#b8e844",
-              "#8db824",
-              "#66861a",
-              "#4d6513",
-              "#2c380e"
+               "#6BBF6B",
+               "#3AA63A",
+               "#297C29",
+               "#205B20",
+               "#173F17",
+               "#102D10",
             ]
           : colorList;
 
