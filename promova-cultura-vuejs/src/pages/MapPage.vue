@@ -24,7 +24,6 @@
 import { batchFetch, simpleFetch, fetchFlask } from "@/util/apiComunication.js";
 import Mapd2m1 from "@/components/Map/layouts/map-d2-m1";
 import $ from "jquery";
-import "lodash"
 
 export default {
   name: "ControlFilterBrazilMap",
