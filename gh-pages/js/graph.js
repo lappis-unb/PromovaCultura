@@ -55,7 +55,7 @@ var option = {
 
 function getData() {
   $.ajax({
-    url: "http://salicapi.lappis.rocks/graphiql?query=%7B%0A%20%20deslocamentos(limit%3A9999999)%20%7B%0A%20%20%20%20UFOrigem%0A%20%20%20%20UFDestino%0A%20%20%7D%0A%20%20%0A%7D",
+    url: "https://salicapi.lappis.rocks/graphiql?query=%7B%0A%20%20deslocamentos(limit%3A9999999)%20%7B%0A%20%20%20%20UFOrigem%0A%20%20%20%20UFDestino%0A%20%20%7D%0A%20%20%0A%7D",
     type: "GET",
     success: function(data) {
       buildGraph(data)
