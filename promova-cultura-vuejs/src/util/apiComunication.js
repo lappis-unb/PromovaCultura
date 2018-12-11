@@ -16,7 +16,7 @@ export const simpleFetch = async (endpoint) => {
   const queryAsUrl = encodeURI(query);
 
   const promise = await cacheFetch(`https://salicapi.lappis.rocks/graphql?query=${queryAsUrl}`);
-
+  $("#brazil-map").LoadingOverlay("hide")
   return promise.json()
 };
 
@@ -41,6 +41,7 @@ export const fetchData = (types, projectSegment = "") => {
   const queryAsUrl = encodeURI(query);
 
   const promise = cacheFetch(`https://salicapi.lappis.rocks/graphql?query=${queryAsUrl}`);
+  $("#brazil-map").LoadingOverlay("hide")
 
   return promise;
 }
