@@ -2,6 +2,13 @@ import $ from "jquery";
 import cacheFetch from 'cache-fetch';
 import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
 
+
+
+export const fetchFlask = async (endpoint) => {
+  const promise = await cacheFetch(`https://apipromova.lappis.rocks/${endpoint}`);
+  return promise.json()
+}
+
 export const simpleFetch = async (endpoint) => {
   let query = "query {";
   query += endpoint
@@ -9,7 +16,7 @@ export const simpleFetch = async (endpoint) => {
   const queryAsUrl = encodeURI(query);
 
   const promise = await cacheFetch(`https://salicapi.lappis.rocks/graphql?query=${queryAsUrl}`);
-
+  $("#brazil-map").LoadingOverlay("hide")
   return promise.json()
 };
 
@@ -34,6 +41,7 @@ export const fetchData = (types, projectSegment = "") => {
   const queryAsUrl = encodeURI(query);
 
   const promise = cacheFetch(`https://salicapi.lappis.rocks/graphql?query=${queryAsUrl}`);
+  $("#brazil-map").LoadingOverlay("hide")
 
   return promise;
 }
