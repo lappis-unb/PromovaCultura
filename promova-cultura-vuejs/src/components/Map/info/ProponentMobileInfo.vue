@@ -1,11 +1,11 @@
 <template>
-  <div id="teste-prop">
+  <div>
     <h1 class="proponent-title">Captação de recurso por UF desde 1992</h1>
 
     <div id="main-content">
       <div id="loading-placeholder">
       </div>
-      <div class="sticky-top" style="background-color: white">
+      <div class="sticky-top" style="overflow: hidden; background-color: white">
         <div class="row">
           <div class="offset-1 col-5 sticky">Estado</div>
           <div class="col-6 sticky">Captação</div>
@@ -119,12 +119,12 @@
 <style scoped>
   H1 {
     text-align: center;
-
   }
 
   #main-content {
     position: relative;
     width: 100%;
+    margin-bottom: 38px;
   }
 
   #loading-placeholder {
@@ -226,7 +226,6 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    padding-bottom: 10px;
     z-index: 2;
   }
 
