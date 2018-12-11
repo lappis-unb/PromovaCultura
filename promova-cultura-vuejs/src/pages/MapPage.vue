@@ -24,6 +24,7 @@
 import { batchFetch, simpleFetch } from "@/util/apiComunication.js";
 import Mapd2m1 from "@/components/Map/layouts/map-d2-m1";
 import $ from "jquery";
+import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
 
 export default {
   name: "ControlFilterBrazilMap",
@@ -88,7 +89,6 @@ export default {
       handler(data) {
         this.updateChildrenProps();
         this.generateLegends();
-        $("#brazil-map").LoadingOverlay("hide");
       },
       deep: true
     },
@@ -154,7 +154,14 @@ export default {
       this.data.csv = values
     },
     async fetchAllResources() {
+      $("#brazil-map").LoadingOverlay("show", {
+        background: "rgba(255, 255, 255, 1)",
+        image: "",
+        fontawesome: "fa fa-circle-notch fa-spin",
+        fontawesomeColor: "#565656"
+      });
       if (this.proponentMap) {
+
         const proponents = await simpleFetch("proponentes_por_uf");
         this.tmp.proponentesUF = proponents.data.proponentes_por_uf;
         var approvedAmounts = {}
@@ -175,6 +182,7 @@ export default {
         }
         const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
 
+
         this.data.approvedAmount = approvedAmounts
         this.tmp.projectsUF = raisedAmounts
         this.data.raisedAmount = raisedAmounts
@@ -184,7 +192,8 @@ export default {
 
         this.generateCSV()
 
-        
+        $("#brazil-map").LoadingOverlay("hide");
+
       } else {
         console.log(`Fetching API.\nSEGMENT: ${this.selected}`);
         const data = await batchFetch(this.selected);

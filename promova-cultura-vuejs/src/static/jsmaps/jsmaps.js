@@ -667,7 +667,7 @@ import EventBus from '@/util/EventBus';
       }
 
       function calculateTooltipOffset() {
-        tooltipOffsetY = -40;
+        tooltipOffsetY = -10;
         isTooltipBelowMouse = (mouseY - $('.jsmaps-tooltip').height() + tooltipOffsetY) < 0;
         tooltipOffsetY = isTooltipBelowMouse ? 40 : tooltipOffsetY - $('.jsmaps-tooltip').height();
 

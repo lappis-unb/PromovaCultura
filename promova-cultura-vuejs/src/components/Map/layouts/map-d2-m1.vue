@@ -2,7 +2,8 @@
   <div class="container">
     <div class="row">
       <div class="col-12" style="text-align:center; margin-bottom: 50px; color:#666;">
-        <h3>Mapa de Calor da Cultura</h3>
+        <h1 v-if="proponentMap">Captação de recurso por UF desde 1992</h1>
+        <h1 v-else>Mapa de Calor da Cultura</h1>
       </div>
     </div>
     <div class="row">
@@ -240,7 +241,8 @@
   }
 
   .csv-button {
-    margin: 10px;
+    margin-top: 20px;
+    margin-left: 30.64%;
   }
 
   .card {

@@ -1,26 +1,23 @@
 <template>
   <div id='location-modal' class="LocationInfo" :data-showon="showOn">
     <div class="card">
-      <div class="UFname">
-        {{current}}
+      <div class="card-header">
+        <p>{{current}}</p>
       </div>
       <div class="card-body">
+        <p class="card-topic">Proponentes</p>
         <div class="card-number">
-          <img src="../../../../static/svg-icons/proponente_verde.svg"
-               class="card-icon"></img>
           {{this.totalProponents}}
         </div>
+        <p class="card-topic">Valor Aprovado</p>
         <div class="card-number">
-          <img src="../../../../static/svg-icons/check_verde.svg"
-               class="card-icon"></img>
           R$ {{(this.totalapprovedAmount).toLocaleString('pt-BR', {
           minimumFractionDigits: 2})}}
         </div>
+        <p class="card-topic"><b>Valor Captado</b></p>
         <div class="card-number">
-          <img src="../../../../static/svg-icons/cifrao_verde.svg"
-               class="card-icon"></img>
-          R$ {{(this.totalraisedAmount).toLocaleString('pt-BR', {
-          minimumFractionDigits: 2})}}
+          <span>R$ {{(this.totalraisedAmount).toLocaleString('pt-BR', {
+          minimumFractionDigits: 2})}}</span>
         </div>
       </div>
     </div>
@@ -90,7 +87,6 @@
 
     mounted() {
       EventBus.$on('mapOnMouseOver', (data) => {
-        // console.log( JSON.stringify(data, null, 4) );
         if (data != null) {
           this.prevData = data;
         }
@@ -122,24 +118,47 @@
 
 <style scoped>
 
-  .UFname {
+  .card-header {
     text-align: center;
     font-size: 20px;
     font-weight: bold;
-    color: #676767;
-    margin-top: 10px;
+    padding-top: 5px;
+    background-color: #8db824;
+    height: 35px;
   }
 
-  .card-body {
-    padding-top: 0px;
+  .card-header p {
+    color: #31450b;
+  }
+
+  .card {
+    width: 225px !important;
+    height: 220px;
+    text-align: center;
+  }
+  .card-body{
+    padding-top: 10px;
+  }
+  .card-topic {
+    color: #66861a;
+    font-weight: 500;
+    margin: 0;
   }
 
   .card-number {
-    /*text-align: center;*/
-    font-size: 20px;
+    margin: 0 0 6px 0;
+    font-size: 16px;
+    color: #4d4d4d;
+  }
+
+  .card-number span{
+    font-size: 18px;
     font-weight: bold;
-    color: #676767;
-    margin-top: 10px;
+    color: #333;
+  }
+
+  .card-number p {
+    font-size: 12px;
   }
 
   .card-icon {
@@ -320,4 +339,3 @@
     font-weight: bold;
   }
 </style>
-
