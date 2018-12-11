@@ -16,23 +16,25 @@ export const simpleFetch = async (endpoint) => {
 export const fetchData = (types, projectSegment = "") => {
   let segmentQuery = "";
 
-    $("#brazil-map").LoadingOverlay("show", {
-        background: "rgba(255, 255, 255, 1)",
-        image: "",
-        fontawesome: "fa fa-circle-notch fa-spin",
-        fontawesomeColor: "#565656"
-    });
+  $("#brazil-map").LoadingOverlay("show", {
+    background: "rgba(255, 255, 255, 1)",
+    image: "",
+    fontawesome: "fa fa-circle-notch fa-spin",
+    fontawesomeColor: "#565656"
+  });
 
-    if (projectSegment !== "" && projectSegment != "Todos os segmentos" && typeof projectSegment === "string") {
-        segmentQuery = `(segmento: "${projectSegment}")`;
-    }
+  if (projectSegment !== "" && projectSegment != "Todos os segmentos" && typeof projectSegment === "string") {
+    segmentQuery = `(segmento: "${projectSegment}")`;
+  }
 
   let query = "query {";
   query += types.map(type => `${type} ${segmentQuery}\n`).join("");
   query += "}";
 
   const queryAsUrl = encodeURI(query);
+
   const promise = cacheFetch(`https://salicapi.lappis.rocks/graphql?query=${queryAsUrl}`);
+
   return promise;
 }
 
