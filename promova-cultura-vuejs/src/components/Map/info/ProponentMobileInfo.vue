@@ -39,11 +39,17 @@
           </div>
           <div class="row">
             <div class="col-6">Valor aprovado</div>
-            <div class="col-6">{{data.approvedAmount[uf]}}</div>
+            <div class="col-6">{{parseFloat(data.approvedAmount[uf]).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL"
+            })}}</div>
           </div>
           <div class="row">
             <div class="col-6">Valor captado</div>
-            <div class="col-6">{{data.raisedAmount[uf]}}</div>
+            <div class="col-6">{{parseFloat(data.raisedAmount[uf]).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL"
+            })}}</div>
           </div>
         </div>
       </div>
