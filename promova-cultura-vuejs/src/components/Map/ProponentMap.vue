@@ -18,7 +18,8 @@
 <script>
 import MapPage from "@/pages/MapPage";
 import ProponentMobileInfo from "@/components/Map/info/ProponentMobileInfo"
-import { batchFetch, simpleFetch } from "@/util/apiComunication.js";
+import { batchFetch, simpleFetch, fetchFlask } from "@/util/apiComunication.js";
+
 export default {
   components: {
     "map-page": MapPage,
@@ -40,31 +41,26 @@ export default {
   },
   methods: {
     async fetchAllResources() {
-      const proponents = await simpleFetch("proponentes_por_uf");
-      this.data.proponents = proponents.data.proponentes_por_uf;
-      var approvedAmounts = {}
-      var raisedAmounts = {}
-      for (var uf of Object.keys(proponents.data.proponentes_por_uf)) {
-        if (uf === "  ")
-          continue
-        var query = `projetos(UF:"${uf}") {
-                              valor_captado
-                              valor_aprovado
-                            }`;
-        const projects = await simpleFetch(query);
-        var valor_captado = projects.data.projetos.map(a => a.valor_captado);
-        var valor_aprovado = projects.data.projetos.map(a => a.valor_aprovado);
 
-        approvedAmounts[uf] = valor_aprovado.reduce((a, b) => a + b, 0)
-        raisedAmounts[uf] = valor_captado.reduce((a, b) => a + b, 0)
+      const raisedAmount = await fetchFlask("raised_amount");
+      const all_data = await fetchFlask("proponent_complete");
+
+      var proponentCount = {}
+      var approvedAmount = {}
+
+      for (var uf of Object.keys(all_data)) {
+        proponentCount[uf] = all_data[uf]["Proponentes"];
+        approvedAmount[uf] = all_data[uf]["Aprovado"]
       }
-      const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
 
-      this.data.approvedAmount = approvedAmounts
-      this.data.raisedAmount = raisedAmounts
-      this.data.totals["approvedAmount"] = sumValues(approvedAmounts)
-      this.data.totals["raisedAmount"] = sumValues(raisedAmounts)
-      this.data.totals["proponents"] = sumValues(proponents.data.proponentes_por_uf)
+      const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
+      this.data.proponents = proponentCount
+      this.data.approvedAmount = approvedAmount
+      this.data.raisedAmount = raisedAmount
+      this.data.totals["approvedAmount"] = sumValues(approvedAmount)
+      this.data.totals["raisedAmount"] = sumValues(raisedAmount)
+      this.data.totals["proponents"] = sumValues(proponentCount)
+
     }
   }
 };
