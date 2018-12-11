@@ -47,9 +47,9 @@
 
 <script>
 import $ from "jquery";
-import "../../static/funnel/chart.js";
-import "../../static/funnel/chart.funnel.js";
-import "../../static/funnel/chartjs-plugin-datalabels.min.js";
+import "../static/funnel/chart.js";
+import "../static/funnel/chart.funnel.js";
+import "../static/funnel/chartjs-plugin-datalabels.min.js";
 import vueSlider from "vue-slider-component";
 import FunnelCard from "@/components/Funnel/FunnelCard";
 export default {

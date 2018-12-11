@@ -32,7 +32,9 @@ export const fetchData = (types, projectSegment = "") => {
   query += "}";
 
   const queryAsUrl = encodeURI(query);
+
   const promise = cacheFetch(`https://salicapi.lappis.rocks/graphql?query=${queryAsUrl}`);
+
   return promise;
 }
 

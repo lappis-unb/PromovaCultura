@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <link href="../../static/jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
+    <link href="../static/jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
     <div class="row">
       <div class="col-sm-8">
         <div class="map">

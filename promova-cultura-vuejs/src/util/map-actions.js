@@ -1,6 +1,6 @@
 import $ from "jquery";
-import "@/../static/jsmaps/brazil.js";
-import "@/../static/jsmaps/brazil_region.js";
+import "@/../src/static/jsmaps/brazil.js";
+import "@/../src/static/jsmaps/brazil_region.js";
 
 import LocationInfoControl from './LocationInfoControl';
 import EventBus from '@/util/EventBus';

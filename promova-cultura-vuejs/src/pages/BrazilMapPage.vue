@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <link href="../../static/jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
+    <link href="../static/jsmaps/jsmaps.css" rel="stylesheet" type="text/css" />
     <div class="row">
       <div class="col-sm-8">
         <brazil-map-component/>
@@ -106,7 +106,7 @@ export default {
 };
 
 var listOfUfs = [];
-// $.get("https://salic.dev.lappis.rocks/v1/projetos/?limit=100", function(data) {
+// $.get("http://salicapi.lappis.rocks/v1/projetos/?limit=100", function(data) {
 //   var ufs = [];
 //   var projetos = data._embedded.projetos;
 //   for (var i = 0; i < projetos.length; i++) {
