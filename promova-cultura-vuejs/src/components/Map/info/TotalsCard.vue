@@ -103,11 +103,11 @@
     },
     methods:{
       updateTotals(){
-        this.totalProponents = this.data.totals["proponents"]
-        this.totalapprovedAmount = this.data.totals["approvedAmount"].toLocaleString('pt-BR', {
+        this.totalProponents = this.data.totals.proponents
+        this.totalapprovedAmount = this.data.totals.approvedAmount.toLocaleString('pt-BR', {
           minimumFractionDigits: 2, style:"currency", currency: "BRL", currencyDisplay: "symbol"})
 
-        this.totalRaisedAmount = (this.data.totals["raisedAmount"]).toLocaleString('pt-BR', {
+        this.totalRaisedAmount = this.data.totals.raisedAmount.toLocaleString('pt-BR', {
           minimumFractionDigits: 2, style:"currency", currency: "BRL", currencyDisplay: "symbol"})
 
         $("#myTabContent").LoadingOverlay("hide")
