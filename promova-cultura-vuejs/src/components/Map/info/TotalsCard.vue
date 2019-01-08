@@ -18,7 +18,7 @@
                    v-else></div>
               <span v-if="data.min==data.max">{{data.max}}</span>
               <span class="spacebar" v-if="(data.min < 1000000000 && data.min >= 1000000)">
-                R$ {{parseFloat((data.min/1000000)).toFixed(1)}} mi até
+                R$ {{parseFloat((data.min/1000000).toFixed(1)).toLocaleString("pt-BR")}} mi até
               </span>
               <span class="spacebar" v-else-if="(data.min >= 1000000000)">
                 R$ {{parseFloat((data.min/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi até
