@@ -92,6 +92,13 @@ export default {
     };
   },
   watch: {
+      proponentData:{
+        handler(data){
+            this.updateValues()
+            this.updateChildrenProps();
+        },
+        deep:true,
+      },
     tmp: {
       handler(data) {
         this.updateChildrenProps();
@@ -105,6 +112,7 @@ export default {
   },
   mounted() {
     this.fetchAllResources();
+    this.updateValues();
     document.title = "Mapa de Calor";
   },
   methods: {
@@ -143,6 +151,7 @@ export default {
     updatedSegment(segment) {
       this.selected = segment;
       this.fetchAllResources();
+      this.updateValues()
     },
 
     generateCSV: function() {
@@ -160,25 +169,7 @@ export default {
       this.data.csv = values;
     },
     async fetchAllResources() {
-      $("#brazil-map").LoadingOverlay("show", {
-        background: "rgba(255, 255, 255, 1)",
-        image: "",
-        fontawesome: "fa fa-circle-notch fa-spin",
-        fontawesomeColor: "#565656"
-      });
-      if (this.proponentMap) {
-        this.data.approvedAmount = this.proponentData.approvedAmount;
-        this.tmp.projectsUF = this.proponentData.raisedAmount;
-        this.data.raisedAmount = this.proponentData.raisedAmount;
-
-        this.data.totals = this.proponentData.totals;
-        
-        console.log(this.data)
-
-        this.generateCSV();
-
-        $("#brazil-map").LoadingOverlay("hide");
-      } else {
+      if(!this.proponentMap) {
         console.log(`Fetching API.\nSEGMENT: ${this.selected}`);
         const data = await batchFetch(this.selected);
         // console.log("Data fetched: ", JSON.stringify(data));
@@ -190,6 +181,19 @@ export default {
         this.tmp.incentivadoresRegion = data.incentivadores_por_regiao;
       }
     },
+      updateValues(){
+          if (this.proponentMap) {
+              this.tmp.proponentesUF = this.proponentData.proponents;
+              this.data.approvedAmount = this.proponentData.approvedAmount;
+              this.tmp.projectsUF = this.proponentData.raisedAmount;
+              this.data.raisedAmount = this.proponentData.raisedAmount;
+
+              this.data.totals = this.proponentData.totals;
+              console.log(this.data)
+              this.generateCSV();
+              $("#brazil-map").LoadingOverlay("hide");
+          }
+      },
     calculatePercentage(objeto, total) {
       var totals = {};
       for (var i of Object.keys(objeto)) {
