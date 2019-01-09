@@ -51,8 +51,8 @@
 
     <div class="footer-fixed">
       <div class="row sticky-total">
-        <div class="offset-1 col-5">Total</div>
-        <span class="col-6">R$ {{totalRaisedAmount}}</span>
+        <div class="total-text offset-1 col-2">Total</div>
+        <span class="total-number col-9">R$ {{totalRaisedAmount}}</span>
       </div>
     </div>
     <!--</ul>-->
@@ -249,5 +249,15 @@
     width: 5px;
     background-color: white;
     z-index: 1;
+  }
+
+  .total-number{
+    text-align: right;
+    padding: 0 30px 0 0;
+  }
+
+  .total-text{
+    text-align: left;
+    padding: 0;
   }
 </style>
