@@ -10,27 +10,14 @@
            aria-labelledby="projeto-tab" role="tabpanel">
         <div>
           <ul class="legend-list">
-            <li v-for="(data) in legends.heatMap" :key="data.color"
+            <li v-for="(data) in this.legendValues" :key="data.color"
                 v-if="data.max != 0 || data.min!=0">
               <img class="legend-color" :src="data.color"
                    v-if="legends.heatMap[0].image"/>
               <div class="legend-color" :style="'background:'+ data.color"
                    v-else></div>
               <span v-if="data.min==data.max">{{data.max}}</span>
-              <span class="spacebar" v-if="(data.min < 1000000000 && data.min >= 1000000)">
-                R$ {{parseFloat((data.min/1000000).toFixed(1)).toLocaleString("pt-BR")}} mi até
-              </span>
-              <span class="spacebar" v-else-if="(data.min >= 1000000000)">
-                R$ {{parseFloat((data.min/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi até
-              </span>
-              <span v-else class="spacebar">R$ {{data.min.toLocaleString("pt-BR")}} até </span>
-              <span v-if="(data.max < 1000000000 && data.max >= 1000000)">
-                 {{parseFloat((data.max/1000000).toFixed(1)).toLocaleString('pt-BR')}} mi
-              </span>
-              <span v-else-if="(data.max >= 1000000000)">
-                 {{parseFloat((data.max/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi
-              </span>
-              <span v-else>{{data.max.toLocaleString("pt-BR")}}</span>
+              <span v-else>R$ {{data.min | abbreviate}} até {{data.max | abbreviate}}</span>
             </li>
           </ul>
         </div>
@@ -48,7 +35,7 @@
                 </div>
                 <div class="bottom-line">
                   <p class="total-label">Valor Aprovado</p>
-                  <p class="total-value">{{totalapprovedAmount}}</p>
+                  <p class="total-value">{{totalApprovedAmount}}</p>
                 </div>
                 <div>
                   <p class="total-label">Valor Captado</p>
@@ -65,6 +52,7 @@
   import Legend from "@/components/Map/legends/Legend";
   import $ from "jquery";
   import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
+  import abbreviate from "number-abbreviate";
 
   export default {
     components: {
@@ -74,12 +62,24 @@
       data: Object,
       proponentMap: Boolean,
       legends: {},
-      filtersActivate: Object
+      filtersActivate: Object,
+
+    },
+    filters:{
+      abbreviate: function(value){
+        // if (!value) return ''
+        value = value.toString()
+        value = value.replace(/\./g, ",")
+        value = value.replace(/m/g, " mi")
+        value = value.replace(/b/g, " bi")
+        return value
+      }
     },
     watch: {
       data: {
         handler(data) {
           this.updateTotals();
+          this.abbreviateLegendValues();
         },
         deep: true
       },
@@ -87,24 +87,25 @@
     data() {
       return {
         totalProponents: 0,
-        totalapprovedAmount: 0,
-        totalRaisedAmount: 0
+        totalApprovedAmount: 0,
+        totalRaisedAmount: 0,
+        legendValues: [],
       }
     },
-    mounted() {
-      document.getElementById("csv-button").style.border='none';
-      $(".csv-button").LoadingOverlay("show", {
-          text: "Exportar Dados",
-          textColor: "white",
-          image: "",
-          background: "#dadada",
-          fontawesomeColor: "#565656"
-      });
-    },
     methods:{
+      abbreviateLegendValues(){
+        for(const legend of this.legends.heatMap) {
+          this.legendValues.push({
+            min: abbreviate(legend.min ,1),
+            max: abbreviate(legend.max ,1),
+            color: legend.color,
+            image: legend.image,
+          })
+        }
+      },
       updateTotals(){
         this.totalProponents = this.data.totals["proponents"]
-        this.totalapprovedAmount = this.data.totals["approvedAmount"].toLocaleString('pt-BR', {
+        this.totalApprovedAmount = this.data.totals["approvedAmount"].toLocaleString('pt-BR', {
           minimumFractionDigits: 2, style:"currency", currency: "BRL", currencyDisplay: "symbol"})
 
         this.totalRaisedAmount = (this.data.totals["raisedAmount"]).toLocaleString('pt-BR', {
