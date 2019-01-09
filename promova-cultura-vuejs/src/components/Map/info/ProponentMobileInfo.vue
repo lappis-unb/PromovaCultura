@@ -16,13 +16,7 @@
           <div class="col-6 state" v-if="uf !== '  '">{{ufs[uf]}}</div>
           <div class="col-6 state" v-else>Sem Estado</div>
           <div class="col-4 amount">
-            <span v-if="data.raisedAmount[uf] < 1000000000 && data.raisedAmount[uf] >= 1000000">
-              R$ {{parseFloat((data.raisedAmount[uf]/1000000)).toFixed(1)}} mi
-            </span>
-            <span v-else-if="(data.raisedAmount[uf] >= 1000000000)">
-              R$ {{parseFloat((data.raisedAmount[uf]/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi
-            </span>
-            <span v-else>R$ {{parseFloat(data.raisedAmount[uf]).toLocaleString("pt-BR")}}</span>
+            <span>R$ {{data.raisedAmount[uf] | abbreviate}}</span>
           </div>
           <div class="white-space-bar"></div>
           <div class="col-2 arrow">
@@ -69,11 +63,24 @@
   import uf from "@/util/ufs.js";
   import $ from "jquery";
   import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
+  import abbreviate from "number-abbreviate";
 
   export default {
     props: {
       data: Object,
     },
+    filters: {
+    abbreviate: function(value) {
+      if (!value) return ''
+      //value = value.toString();
+      value = abbreviate(value, 1)
+      value = value.replace(/\./g, ",");
+      value = value.replace(/m/g, " mi");
+      value = value.replace(/b/g, " bi");
+      value = value.replace(/k/g, " mil");
+      return value;
+    }
+  },
     watch: {
       data: {
         handler(data) {
