@@ -55,7 +55,7 @@
       <legend class="card-header">TOTAL</legend>
       <load-placeholder
         id="placeholder2"
-        phStyle="legend"
+        phStyle="number"
         contentId="card2"
         :isVisible="isLoading"
       />

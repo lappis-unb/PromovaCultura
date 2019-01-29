@@ -1,21 +1,37 @@
 <template>
-  <div class="ph-item" style="border:none">
+  <div class="ph-item">
     <div class="ph-col-12">
-      <div v-if="phStyle == 'legend'" class="ph-row">
-        <div class="ph-col-6 big"></div>
-        <div class="ph-col-4 empty big"></div>
-        <div class="ph-col-2 big"></div>
-        <div class="ph-col-4"></div>
-        <div class="ph-col-8 empty"></div>
-        <div class="ph-col-6"></div>
-        <div class="ph-col-6 empty"></div>
-        <div class="ph-col-12"></div>
-        <div class="ph-col-12"></div>
+      <div v-if="phStyle == 'legend'" class="ph-row" style="margin: 0;">
+        <div class="ph-col-2 empty">
+          <div class="ph-avatar"></div>
+        </div>
+        <div class="ph-col-10 big"></div>
+        <div class="ph-col-2 empty">
+          <div class="ph-avatar"></div>
+        </div>
+        <div class="ph-col-10 big"></div>
+        <div class="ph-col-2 empty">
+          <div class="ph-avatar"></div>
+        </div>
+        <div class="ph-col-10 big"></div>
+        <div class="ph-col-2 empty">
+          <div class="ph-avatar"></div>
+        </div>
+        <div class="ph-col-10 big"></div>
+        <div class="ph-col-2 empty">
+          <div class="ph-avatar"></div>
+        </div>
+        <div class="ph-col-10 big"></div>
+
       </div>
+
       <div v-if="phStyle == 'number'" class="ph-row">
-        <div class="ph-col-12"></div>
-        <div class="ph-col-12"></div>
-        <div class="ph-col-12"></div>
+        <div class="offset-4 ph-col-4"></div>
+        <div class="ph-col-12 big"></div>
+        <div class="offset-4 ph-col-4"></div>
+        <div class="ph-col-12 big"></div>
+        <div class="offset-4 ph-col-4"></div>
+        <div class="ph-col-12 big"></div>
       </div>
     </div>
   </div>
@@ -54,3 +70,19 @@ export default {
   }
 };
 </script>
+
+<style>
+.ph-item {
+  border:none;
+  margin: 0;
+  padding: 10px 0 0 0;
+}
+
+.ph-col-2 .ph-avatar {
+  height: 21px;
+  min-width: 0;
+  width: 21px;
+}
+
+
+</style>
