@@ -6,6 +6,9 @@
       </li>
     </ul>
     <div class="tab-content legend-content" id="myTabContent">
+      
+      <load-placeholder id="placeholder1" phStyle="legend" contentId="projeto" :isVisible="isLoading"/>
+      
       <div class="tab-pane fade show active" id="projeto"
            aria-labelledby="projeto-tab" role="tabpanel">
         <div>
@@ -36,10 +39,11 @@
         </div>
       </div>
     </div>
-
+      
       <div class="card">
         <legend class="card-header">TOTAL</legend>
-        <div class="card-body">
+        <load-placeholder id="placeholder2" phStyle="legend" contentId="card2" :isVisible="isLoading"/>
+        <div id="card2" class="card-body">
           <div>
             <div class="list-group list-group-flush">
                 <div class="bottom-line">
@@ -65,10 +69,12 @@
   import Legend from "@/components/Map/legends/Legend";
   import $ from "jquery";
   import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
+  import LoadPlaceholder from "@/components/LoadPlaceholder"
 
   export default {
     components: {
-      "base-legend": Legend
+      "base-legend": Legend,
+      "load-placeholder": LoadPlaceholder
     },
     props: {
       data: Object,
@@ -88,11 +94,11 @@
       return {
         totalProponents: 0,
         totalapprovedAmount: 0,
-        totalRaisedAmount: 0
+        totalRaisedAmount: 0,
+        isLoading: true
       }
     },
     mounted() {
-      document.getElementById("csv-button").style.border='none';
       $(".csv-button").LoadingOverlay("show", {
           text: "Exportar Dados",
           textColor: "white",
@@ -109,10 +115,10 @@
 
         this.totalRaisedAmount = (this.data.totals["raisedAmount"]).toLocaleString('pt-BR', {
           minimumFractionDigits: 2, style:"currency", currency: "BRL", currencyDisplay: "symbol"})
-
         $("#myTabContent").LoadingOverlay("hide")
         $(".card-body").LoadingOverlay("hide")
         $(".csv-button").LoadingOverlay("hide")
+        isLoading = false;
 
       }
     },
