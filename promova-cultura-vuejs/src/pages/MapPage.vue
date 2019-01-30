@@ -267,7 +267,7 @@ export default {
     getMapLegend(maxValue, percentList = [], colorList = [], isImage = false) {
       let legends = [];
       let percents =
-        percentList.length == 0 ? [0, 0, 1, 5, 10, 20, 100] : percentList;
+        percentList.length == 0 ? [0, 0, 0.12, 1.4, 10.2, 20.3, 100] : percentList;
       let colors =
         colorList.length == 0
           ? [
