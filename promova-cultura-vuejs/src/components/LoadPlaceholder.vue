@@ -33,6 +33,15 @@
         <div class="offset-4 ph-col-4"></div>
         <div class="ph-col-12 big"></div>
       </div>
+
+      <div v-if="phStyle == 'mapCard'" class="ph-row">
+        <div class="offset-4 ph-col-4"></div>
+        <div class="ph-col-12 big"></div>
+        <div class="offset-4 ph-col-4"></div>
+        <div class="ph-col-12 big"></div>
+        <div class="offset-4 ph-col-4"></div>
+        <div class="ph-col-12 big"></div>
+      </div>
     </div>
   </div>
 </template>

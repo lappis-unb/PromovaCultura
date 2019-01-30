@@ -1,24 +1,33 @@
 <template>
   <div id='location-modal' class="LocationInfo" :data-showon="showOn">
     <div class="card">
-      <div class="card-header">
-        <p>{{current}}</p>
+      <div class="card-header" id="card-map-header">
+        <p id="state-name">{{current}}</p>
       </div>
-      <div class="card-body">
-        <p class="card-topic">Proponentes</p>
-        <div class="card-number">
-          {{this.totalProponents}}
-        </div>
-        <p class="card-topic">Valor Aprovado</p>
-        <div class="card-number">
-          R$ {{(this.totalapprovedAmount).toLocaleString('pt-BR', {
-          minimumFractionDigits: 2})}}
-        </div>
-        <p class="card-topic"><b>Valor Captado</b></p>
-        <div class="card-number">
-          <span>R$ {{(this.totalraisedAmount).toLocaleString('pt-BR', {
-          minimumFractionDigits: 2})}}</span>
-        </div>
+      <load-placeholder
+      id="placeholder3"
+      phStyle="mapCard"
+      contentId="mapCard"
+      :isVisible="isLoading"
+      />
+      <div id="mapCard">
+
+        <div class="card-body">
+          <p class="card-topic">Proponentes</p>
+          <div class="card-number">
+            {{this.totalProponents}}
+          </div>
+          <p class="card-topic">Valor Aprovado</p>
+          <div class="card-number">
+            R$ {{(this.totalapprovedAmount).toLocaleString('pt-BR', {
+              minimumFractionDigits: 2})}}
+            </div>
+            <p class="card-topic"><b>Valor Captado</b></p>
+            <div class="card-number">
+              <span>R$ {{(this.totalraisedAmount).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2})}}</span>
+              </div>
+            </div>
       </div>
     </div>
   </div>
@@ -26,11 +35,13 @@
 
 <script>
   import $ from "jquery";
-
   import EventBus from '@/util/EventBus';
-
+  import LoadPlaceholder from '@/components/LoadPlaceholder';
 
   export default {
+    components: {
+      "load-placeholder": LoadPlaceholder
+    },
     props: {
       data: Object,
       projects: Object,
@@ -54,6 +65,7 @@
         totalapprovedAmount: 0,
         totalraisedAmount: 0,
         prevData: {},
+        isLoading: true
       }
     },
     computed: {
@@ -86,6 +98,9 @@
     },
 
     mounted() {
+      $("#card-map-header").css('background-color', '#9fa5ab');
+      $("#state-name").css('color', 'white');
+
       EventBus.$on('mapOnMouseOver', (data) => {
         if (data != null) {
           this.prevData = data;
@@ -96,6 +111,14 @@
         this.updateTotalapprovedAmount(this.prevData.abbreviation);
         this.updateTotalraisedAmount(this.prevData.abbreviation);
 
+        console.log(this.data)
+        console.log(this.data.approvedAmount[this.prevData.abbreviation])
+        const value = this.data.approvedAmount[this.prevData.abbreviation]
+        if(value && value != 0) {
+          this.isLoading = false;
+          $("#card-map-header").css('background-color', '#3aa53a');
+          $("#state-name").css('color', '#1A3D1A');
+        }
       });
     },
 
