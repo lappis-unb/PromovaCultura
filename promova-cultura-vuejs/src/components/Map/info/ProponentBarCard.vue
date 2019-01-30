@@ -116,8 +116,8 @@
         const value = this.data.approvedAmount[this.prevData.abbreviation]
         if(value && value != 0) {
           this.isLoading = false;
-          $("#card-map-header").css('background-color', '#3aa53a');
-          $("#state-name").css('color', '#1A3D1A');
+          $("#card-map-header").css('background-color', '#75CC75');
+          $("#state-name").css('color', '#1F661F');
         }
       });
     },
@@ -146,12 +146,7 @@
     font-size: 20px;
     font-weight: bold;
     padding-top: 5px;
-    background-color: #3aa53a;
     height: 35px;
-  }
-
-  .card-header p {
-    color: #1A3D1A;
   }
 
   .card {
