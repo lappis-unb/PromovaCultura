@@ -115,13 +115,8 @@ export default {
     };
   },
   mounted() {
-    $(".csv-button").LoadingOverlay("show", {
-      text: "Exportar Dados",
-      textColor: "white",
-      image: "",
-      background: "#dadada",
-      fontawesomeColor: "#565656"
-    });
+    document.getElementById("export-csv").classList.add('disabled');
+
   },
   methods: {
     updateTotals() {
@@ -147,8 +142,13 @@ export default {
       );
       $("#myTabContent").LoadingOverlay("hide");
       $(".card-body").LoadingOverlay("hide");
-      $(".csv-button").LoadingOverlay("hide");
-      if (this.data.totals.proponents != 0) this.isLoading = false;
+
+      if (this.data.totals.proponents != 0) {
+        this.isLoading = false;
+        document.getElementById("export-csv").classList.remove('btn-secondary');
+        document.getElementById("export-csv").classList.remove('disabled');
+        document.getElementById("export-csv").classList.add('btn-success');
+      }
     }
   }
 };
