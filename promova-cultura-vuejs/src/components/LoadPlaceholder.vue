@@ -1,49 +1,49 @@
 <template>
-  <div class="ph-item">
-    <div class="ph-col-12">
-      <div v-if="phStyle == 'legend'" class="ph-row" style="margin: 0;">
-        <div class="ph-col-2 empty">
-          <div class="ph-avatar"></div>
-        </div>
-        <div class="ph-col-10 big"></div>
-        <div class="ph-col-2 empty">
-          <div class="ph-avatar"></div>
-        </div>
-        <div class="ph-col-10 big"></div>
-        <div class="ph-col-2 empty">
-          <div class="ph-avatar"></div>
-        </div>
-        <div class="ph-col-10 big"></div>
-        <div class="ph-col-2 empty">
-          <div class="ph-avatar"></div>
-        </div>
-        <div class="ph-col-10 big"></div>
-        <div class="ph-col-2 empty">
-          <div class="ph-avatar"></div>
-        </div>
-        <div class="ph-col-10 big"></div>
-
+<div class="ph-item">
+  <div class="ph-col-12">
+    <div v-if="phStyle == 'legend'" class="ph-row" style="margin: 0;">
+      <div class="ph-col-2 empty">
+        <div class="ph-avatar"></div>
       </div>
-
-      <div v-if="phStyle == 'number'" class="ph-row">
-        <div class="offset-4 ph-col-4"></div>
-        <div class="ph-col-12 big"></div>
-        <div class="offset-4 ph-col-4"></div>
-        <div class="ph-col-12 big"></div>
-        <div class="offset-4 ph-col-4"></div>
-        <div class="ph-col-12 big"></div>
+      <div class="ph-col-10 big"></div>
+      <div class="ph-col-2 empty">
+        <div class="ph-avatar"></div>
       </div>
-
-      <div v-if="phStyle == 'mapCard'" class="ph-row">
-        <div class="offset-4 ph-col-4"></div>
-        <div class="ph-col-12 big"></div>
-        <div class="offset-4 ph-col-4"></div>
-        <div class="ph-col-12 big"></div>
-        <div class="offset-4 ph-col-4"></div>
-        <div class="ph-col-12 big"></div>
+      <div class="ph-col-10 big"></div>
+      <div class="ph-col-2 empty">
+        <div class="ph-avatar"></div>
       </div>
+      <div class="ph-col-10 big"></div>
+      <div class="ph-col-2 empty">
+        <div class="ph-avatar"></div>
+      </div>
+      <div class="ph-col-10 big"></div>
+      <div class="ph-col-2 empty">
+        <div class="ph-avatar"></div>
+      </div>
+      <div class="ph-col-10 big"></div>
+
+    </div>
+
+    <div v-if="phStyle == 'number'" class="ph-row">
+      <div class="offset-4 ph-col-4"></div>
+      <div class="ph-col-12 big"></div>
+      <div class="offset-4 ph-col-4"></div>
+      <div class="ph-col-12 big"></div>
+      <div class="offset-4 ph-col-4"></div>
+      <div class="ph-col-12 big"></div>
+    </div>
+
+    <div v-if="phStyle == 'mapCard'" class="ph-row">
+      <div class="offset-4 ph-col-4"></div>
+      <div class="ph-col-12 big"></div>
+      <div class="offset-4 ph-col-4"></div>
+      <div class="ph-col-12 big"></div>
+      <div class="offset-4 ph-col-4"></div>
+      <div class="ph-col-12 big"></div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -82,7 +82,7 @@ export default {
 
 <style>
 .ph-item {
-  border:none;
+  border: none;
   margin: 0;
   padding: 10px 0 0 0;
 }
@@ -92,6 +92,4 @@ export default {
   min-width: 0;
   width: 21px;
 }
-
-
 </style>
