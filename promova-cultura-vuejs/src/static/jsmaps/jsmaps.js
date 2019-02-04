@@ -421,40 +421,6 @@ import EventBus from '@/util/EventBus';
             var id = this.data('id');
             var isGroup = !!this.data('group');
             var target = isGroup ? this.data('group') : paths[id];
-            var enabled = target.enable;
-            var pathIds;
-            var color;
-
-            if (enabled) {
-
-              //Reset scrollbar
-              resetScrollBar();
-              
-              //Animate previous state out
-              if (current && current != target) {
-                pathIds = current.groupIds || [current.id];
-                color = current.color;
-                animatePaths(isPin ? pinsAr : pathsAr, pathIds, current.color);
-              }
-              isPin = false;
-
-              //Animate next
-              if (target != current) {
-                pathIds = isGroup ? this.data('group').groupIds : [id];
-                animatePaths(pathsAr, pathIds, target.selectedColor);
-                if (mapSelect) {
-                  mapSelect.val(target.name);
-                }
-              }
-
-              current = target;
-              
-              if (config.stateClickAction === 'text') {
-                textArea.html(target.text);
-              } else if (config.stateClickAction === 'url') {
-                window.open(target.url, config.hrefTarget);
-              }
-            }
 
             // Trigger state click callback
             if ($.isFunction(settings.onStateClick)) {

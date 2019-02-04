@@ -52,7 +52,7 @@ function makeHeatMap(brazilMap, projects, legends) {
         let stateColor = getColorBylegend(numberOfProjects, legends.heatMap);
 
         state.color = stateColor;
-        state.hoverColor = "#17AB86";
+        state.hoverColor = "#99cc33";
         state.selectedColor = "#C5C01E";
 
         break; // There is no need to continue if the local was found
