@@ -1,10 +1,24 @@
 <template>
   <div>
     <h1 class="proponent-title">Captação de recurso por UF desde 1992</h1>
+    <div class="sticky-top" style="overflow: hidden; background-color: white">
+      <div class="legend-item">
+        <h3 class="sticky">LEGENDA</h3>
+        <div>
+          <ul class="internal-displacement">
+<!--            {{this.legends}}-->
+            <div v-for="legend in this.legends">
+              <li>
+                <div><span :style="'background:'+ legend.color"></span></div>< R$ {{legend.max}}</li>
 
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
     <div id="main-content">
       <div id="loading-placeholder"></div>
-      <div class="sticky-top" style="overflow: hidden; background-color: white">
+      <div >
         <div class="row">
           <div class="order-buttom offset-1 col-5 sticky" v-on:click="orderByName()">Estado</div>
           <div class="order-buttom col-6 sticky" v-on:click="orderByValues()">Captação</div>
@@ -94,6 +108,7 @@ export default {
           this.ufsData,
           Helpers.generateLegend(this.data.totals["raisedAmount"])
         );
+        this.getLegends()
       },
       deep: true
     }
@@ -104,10 +119,19 @@ export default {
       ufsData: [],
       totalProponents: 0,
       totalapprovedAmount: 0,
-      totalRaisedAmount: 0
+      totalRaisedAmount: 0,
+      legends: []
     };
   },
   methods: {
+    getLegends(){
+      // console.log(this.data)
+      // v/ar max = Helpers.getMaxByUF(this.data.raisedAmount)
+      // console.log(max)
+      var legends = Helpers.generateLegend(this.data.totals["raisedAmount"])
+      this.legends = legends
+      console.log(this.legends)
+    },
     updateTotals() {
       this.totalProponents = this.data.totals["proponents"];
       this.totalapprovedAmount = this.data.totals[
@@ -236,7 +260,7 @@ h1 {
 }
 
 .proponent-title {
-  font-size: 28px;
+  font-size: 18px;
   margin-bottom: 30px;
   font-weight: bold;
 }
@@ -271,4 +295,53 @@ h1 {
   max-width: 50%;
   flex: 50%;
 }
+
+.legend-item p {
+  font-size: 14px;
+  color: #888;
+  font-style: italic;
+}
+
+.legend-item h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  padding-bottom: 5px;
+}
+
+.legend-item h3 span {
+  color: #888;
+  font-size: 15px;
+}
+
+.internal-displacement li:last-child {
+  margin-bottom: 0;
+}
+.internal-displacement li {
+  margin-bottom: 20px;
+  display: inline;
+}
+
+.internal-displacement li *{
+  vertical-align: middle;
+}
+
+.internal-displacement li span {
+  background: #555555;
+  display: inline-block;
+  width: 35px;
+  height: 20px;
+  border-radius: 15%;
+  -webkit-border-radius: 15%;
+  -moz-border-radius: 15%;
+  margin: -5px auto auto auto;
+}
+
+.internal-displacement li div {
+  margin-right: 10px;
+  display: inline-block;
+  text-align: center;
+  width: 40px;
+}
+
+
 </style>
