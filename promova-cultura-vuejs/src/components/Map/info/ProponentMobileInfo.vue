@@ -125,12 +125,8 @@ export default {
   },
   methods: {
     getLegends(){
-      // console.log(this.data)
-      // v/ar max = Helpers.getMaxByUF(this.data.raisedAmount)
-      // console.log(max)
       var legends = Helpers.generateLegend(this.data.totals["raisedAmount"])
       this.legends = legends
-      console.log(this.legends)
     },
     updateTotals() {
       this.totalProponents = this.data.totals["proponents"];

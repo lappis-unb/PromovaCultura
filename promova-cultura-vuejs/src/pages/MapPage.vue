@@ -49,10 +49,10 @@ export default {
   data() {
     return {
       data: {
-        projects: {},
-        proponentes: {},
+        activeViz: {},
+        UF: {investors: {}},
+        region: {investors:{}},
         proponentesMap: {},
-        incentivadores: {},
         raisedAmount: {},
         approvedAmount: {},
         totals: {},
@@ -70,23 +70,13 @@ export default {
       },
       maxValues: {
         projects: 0,
-        proponentes: 0,
-        incentivadores: 0
+        proponents: 0,
+        investors: 0
       },
       legends: {
         heatMap: [],
         proponentes: [],
         incentivadores: []
-      },
-      tmp: {
-        projectsUF: {},
-        proponentesUF: {},
-        incentivadoresUF: {},
-        projectsRegion: {},
-        proponentesRegion: {},
-        incentivadoresRegion: {},
-        raisedAmountUF: {},
-        approvedAmountUF: {}
       },
       level: "UF",
       selected: "Todos os segmentos"
@@ -96,12 +86,6 @@ export default {
     proponentData: {
       handler(data) {
         this.updateValues();
-        this.updateChildrenProps();
-      },
-      deep: true
-    },
-    tmp: {
-      handler(data) {
         this.updateChildrenProps();
         this.generateAllLegends();
       },
@@ -118,35 +102,20 @@ export default {
   },
   methods: {
     updateChildrenProps() {
-      if (this.level == "UF") {
-        this.data.projects = this.tmp.projectsUF;
-        this.maxValues.projects = this.getMaxByUF(
-          this.tmp.projectsUF,
-          "projects"
-        );
-        this.maxValues.proponentes = this.getMaxByUF(
-          this.tmp.proponentesUF,
-          "proponentes"
-        );
-        this.maxValues.incentivadores = this.getMaxByUF(
-          this.tmp.incentivadoresUF,
-          "incentivadores"
-        );
-      } else {
-        this.data.projects = this.tmp.projectsRegion;
-        this.maxValues.projects = this.getMaxByUF(
-          this.tmp.projectsRegion,
-          "projects"
-        );
-        this.maxValues.proponentes = this.getMaxByUF(
-          this.tmp.proponentesRegion,
-          "proponentes"
-        );
-        this.maxValues.incentivadores = this.getMaxByUF(
-          this.tmp.incentivadoresRegion,
-          "incentivadores"
-        );
-      }
+      this.data.activeViz =
+        this.level == "UF" ? this.data.UF : this.data.region;
+
+      var tmp = this.data.activeViz;
+      this.maxValues.projects = this.getMaxByUF(tmp.projects, "projects");
+      this.maxValues.proponentes = this.getMaxByUF(
+        tmp.proponents,
+        "proponentes"
+      );
+      this.maxValues.investors = this.getMaxByUF(
+        tmp.investors,
+        "incentivadores"
+      );
+
       this.showPins();
     },
     updatedSegment(segment) {
@@ -161,7 +130,7 @@ export default {
       for (const [key, value] of Object.entries(this.data.approvedAmount)) {
         values.push({
           UF: key,
-          QuantidadeDeProponentes: this.tmp.proponentesUF[key],
+          QuantidadeDeProponentes: this.data.UF.proponents[key],
           ValorAprovado: value,
           ValorCaptado: this.data.raisedAmount[key]
         });
@@ -173,24 +142,28 @@ export default {
       if (!this.proponentMap) {
         console.log(`Fetching API.\nSEGMENT: ${this.selected}`);
         const data = await batchFetch(this.selected);
-        // console.log("Data fetched: ", JSON.stringify(data));
-        this.tmp.projectsUF = data.projetos_por_uf;
-        this.tmp.proponentesUF = data.proponentes_por_uf;
-        this.tmp.incentivadoresUF = data.incentivadores_por_uf;
-        this.tmp.projectsRegion = data.projetos_por_regiao;
-        this.tmp.proponentesRegion = data.proponentes_por_regiao;
-        this.tmp.incentivadoresRegion = data.incentivadores_por_regiao;
+        this.data.UF = {
+          projects: data.projetos_por_uf,
+          investors: data.incentivadores_por_uf,
+          proponents: data.proponentes_por_uf
+        };
+        
+        this.data.region = {
+          projects: data.projetos_por_regiao,
+          investors: data.incentivadores_por_regiao,
+          proponents: data.proponentes_por_regiao
+        };
       }
     },
     updateValues() {
       if (this.proponentMap) {
-        this.tmp.proponentesUF = this.proponentData.proponents;
-        this.data.approvedAmount = this.proponentData.approvedAmount;
-        this.tmp.projectsUF = this.proponentData.raisedAmount;
-        this.data.raisedAmount = this.proponentData.raisedAmount;
+        this.data.UF.proponents = this.proponentData.proponents;
+        this.data.UF.projects = this.proponentData.raisedAmount;
 
+        this.data.approvedAmount = this.proponentData.approvedAmount;
+        this.data.raisedAmount = this.proponentData.raisedAmount;
         this.data.totals = this.proponentData.totals;
-        
+
         this.generateCSV();
         $("#brazil-map").LoadingOverlay("hide");
       }
@@ -203,12 +176,14 @@ export default {
       return totals;
     },
     showProponentes(show) {
+      console.log("ASDUHADSDASIJADSIADSASJOGASOGKASOGKASKGASOGKASO")
       if (!this.proponentMap) {
         this.filtersActivate.proponentes = show;
         this.showPins();
       }
     },
     showIncentivadores(show) {
+      console.log("ADIJDSIJDASIJSAD")
       this.filtersActivate.incentivadores = show;
       this.showPins();
     },
@@ -220,11 +195,7 @@ export default {
 
       if (this.useMaxWithRanking) {
         const max = ufList.reduce((currentMax, uf) => {
-          if (data[uf] > currentMax) {
-            return data[uf];
-          } else {
-            return currentMax;
-          }
+          return data[uf] > currentMax ? data[uf] : currentMax;
         }, 0);
         return max;
       } else {
@@ -242,30 +213,30 @@ export default {
         Helpers.proponentIcons
       );
       this.legends.incentivadores = Helpers.generateLegend(
-        this.maxValues.incentivadores,
+        this.maxValues.investors,
         Helpers.investorIcons
       );
       this.legends.heatMap = Helpers.generateLegend(this.maxValues.projects);
     },
     showPins() {
+      console.log(this.filtersActivate)
       if (this.filtersActivate.incentivadores) {
-        this.data.incentivadores =
-          this.level == "UF"
-            ? this.tmp.incentivadoresUF
-            : this.tmp.incentivadoresRegion;
+        this.data.activeViz.investors =
+          this.level == "UF" ? this.UF.investors : this.region.investors;
       } else {
-        this.data.incentivadores = {};
+        this.data.activeViz.investors = {};
       }
 
       if (this.filtersActivate.proponentes) {
-        this.data.proponentes =
+        this.data.activeViz.proponents =
           this.level == "UF"
-            ? this.tmp.proponentesUF
-            : this.tmp.proponentesRegion;
+            ? this.data.UF.proponents
+            : this.data.region.proponents;
       } else if (this.proponentMap) {
-        this.data.proponentesMap = this.tmp.proponentesUF;
+        console.log("PORRRAA")
+        this.data.proponentesMap = this.data.UF.proponents;
       } else {
-        this.data.proponentes = {};
+        this.data.activeViz.proponents = {};
       }
     }
   }
