@@ -237,18 +237,15 @@ export default {
       }
     },
     generateAllLegends() {
-      this.legends.proponentes = this.generateLegend(
+      this.legends.proponentes = Helpers.generateLegend(
         this.maxValues.proponentes,
         Helpers.proponentIcons
       );
-      this.legends.incentivadores = this.generateLegend(
+      this.legends.incentivadores = Helpers.generateLegend(
         this.maxValues.incentivadores,
         Helpers.investorIcons
       );
-      this.legends.heatMap = Helpers.getMapLegend(this.maxValues.projects);
-    },
-    generateLegend(maxValue, imageList) {
-      return Helpers.getMapLegend(maxValue, [0, 5, 10, 20, 100], imageList, true);
+      this.legends.heatMap = Helpers.generateLegend(this.maxValues.projects);
     },
     showPins() {
       if (this.filtersActivate.incentivadores) {

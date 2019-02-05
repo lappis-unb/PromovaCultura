@@ -25,6 +25,13 @@ function getDefaultLegendColors() {
     ]
 }
 
+function generateLegend(maxValue, imageList = []) {
+    if (imageList.length == 0)
+        return getMapLegend(maxValue)
+    else
+        return getMapLegend(maxValue, [0, 5, 10, 20, 100], imageList, true);
+}
+
 function getMapLegend(maxValue, percentList = [], colorList = [], isImage = false) {
     let legends = [];
     let percents =
@@ -53,7 +60,7 @@ function getMapLegend(maxValue, percentList = [], colorList = [], isImage = fals
 }
 
 export default {
-    getMapLegend,
+    generateLegend,
     proponentIcons,
     investorIcons
 }

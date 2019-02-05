@@ -119,7 +119,7 @@ export default {
       mobileActions.makeHeatList(
         this.ufs,
         this.data.raisedAmount,
-        Helpers.getMapLegend(this.data.totals["raisedAmount"])
+        Helpers.generateLegend(this.data.totals["raisedAmount"])
       );
     }
   }
