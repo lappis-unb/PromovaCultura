@@ -142,4 +142,5 @@ export default {
   makeHeatMap,
   setProponentesPins,
   setIncentivadoresPins,
+  getColorBylegend,
 };
