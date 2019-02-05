@@ -190,7 +190,7 @@ export default {
         this.data.raisedAmount = this.proponentData.raisedAmount;
 
         this.data.totals = this.proponentData.totals;
-        console.log(this.data);
+        
         this.generateCSV();
         $("#brazil-map").LoadingOverlay("hide");
       }
