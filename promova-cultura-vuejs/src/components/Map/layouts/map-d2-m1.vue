@@ -83,7 +83,7 @@
           />
           <vue-csv-downloader v-if="proponentMap"
                               :data="data.csv"
-                              :fields="data.fields" class="btn btn-success csv-button">
+                              :fields="data.fields" class="btn btn-secondary csv-button" id="export-csv">
             Exportar Dados
           </vue-csv-downloader>
         </div>

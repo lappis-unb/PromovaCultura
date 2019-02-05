@@ -1,69 +1,55 @@
 <template>
   <div class="align-card">
-    <ul class="nav nav-tabs legend-tabs" id="myTab" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link" id="proponente-tab" role="tab">Valor Captado</a>
-      </li>
-    </ul>
-    <div class="tab-content legend-content" id="myTabContent">
+    <div class="card">
+      <legend class="card-header">LEGENDA</legend>
       <load-placeholder
         id="placeholder1"
         phStyle="legend"
-        contentId="projeto"
-        :isVisible="isLoading"
-      />
+        contentId="card-legend"
+        :isVisible="isLoading"/>
 
-      <div
-        class="tab-pane fade show active"
-        id="projeto"
-        aria-labelledby="projeto-tab"
-        role="tabpanel"
-      >
-        <div>
+        <div id="card-legend" class="card-body">
           <ul class="legend-list">
-            <li
-              v-for="(data) in legends.heatMap"
-              :key="data.color"
-              v-if="data.max != 0 || data.min!=0"
-            >
+            <li v-for="(data) in legends.heatMap" :key="data.color" v-if="data.max != 0 || data.min!=0">
               <img class="legend-color" :src="data.color" v-if="legends.heatMap[0].image">
               <div class="legend-color" :style="'background:'+ data.color" v-else></div>
+
               <span v-if="data.min==data.max">{{data.max}}</span>
-              <span
-                class="spacebar"
-                v-if="(data.min < 1000000000 && data.min >= 1000000)"
-              >R$ {{parseFloat((data.min/1000000)).toFixed(1)}} mi até</span>
-              <span
-                class="spacebar"
-                v-else-if="(data.min >= 1000000000)"
-              >R$ {{parseFloat((data.min/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi até</span>
-              <span v-else class="spacebar">R$ {{data.min.toLocaleString("pt-BR")}} até</span>
-              <span
-                v-if="(data.max < 1000000000 && data.max >= 1000000)"
-              >{{parseFloat((data.max/1000000).toFixed(1)).toLocaleString('pt-BR')}} mi</span>
-              <span
-                v-else-if="(data.max >= 1000000000)"
-              >{{parseFloat((data.max/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi</span>
-              <span v-else>{{data.max.toLocaleString("pt-BR")}}</span>
+
+              <span v-if="(data.max < 1000000000 && data.max >= 1000000)">
+                até R${{parseFloat((data.max/1000000).toFixed(1)).toLocaleString('pt-BR')}} mi
+              </span>
+
+              <span v-else-if="(data.max >= 1000000000)">
+                até R${{parseFloat((data.max/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi
+              </span>
+
+              <span v-else>
+                até R${{data.max.toLocaleString("pt-BR")}}
+              </span>
             </li>
           </ul>
         </div>
-      </div>
+
     </div>
 
+
+
+
+
     <div class="card">
-      <legend class="card-header">TOTAL</legend>
+      <legend class="card-header">TOTAIS</legend>
       <load-placeholder
         id="placeholder2"
-        phStyle="legend"
-        contentId="card2"
+        phStyle="number"
+        contentId="card-totals"
         :isVisible="isLoading"
       />
-      <div id="card2" class="card-body">
+      <div id="card-totals" class="card-body">
         <div>
           <div class="list-group list-group-flush">
             <div class="bottom-line">
-              <p class="total-label">Quantidade de Proponentes</p>
+              <p class="total-label">Proponentes</p>
               <p class="total-value">{{totalProponents}}</p>
             </div>
             <div class="bottom-line">
@@ -115,13 +101,8 @@ export default {
     };
   },
   mounted() {
-    $(".csv-button").LoadingOverlay("show", {
-      text: "Exportar Dados",
-      textColor: "white",
-      image: "",
-      background: "#dadada",
-      fontawesomeColor: "#565656"
-    });
+    document.getElementById("export-csv").classList.add('disabled');
+
   },
   methods: {
     updateTotals() {
@@ -147,8 +128,13 @@ export default {
       );
       $("#myTabContent").LoadingOverlay("hide");
       $(".card-body").LoadingOverlay("hide");
-      $(".csv-button").LoadingOverlay("hide");
-      if (this.data.totals.proponents != 0) this.isLoading = false;
+
+      if (this.data.totals.proponents != 0) {
+        this.isLoading = false;
+        document.getElementById("export-csv").classList.remove('btn-secondary');
+        document.getElementById("export-csv").classList.remove('disabled');
+        document.getElementById("export-csv").classList.add('btn-success');
+      }
     }
   }
 };
@@ -211,12 +197,14 @@ export default {
 
 .legend-list {
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+  width: 60%;
 }
 
 .legend-list li {
   display: flex;
   margin-bottom: 10px;
+  width: auto;
 }
 
 .legend-list li:last-child {
@@ -262,7 +250,7 @@ div.legend-color {
 
 .card {
   width: 85%;
-  height: 225px;
+  /* height: 225px; */
   margin: 20px auto 0 auto;
 }
 

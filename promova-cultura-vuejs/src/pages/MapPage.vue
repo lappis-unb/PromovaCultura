@@ -252,13 +252,13 @@ export default {
       ];
       this.legends.proponentes = this.getMapLegend(
         this.maxValues.proponentes,
-        [0, 5, 10, 20, 35, 100],
+        [0, 5, 10, 20, 100],
         imagesListP,
         true
       );
       this.legends.incentivadores = this.getMapLegend(
         this.maxValues.incentivadores,
-        [0, 5, 10, 20, 35, 100],
+        [0, 5, 10, 20, 100],
         imagesListI,
         true
       );
@@ -267,17 +267,16 @@ export default {
     getMapLegend(maxValue, percentList = [], colorList = [], isImage = false) {
       let legends = [];
       let percents =
-        percentList.length == 0 ? [0, 0, 1, 5, 10, 20, 35, 100] : percentList;
+        percentList.length == 0 ? [0, 0, 0.12, 1.4, 10.2, 20.3, 100] : percentList;
       let colors =
         colorList.length == 0
           ? [
               "#dadada",
-              "#6BBF6B",
-              "#3AA63A",
-              "#297C29",
-              "#205B20",
-              "#173F17",
-              "#102D10"
+              "#75CC75",
+              "#3AA53A",
+              "#1F661F",
+              "#1A3D1A",
+              "#0B230B"
             ]
           : colorList;
 
