@@ -24,9 +24,9 @@
           <location-info
             v-if="!proponentMap"
             :showOn="locationInfoShowOn"
-            :projects="data.projects"
-            :proponents="data.proponentes"
-            :incentivators="data.incentivadores"
+            :projects="data.activeViz.projects"
+            :proponents="data.activeViz.proponents"
+            :incentivators="data.activeViz.investors"
             :segment="segment"
           />
           <proponent-info
@@ -37,9 +37,9 @@
             :data="data"
           />
           <brazil-map
-            :projects="data.projects"
-            :proponentes="data.proponentes"
-            :incentivadores="data.incentivadores"
+            :projects="data.activeViz.projects"
+            :proponentes="data.activeViz.proponents"
+            :incentivadores="data.activeViz.investors"
             :legends="legends"
             :maxValues="maxValues"
             :level="level"
