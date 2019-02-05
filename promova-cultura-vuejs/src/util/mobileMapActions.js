@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import mapActions from "@/util/map-actions.js"
+import mapActions from "@/util/mapActions.js"
 
 function makeHeatList(ufs, raisedAmounts, legends) {
     const localList = Object.keys(raisedAmounts);

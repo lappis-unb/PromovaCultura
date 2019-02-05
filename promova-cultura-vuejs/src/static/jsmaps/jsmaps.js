@@ -3,7 +3,7 @@
 // Version 3.1.3
 import jQuery from "jquery"
 import "./raphael.js"
-import EventBus from '@/util/EventBus';
+import EventBus from '@/util/eventBus';
 
 
 (function($) {

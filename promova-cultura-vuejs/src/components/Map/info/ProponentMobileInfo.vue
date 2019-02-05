@@ -78,7 +78,7 @@
 import uf from "@/util/ufs.js";
 import mobileActions from "@/util/mobileMapActions.js";
 import $ from "jquery";
-import MapPage from "@/pages/MapPage";
+import Helpers from "@/util/helpers.js"
 import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
 
 export default {
@@ -119,24 +119,8 @@ export default {
       mobileActions.makeHeatList(
         this.ufs,
         this.data.raisedAmount,
-        this.getLegendHeatMap()
+        Helpers.getMapLegend(this.data.totals["raisedAmount"])
       );
-    },
-    getLegendHeatMap(){
-      let maxValue = this.getMaxValue(this.data.raisedAmount, this.ufs);
-      return MapPage.methods.getMapLegend(maxValue);
-    }
-    ,
-    getMaxValue(values) {
-      let maxValue = 0;
-      let ufValues = Object.values(values);
-      for (let i = 0; i < Object.keys(this.ufs).length; i++) {
-        if (ufValues[i] > maxValue) {
-          maxValue = ufValues[i];
-        }
-      }
-      // +1 to include the max value state inside the range.
-      return maxValue + 1;
     }
   }
 };

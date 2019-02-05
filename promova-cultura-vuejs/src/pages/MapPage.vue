@@ -24,6 +24,7 @@
 import { batchFetch, simpleFetch } from "@/util/apiComunication.js";
 import Mapd2m1 from "@/components/Map/layouts/map-d2-m1";
 import $ from "jquery";
+import Helpers from "@/util/helpers.js";
 import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
 import { fetchFlask } from "../util/apiComunication";
 
@@ -92,17 +93,17 @@ export default {
     };
   },
   watch: {
-      proponentData:{
-        handler(data){
-            this.updateValues()
-            this.updateChildrenProps();
-        },
-        deep:true,
+    proponentData: {
+      handler(data) {
+        this.updateValues();
+        this.updateChildrenProps();
       },
+      deep: true
+    },
     tmp: {
       handler(data) {
         this.updateChildrenProps();
-        this.generateLegends();
+        this.generateAllLegends();
       },
       deep: true
     },
@@ -151,7 +152,7 @@ export default {
     updatedSegment(segment) {
       this.selected = segment;
       this.fetchAllResources();
-      this.updateValues()
+      this.updateValues();
     },
 
     generateCSV: function() {
@@ -169,7 +170,7 @@ export default {
       this.data.csv = values;
     },
     async fetchAllResources() {
-      if(!this.proponentMap) {
+      if (!this.proponentMap) {
         console.log(`Fetching API.\nSEGMENT: ${this.selected}`);
         const data = await batchFetch(this.selected);
         // console.log("Data fetched: ", JSON.stringify(data));
@@ -181,19 +182,19 @@ export default {
         this.tmp.incentivadoresRegion = data.incentivadores_por_regiao;
       }
     },
-      updateValues(){
-          if (this.proponentMap) {
-              this.tmp.proponentesUF = this.proponentData.proponents;
-              this.data.approvedAmount = this.proponentData.approvedAmount;
-              this.tmp.projectsUF = this.proponentData.raisedAmount;
-              this.data.raisedAmount = this.proponentData.raisedAmount;
+    updateValues() {
+      if (this.proponentMap) {
+        this.tmp.proponentesUF = this.proponentData.proponents;
+        this.data.approvedAmount = this.proponentData.approvedAmount;
+        this.tmp.projectsUF = this.proponentData.raisedAmount;
+        this.data.raisedAmount = this.proponentData.raisedAmount;
 
-              this.data.totals = this.proponentData.totals;
-              console.log(this.data)
-              this.generateCSV();
-              $("#brazil-map").LoadingOverlay("hide");
-          }
-      },
+        this.data.totals = this.proponentData.totals;
+        console.log(this.data);
+        this.generateCSV();
+        $("#brazil-map").LoadingOverlay("hide");
+      }
+    },
     calculatePercentage(objeto, total) {
       var totals = {};
       for (var i of Object.keys(objeto)) {
@@ -235,69 +236,34 @@ export default {
         return max;
       }
     },
-    generateLegends() {
-      let imagesListP = [
+    generateAllLegends() {
+      const proponentIcons = [
         "@/../static/svg-icons/proponente_LVL_1.svg",
         "@/../static/svg-icons/proponente_LVL_2.svg",
         "@/../static/svg-icons/proponente_LVL_3.svg",
         "@/../static/svg-icons/proponente_LVL_4.svg",
         "@/../static/svg-icons/proponente_LVL_5.svg"
       ];
-      let imagesListI = [
+      const investorIcons = [
         "@/../static/svg-icons/Investidores_LVL_1.svg",
         "@/../static/svg-icons/Investidores_LVL_2.svg",
         "@/../static/svg-icons/Investidores_LVL_3.svg",
         "@/../static/svg-icons/Investidores_LVL_4.svg",
         "@/../static/svg-icons/Investidores_LVL_5.svg"
       ];
-      this.legends.proponentes = this.getMapLegend(
+      this.legends.proponentes = this.generateLegend(
         this.maxValues.proponentes,
-        [0, 5, 10, 20, 100],
-        imagesListP,
-        true
+        proponentIcons
       );
-      this.legends.incentivadores = this.getMapLegend(
+      this.legends.incentivadores = this.generateLegend(
         this.maxValues.incentivadores,
-        [0, 5, 10, 20, 100],
-        imagesListI,
-        true
+        investorIcons
       );
-      this.legends.heatMap = this.getMapLegend(this.maxValues.projects);
+      this.legends.heatMap = Helpers.getMapLegend(this.maxValues.projects);
     },
-    getMapLegend(maxValue, percentList = [], colorList = [], isImage = false) {
-      let legends = [];
-      let percents =
-        percentList.length == 0 ? [0, 0, 0.12, 1.4, 10.2, 20.3, 100] : percentList;
-      let colors =
-        colorList.length == 0
-          ? [
-              "#dadada",
-              "#75CC75",
-              "#3AA53A",
-              "#1F661F",
-              "#1A3D1A",
-              "#0B230B"
-            ]
-          : colorList;
-
-      let min = 0;
-      let max = 0;
-
-      for (let i = 0; i < percents.length - 1; i++) {
-        let colorBackground = colors[i];
-
-        min = max == 0 ? 0 : max + 1;
-        max = parseInt((percents[i + 1] / 100) * maxValue);
-        legends[i] = {
-          image: isImage,
-          color: colorBackground,
-          min: max != 0 && min == 0 ? 1 : min,
-          max: max
-        };
-      }
-      return legends;
+    generateLegend(maxValue, imageList) {
+      Helpers.getMapLegend(maxValue, [0, 5, 10, 20, 100], imageList, true);
     },
-
     showPins() {
       if (this.filtersActivate.incentivadores) {
         this.data.incentivadores =

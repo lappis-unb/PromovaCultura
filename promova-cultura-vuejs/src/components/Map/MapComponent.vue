@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import mapActions from "@/util/map-actions";
+import mapActions from "@/util/mapActions";
 
 export default {
   props: {

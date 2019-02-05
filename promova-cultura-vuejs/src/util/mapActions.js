@@ -2,8 +2,8 @@ import $ from "jquery";
 import "@/../src/static/jsmaps/brazil.js";
 import "@/../src/static/jsmaps/brazil_region.js";
 
-import LocationInfoControl from './LocationInfoControl';
-import EventBus from '@/util/EventBus';
+import LocationInfoControl from './locationInfoControl';
+import EventBus from '@/util/eventBus';
 
 
 function displayBrazilMap(mapType) {
