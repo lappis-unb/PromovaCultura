@@ -2,8 +2,8 @@ import $ from "jquery";
 import "@/../src/static/jsmaps/brazil.js";
 import "@/../src/static/jsmaps/brazil_region.js";
 
-import LocationInfoControl from './LocationInfoControl';
-import EventBus from '@/util/EventBus';
+import LocationInfoControl from './locationInfoControl';
+import EventBus from '@/util/eventBus';
 
 
 function displayBrazilMap(mapType) {
@@ -29,7 +29,7 @@ function getColorBylegend(qtd, maplegend) {
   let colorSub;
   for (let i = 0; i < maplegend.length; i++) {
     if (maplegend[i].min <= qtd && qtd <= maplegend[i].max) {
-      colorSub = maplegend[i].color;
+      colorSub = maplegend[i].color; 
       break;
     }
   }
@@ -142,4 +142,5 @@ export default {
   makeHeatMap,
   setProponentesPins,
   setIncentivadoresPins,
+  getColorBylegend,
 };
