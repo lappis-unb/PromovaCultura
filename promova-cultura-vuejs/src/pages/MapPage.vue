@@ -237,32 +237,18 @@ export default {
       }
     },
     generateAllLegends() {
-      const proponentIcons = [
-        "@/../static/svg-icons/proponente_LVL_1.svg",
-        "@/../static/svg-icons/proponente_LVL_2.svg",
-        "@/../static/svg-icons/proponente_LVL_3.svg",
-        "@/../static/svg-icons/proponente_LVL_4.svg",
-        "@/../static/svg-icons/proponente_LVL_5.svg"
-      ];
-      const investorIcons = [
-        "@/../static/svg-icons/Investidores_LVL_1.svg",
-        "@/../static/svg-icons/Investidores_LVL_2.svg",
-        "@/../static/svg-icons/Investidores_LVL_3.svg",
-        "@/../static/svg-icons/Investidores_LVL_4.svg",
-        "@/../static/svg-icons/Investidores_LVL_5.svg"
-      ];
       this.legends.proponentes = this.generateLegend(
         this.maxValues.proponentes,
-        proponentIcons
+        Helpers.proponentIcons
       );
       this.legends.incentivadores = this.generateLegend(
         this.maxValues.incentivadores,
-        investorIcons
+        Helpers.investorIcons
       );
       this.legends.heatMap = Helpers.getMapLegend(this.maxValues.projects);
     },
     generateLegend(maxValue, imageList) {
-      Helpers.getMapLegend(maxValue, [0, 5, 10, 20, 100], imageList, true);
+      return Helpers.getMapLegend(maxValue, [0, 5, 10, 20, 100], imageList, true);
     },
     showPins() {
       if (this.filtersActivate.incentivadores) {

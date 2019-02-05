@@ -1,3 +1,19 @@
+const proponentIcons = [
+    "@/../static/svg-icons/proponente_LVL_1.svg",
+    "@/../static/svg-icons/proponente_LVL_2.svg",
+    "@/../static/svg-icons/proponente_LVL_3.svg",
+    "@/../static/svg-icons/proponente_LVL_4.svg",
+    "@/../static/svg-icons/proponente_LVL_5.svg"
+];
+
+const investorIcons = [
+    "@/../static/svg-icons/Investidores_LVL_1.svg",
+    "@/../static/svg-icons/Investidores_LVL_2.svg",
+    "@/../static/svg-icons/Investidores_LVL_3.svg",
+    "@/../static/svg-icons/Investidores_LVL_4.svg",
+    "@/../static/svg-icons/Investidores_LVL_5.svg"
+];
+
 function getDefaultLegendColors() {
     return [
         "#dadada",
@@ -37,5 +53,7 @@ function getMapLegend(maxValue, percentList = [], colorList = [], isImage = fals
 }
 
 export default {
-    getMapLegend
+    getMapLegend,
+    proponentIcons,
+    investorIcons
 }
