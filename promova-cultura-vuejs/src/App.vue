@@ -32,4 +32,9 @@ export default {
 .main-container {
   padding-top: 50px;
 }
+@media only screen and (max-width: 991px) {
+  .main-container {
+    margin: 3.5%;
+  }
+}
 </style>
