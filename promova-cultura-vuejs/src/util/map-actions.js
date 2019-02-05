@@ -29,7 +29,7 @@ function getColorBylegend(qtd, maplegend) {
   let colorSub;
   for (let i = 0; i < maplegend.length; i++) {
     if (maplegend[i].min <= qtd && qtd <= maplegend[i].max) {
-      colorSub = maplegend[i].color;
+      colorSub = maplegend[i].color; 
       break;
     }
   }

@@ -116,16 +116,17 @@ export default {
         }
       );
 
-      let maxValue = this.getMaxValue(this.data.raisedAmount, this.ufs);
-      let legendsHeatMap = MapPage.methods.getMapLegend(maxValue);
-      console.log(legendsHeatMap);
-
       mobileActions.makeHeatList(
         this.ufs,
         this.data.raisedAmount,
-        legendsHeatMap
+        this.getLegendHeatMap()
       );
     },
+    getLegendHeatMap(){
+      let maxValue = this.getMaxValue(this.data.raisedAmount, this.ufs);
+      return MapPage.methods.getMapLegend(maxValue);
+    }
+    ,
     getMaxValue(values) {
       let maxValue = 0;
       let ufValues = Object.values(values);
