@@ -34,23 +34,23 @@ function getDefaultLegendColors() {
 function generateLegend(maxValue, imageList = []) {
     if (imageList.length == 0)
         return getMapLegend(maxValue)
-    else{
+    else {
         const intervals = [0, 5, 10, 20, 100] // from 0-5%, 5.1-10%, etc...
-        return getMapLegend(maxValue, intervals , imageList, true);
+        return getMapLegend(maxValue, intervals, imageList, true);
     }
 }
 
 function getMapLegend(maxValue, intervals = [], colorList = [], isImage = false) {
     let legends = [];
-    
+
     let percents =
-    intervals.length == 0 ? defaultNumberIntervals : intervals;
+        intervals.length == 0 ? defaultNumberIntervals : intervals;
     let colors =
-    colorList.length == 0
-    ? getDefaultLegendColors()
-    : colorList;
-    
-    
+        colorList.length == 0
+            ? getDefaultLegendColors()
+            : colorList;
+
+
     let min = 0;
     let max = 0;
     for (let i = 0; i < percents.length - 1; i++) {
@@ -68,8 +68,30 @@ function getMapLegend(maxValue, intervals = [], colorList = [], isImage = false)
     return legends;
 }
 
+function compareRaisedAmount(stateA, stateB) {
+    if (stateA.raisedAmount < stateB.raisedAmount)
+        return -1;
+    if (stateA.raisedAmount > stateB.raisedAmount)
+        return 1;
+    return 0;
+}
+
+function compareByName(stateA, stateB){
+    const stateAName = stateA.name.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+    const stateBName = stateB.name.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+    if(stateAName < stateBName){
+        return -1;
+    }
+    if(stateAName > stateBName){
+        return 1;
+    }
+    return 0;
+}
+
 export default {
     generateLegend,
     proponentIcons,
-    investorIcons
+    investorIcons,
+    compareRaisedAmount,
+    compareByName
 }

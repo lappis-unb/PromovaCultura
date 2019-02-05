@@ -6,31 +6,31 @@
       <div id="loading-placeholder"></div>
       <div class="sticky-top" style="overflow: hidden; background-color: white">
         <div class="row">
-          <div class="offset-1 col-5 sticky">Estado</div>
-          <div class="col-6 sticky">Captação</div>
+          <div class="order-buttom offset-1 col-5 sticky" v-on:click="orderByName()">Estado</div>
+          <div class="order-buttom col-6 sticky" v-on:click="orderByValues()">Captação</div>
         </div>
       </div>
-      <div v-for="(uf, index) in Object.keys(this.data.proponents)">
+      <div :key="uf.sigla" v-for="(uf, index) in ufsData">
         <div
           v-if="uf !== '  '"
-          :id="uf"
+          :id="uf.sigla"
           class="row collapsibleState collapsed uf-item"
           data-toggle="collapse"
           :data-target="'#collapseStateContent' + index"
         >
-          <div class="col-6 state">{{ufs[uf]}}</div>
+          <div class="col-6 state">{{uf.name}}</div>
           <!-- <div class="col-6 state" v-else>Sem Estado</div> -->
           <div class="col-4 amount">
             <span
-              v-if="data.raisedAmount[uf] < 1000000000 && data.raisedAmount[uf] >= 1000000"
-            >R$ {{parseFloat((data.raisedAmount[uf]/1000000)).toFixed(1)}} mi</span>
+              v-if="uf.raisedAmount < 1000000000 && uf.raisedAmount >= 1000000"
+            >R$ {{parseFloat((uf.raisedAmount/1000000)).toFixed(1)}} mi</span>
             <span
-              v-else-if="(data.raisedAmount[uf] >= 1000000000)"
-            >R$ {{parseFloat((data.raisedAmount[uf]/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi</span>
-            <span v-else>R$ {{parseFloat(data.raisedAmount[uf]).toLocaleString("pt-BR")}}</span>
+              v-else-if="(uf.raisedAmount >= 1000000000)"
+            >R$ {{parseFloat((uf.raisedAmount/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi</span>
+            <span v-else>R$ {{parseFloat(uf.raisedAmount).toLocaleString("pt-BR")}}</span>
           </div>
           <div class="white-space-bar"></div>
-          <div :id="uf+'-arrow'" class="col-2 arrow">
+          <div :id="uf.sigla+'-arrow'" class="col-2 arrow">
             <span class="icon-filter">
               <i class="fa" aria-hidden="true"></i>
             </span>
@@ -40,12 +40,12 @@
         <div :id="'collapseStateContent' + index" class="collapsibleStateContent collapse">
           <div class="row">
             <div class="col-6">Proponentes</div>
-            <div class="col-6">{{data.proponents[uf]}}</div>
+            <div class="col-6">{{uf.proponents}}</div>
           </div>
           <div class="row">
             <div class="col-6">Valor aprovado</div>
             <div class="col-6">
-              {{parseFloat(data.approvedAmount[uf]).toLocaleString("pt-BR", {
+              {{parseFloat(uf.approvedAmount).toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL"
               })}}
@@ -54,7 +54,7 @@
           <div class="row">
             <div class="col-6">Valor captado</div>
             <div class="col-6">
-              {{parseFloat(data.raisedAmount[uf]).toLocaleString("pt-BR", {
+              {{parseFloat(uf.raisedAmount).toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL"
               })}}
@@ -78,7 +78,7 @@
 import uf from "@/util/ufs.js";
 import mobileActions from "@/util/mobileMapActions.js";
 import $ from "jquery";
-import Helpers from "@/util/helpers.js"
+import Helpers from "@/util/helpers.js";
 import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
 
 export default {
@@ -88,7 +88,12 @@ export default {
   watch: {
     data: {
       handler(data) {
+        this.updateUfData(data);
         this.updateTotals();
+        mobileActions.makeHeatList(
+          this.ufsData,
+          Helpers.generateLegend(this.data.totals["raisedAmount"])
+        );
       },
       deep: true
     }
@@ -96,6 +101,7 @@ export default {
   data() {
     return {
       ufs: uf,
+      ufsData: [],
       totalProponents: 0,
       totalapprovedAmount: 0,
       totalRaisedAmount: 0
@@ -115,12 +121,27 @@ export default {
           minimumFractionDigits: 2
         }
       );
-
-      mobileActions.makeHeatList(
-        this.ufs,
-        this.data.raisedAmount,
-        Helpers.generateLegend(this.data.totals["raisedAmount"])
-      );
+    },
+    updateUfData(data) {
+      var tmpUFs = [];
+      console.log("Updating data");
+      for (uf in this.data.proponents) {
+        const tmpUf = {
+          name: uf == "  " ? "---" : this.ufs[uf],
+          sigla: uf == "  " ? "semEstado" : uf,
+          proponents: this.data.proponents[uf],
+          raisedAmount: this.data.raisedAmount[uf],
+          approvedAmount: this.data.approvedAmount[uf]
+        };
+        tmpUFs.push(tmpUf);
+      }
+      this.ufsData = tmpUFs;
+    },
+    orderByName() {
+      this.ufsData = this.ufsData.sort(Helpers.compareByName);
+    },
+    orderByValues() {
+      this.ufsData = this.ufsData.sort(Helpers.compareRaisedAmount);
     }
   }
 };
@@ -242,5 +263,12 @@ h1 {
   width: 5px;
   background-color: white;
   z-index: 1;
+}
+.order-buttom {
+  cursor: pointer;
+  text-align: center;
+  margin:0;
+  max-width: 50%;
+  flex: 50%;
 }
 </style>

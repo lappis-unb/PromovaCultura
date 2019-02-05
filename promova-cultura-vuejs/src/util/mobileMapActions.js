@@ -1,15 +1,14 @@
 import $ from 'jquery'
 import mapActions from "@/util/mapActions.js"
 
-function makeHeatList(ufs, raisedAmounts, legends) {
-    const localList = Object.keys(raisedAmounts);
-
-    if (localList.length === 0) {
+function makeHeatList(ufs, legends) {
+    if (ufs.length === 0) {
         console.log("Nothing to heat on mobile list.");
     } else {
-        for (let state in ufs) {
-            let stateColor = mapActions.getColorBylegend(raisedAmounts[state], legends);
-            paintListItem(state, stateColor)
+        console.log("Painting heat colors")
+        for (let i = 0; i<ufs.length; i++){
+            let stateColor = mapActions.getColorBylegend(ufs[i].raisedAmount, legends);
+            paintListItem(ufs[i].sigla, stateColor)
         }
     }
 }
