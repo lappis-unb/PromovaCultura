@@ -4,16 +4,20 @@
     <div class="sticky-top" style="overflow: hidden; background-color: white">
       <div class="legend-item">
         <h3 class="sticky">LEGENDA</h3>
-        <div>
-          <ul class="internal-displacement">
-<!--            {{this.legends}}-->
-            <div v-for="legend in this.legends">
-              <li>
-                <div><span :style="'background:'+ legend.color"></span></div>< R$ {{legend.max}}</li>
-
+          <!-- <ul class="internal-displacement"> -->
+          <div class="row">
+            <div v-for="legend in this.legends"
+                 class="internal-displacement">
+              <ul v-if="legend.max != 0">
+                <div class="box-legend col-sm-2">
+                  <span :style="'background:'+ legend.color">
+                  </span>
+                  < R$ {{legend.max | abbreviate}}
+                </div>
+              </ul>
             </div>
-          </ul>
-        </div>
+          </div>
+          <!-- </ul> -->
       </div>
     </div>
     <div id="main-content">
@@ -196,6 +200,10 @@ h1 {
   left: 0;
   height: 200px;
 }
+
+.box-legend {
+}
+
 .sticky {
   font-size: 20px;
   color: #808080;
@@ -320,19 +328,7 @@ h1 {
   font-size: 15px;
 }
 
-.internal-displacement li:last-child {
-  margin-bottom: 0;
-}
-.internal-displacement li {
-  margin-bottom: 20px;
-  display: inline;
-}
-
-.internal-displacement li *{
-  vertical-align: middle;
-}
-
-.internal-displacement li span {
+.internal-displacement ul span {
   background: #555555;
   display: inline-block;
   width: 35px;
@@ -340,14 +336,6 @@ h1 {
   border-radius: 15%;
   -webkit-border-radius: 15%;
   -moz-border-radius: 15%;
-  margin: -5px auto auto auto;
-}
-
-.internal-displacement li div {
-  margin-right: 10px;
-  display: inline-block;
-  text-align: center;
-  width: 40px;
 }
 
 .total-number{
