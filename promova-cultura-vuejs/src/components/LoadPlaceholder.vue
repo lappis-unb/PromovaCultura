@@ -54,6 +54,15 @@
         <div class="ph-col-8 tall"></div>
         <div class="ph-col-2 tall ph-button"></div>
       </div>
+      <div v-if="phStyle == 'mobileLegend'">
+        <div class="ph-row">
+            <div class="ph-col-1"></div>
+            <div class="ph-col-1"></div>
+            <div class="ph-col-1"></div>
+            <div class="ph-col-1"></div>
+            <div class="ph-col-1"></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -107,8 +116,13 @@ export default {
 div .tall {
   height: 40px;
 }
-div .ph-button{
-  margin-left:5px;
+div .ph-col-1 {
+  width: 45px;
+  height: 30px;
+  margin: 0 auto 5px auto;
+}
+div .ph-button {
+  margin-left: 5px;
 }
 .ph-row {
   justify-content: center;

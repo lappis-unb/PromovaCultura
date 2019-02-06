@@ -4,7 +4,13 @@
         <div class="sticky-top" style="overflow: hidden; background-color: white">
             <div class="legend-item">
                 <h3 class="sticky">LEGENDA</h3>
-                <div v-for="legend in this.legends"
+                <load-placeholder
+                id="placeholder5"
+                contentId="legend-container"
+                phStyle="mobileLegend"
+                :isVisible="isLoading"
+                />
+                <div id="legend-container" :key=index v-for="(legend, index) in this.legends"
                      class="box-legend legend-color"
                      v-if="legend.max !== 0">
                     <div>
@@ -16,13 +22,20 @@
             </div>
         </div>
         <div id="main-content">
-            <div id="loading-placeholder"></div>
             <div>
                 <div class="row">
                     <div class="order-buttom offset-1 col-5 sticky" v-on:click="orderByName()">Estado</div>
                     <div class="order-buttom col-6 sticky" v-on:click="orderByValues()">Captação</div>
                 </div>
             </div>
+            <load-placeholder
+                id="placeholder4"
+                contentId="list-container"
+                phStyle="mobileList"
+                :isVisible="isLoading"
+            />
+            <div id="list-container">
+
             <div :key="uf.sigla" v-for="(uf, index) in ufsData">
                 <div
                         v-if="uf !== '  '"
@@ -38,12 +51,7 @@
                     </div>
                     <div class="white-space-bar"></div>
                     <div :id="uf.sigla+'-arrow'" class="col-2 arrow">
-    <load-placeholder
-      id="placeholder4"
-      contentId="list-container"
-      phStyle="mobileList"
-      :isVisible="isLoading"
-    />
+    
             <span class="icon-filter">
               <i class="fa" aria-hidden="true"></i>
             </span>
@@ -76,6 +84,7 @@
                 </div>
             </div>
         </div>
+            </div>
 
         <div class="footer-fixed">
             <div class="row sticky-total">
@@ -91,11 +100,15 @@
     import uf from "@/util/ufs.js";
     import $ from "jquery";
     import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
+    import LoadPlaceholder from "@/components/LoadPlaceholder";
     import abbreviate from "number-abbreviate";
     import mobileActions from "@/util/mobileMapActions.js";
     import Helpers from "@/util/helpers.js";
 
     export default {
+        components:{
+            "load-placeholder": LoadPlaceholder 
+        },
         props: {
             data: Object,
         },
@@ -132,7 +145,8 @@
                 totalProponents: 0,
                 totalapprovedAmount: 0,
                 totalRaisedAmount: 0,
-                legends: []
+                legends: [],
+                isLoading: true
             };
         },
         methods: {
@@ -161,6 +175,7 @@
             updateUfData(data) {
                 var tmpUFs = [];
                 console.log("Updating data");
+                if(this.data.totals.proponents != 0) this.isLoading = false;
                 for (uf in this.data.proponents) {
                     const tmpUf = {
                         name: uf == "  " ? "---" : this.ufs[uf],
@@ -179,7 +194,6 @@
             orderByValues() {
                 this.ufsData = this.ufsData.sort(Helpers.compareRaisedAmount);
             }
-      isLoading: true
         }
     };
 </script>
