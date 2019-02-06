@@ -8,34 +8,20 @@
         contentId="card-legend"
         :isVisible="isLoading"/>
 
-        <div id="card-legend" class="card-body">
-          <ul class="legend-list">
-            <li v-for="(data) in legends.heatMap" :key="data.color" v-if="data.max != 0 || data.min!=0">
-              <img class="legend-color" :src="data.color" v-if="legends.heatMap[0].image">
-              <div class="legend-color" :style="'background:'+ data.color" v-else></div>
-
-              <span v-if="data.min==data.max">{{data.max}}</span>
-
-              <span v-if="(data.max < 1000000000 && data.max >= 1000000)">
-                até R${{parseFloat((data.max/1000000).toFixed(1)).toLocaleString('pt-BR')}} mi
-              </span>
-
-              <span v-else-if="(data.max >= 1000000000)">
-                até R${{parseFloat((data.max/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi
-              </span>
-
-              <span v-else>
-                até R${{data.max.toLocaleString("pt-BR")}}
-              </span>
-            </li>
-          </ul>
-        </div>
-
+      <div id="card-legend" class="card-body">
+        <ul class="legend-list">
+          <li v-for="(data) in this.legendValues" :key="data.color"
+              v-if="data.max != 0 || data.min!=0">
+            <img class="legend-color" :src="data.color"
+                 v-if="legends.heatMap[0].image"/>
+            <div class="legend-color" :style="'background:'+ data.color"
+                 v-else></div>
+            <span v-if="data.min==data.max">{{data.max}}</span>
+            <span v-else>até R$ {{data.max | abbreviate}}</span>
+          </li>
+        </ul>
+      </div>
     </div>
-
-
-
-
 
     <div class="card">
       <legend class="card-header">TOTAIS</legend>
@@ -54,7 +40,7 @@
             </div>
             <div class="bottom-line">
               <p class="total-label">Valor Aprovado</p>
-              <p class="total-value">{{totalapprovedAmount}}</p>
+              <p class="total-value">{{totalApprovedAmount}}</p>
             </div>
             <div>
               <p class="total-label">Valor Captado</p>
@@ -68,76 +54,97 @@
 </template>
 
 <script>
-import Legend from "@/components/Map/legends/Legend";
-import $ from "jquery";
-import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
-import LoadPlaceholder from "@/components/LoadPlaceholder";
+  import Legend from "@/components/Map/legends/Legend";
+  import $ from "jquery";
+  import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
+  import abbreviate from "number-abbreviate";
+  import LoadPlaceholder from "@/components/LoadPlaceholder";
 
-export default {
-  components: {
-    "base-legend": Legend,
-    "load-placeholder": LoadPlaceholder
-  },
-  props: {
-    data: Object,
-    proponentMap: Boolean,
-    legends: {},
-    filtersActivate: Object
-  },
-  watch: {
-    data: {
-      handler(data) {
-        this.updateTotals();
+
+  export default {
+    components: {
+      "base-legend": Legend,
+      "load-placeholder": LoadPlaceholder
+    },
+    props: {
+      data: Object,
+      proponentMap: Boolean,
+      legends: {},
+      filtersActivate: Object
+    },
+    filters:{
+      abbreviate: function(value){
+        // if (!value) return ''
+        value = value.toString()
+        value = value.replace(/\./g, ",")
+        value = value.replace(/m/g, " mi")
+        value = value.replace(/b/g, " bi")
+
+        return value
+      }
+    },
+    watch: {
+      data: {
+        handler(data) {
+          this.updateTotals();
+          this.abbreviateLegendValues();
+        },
+        deep: true
       },
-      deep: true
-    }
-  },
-  data() {
-    return {
-      totalProponents: 0,
-      totalapprovedAmount: 0,
-      totalRaisedAmount: 0,
-      isLoading: true
-    };
-  },
-  mounted() {
-    document.getElementById("export-csv").classList.add('disabled');
-
-  },
-  methods: {
-    updateTotals() {
-      this.totalProponents = this.data.totals.proponents;
-      this.totalapprovedAmount = this.data.totals.approvedAmount.toLocaleString(
-        "pt-BR",
-        {
-          minimumFractionDigits: 2,
-          style: "currency",
-          currency: "BRL",
-          currencyDisplay: "symbol"
+    },
+    data() {
+      return {
+        totalProponents: 0,
+        totalApprovedAmount: 0,
+        totalRaisedAmount: 0,
+        legendValues: [],
+        isLoading: true
+      }
+    },
+    mounted() {
+      document.getElementById("export-csv").classList.add('disabled');
+    },
+    methods: {
+      abbreviateLegendValues(){
+        for(const legend of this.legends.heatMap) {
+          this.legendValues.push({
+            min: abbreviate(legend.min ,1),
+            max: abbreviate(legend.max ,1),
+            color: legend.color,
+            image: legend.image,
+          })
         }
-      );
+      },
+      updateTotals() {
+        this.totalProponents = this.data.totals.proponents;
+        this.totalApprovedAmount = this.data.totals.approvedAmount.toLocaleString(
+          "pt-BR",
+          {
+            minimumFractionDigits: 2,
+            style: "currency",
+            currency: "BRL",
+            currencyDisplay: "symbol"
+          }
+        );
+        this.totalRaisedAmount = this.data.totals.raisedAmount.toLocaleString(
+          "pt-BR",
+          {
+            minimumFractionDigits: 2,
+            style: "currency",
+            currency: "BRL",
+            currencyDisplay: "symbol"
+          }
+        );
 
-      this.totalRaisedAmount = this.data.totals.raisedAmount.toLocaleString(
-        "pt-BR",
-        {
-          minimumFractionDigits: 2,
-          style: "currency",
-          currency: "BRL",
-          currencyDisplay: "symbol"
+        if (this.data.totals.proponents != 0) {
+          this.isLoading = false;
+          document.getElementById("export-csv").classList.remove('btn-secondary');
+          document.getElementById("export-csv").classList.remove('disabled');
+          document.getElementById("export-csv").classList.add('btn-success');
         }
-      );
-      $("#myTabContent").LoadingOverlay("hide");
-      $(".card-body").LoadingOverlay("hide");
-
-      if (this.data.totals.proponents != 0) {
-        this.isLoading = false;
-        document.getElementById("export-csv").classList.remove('btn-secondary');
-        document.getElementById("export-csv").classList.remove('disabled');
-        document.getElementById("export-csv").classList.add('btn-success');
       }
     }
-  }
-};
+  };
 </script>
 
 <style scoped>

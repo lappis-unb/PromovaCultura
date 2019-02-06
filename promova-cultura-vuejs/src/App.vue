@@ -34,7 +34,7 @@ export default {
 }
 @media only screen and (max-width: 991px) {
   .main-container {
-    margin: 3.5%;
+    margin: 0 3.5% 3.5% 3.5%;
   }
 }
 </style>

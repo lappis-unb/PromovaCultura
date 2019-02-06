@@ -35,13 +35,7 @@
           <div class="col-6 state">{{uf.name}}</div>
           <!-- <div class="col-6 state" v-else>Sem Estado</div> -->
           <div class="col-4 amount">
-            <span
-              v-if="uf.raisedAmount < 1000000000 && uf.raisedAmount >= 1000000"
-            >R$ {{parseFloat((uf.raisedAmount/1000000)).toFixed(1)}} mi</span>
-            <span
-              v-else-if="(uf.raisedAmount >= 1000000000)"
-            >R$ {{parseFloat((uf.raisedAmount/1000000000).toFixed(1)).toLocaleString("pt-BR")}} bi</span>
-            <span v-else>R$ {{parseFloat(uf.raisedAmount).toLocaleString("pt-BR")}}</span>
+            <span>R$ {{uf.raisedAmount | abbreviate}}</span>
           </div>
           <div class="white-space-bar"></div>
           <div :id="uf.sigla+'-arrow'" class="col-2 arrow">
@@ -80,8 +74,8 @@
 
     <div class="footer-fixed">
       <div class="row sticky-total">
-        <div class="offset-1 col-5">Total</div>
-        <span class="col-6">R$ {{totalRaisedAmount}}</span>
+        <div class="total-text offset-1 col-2">Total</div>
+        <span class="total-number col-9">R$ {{totalRaisedAmount}}</span>
       </div>
     </div>
     <!--</ul>-->
@@ -89,26 +83,39 @@
 </template>
 
 <script>
-import uf from "@/util/ufs.js";
-import mobileActions from "@/util/mobileMapActions.js";
-import $ from "jquery";
-import Helpers from "@/util/helpers.js";
-import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
+  import uf from "@/util/ufs.js";
+  import $ from "jquery";
+  import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
+  import abbreviate from "number-abbreviate";
+  import mobileActions from "@/util/mobileMapActions.js";
+  import Helpers from "@/util/helpers.js";
 
-export default {
-  props: {
-    data: Object
+  export default {
+    props: {
+      data: Object,
+    },
+    filters: {
+    abbreviate: function(value) {
+      if (!value) return ''
+      //value = value.toString();
+      value = abbreviate(value, 1)
+      value = value.replace(/\./g, ",");
+      value = value.replace(/m/g, " mi");
+      value = value.replace(/b/g, " bi");
+      value = value.replace(/k/g, " mil");
+      return value;
+    }
   },
-  watch: {
-    data: {
-      handler(data) {
-        this.updateUfData(data);
-        this.updateTotals();
-        mobileActions.makeHeatList(
-          this.ufsData,
-          Helpers.generateLegend(this.data.totals["raisedAmount"])
-        );
-        this.getLegends()
+    watch: {
+      data: {
+        handler(data) {
+          this.updateTotals();
+          this.updateUfData(data);
+          mobileActions.makeHeatList(
+            this.ufsData,
+            Helpers.generateLegend(this.data.totals["raisedAmount"])
+          );
+          this.getLegends();
       },
       deep: true
     }
@@ -343,5 +350,13 @@ h1 {
   width: 40px;
 }
 
+.total-number{
+  text-align: right;
+  padding: 0 30px 0 0;
+}
 
+.total-text{
+  text-align: left;
+  padding: 0;
+}
 </style>
