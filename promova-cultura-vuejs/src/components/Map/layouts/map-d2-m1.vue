@@ -41,7 +41,6 @@
             :proponentes="data.proponentes"
             :incentivadores="data.incentivadores"
             :legends="legends"
-            :maxValues="maxValues"
             :level="level"
             :proponentMap=proponentMap
           />
@@ -161,7 +160,6 @@
       legends: Object,
       data: Object,
       level: String,
-      maxValues: Object,
       legendDesktop: String,
       legendMobile: String,
       filterDesktop: String,
