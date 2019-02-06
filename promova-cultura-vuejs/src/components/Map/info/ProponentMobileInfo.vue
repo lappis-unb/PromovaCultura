@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div >
         <h1 class="proponent-title">Captação de recurso por UF desde 1992</h1>
         <div class="sticky-top" style="overflow: hidden; background-color: white">
             <div class="legend-item">
-                <h3 class="sticky">LEGENDA</h3>
+                <h3 class="sticky">Legenda</h3>
                 <div v-for="legend in this.legends"
                      class="box-legend legend-color"
                      v-if="legend.max !== 0">
@@ -19,8 +19,8 @@
             <div id="loading-placeholder"></div>
             <div>
                 <div class="row">
-                    <div class="order-buttom offset-1 col-5 sticky" v-on:click="orderByName()">Estado</div>
-                    <div class="order-buttom col-6 sticky" v-on:click="orderByValues()">Captação</div>
+                    <div class="offset-1 col-2 sticky" v-on:click="orderByName()" :class="{active: isActive1}" >Estado</div>
+                    <div class="col-9 sticky-number" v-on:click="orderByValues()" :class="{active: isActive2}" >Captação</div>
                 </div>
             </div>
             <div :key="uf.sigla" v-for="(uf, index) in ufsData">
@@ -126,7 +126,9 @@
                 totalProponents: 0,
                 totalapprovedAmount: 0,
                 totalRaisedAmount: 0,
-                legends: []
+                legends: [],
+                isActive1: false,
+                isActive2: false
             };
         },
         methods: {
@@ -169,9 +171,17 @@
             },
             orderByName() {
                 this.ufsData = this.ufsData.sort(Helpers.compareByName);
+                if(!this.isActive1) {
+                    this.isActive1 = true
+                    this.isActive2 = false
+                }
             },
             orderByValues() {
                 this.ufsData = this.ufsData.sort(Helpers.compareRaisedAmount);
+                if(!this.isActive2) {
+                    this.isActive2 = true
+                    this.isActive1 = false
+                }
             }
         }
     };
@@ -185,7 +195,8 @@
     #main-content {
         position: relative;
         width: 100%;
-        margin-bottom: 38px;
+        left: 0;
+        margin: 0 0 38px 0;
     }
 
     #loading-placeholder {
@@ -210,6 +221,13 @@
     .sticky {
         font-size: 20px;
         color: #808080;
+        text-align: left;
+    }
+    .sticky-number {
+        font-size: 20px;
+        color: #808080;
+        padding: 0 60px 0 0;
+        text-align: right;
     }
 
     .fa {
@@ -278,8 +296,8 @@
     }
 
     .proponent-title {
-        font-size: 18px;
-        margin-bottom: 30px;
+        font-size: 22px;
+        margin-bottom: 15px;
         font-weight: bold;
     }
 
@@ -307,18 +325,19 @@
         z-index: 1;
     }
 
-    .order-buttom {
-        cursor: pointer;
-        text-align: center;
-        margin: 0;
-        max-width: 50%;
-        flex: 50%;
-    }
+    /*.order-buttom {*/
+    /*    cursor: pointer;*/
+    /*    text-align: center;*/
+    /*    margin: 0;*/
+    /*    max-width: 50%;*/
+    /*    flex: 50%;*/
+    /*}*/
 
     .legend-item p {
         text-align: center;
         font-size: 14px;
         font-weight: bold;
+
     }
 
     @media only screen and (max-width: 440px) {
@@ -332,9 +351,9 @@
     }
 
     .legend-item h3 {
-        font-size: 18px;
+        font-size: 13px;
         color: #888;
-        font-size: 15px;
+        margin: 15px 0 7px 15px;
     }
 
     .legend-color span {
