@@ -1,49 +1,61 @@
 <template>
-<div class="ph-item">
-  <div class="ph-col-12">
-    <div v-if="phStyle == 'legend'" class="ph-row" style="margin: 0;">
-      <div class="ph-col-2 empty">
-        <div class="ph-avatar"></div>
+  <div class="ph-item">
+    <div class="ph-col-12">
+      <div v-if="phStyle == 'legend'" class="ph-row" style="margin: 0;">
+        <div class="ph-col-2 empty">
+          <div class="ph-avatar"></div>
+        </div>
+        <div class="ph-col-10 big"></div>
+        <div class="ph-col-2 empty">
+          <div class="ph-avatar"></div>
+        </div>
+        <div class="ph-col-10 big"></div>
+        <div class="ph-col-2 empty">
+          <div class="ph-avatar"></div>
+        </div>
+        <div class="ph-col-10 big"></div>
+        <div class="ph-col-2 empty">
+          <div class="ph-avatar"></div>
+        </div>
+        <div class="ph-col-10 big"></div>
+        <div class="ph-col-2 empty">
+          <div class="ph-avatar"></div>
+        </div>
+        <div class="ph-col-10 big"></div>
       </div>
-      <div class="ph-col-10 big"></div>
-      <div class="ph-col-2 empty">
-        <div class="ph-avatar"></div>
-      </div>
-      <div class="ph-col-10 big"></div>
-      <div class="ph-col-2 empty">
-        <div class="ph-avatar"></div>
-      </div>
-      <div class="ph-col-10 big"></div>
-      <div class="ph-col-2 empty">
-        <div class="ph-avatar"></div>
-      </div>
-      <div class="ph-col-10 big"></div>
-      <div class="ph-col-2 empty">
-        <div class="ph-avatar"></div>
-      </div>
-      <div class="ph-col-10 big"></div>
 
-    </div>
+      <div v-if="phStyle == 'number'" class="ph-row">
+        <div class="offset-4 ph-col-4"></div>
+        <div class="ph-col-12 big"></div>
+        <div class="offset-4 ph-col-4"></div>
+        <div class="ph-col-12 big"></div>
+        <div class="offset-4 ph-col-4"></div>
+        <div class="ph-col-12 big"></div>
+      </div>
 
-    <div v-if="phStyle == 'number'" class="ph-row">
-      <div class="offset-4 ph-col-4"></div>
-      <div class="ph-col-12 big"></div>
-      <div class="offset-4 ph-col-4"></div>
-      <div class="ph-col-12 big"></div>
-      <div class="offset-4 ph-col-4"></div>
-      <div class="ph-col-12 big"></div>
-    </div>
+      <div v-if="phStyle == 'mapCard'" class="ph-row">
+        <div class="offset-4 ph-col-4"></div>
+        <div class="ph-col-12 big"></div>
+        <div class="offset-4 ph-col-4"></div>
+        <div class="ph-col-12 big"></div>
+        <div class="offset-4 ph-col-4"></div>
+        <div class="ph-col-12 big"></div>
+      </div>
 
-    <div v-if="phStyle == 'mapCard'" class="ph-row">
-      <div class="offset-4 ph-col-4"></div>
-      <div class="ph-col-12 big"></div>
-      <div class="offset-4 ph-col-4"></div>
-      <div class="ph-col-12 big"></div>
-      <div class="offset-4 ph-col-4"></div>
-      <div class="ph-col-12 big"></div>
+      <div v-if="phStyle == 'mobileList'" class="ph-row">
+        <div class="ph-col-8 tall"></div>
+        <div class="ph-col-2 tall ph-button"></div>
+        <div class="ph-col-8 tall"></div>
+        <div class="ph-col-2 tall ph-button"></div>
+        <div class="ph-col-8 tall"></div>
+        <div class="ph-col-2 tall ph-button"></div>
+        <div class="ph-col-8 tall"></div>
+        <div class="ph-col-2 tall ph-button"></div>
+        <div class="ph-col-8 tall"></div>
+        <div class="ph-col-2 tall ph-button"></div>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -91,5 +103,14 @@ export default {
   height: 21px;
   min-width: 0;
   width: 21px;
+}
+div .tall {
+  height: 40px;
+}
+div .ph-button{
+  margin-left:5px;
+}
+.ph-row {
+  justify-content: center;
 }
 </style>

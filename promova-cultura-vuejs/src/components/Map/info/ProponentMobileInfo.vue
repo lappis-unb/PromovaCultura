@@ -6,24 +6,31 @@
         <h3 class="sticky">LEGENDA</h3>
         <div>
           <ul class="internal-displacement">
-<!--            {{this.legends}}-->
-            <div v-for="legend in this.legends">
+            <div :key="index" v-for="(legend, index) in this.legends">
               <li>
-                <div><span :style="'background:'+ legend.color"></span></div>< R$ {{legend.max}}</li>
-
+                <div>
+                  <span :style="'background:'+ legend.color"></span>
+                </div>
+              </li>
+              <li>R$ {{legend.max}}</li>
             </div>
           </ul>
         </div>
       </div>
     </div>
     <div id="main-content">
-      <div id="loading-placeholder"></div>
-      <div >
-        <div class="row">
-          <div class="order-buttom offset-1 col-5 sticky" v-on:click="orderByName()">Estado</div>
-          <div class="order-buttom col-6 sticky" v-on:click="orderByValues()">Captação</div>
-        </div>
+      <div class="row">
+        <div class="order-buttom offset-1 col-5 sticky" v-on:click="orderByName()">Estado</div>
+        <div class="order-buttom col-6 sticky" v-on:click="orderByValues()">Captação</div>
       </div>
+    </div>
+    <load-placeholder
+      id="placeholder4"
+      phStyle="mobileList"
+      contentId="list-container"
+      :isVisible="isLoading"
+    />
+    <div id="list-container">
       <div :key="uf.sigla" v-for="(uf, index) in ufsData">
         <div
           v-if="uf !== '  '"
@@ -71,34 +78,36 @@
         </div>
       </div>
     </div>
-
     <div class="footer-fixed">
       <div class="row sticky-total">
         <div class="total-text offset-1 col-2">Total</div>
         <span class="total-number col-9">R$ {{totalRaisedAmount}}</span>
       </div>
     </div>
-    <!--</ul>-->
   </div>
 </template>
 
 <script>
-  import uf from "@/util/ufs.js";
-  import $ from "jquery";
-  import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
-  import abbreviate from "number-abbreviate";
-  import mobileActions from "@/util/mobileMapActions.js";
-  import Helpers from "@/util/helpers.js";
+import uf from "@/util/ufs.js";
+import $ from "jquery";
+import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
+import abbreviate from "number-abbreviate";
+import mobileActions from "@/util/mobileMapActions.js";
+import Helpers from "@/util/helpers.js";
+import LoadPlaceholder from "@/components/LoadPlaceholder";
 
-  export default {
-    props: {
-      data: Object,
-    },
-    filters: {
+export default {
+  components: {
+    "load-placeholder": LoadPlaceholder
+  },
+  props: {
+    data: Object
+  },
+  filters: {
     abbreviate: function(value) {
-      if (!value) return ''
+      if (!value) return "";
       //value = value.toString();
-      value = abbreviate(value, 1)
+      value = abbreviate(value, 1);
       value = value.replace(/\./g, ",");
       value = value.replace(/m/g, " mi");
       value = value.replace(/b/g, " bi");
@@ -106,16 +115,16 @@
       return value;
     }
   },
-    watch: {
-      data: {
-        handler(data) {
-          this.updateTotals();
-          this.updateUfData(data);
-          mobileActions.makeHeatList(
-            this.ufsData,
-            Helpers.generateLegend(this.data.totals["raisedAmount"])
-          );
-          this.getLegends();
+  watch: {
+    data: {
+      handler(data) {
+        this.updateTotals();
+        this.updateUfData(data);
+        mobileActions.makeHeatList(
+          this.ufsData,
+          Helpers.generateLegend(this.data.totals["raisedAmount"])
+        );
+        this.getLegends();
       },
       deep: true
     }
@@ -127,13 +136,14 @@
       totalProponents: 0,
       totalapprovedAmount: 0,
       totalRaisedAmount: 0,
-      legends: []
+      legends: [],
+      isLoading: true
     };
   },
   methods: {
-    getLegends(){
-      var legends = Helpers.generateLegend(this.data.totals["raisedAmount"])
-      this.legends = legends
+    getLegends() {
+      var legends = Helpers.generateLegend(this.data.totals["raisedAmount"]);
+      this.legends = legends;
     },
     updateTotals() {
       this.totalProponents = this.data.totals["proponents"];
@@ -152,6 +162,10 @@
     updateUfData(data) {
       var tmpUFs = [];
       console.log("Updating data");
+
+      if (this.data.totals.proponents != 0) {
+        this.isLoading = false;
+      }
       for (uf in this.data.proponents) {
         const tmpUf = {
           name: uf == "  " ? "---" : this.ufs[uf],
@@ -294,7 +308,7 @@ h1 {
 .order-buttom {
   cursor: pointer;
   text-align: center;
-  margin:0;
+  margin: 0;
   max-width: 50%;
   flex: 50%;
 }
@@ -324,7 +338,7 @@ h1 {
   display: inline;
 }
 
-.internal-displacement li *{
+.internal-displacement li * {
   vertical-align: middle;
 }
 
@@ -346,12 +360,12 @@ h1 {
   width: 40px;
 }
 
-.total-number{
+.total-number {
   text-align: right;
   padding: 0 30px 0 0;
 }
 
-.total-text{
+.total-text {
   text-align: left;
   padding: 0;
 }
