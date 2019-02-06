@@ -6,7 +6,6 @@
         :proponentes="proponentes"
         :incentivadores="incentivadores"
         :legends="legends"
-        :maxValues="maxValues"
         :map="this.maps.brazil"
         :jsMapsObject="this.maps"
         v-if="level=='UF'"
@@ -16,7 +15,6 @@
         :proponentes="proponentes"
         :incentivadores="incentivadores"
         :legends="legends"
-        :maxValues="maxValues"
         :map="this.maps.brazil_region"
         :jsMapsObject="this.maps"
         v-else
@@ -35,7 +33,6 @@ export default {
     proponentes: Object,
     incentivadores: Object,
     legends: Object,
-    maxValues: Object,
     level: String
   },
   data() {

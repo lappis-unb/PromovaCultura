@@ -3,7 +3,6 @@
   <layout-d2-m1
     :data="data"
     :legends="legends"
-    :maxValues="maxValues"
     :level="level"
     :segment="selected"
     @updatedSegment="updatedSegment"

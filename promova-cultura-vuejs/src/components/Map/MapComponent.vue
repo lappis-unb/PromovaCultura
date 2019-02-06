@@ -16,7 +16,6 @@ export default {
     proponentes: Object,
     incentivadores: Object,
     legends: Object,
-    maxValues: Object,
     jsMapsObject: Object,
     map: Object,
   },
