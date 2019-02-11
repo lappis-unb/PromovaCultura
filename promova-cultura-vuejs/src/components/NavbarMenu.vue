@@ -5,10 +5,6 @@
       <div class="container">
         <!--<router-link class="navbar-brand" to="/">{{title}}</router-link>-->
         <a href="https://lappis-unb.github.io/PromovaCultura/">Promova Cultura</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
       </div>
     </nav>
   </header>
@@ -53,11 +49,16 @@ a:hover {
   font-size: 24px;
 }
 
+.navbar{
+  padding-left: 4.5%;
+}
+
 .navbar-nav {
   font-size: 15px;
 }
 
 .container{
   padding: 6px 0 5px 0;
+  margin: 0;
 }
 </style>
