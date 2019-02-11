@@ -43,7 +43,9 @@
                         data-toggle="collapse"
                         :data-target="'#collapseStateContent' + index"
                 >
-                    <div class="col-6 state">{{uf.name}}</div>
+                    <div class="col-6 state" v-if="getScreenSize() >= 400" >{{uf.name}}</div>
+                    <div class="col-6 state" v-else>{{uf.sigla}}</div>
+                    
                     <!-- <div class="col-6 state" v-else>Sem Estado</div> -->
                     <div class="col-4 amount">
                         <span>R$ {{uf.raisedAmount | abbreviate}}</span>
@@ -155,7 +157,8 @@ export default {
       totalapprovedAmount: 0,
       totalRaisedAmount: 0,
       legends: [],
-      isLoading: true
+      isLoading: true,
+      screenSize: 0
     };
   },
   methods: {
@@ -181,6 +184,9 @@ export default {
         }
       );
     },
+    getScreenSize() {
+      return window.innerWidth
+    },
     updateUfData(data) {
       var tmpUFs = [];
       console.log("Updating data");
@@ -191,7 +197,7 @@ export default {
       for (uf in this.data.proponents) {
         const tmpUf = {
           name: uf == "  " ? "---" : this.ufs[uf],
-          sigla: uf == "  " ? "semEstado" : uf,
+          sigla: uf == "  " ? "---" : uf,
           proponents: this.data.proponents[uf],
           raisedAmount: this.data.raisedAmount[uf],
           approvedAmount: this.data.approvedAmount[uf]
