@@ -109,7 +109,8 @@ export default {
       if (value && value != 0) {
         this.isLoading = false;
         $("#card-map-header").css('background-color', '#75CC75');
-        $("#state-name").css('color', '#1F661F');
+        $("#state-name").css('color', '#1a3d1a');
+        $("#state-name").css('font-size', '18px');
       }
     });
   },
