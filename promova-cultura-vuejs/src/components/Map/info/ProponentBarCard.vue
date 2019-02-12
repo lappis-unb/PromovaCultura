@@ -142,7 +142,7 @@ export default {
 }
 
 .card {
-  width: 225px !important;
+  /*width: 225px !important;*/
   height: 220px;
   text-align: center;
 }
