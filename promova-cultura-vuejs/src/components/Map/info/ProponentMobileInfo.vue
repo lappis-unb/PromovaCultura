@@ -36,11 +36,12 @@
             <div id="list-container">
 
             <div :key="uf.sigla" v-for="(uf, index) in ufsData">
-                <div
+                <a
                         v-if="uf !== '  '"
                         :id="uf.sigla"
                         class="row collapsibleState collapsed uf-item"
                         data-toggle="collapse"
+                        href="'#collapseStateContent' + index"
                         :data-target="'#collapseStateContent' + index"
                 >
                     <div class="col-6 state" v-if="getScreenSize() >= 400" >{{uf.name}}</div>
@@ -57,7 +58,7 @@
               <i class="fa" aria-hidden="true"></i>
             </span>
                     </div>
-                </div>
+                </a>
 
                 <div :id="'collapseStateContent' + index" class="collapsibleStateContent collapse">
                     <div class="row">
@@ -223,6 +224,15 @@ export default {
 <style scoped>
 h1 {
   text-align: center;
+}
+a {
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
+}
+
+a:hover{
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
 }
 
 #main-content {
