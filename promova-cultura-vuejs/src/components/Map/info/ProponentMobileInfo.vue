@@ -44,10 +44,8 @@
                         href="'#collapseStateContent' + index"
                         :data-target="'#collapseStateContent' + index"
                 >
-                    <div class="col-6 state" v-if="getScreenSize() >= 400" >{{uf.name}}</div>
-                    <div class="col-6 state" v-else>{{uf.sigla}}</div>
+                    <div class="col-6 state">{{uf.name}}</div>
 
-                    <!-- <div class="col-6 state" v-else>Sem Estado</div> -->
                     <div class="col-4 amount">
                         <span>R$ {{uf.raisedAmount | abbreviate}}</span>
                     </div>
@@ -302,10 +300,12 @@ a:hover{
 
 .state {
   font-weight: bold;
+    font-size: 15px;
 }
 
 .amount {
   text-align: right;
+    font-size: 15px;
 }
 
 .arrow {
