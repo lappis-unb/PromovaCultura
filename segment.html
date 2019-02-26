@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.5/dist/loadingoverlay.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="css/segment.css">
+  <script src="js/echarts.js"></script>
+  <script src=js/utils.js></script>
+  <link rel="shortcut icon" href="images/favicon.ico" />
+  <title>Gráfico com porcentagem de acessos gratuitos aos projetos culturais</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light d-flex flex-column flex-md-row">
+    <div class="container nav-bar">
+      <a class="navbar-brand" href="#">Promova Cultura</a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link about-btn" href="#" data-toggle="modal" data-target="#about-modal">
+            <i class="fas fa-info-circle"></i> <span>Sobre o protótipo</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container page">
+    <div class="row">
+      <div class="col-12" style="text-align: center; margin-bottom: 50px; color: #666">
+        <h3>Acesso Gratuito por Área/Segmento</h3>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-lg-9">
+        <div id="graph"></div>
+      </div>
+
+
+      <div class="modal fade" id="about-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <legend class="card-header guide" id="exampleModalLabel">Sobre o protótipo
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body guide-body">
+              <p> Essa página informa quais segmentos culturais disponibilizam <strong>acesso gratuito</strong> em suas atividades. </p>
+              <p>Para escolher quais áreas você gostaria de visualizar, clique nos itens acima do gráfico.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="col-lg-3">
+        <div class="card card-container">
+          <legend class="card-header card-legend">Legendas</legend>
+          <div class="card-body">
+            <div class="legend-group-scroll">
+              <div>
+                <div class="legend-item">
+                  <h3>Acesso Gratuito <span>(aos projetos)</span></h3>
+                  <p style="border-bottom: 1px dotted #ddd; padding-bottom: 5px;">As dimensões de cada círculo indicam a porcentagem de acesso gratuito aos projetos culturais daquele segmento.</p>
+                  <div>
+                    <ul class="legend-free-access">
+                      <li>
+                        <div><span></span></div>0 a 10%</li>
+                      <li>
+                        <div><span></span></div>11% a 30%</li>
+                      <li>
+                        <div><span></span></div>31% a 90%</li>
+                      <li>
+                        <div><span></span></div>91% a 100%</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="alert alert-secondary" role="alert" style="display:none">
+          Áreas Culturais <strong>ausentes</strong> no gráfico não disponibilizaram acesso gratuito.
+        </div>
+        <div id="warningdiv" class="alert alert-secondary observation" role="alert">
+          As Áreas Culturais abaixo estão <strong>ausentes</strong> no gráfico por não disponibilizarem acesso gratuito.
+          <ul id="warningul">
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .modal {
+      top: 10%;
+    }
+
+    .modal-header {
+      padding: 0;
+    }
+
+    .card-header.guide {
+      font-size: 1.25rem;
+    }
+
+    .modal-body.guide-body {
+      padding: 15px 30px;
+    }
+
+    .container.nav-bar {
+      padding: 0;
+    }
+
+    a.about-btn {
+      color: #333;
+      font-size: 14px;
+    }
+
+    .about-btn span {
+      display: none;
+    }
+
+    .about-btn i {
+      font-size: 24px;
+    }
+
+    #link-text {
+      font-weight: 600;
+      color: #275B8C;
+      cursor: pointer;
+    }
+
+    .fa-info-circle {
+      font-size: 16px;
+      position: relative;
+      top: 2px;
+      margin-right: 3px;
+    }
+
+    .modal-body.guide-body p {
+      font-size: 15px;
+    }
+
+    .modal-body.guide-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Small devices (landscape phones, 576px and up) */
+
+    @media (min-width: 576px) {
+      .about-btn span {
+        display: inline-block;
+      }
+
+      .about-btn i {
+        font-size: 22px;
+      }
+    }
+
+    .LocationInfo {
+      position: absolute;
+      top: -1000px;
+      left: -1000px;
+      z-index: 1050;
+      display: none;
+    }
+
+    .popover.fade.show {
+      max-width: 285px;
+    }
+
+    .popover .popover-body {
+      padding: 0px;
+    }
+
+
+    .tooltip-header {
+      text-align: center;
+
+    }
+
+    .card-header {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .icon-popup {
+      float: left;
+      height: 30px;
+      width: 30px;
+    }
+
+    .has-border {
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      padding-top: 5px;
+    }
+
+    .location-info-second-line {
+      overflow: hidden;
+      padding-top: 15px;
+    }
+
+    .location-info-first-line p {
+      font-size: 15px;
+    }
+
+    .location-info-last {
+      font-size: 12px;
+    }
+
+    .location-info-first-line p,
+    .location-info-second-line p,
+    .location-info-last {
+      color: #2b2c2d;
+      text-align: center;
+      margin-bottom: 0px;
+    }
+
+    .location-info-first-line span,
+    .location-info-second-line span {
+      display: block;
+      font-weight: 600;
+    }
+
+    .location-info-first-line span {
+      font-size: 36px;
+      line-height: 26px;
+    }
+
+    .location-info-first-line span span {
+      font-size: 24px;
+      font-weight: normal;
+      display: inline;
+      position: relative;
+      left: 3px;
+      top: -3px;
+    }
+
+    .location-info-second-line {
+      font-size: 12px;
+    }
+
+    .location-info-second-line,
+    .location-info-last {
+      font-style: italic;
+    }
+
+    .location-info-second-line span {
+      font-size: 18px;
+      font-style: normal;
+      line-height: 16px;
+    }
+
+    .single-prop-inc {
+      float: none;
+      width: 50%;
+      margin: 0 auto;
+    }
+
+    .multiple-prop-inc {
+      float: left;
+      width: 50%;
+    }
+
+    .location-info-last {
+      clear: both;
+      padding: 20px 40px 0 40px;
+    }
+  </style>
+
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('graph'));
+
+    $.LoadingOverlaySetup({
+      zIndex: 1000,
+    });
+
+    function mediaQuery(small) {
+      if (small.matches) {
+        option.legend[0].textStyle.fontSize = 18
+        option.legend[0].textStyle.fontWeight = "bold"
+        option.series[0].force.repulsion = 200
+        option.series[0].force.gravity = 0.4
+        myChart.setOption(option)
+      }
+      myChart.setOption(option)
+    }
+
+    var small = window.matchMedia("(max-width: 768px)")
+
+    var option = {
+      title: {
+        show: false,
+        text: "Grafo De Deslocamento",
+        subtext: "Por Estado/Região",
+        top: "top",
+        left: "left"
+      },
+      tooltip: {
+        confine: true,
+        padding: 0,
+        formatter: function(obj) {
+          var value = obj.value;
+          if (obj.data.name != obj.data.category) {
+            return '<div class="card"> <div class="card-header tooltip-header">' +
+              obj.data.name +
+              '</div> <div class="card-body"> <div class="location-info-first-line has-border"> <p> <span> ' +
+              obj.data.value.toFixed(2) + "<span>" + "%" + "</span>" +
+              '</span>  ' +
+              'de acesso gratuito' +
+              '</p></div><p class= "location-info-last">' + obj.data.category + '</p></div></div>'
+          } else {
+            return '<div class="card"> <div class="card-header tooltip-header">' +
+              obj.data.category +
+              '</div> <div class="card-body"> <div class="location-info-first-line has-border"> <p> <span> ' +
+              obj.data.value.toFixed(2) + " %" +
+              '</span>  ' +
+              'de projetos gratuitos' +
+              '</p></div>'
+          }
+        }
+      },
+      legend: [{
+        tooltip: {
+          show: false
+        },
+        align: "auto",
+        top: "top",
+        orient: "horizontal",
+        data: [],
+        backgroundColor: "rgba(255,255,255,0.9)",
+        padding: [10, 0, 10, 0],
+        textStyle: {
+          fontSize: 12,
+        }
+      }],
+      series: [{
+        name: 'Deslocamentos Internos',
+        type: 'graph',
+        layout: 'force',
+        force: {
+          repulsion: 400,
+          gravity: 0.40,
+          edgeLength: 70,
+        },
+        draggable: true,
+        data: graphData,
+        roam: true,
+        links: links,
+        categories: segmentCategories,
+      }]
+    };
+
+    getData()
+
+
+    var freeSegments = {}
+    var allSegments = {}
+    var graphSegments = {}
+    var graphData = []
+
+    function populateFreeSegments(segmentName, quantity) {
+      if (freeSegments[segmentName] !== undefined) {
+        freeSegments[segmentName] += quantity
+      } else {
+        freeSegments[segmentName] = quantity
+      }
+    }
+
+    function populateAllSegments(segmentName, quantity) {
+      if (allSegments[segmentName] !== undefined) {
+        allSegments[segmentName] += quantity
+      } else {
+        allSegments[segmentName] = quantity
+      }
+    }
+    var freeAreas = {}
+
+    function calculateFreeAreas() {
+      graphData.forEach(function(element) {
+        if (freeAreas[element.category] !== undefined) {
+          freeAreas[element.category] += element.freeQuantity
+        } else {
+          freeAreas[element.category] = element.freeQuantity
+        }
+
+      })
+    }
+    var allAreas = {}
+
+    function calculateAllAreas() {
+      graphData.forEach(function(element) {
+        if (allAreas[element.category] !== undefined) {
+          allAreas[element.category] += element.allQuantity
+        } else {
+          allAreas[element.category] = element.allQuantity
+        }
+
+      })
+    }
+
+    var areaPercentages = {}
+
+    function calculateAreaValue() {
+      Object.keys(freeAreas).forEach(function(element) {
+        var percentage = freeAreas[element] / allAreas[element]
+        areaPercentages[element] = percentage * 100
+
+      })
+    }
+
+
+    function calculateSymbolValue() {
+      Object.keys(freeSegments).forEach(function(element) {
+        var percentage = freeSegments[element] / allSegments[element]
+        graphSegments[element] = percentage * 100
+      })
+    }
+
+    function buildGraphData() {
+      Object.keys(graphSegments).forEach(function(element) {
+        let symbolSize = calculateSymbolSize(graphSegments[element])
+        graphData.push({
+          "name": element,
+          "symbolSize": symbolSize,
+          "category": segments[element],
+          "value": graphSegments[element],
+          "freeQuantity": freeSegments[element],
+          "allQuantity": allSegments[element],
+          label: {
+            show: false,
+          },
+          "itemStyle": {
+            "borderColor": "#ECECEC",
+            "borderWidth": 3,
+          }
+        })
+
+      })
+      calculateFreeAreas()
+      calculateAllAreas()
+      calculateAreaValue()
+
+      Object.keys(areas).forEach(function(element) {
+        areas[element].forEach(function(segment, index, array) {
+
+          if (areas[element][0] == segment) {
+            if (areas[element][0] == "Museus e Memória" || areas[element][0] == "Artes Integradas") {
+              return;
+            }
+            graphData.push({
+              "name": areas[element][0],
+              "symbolSize": 50,
+              "category": element,
+              "value": areaPercentages[element],
+              "freeQuantity": allAreas[element],
+              "allQuantity": freeAreas[element],
+              "itemStyle": {
+                "color": "transparent",
+                "borderColor": "#ECECEC",
+                "borderWidth": 0,
+              },
+              label: {
+                normal: {
+                  color: '#4C4C4C',
+                  fontSize: 14,
+                  show: true,
+                  position: 'inside',
+                  fontWeight: 'bold'
+                }
+              },
+            })
+          }
+        })
+      })
+
+      option.legend[0].data = Object.keys(areaPercentages)
+
+      var areaDiff = arr_diff(Object.keys(areas), Object.keys(areaPercentages));
+      populateAreaWarning(areaDiff)
+    }
+
+    function populateAreaWarning(areaList) {
+
+      areaList.forEach(function(element) {
+        $(warningul).append("<li>" + element + "</li>")
+      })
+
+    }
+
+    function arr_diff(a1, a2) {
+        var a = [], diff = [];
+
+        for (var i = 0; i < a1.length; i++) {
+          a[a1[i]] = true;
+        }
+
+        for (var i = 0; i < a2.length; i++) {
+          if (a[a2[i]]) {
+            delete a[a2[i]];
+          } else {
+            a[a2[i]] = true;
+          }
+        }
+
+        for (var k in a) {
+          diff.push(k);
+        }
+
+        return diff;
+    }
+
+    function calculateSymbolSize(segmentValue) {
+
+      if (segmentValue >= 0 && segmentValue <= 10) {
+        symbolSize = 25
+      } else if (segmentValue > 10 && segmentValue <= 30) {
+        symbolSize = 50
+      } else if (segmentValue > 30 && segmentValue <= 90) {
+        symbolSize = 75
+      } else if (segmentValue > 90 && segmentValue <= 100) {
+        symbolSize = 100
+      } else {
+        symbolSize = 125
+      }
+      return symbolSize
+    }
+
+    $("#graph").LoadingOverlay("show", {
+      background: "rgba(255, 255, 255, 1)",
+      image: "",
+      fontawesome: "fa fa-circle-notch fa-spin",
+      fontawesomeColor: "#565656"
+    });
+
+    $("#warningdiv").LoadingOverlay("show", {
+      background: "rgba(255, 255, 255, 1)",
+      image: "",
+      fontawesome: "fa fa-circle-notch fa-spin",
+      fontawesomeColor: "#565656"
+    });
+
+    function getData() {
+
+      $.ajax({
+        url: "https://salicapi.lappis.rocks/graphiql?query=%7B%0A%20%20distribuicoes%7B%0A%20%20%20%20QtdeVendaNormal%0A%09%09PrecoUnitarioNormal%0A%20%20%20%20QtdeVendaPromocional%0A%20%20%20%20PrecoUnitarioPromocional%0A%20%20%20%20segmento%0A%20%20%7D%0A%7D",
+        type: "GET",
+        success: function(data) {
+
+          data.data.distribuicoes.forEach(function(element) {
+            if (element.QtdeVendaNormal == 0 && element.QtdeVendaPromocional == 0) {
+              return;
+            } else {
+              quantity = element.QtdeVendaNormal + element.QtdeVendaPromocional
+              populateAllSegments(element.segmento, quantity)
+            }
+
+            if (element.PrecoUnitarioNormal == "0.00" && element.QtdeVendaNormal != 0) {
+              populateFreeSegments(element.segmento, element.QtdeVendaNormal)
+            } else if (element.PrecoUnitarioPromocional == "0.00" && element.QtdeVendaPromocional != 0) {
+              populateFreeSegments(element.segmento, element.QtdeVendaPromocional)
+            }
+          })
+          calculateSymbolValue()
+          invertAreaDict()
+          buildGraphData()
+          buildLinks()
+
+          option.series[0].data = graphData
+          option.series[0].links = links
+
+          mediaQuery(small)
+          small.addListener(mediaQuery)
+          $("#graph").LoadingOverlay("hide")
+          $("#warningdiv").LoadingOverlay("hide")
+
+        },
+        error: function(error) {
+          $("#graph").LoadingOverlay("hide")
+          $("#warningdiv").LoadingOverlay("hide")
+
+          $("#graph").LoadingOverlay("show", {
+            background: "rgba(255, 255, 255, 1)",
+            image: "",
+            text: "Conexão falhou. Tente reiniciar a página.",
+            textResizeFactor: 0.17,
+            textAutoResize: false,
+            textColor: "#ff0000"
+          });
+
+        }
+      });
+    }
+
+    var segments = {}
+
+    function invertAreaDict() {
+      Object.keys(areas).forEach(function(element) {
+        areas[element].forEach(function(segment) {
+          segments[segment] = element
+        })
+      })
+    }
+
+    var links = []
+
+    function buildLinks() {
+      Object.keys(areas).forEach(function(element) {
+        areas[element].forEach(function(segment, index, array) {
+
+          links.push({
+            source: areas[element][0],
+            target: segment,
+            lineStyle: {
+              width: 0,
+            }
+          })
+        })
+      })
+    }
+  </script>
+</body>
+
+</html>
