@@ -48,9 +48,9 @@ export default {
     async fetchAllResources() {
       const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
 
-      this.data.proponents = await fetchFlask("proponent_count");
-      this.data.approvedAmount = await fetchFlask("approved_amount");
-      this.data.raisedAmount = await fetchFlask("raised_amount");
+      this.data.proponents = await fetchFlask("v1/estatistica/proponente_por_uf");
+      this.data.approvedAmount = await fetchFlask("v1/estatistica/valor_aprovado");
+      this.data.raisedAmount = await fetchFlask("v1/estatistica/valor_captado");
 
       this.data.totals["approvedAmount"] = sumValues(this.data.approvedAmount)
       this.data.totals["raisedAmount"] = sumValues(this.data.raisedAmount)
