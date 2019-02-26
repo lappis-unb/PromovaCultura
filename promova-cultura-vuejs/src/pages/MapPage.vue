@@ -1,9 +1,8 @@
 <template>
-<!-- d2 m1 stands for 2 bootstrap columns for desktop and one for mobile -->
+  <!-- d2 m1 stands for 2 bootstrap columns for desktop and one for mobile -->
   <layout-d2-m1
     :data="data"
     :legends="legends"
-    :maxValues="maxValues"
     :level="level"
     :segment="selected"
     @updatedSegment="updatedSegment"
@@ -16,7 +15,7 @@
     :filterDesktop="filterDesktop"
     :filtersActivate="filtersActivate"
     :locationInfoShowOn="locationInfoShowOn"
-    :proponentMap=proponentMap
+    :proponentMap="proponentMap"
   />
 </template>
 
@@ -24,8 +23,9 @@
 import { batchFetch, simpleFetch } from "@/util/apiComunication.js";
 import Mapd2m1 from "@/components/Map/layouts/map-d2-m1";
 import $ from "jquery";
+import Helpers from "@/util/helpers.js";
 import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
-import {fetchFlask} from "../util/apiComunication";
+import { fetchFlask } from "../util/apiComunication";
 
 export default {
   name: "ControlFilterBrazilMap",
@@ -39,6 +39,7 @@ export default {
     filterDesktop: String,
     useMaxWithRanking: Boolean,
     proponentMap: Boolean,
+    proponentData: Object,
     locationInfoShowOn: {
       type: String,
       default: "click"
@@ -54,7 +55,12 @@ export default {
         raisedAmount: {},
         approvedAmount: {},
         totals: {},
-        fields: ["UF", "QuantidadeDeProponentes","ValorAprovado", "ValorCaptado"],
+        fields: [
+          "UF",
+          "QuantidadeDeProponentes",
+          "ValorAprovado",
+          "ValorCaptado"
+        ],
         csv: []
       },
       filtersActivate: {
@@ -86,10 +92,17 @@ export default {
     };
   },
   watch: {
+    proponentData: {
+      handler(data) {
+        this.updateValues();
+        this.updateChildrenProps();
+      },
+      deep: true
+    },
     tmp: {
       handler(data) {
         this.updateChildrenProps();
-        this.generateLegends();
+        this.generateAllLegends();
       },
       deep: true
     },
@@ -99,6 +112,7 @@ export default {
   },
   mounted() {
     this.fetchAllResources();
+    this.updateValues();
     document.title = "Mapa de Calor";
   },
   methods: {
@@ -137,53 +151,25 @@ export default {
     updatedSegment(segment) {
       this.selected = segment;
       this.fetchAllResources();
+      this.updateValues();
     },
 
-
-    generateCSV: function(){
+    generateCSV: function() {
       // const object = this.data.approvedAmount;
-      var values = []
+      var values = [];
       for (const [key, value] of Object.entries(this.data.approvedAmount)) {
         values.push({
-          "UF": key,
-          "QuantidadeDeProponentes": this.tmp.proponentesUF[key],
-          "ValorAprovado": value,
-          "ValorCaptado": this.data.raisedAmount[key]
+          UF: key,
+          QuantidadeDeProponentes: this.tmp.proponentesUF[key],
+          ValorAprovado: value,
+          ValorCaptado: this.data.raisedAmount[key]
         });
       }
 
-      this.data.csv = values
+      this.data.csv = values;
     },
     async fetchAllResources() {
-      $("#brazil-map").LoadingOverlay("show", {
-        background: "rgba(255, 255, 255, 1)",
-        image: "",
-        fontawesome: "fa fa-circle-notch fa-spin",
-        fontawesomeColor: "#565656"
-      });
-      if (this.proponentMap) {
-
-        // const proponents = await simpleFetch("proponentes_por_uf");
-        const proponents = await fetchFlask("proponent_count")
-        this.tmp.proponentesUF = proponents;
-        var approvedAmounts = await fetchFlask("approved_amount")
-        var raisedAmounts = await fetchFlask("raised_amount")
-
-        const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
-
-
-        this.data.approvedAmount = approvedAmounts
-        this.tmp.projectsUF = raisedAmounts
-        this.data.raisedAmount = raisedAmounts
-        this.data.totals["approvedAmount"] = sumValues(approvedAmounts)
-        this.data.totals["raisedAmount"] = sumValues(raisedAmounts)
-        this.data.totals["proponents"] = sumValues(proponents)
-
-        this.generateCSV()
-
-        $("#brazil-map").LoadingOverlay("hide");
-
-      } else {
+      if (!this.proponentMap) {
         console.log(`Fetching API.\nSEGMENT: ${this.selected}`);
         const data = await batchFetch(this.selected);
         // console.log("Data fetched: ", JSON.stringify(data));
@@ -195,16 +181,28 @@ export default {
         this.tmp.incentivadoresRegion = data.incentivadores_por_regiao;
       }
     },
-    calculatePercentage(objeto, total){
-      var totals = {}
-      for (var i of Object.keys(objeto)){
-        totals[i] = ((objeto[i]/total)*100).toFixed(2)
-      }
-      return totals
+    updateValues() {
+      if (this.proponentMap) {
+        this.tmp.proponentesUF = this.proponentData.proponents;
+        this.data.approvedAmount = this.proponentData.approvedAmount;
+        this.tmp.projectsUF = this.proponentData.raisedAmount;
+        this.data.raisedAmount = this.proponentData.raisedAmount;
 
+        this.data.totals = this.proponentData.totals;
+        
+        this.generateCSV();
+        $("#brazil-map").LoadingOverlay("hide");
+      }
+    },
+    calculatePercentage(objeto, total) {
+      var totals = {};
+      for (var i of Object.keys(objeto)) {
+        totals[i] = ((objeto[i] / total) * 100).toFixed(2);
+      }
+      return totals;
     },
     showProponentes(show) {
-      if(!this.proponentMap) {
+      if (!this.proponentMap) {
         this.filtersActivate.proponentes = show;
         this.showPins();
       }
@@ -237,70 +235,17 @@ export default {
         return max;
       }
     },
-    generateLegends() {
-      let imagesListP = [
-        "@/../static/svg-icons/proponente_LVL_1.svg",
-        "@/../static/svg-icons/proponente_LVL_2.svg",
-        "@/../static/svg-icons/proponente_LVL_3.svg",
-        "@/../static/svg-icons/proponente_LVL_4.svg",
-        "@/../static/svg-icons/proponente_LVL_5.svg"
-      ];
-      let imagesListI = [
-        "@/../static/svg-icons/Investidores_LVL_1.svg",
-        "@/../static/svg-icons/Investidores_LVL_2.svg",
-        "@/../static/svg-icons/Investidores_LVL_3.svg",
-        "@/../static/svg-icons/Investidores_LVL_4.svg",
-        "@/../static/svg-icons/Investidores_LVL_5.svg"
-      ];
-      this.legends.proponentes = this.getMapLegend(
+    generateAllLegends() {
+      this.legends.proponentes = Helpers.generateLegend(
         this.maxValues.proponentes,
-        [0, 5, 10, 20, 35, 100],
-        imagesListP,
-        true
+        Helpers.proponentIcons
       );
-      this.legends.incentivadores = this.getMapLegend(
+      this.legends.incentivadores = Helpers.generateLegend(
         this.maxValues.incentivadores,
-        [0, 5, 10, 20, 35, 100],
-        imagesListI,
-        true
+        Helpers.investorIcons
       );
-      this.legends.heatMap = this.getMapLegend(this.maxValues.projects);
+      this.legends.heatMap = Helpers.generateLegend(this.maxValues.projects);
     },
-    getMapLegend(maxValue, percentList = [], colorList = [], isImage = false) {
-      let legends = [];
-      let percents =
-        percentList.length == 0 ? [0, 0, 1, 5, 10, 20, 35, 100] : percentList;
-      let colors =
-        colorList.length == 0
-          ? [
-              "#dadada",
-               "#6BBF6B",
-               "#3AA63A",
-               "#297C29",
-               "#205B20",
-               "#173F17",
-               "#102D10",
-            ]
-          : colorList;
-
-      let min = 0;
-      let max = 0;
-
-      for (let i = 0; i < percents.length - 1; i++) {
-        let colorBackground = colors[i];
-
-        min = max == 0 ? 0 : max + 1;
-        max = parseInt((percents[i + 1] / 100) * maxValue);
-        legends[i] = {
-          image: isImage,
-          color: colorBackground,
-          min: max != 0 && min == 0 ? 1 : min,
-          max: max
-        };
-      }
-      return legends;
-    },
-
     showPins() {
       if (this.filtersActivate.incentivadores) {
         this.data.incentivadores =
@@ -316,12 +261,9 @@ export default {
           this.level == "UF"
             ? this.tmp.proponentesUF
             : this.tmp.proponentesRegion;
-      }
-
-      else if(this.proponentMap){
-        this.data.proponentesMap = this.tmp.proponentesUF
-      }
-      else {
+      } else if (this.proponentMap) {
+        this.data.proponentesMap = this.tmp.proponentesUF;
+      } else {
         this.data.proponentes = {};
       }
     }

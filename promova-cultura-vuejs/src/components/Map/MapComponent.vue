@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import mapActions from "@/util/map-actions";
+import mapActions from "@/util/mapActions";
 
 export default {
   props: {
@@ -16,7 +16,6 @@ export default {
     proponentes: Object,
     incentivadores: Object,
     legends: Object,
-    maxValues: Object,
     jsMapsObject: Object,
     map: Object,
   },

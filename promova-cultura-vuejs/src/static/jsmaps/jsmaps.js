@@ -3,7 +3,7 @@
 // Version 3.1.3
 import jQuery from "jquery"
 import "./raphael.js"
-import EventBus from '@/util/EventBus';
+import EventBus from '@/util/eventBus';
 
 
 (function($) {
@@ -667,7 +667,7 @@ import EventBus from '@/util/EventBus';
       }
 
       function calculateTooltipOffset() {
-        tooltipOffsetY = -10;
+        tooltipOffsetY = -40;
         isTooltipBelowMouse = (mouseY - $('.jsmaps-tooltip').height() + tooltipOffsetY) < 0;
         tooltipOffsetY = isTooltipBelowMouse ? 40 : tooltipOffsetY - $('.jsmaps-tooltip').height();
 

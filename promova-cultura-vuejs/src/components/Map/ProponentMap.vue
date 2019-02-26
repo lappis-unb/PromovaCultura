@@ -2,6 +2,7 @@
   <div>
     <div class="d-none d-lg-block"> <!-- Shows in desktop Hides in mobile platform -->
       <map-page
+        :proponentData="data"
         :proponentMap=true
         :useMaxWithRanking=false
         locationInfoShowOn="hover"
@@ -35,24 +36,25 @@ export default {
         proponents: {},
         raisedAmount: {},
         approvedAmount: {},
-        totals:{}
+        totals:{
+          approvedAmount: 0,
+          raisedAmount: 0,
+          proponents: 0
+        }
       }
     };
   },
   methods: {
     async fetchAllResources() {
-      const proponents = await fetchFlask("proponent_count");
-      this.data.proponents = proponents;
-      var approvedAmounts = await fetchFlask("approved_amount")
-      var raisedAmounts = await fetchFlask("raised_amount")
-
       const sumValues = obj => Object.values(obj).reduce((a, b) => a + b)
 
-      this.data.approvedAmount = approvedAmounts
-      this.data.raisedAmount = raisedAmounts
-      this.data.totals["approvedAmount"] = sumValues(approvedAmounts)
-      this.data.totals["raisedAmount"] = sumValues(raisedAmounts)
-      this.data.totals["proponents"] = sumValues(proponents)
+      this.data.proponents = await fetchFlask("v1/estatistica/proponente_por_uf");
+      this.data.approvedAmount = await fetchFlask("v1/estatistica/valor_aprovado");
+      this.data.raisedAmount = await fetchFlask("v1/estatistica/valor_captado");
+
+      this.data.totals["approvedAmount"] = sumValues(this.data.approvedAmount)
+      this.data.totals["raisedAmount"] = sumValues(this.data.raisedAmount)
+      this.data.totals["proponents"] = sumValues(this.data.proponents)
     }
   }
 };

@@ -5,7 +5,7 @@ import LoadingOverlay from "gasparesganga-jquery-loading-overlay";
 
 
 export const fetchFlask = async (endpoint) => {
-  const promise = await cacheFetch(`https://apipromova.lappis.rocks/${endpoint}`);
+  const promise = await cacheFetch(`https://salicapi.lappis.rocks/${endpoint}`);
   return promise.json()
 }
 

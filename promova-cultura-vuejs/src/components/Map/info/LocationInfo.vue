@@ -48,7 +48,7 @@
 <script>
 import $ from "jquery";
 
-import EventBus from '@/util/EventBus';
+import EventBus from '@/util/eventBus';
 
 export default {
   props: {

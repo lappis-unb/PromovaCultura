@@ -41,7 +41,6 @@
             :proponentes="data.proponentes"
             :incentivadores="data.incentivadores"
             :legends="legends"
-            :maxValues="maxValues"
             :level="level"
             :proponentMap=proponentMap
           />
@@ -83,7 +82,7 @@
           />
           <vue-csv-downloader v-if="proponentMap"
                               :data="data.csv"
-                              :fields="data.fields" class="btn btn-success csv-button">
+                              :fields="data.fields" class="btn btn-secondary csv-button" id="export-csv">
             Exportar Dados
           </vue-csv-downloader>
         </div>
@@ -161,7 +160,6 @@
       legends: Object,
       data: Object,
       level: String,
-      maxValues: Object,
       legendDesktop: String,
       legendMobile: String,
       filterDesktop: String,
